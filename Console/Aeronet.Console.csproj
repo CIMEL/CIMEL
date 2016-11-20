@@ -68,7 +68,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Peach.Log\Peach.Log.csproj">
+    <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>
       <Name>Peach.Log</Name>
     </ProjectReference>

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Aeronet.Chart
 {
-    public partial class Form1 : Form
+    public partial class fmMain : Form
     {
-        public Form1()
+        public fmMain()
         {
             InitializeComponent();
         }
