@@ -53,11 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AeronetData\DataWorker.cs" />
+    <Compile Include="AeronetData\MessageHandler.cs" />
     <Compile Include="Options\ConfigOptions.cs" />
-    <Compile Include="fmAeronetData.cs">
+    <Compile Include="AeronetData\fmAeronetData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fmAeronetData.Designer.cs">
+    <Compile Include="AeronetData\fmAeronetData.Designer.cs">
       <DependentUpon>fmAeronetData.cs</DependentUpon>
     </Compile>
     <Compile Include="fmMain.cs">
@@ -70,7 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionStore.cs" />
     <Compile Include="Utility.cs" />
-    <EmbeddedResource Include="fmAeronetData.resx">
+    <EmbeddedResource Include="AeronetData\fmAeronetData.resx">
       <DependentUpon>fmAeronetData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmMain.resx">
@@ -100,7 +102,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
+      <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>
+      <Name>Peach.Log</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="AeronetData\create_input_carsnet.exe" />
     <Content Include="AeronetData\Main.exe" />
