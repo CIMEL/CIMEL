@@ -37,7 +37,7 @@
             this.lstData = new System.Windows.Forms.ListView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listLog = new System.Windows.Forms.ListBox();
-            this.btStart = new System.Windows.Forms.Button();
+            this.btAction = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -116,7 +116,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             this.tableLayoutPanel1.Controls.Add(this.listLog, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btStart, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btAction, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -136,16 +136,16 @@
             this.listLog.Size = new System.Drawing.Size(567, 157);
             this.listLog.TabIndex = 0;
             // 
-            // btStart
+            // btAction
             // 
-            this.btStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btStart.Location = new System.Drawing.Point(495, 167);
-            this.btStart.Name = "btStart";
-            this.btStart.Size = new System.Drawing.Size(75, 23);
-            this.btStart.TabIndex = 2;
-            this.btStart.Text = "Start";
-            this.btStart.UseVisualStyleBackColor = true;
-            this.btStart.Click += new System.EventHandler(this.btStart_Click);
+            this.btAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAction.Location = new System.Drawing.Point(495, 167);
+            this.btAction.Name = "btAction";
+            this.btAction.Size = new System.Drawing.Size(75, 23);
+            this.btAction.TabIndex = 2;
+            this.btAction.Text = "Start";
+            this.btAction.UseVisualStyleBackColor = true;
+            this.btAction.Click += new System.EventHandler(this.btAction_Click);
             // 
             // fmAeronetData
             // 
@@ -179,6 +179,6 @@
         private System.Windows.Forms.ListView lstData;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox listLog;
-        private System.Windows.Forms.Button btStart;
+        private System.Windows.Forms.Button btAction;
     }
 }

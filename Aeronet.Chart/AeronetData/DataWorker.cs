@@ -1,34 +1,56 @@
-﻿using System;
+﻿using Peach.Log;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Peach.Log;
 
 namespace Aeronet.Chart.AeronetData
 {
     public class DataWorker
     {
-        public event MessageHandler InfoChanged;
-        public event MessageHandler ErrorOcurred;
+        #region Events
 
-        private static void LogInfo(string info, bool external = true)
+        public event MessageHandler Informed;
+
+        public event MessageHandler Failed;
+
+        public event MessageHandler Started;
+
+        /// <summary>
+        /// The completed event message which will be triggered as either finishing successfully or faital error occurs
+        /// </summary>
+        public event MessageHandler Completed;
+
+        protected virtual void OnInformed(string message, bool external = true)
         {
-            string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), info);
-            Logger.Default.Info(msg);
-            Console.WriteLine(msg);
+            var handler = Informed;
+            if (handler != null) handler(this, new EventMessage(message, external));
         }
 
-        private static void LogError(string error, bool external = true)
+        protected virtual void OnFailed(string message, bool external = true)
         {
-            string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), error);
-            Logger.Default.Error(msg);
-            Console.WriteLine(msg);
+            var handler = Failed;
+            if (handler != null) handler(this, new EventMessage(message, external));
         }
 
-        private static ProcessStartInfo NewStartInfo(string command, string args)
+        protected virtual void OnStarted(EventMessage message)
+        {
+            var handler = Started;
+            if (handler != null) handler(this, message);
+        }
+
+        protected virtual void OnCompleted(EventMessage message)
+        {
+            var handler = Completed;
+            if (handler != null) handler(this, message);
+        }
+
+        #endregion Events
+
+        private ProcessStartInfo NewStartInfo(string command, string args)
         {
             string program = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, command);
             ProcessStartInfo startInfo = new ProcessStartInfo(program, args)
@@ -43,23 +65,23 @@ namespace Aeronet.Chart.AeronetData
             return startInfo;
         }
 
-        private bool Execute(ProcessStartInfo startInfo)
+        private bool Run(ProcessStartInfo startInfo)
         {
             bool success = true;
             // initial creator process
             using (Process process = new Process { StartInfo = startInfo })
             {
-                process.OutputDataReceived += (s, e) => { this.OnInfoChanged(e.Data,false); };
+                process.OutputDataReceived += (s, e) => { this.OnInformed(e.Data, false); };
                 process.ErrorDataReceived += (s, e) =>
                 {
                     if (e.Data != null)
                     {
                         success = false;
-                        OnErrorOccured(e.Data, false);
+                        OnFailed(e.Data, false);
                     }
                 };
 
-                // Start creator
+                // Run creator
                 process.Start();
 
                 // read error
@@ -111,7 +133,7 @@ namespace Aeronet.Chart.AeronetData
                     File.Delete(f);
                 else
                 {
-                    this.OnInfoChanged(string.Format("{0} - normal", f));
+                    this.OnInformed(string.Format("{0} - normal", f));
                 }
             }
 
@@ -119,7 +141,7 @@ namespace Aeronet.Chart.AeronetData
             string fname = Path.Combine(input, "FNAME");
             string content = @" 130119";
             File.WriteAllText(fname, content);
-            this.OnInfoChanged("Rewrite FNAME");
+            this.OnInformed("Rewrite FNAME");
 
             // revert FNAME.txt
             content =
@@ -128,40 +150,53 @@ namespace Aeronet.Chart.AeronetData
     hangzhou_808_130119_031202";
             string fnametxt = Path.Combine(input, "FNAME.txt");
             File.WriteAllText(fnametxt, content);
-            this.OnInfoChanged("Rewrite FNAME.txt");
+            this.OnInformed("Rewrite FNAME.txt");
         }
 
-        private void Exit()
+        public void Exit()
         {
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            this.OnCompleted(new EventMessage("Completed", false));
         }
 
-        public void Work()
+        /// <summary>
+        /// Stop the data process
+        /// </summary>
+        public void Stop()
         {
-            OnInfoChanged("Aeronet Inversion VER: 1.0.0.1");
+            throw new NotImplementedException("Hasn't been implemented");
+        }
+
+        /// <summary>
+        /// Start the data process
+        /// </summary>
+        public void Start()
+        {
+            this.OnStarted(new EventMessage("Started", false));
+
+            // todo: acquire the version from runtime
+            OnInformed("Aeronet Inversion VER: 1.0.0.1");
 
             // initial
-            OnInfoChanged("Initial arguments");
+            OnInformed("Initial arguments");
 
             string STNS_FN = Utility.GetAppSettingValue("ARG_STNS_FN", @default: "hangzhou");
-            OnInfoChanged(string.Format("STNS_FN : {0}", STNS_FN));
+            OnInformed(string.Format("STNS_FN : {0}", STNS_FN));
 
             string STNS_ID = Utility.GetAppSettingValue("ARG_STNS_ID", @default: "808");
-            OnInfoChanged(string.Format("STNS_FN : {0}", STNS_ID));
+            OnInformed(string.Format("STNS_FN : {0}", STNS_ID));
 
             string FDATA = Utility.GetAppSettingValue("ARG_FDATA", @default: "hangzhou-808-1");
-            OnInfoChanged(string.Format("STNS_FN : {0}", FDATA));
+            OnInformed(string.Format("STNS_FN : {0}", FDATA));
 
             string ipt = ConfigOptions.FIPT;
             string @out = ConfigOptions.FOUT;
             string brdf = ConfigOptions.FBRDF;
             string dat = ConfigOptions.FDAT;
 
-            OnInfoChanged("Initial working folders");
+            OnInformed("Initial working folders");
             InitWorkingFolder(new string[] { ipt, @out, brdf, dat });
 
-            OnInfoChanged("Initial input & output folders");
+            OnInformed("Initial input & output folders");
             InitRegionFolder(STNS_FN);
 
 #if !DEBUGMATLAB
@@ -169,18 +204,18 @@ namespace Aeronet.Chart.AeronetData
             string commandArgs = string.Format("{0} {1} {2} {3} {4} {5} {6}", STNS_FN, STNS_ID, FDATA, ipt, @out, brdf, dat);
             ProcessStartInfo creatorProInfo = NewStartInfo(ConfigOptions.PROGRAM_CREATOR, commandArgs);
             // show command line and args
-            OnInfoChanged(string.Format("{0} {1}", ConfigOptions.PROGRAM_CREATOR, commandArgs));
-            OnInfoChanged(string.Format("{0} = {1}", "STNS_FN", STNS_FN));
-            OnInfoChanged(string.Format("{0} = {1}", "STNS_ID", STNS_ID));
-            OnInfoChanged(string.Format("{0} = {1}", "FDATA", FDATA));
-            OnInfoChanged(string.Format("{0} = {1}", "FIPT", ipt));
-            OnInfoChanged(string.Format("{0} = {1}", "FOUT", @out));
-            OnInfoChanged(string.Format("{0} = {1}", "FBRDF", brdf));
-            OnInfoChanged(string.Format("{0} = {1}", "FDAT", dat));
+            OnInformed(string.Format("{0} {1}", ConfigOptions.PROGRAM_CREATOR, commandArgs));
+            OnInformed(string.Format("{0} = {1}", "STNS_FN", STNS_FN));
+            OnInformed(string.Format("{0} = {1}", "STNS_ID", STNS_ID));
+            OnInformed(string.Format("{0} = {1}", "FDATA", FDATA));
+            OnInformed(string.Format("{0} = {1}", "FIPT", ipt));
+            OnInformed(string.Format("{0} = {1}", "FOUT", @out));
+            OnInformed(string.Format("{0} = {1}", "FBRDF", brdf));
+            OnInformed(string.Format("{0} = {1}", "FDAT", dat));
             // perform creator process
-            OnInfoChanged("***************************************************************");
-            bool sucess = Execute(creatorProInfo);
-            OnInfoChanged("***************************************************************");
+            OnInformed("***************************************************************");
+            bool sucess = Run(creatorProInfo);
+            OnInformed("***************************************************************");
             if (!sucess)
             {
                 Exit();
@@ -196,12 +231,12 @@ namespace Aeronet.Chart.AeronetData
             // initial outputor command arguments
             ProcessStartInfo outputorProInfo = NewStartInfo(ConfigOptions.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
             // show command line and args
-            OnInfoChanged(string.Format("{0} {1}", ConfigOptions.PROGRAM_OUTPUTOR, STNS_FN));
-            OnInfoChanged(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
+            OnInformed(string.Format("{0} {1}", ConfigOptions.PROGRAM_OUTPUTOR, STNS_FN));
+            OnInformed(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
             // perform outputor process
-            OnInfoChanged("***************************************************************");
-            sucess = Execute(outputorProInfo);
-            OnInfoChanged("***************************************************************");
+            OnInformed("***************************************************************");
+            sucess = Run(outputorProInfo);
+            OnInformed("***************************************************************");
             if (!sucess)
             {
                 Exit();
@@ -213,7 +248,7 @@ namespace Aeronet.Chart.AeronetData
             AeronetDrawNative.Drawing drawing = new AeronetDrawNative.Drawing();
             try
             {
-                OnInfoChanged("***************************************************************");
+                OnInformed("***************************************************************");
                 string inputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", STNS_FN) + System.IO.Path.DirectorySeparatorChar;
                 string outputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                     "cimel_network", STNS_FN,
@@ -225,7 +260,7 @@ namespace Aeronet.Chart.AeronetData
                     Directory.CreateDirectory(outputbase);
 
                 // 1 calculate Matrix of aeronent
-                OnInfoChanged("Calculating Aeronet inversion Matrix");
+                OnInformed("Calculating Aeronet inversion Matrix");
                 string mwInput = inputbase;
                 string mwOutput = outputfile;
                 // get lat and lon of region
@@ -233,61 +268,61 @@ namespace Aeronet.Chart.AeronetData
 
                 double lat = region.Lat;
                 double lon = region.Lon;
-                OnInfoChanged("\tARGUMENTS:");
-                OnInfoChanged(string.Format("\t{0} : {1}", "INPUT", mwInput));
-                OnInfoChanged(string.Format("\t{0} : {1}", "OUTPUT", mwOutput));
+                OnInformed("\tARGUMENTS:");
+                OnInformed(string.Format("\t{0} : {1}", "INPUT", mwInput));
+                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOutput));
                 object[] results = drawing.MatrixAeronet(2, lat, lon, mwInput, mwOutput);
                 var stats_inversion = results[0];
                 var r = results[1];
 
-                OnInfoChanged("stats_inversions");
-                Utility.PrintMatrix((double[,])stats_inversion, OnInfoChanged);
-                OnInfoChanged("r");
-                Utility.PrintMatrix((double[,])r, OnInfoChanged);
-                OnInfoChanged("DONE to Calculate Aeronet inversion Matrix");
+                OnInformed("stats_inversions");
+                Utility.PrintMatrix((double[,])stats_inversion, OnInformed);
+                OnInformed("r");
+                Utility.PrintMatrix((double[,])r, OnInformed);
+                OnInformed("DONE to Calculate Aeronet inversion Matrix");
 
                 // 2 draw SSA
-                OnInfoChanged("Drawing SSA figures");
+                OnInformed("Drawing SSA figures");
                 // MWArray mwYear = new MWNumericArray(new int[] {2013});
                 // MWArray mwOuputbase = new MWCharArray(new string[]{ outputbase});
                 double mwYear = 2013;
                 string mwOuputbase = outputbase;
                 string mwRegion = STNS_FN;
 
-                OnInfoChanged("\tARGUMENTS:");
-                OnInfoChanged(string.Format("\t{0} : {1}", "YEAR", mwYear));
-                OnInfoChanged(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
+                OnInformed("\tARGUMENTS:");
+                OnInformed(string.Format("\t{0} : {1}", "YEAR", mwYear));
+                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
                 drawing.DrawSSA(stats_inversion, r, mwYear, mwRegion, mwOuputbase);
                 drawing.WaitForFiguresToDie();
-                OnInfoChanged("DONE to draw SSA figures");
+                OnInformed("DONE to draw SSA figures");
 
                 // 3 draw SSA Statistic
-                OnInfoChanged("Drawing SSA Statistic figures");
+                OnInformed("Drawing SSA Statistic figures");
                 // MWArray mwRegion = new MWCharArray(new string[]{ STNS_FN});
-                OnInfoChanged("\tARGUMENTS:");
-                OnInfoChanged(string.Format("\t{0} : {1}", "YEAR", mwYear));
-                OnInfoChanged(string.Format("\t{0} : {1}", "REGION", mwRegion));
-                OnInfoChanged(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
+                OnInformed("\tARGUMENTS:");
+                OnInformed(string.Format("\t{0} : {1}", "YEAR", mwYear));
+                OnInformed(string.Format("\t{0} : {1}", "REGION", mwRegion));
+                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
                 drawing.DrawSSAStatistisc(stats_inversion, r, mwYear, mwRegion, mwOuputbase);
                 drawing.WaitForFiguresToDie();
-                OnInfoChanged("DONE to draw SSA Statistic figures");
+                OnInformed("DONE to draw SSA Statistic figures");
 
                 // 4 draw Aeronet Inversions
-                OnInfoChanged("Drawing Aeronet Inversions figures");
-                OnInfoChanged("\tARGUMENTS:");
-                OnInfoChanged(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
+                OnInformed("Drawing Aeronet Inversions figures");
+                OnInformed("\tARGUMENTS:");
+                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
                 drawing.DrawAeronetInversions(stats_inversion, r, mwOuputbase);
                 drawing.WaitForFiguresToDie();
-                OnInfoChanged("DONE to drawing Aeronet Inversions figures");
+                OnInformed("DONE to drawing Aeronet Inversions figures");
             }
             catch (Exception ex)
             {
-                OnErrorOccured(ex.Message);
+                OnFailed(ex.Message);
                 success = false;
             }
             finally
             {
-                OnInfoChanged("***************************************************************");
+                OnInformed("***************************************************************");
                 drawing.Dispose();
             }
             if (!success)
@@ -296,20 +331,8 @@ namespace Aeronet.Chart.AeronetData
                 return;
             }
 
-            OnInfoChanged("All jobs are complete!");
+            OnInformed("All jobs are complete!");
             Exit();
-        }
-
-        protected virtual void OnInfoChanged(string message, bool external = true)
-        {
-            var handler = InfoChanged;
-            if (handler != null) handler(this, new EventMessage(message, external));
-        }
-
-        protected virtual void OnErrorOccured(string message, bool external = true)
-        {
-            var handler = ErrorOcurred;
-            if (handler != null) handler(this, new EventMessage(message, external));
         }
     }
 }
