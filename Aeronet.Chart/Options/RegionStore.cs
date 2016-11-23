@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -6,14 +8,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Aeronet.Chart
+namespace Aeronet.Chart.Options
 {
     public class RegionStore
     {
-        private static RegionStore _default=new RegionStore();
+        private static RegionStore _default = new RegionStore();
 
         protected RegionStore()
         {
@@ -28,7 +28,7 @@ namespace Aeronet.Chart
             regions = serializer.Deserialize<Regions>(j);
         }
 
-        public static RegionStore Singleton { get { return _default;} }
+        public static RegionStore Singleton { get { return _default; } }
 
         private Regions regions;
 
@@ -45,8 +45,10 @@ namespace Aeronet.Chart
     {
         [DataMember(Name = "name")]
         public string Name { get; set; }
+
         [DataMember(Name = "lat")]
         public double Lat { get; set; }
+
         [DataMember(Name = "lon")]
         public double Lon { get; set; }
     }

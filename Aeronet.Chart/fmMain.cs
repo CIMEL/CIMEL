@@ -15,5 +15,11 @@ namespace Aeronet.Chart
         {
             InitializeComponent();
         }
+
+        private void aeronetDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fmAeronetData fmAeronetData = new fmAeronetData();
+            fmAeronetData.ShowDialog(this);
+        }
     }
 }
