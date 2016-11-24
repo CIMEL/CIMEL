@@ -41,6 +41,7 @@ namespace Aeronet.Chart
                 this.Initial(this.OptionsPath);
             }
         }
+
         [Browsable(false)]
         public static ConfigOptions Singleton
         {
@@ -56,13 +57,13 @@ namespace Aeronet.Chart
         [Category("Input"),
         DisplayName(@"Data"),
         Description("The data path of the aeronet data of a region"),
-        Editor(typeof(FolderBrowserEditor),typeof(UITypeEditor))]
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string DATA_Dir { get; set; }
 
-        [Category("Input"), 
-        DisplayName(@"Modis_BRDF"), 
+        [Category("Input"),
+        DisplayName(@"Modis_BRDF"),
         Description("The modis_brdf data path"),
-        Editor(typeof(FolderBrowserEditor),typeof(UITypeEditor))]
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string MODIS_BRDF_Dir { get; set; }
 
         [Category("Input"),
@@ -74,14 +75,15 @@ namespace Aeronet.Chart
         [Category("Input"),
         DisplayName(@"Metadata"),
         Description("The metadata path"),
-        Editor(typeof(FolderBrowserEditor),typeof(UITypeEditor))]
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string METADATA_Dir { get; set; }
 
         [Category("Output"),
         DisplayName(@"Output"),
         Description("The output path"),
-        Editor(typeof(FolderBrowserEditor),typeof(UITypeEditor))]
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string OUTPUT_Dir { get; set; }
+
         /// <summary>
         /// Loads the options to memory
         /// </summary>
@@ -97,6 +99,7 @@ namespace Aeronet.Chart
             else
             {
                 var options = (dynamic)JObject.Parse(content);
+                JObject.Parse("").
                 this.DATA_Dir = (string)options.input.data;
                 this.MODIS_BRDF_Dir = (string)options.input.modis_brdf;
                 this.INS_PARA_Dir = (string)options.input.ins_para;
@@ -105,29 +108,39 @@ namespace Aeronet.Chart
                 this.IsInitialized = (bool)options.isInit;
             }
         }
+
         /// <summary>
         /// Initial an empty option file
         /// </summary>
         /// <param name="optionFile"></param>
         private void Initial(string optionFile)
         {
-            dynamic option = new
+            // apply defaults
+            dynamic options = new
             {
-                input=new
+                input = new
                 {
-                    data=string.Empty,
-                    modis_brdf=string.Empty,
-                    ins_para=string.Empty,
-                    metadata=string.Empty
+                    data = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data"),
+                    modis_brdf = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                    ins_para = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                    metadata = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
                 },
-                output=string.Empty,
-                isInit=false
+                output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                isInit = true
             };
-            using (StreamWriter sw=new StreamWriter(optionFile,false))
+            using (StreamWriter sw = new StreamWriter(optionFile, false))
             {
-                JsonSerializer.Create().Serialize(new JsonTextWriter(sw), option);
+                JsonSerializer.Create().Serialize(new JsonTextWriter(sw), options);
             }
+
+            this.DATA_Dir = (string)options.input.data;
+            this.MODIS_BRDF_Dir = (string)options.input.modis_brdf;
+            this.INS_PARA_Dir = (string)options.input.ins_para;
+            this.METADATA_Dir = (string)options.input.metadata;
+            this.OUTPUT_Dir = (string)options.output;
+            this.IsInitialized = (bool)options.isInit;
         }
+
         /// <summary>
         /// Save the options from the user entered
         /// </summary>
@@ -153,6 +166,35 @@ namespace Aeronet.Chart
             }
             // set the options to be initialized
             this.IsInitialized = true;
+        }
+
+        /// <summary>
+        /// Retrieves all working folders within an array of FolderDescription
+        /// </summary>
+        /// <returns></returns>
+        public FolderDescription[] GetFolders()
+        {
+            return new FolderDescription[]{
+                new FolderDescription("Data",this.DATA_Dir,"The data folder of one year period of the region data"),
+                new FolderDescription("Modis_BRDF",this.MODIS_BRDF_Dir,"The data folder of the Modis_BRDF data"),
+                new FolderDescription("Ins_Para",this.INS_PARA_Dir,"The data folder of the Ins_Para data"),
+                new FolderDescription("MetaData",this.METADATA_Dir,"The data folder containing other Aeronet computing meta data"),
+                new FolderDescription("Output",this.OUTPUT_Dir,"The output folder to put the generated Aeronet data"),
+            };
+        }
+    }
+
+    public class FolderDescription
+    {
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public string Description { get; set; }
+
+        public FolderDescription(string name, string path, string description)
+        {
+            this.Name = name;
+            this.Path = path;
+            this.Description = description;
         }
     }
 }

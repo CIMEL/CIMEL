@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmAeronetData));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btAction = new System.Windows.Forms.Button();
             this.tvDirs = new System.Windows.Forms.TreeView();
             this.fileBrowser1 = new Aeronet.Chart.AeronetData.FileBrowser();
+            this.btAction = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,17 +69,6 @@
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 2;
             // 
-            // btAction
-            // 
-            this.btAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAction.Location = new System.Drawing.Point(494, 415);
-            this.btAction.Name = "btAction";
-            this.btAction.Size = new System.Drawing.Size(75, 23);
-            this.btAction.TabIndex = 2;
-            this.btAction.Text = "Process";
-            this.btAction.UseVisualStyleBackColor = true;
-            this.btAction.Click += new System.EventHandler(this.btAction_Click);
-            // 
             // tvDirs
             // 
             this.tvDirs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -93,6 +85,23 @@
             this.fileBrowser1.Name = "fileBrowser1";
             this.fileBrowser1.Size = new System.Drawing.Size(332, 408);
             this.fileBrowser1.TabIndex = 0;
+            // 
+            // btAction
+            // 
+            this.btAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAction.Location = new System.Drawing.Point(494, 415);
+            this.btAction.Name = "btAction";
+            this.btAction.Size = new System.Drawing.Size(75, 23);
+            this.btAction.TabIndex = 2;
+            this.btAction.Text = "Process";
+            this.btAction.UseVisualStyleBackColor = true;
+            this.btAction.Click += new System.EventHandler(this.btAction_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "folder");
             // 
             // fmAeronetData
             // 
@@ -120,5 +129,6 @@
         private System.Windows.Forms.Button btAction;
         private System.Windows.Forms.TreeView tvDirs;
         private AeronetData.FileBrowser fileBrowser1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
