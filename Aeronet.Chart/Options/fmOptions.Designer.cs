@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmOptions));
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.btnClose = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -46,14 +46,27 @@
             this.propertyGrid1.TabIndex = 0;
             this.propertyGrid1.ToolbarVisible = false;
             // 
+            // btnClose
+            // 
+            this.btnClose.Image = global::Aeronet.Chart.Properties.Resources.Close_Window_20;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(564, 372);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 29);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "Close";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::Aeronet.Chart.Properties.Resources.Refresh;
+            this.button2.Image = global::Aeronet.Chart.Properties.Resources.Refresh_20;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.Location = new System.Drawing.Point(482, 372);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(76, 23);
+            this.button2.Size = new System.Drawing.Size(76, 29);
             this.button2.TabIndex = 2;
             this.button2.Text = "Refresh";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -62,11 +75,11 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Image = global::Aeronet.Chart.Properties.Resources.Save_20;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(564, 372);
+            this.btnSave.Location = new System.Drawing.Point(401, 372);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 29);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -78,11 +91,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 407);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.propertyGrid1);
             this.Name = "fmOptions";
-            this.Text = "fmOptions";
+            this.Text = "Configuration Options";
             this.ResumeLayout(false);
 
         }
@@ -92,5 +106,6 @@
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClose;
     }
 }

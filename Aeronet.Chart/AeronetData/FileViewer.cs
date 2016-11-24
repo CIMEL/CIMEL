@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace Aeronet.Chart.AeronetData
 {
-    public partial class FileBrowser : UserControl
+    public partial class FileViewer : UserControl
     {
         public string CurrentDirectory { get; set; }
 
-        public FileBrowser()
+        public FileViewer()
         {
             InitializeComponent();
             // initial current directory
@@ -55,7 +55,7 @@ namespace Aeronet.Chart.AeronetData
                 subItems = new ListViewItem.ListViewSubItem[]
                 {
                     new ListViewItem.ListViewSubItem(item, ""), // -> the Type column, the folder won't show Type
-                    new ListViewItem.ListViewSubItem(item, dir.LastAccessTime.ToShortDateString()) // -> the lastModified column
+                    new ListViewItem.ListViewSubItem(item, dir.LastAccessTime.ToString("yyyy-MM-dd")) // -> the lastModified column
                 };
                 // Add Type and LastModified columns to the entry
                 item.SubItems.AddRange(subItems);
@@ -72,7 +72,7 @@ namespace Aeronet.Chart.AeronetData
                 subItems = new ListViewItem.ListViewSubItem[]
                 {
                     new ListViewItem.ListViewSubItem(item, file.Extension), // -> the Type column
-                    new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToShortDateString()) // -> the lastModified column
+                    new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToString("yyyy-MM-dd")) // -> the lastModified column
                 };
                 // Add Type and LastModified columns to the entry
                 item.SubItems.AddRange(subItems);
@@ -81,42 +81,6 @@ namespace Aeronet.Chart.AeronetData
             }
             // Apply width of column
             this.lvFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-        }
-
-        /// <summary>
-        /// Imports the selected files to current directory
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnImport_Click(object sender, EventArgs e)
-        {
-            // show file open dialog
-            var fileOpenDlg = new OpenFileDialog();
-            fileOpenDlg.Multiselect = true;
-            fileOpenDlg.CheckFileExists = true;
-            fileOpenDlg.InitialDirectory = string.IsNullOrEmpty(this.CurrentDirectory)
-                ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                : this.CurrentDirectory;
-            var result = fileOpenDlg.ShowDialog(this);
-            if (result == DialogResult.OK)
-            {
-                string[] files = fileOpenDlg.FileNames;
-                // copy to the current directory
-                this.Copy(files, this.CurrentDirectory);
-                // refresh view
-                this.LoadFiles(this.CurrentDirectory);
-            }
-        }
-
-        /// <summary>
-        /// Refresh the view from the current directory
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            // loads the view from the current directory
-            this.LoadFiles(this.CurrentDirectory);
         }
 
         private void lvFiles_DragEnter(object sender, DragEventArgs e)
@@ -142,7 +106,7 @@ namespace Aeronet.Chart.AeronetData
         /// </summary>
         /// <param name="files">the files be copying</param>
         /// <param name="destDir">the destination directory</param>
-        private void Copy(IEnumerable<string> files, string destDir)
+        public void Copy(IEnumerable<string> files, string destDir)
         {
             Parallel.ForEach(files, (file) =>
             {

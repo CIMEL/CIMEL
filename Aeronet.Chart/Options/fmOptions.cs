@@ -61,5 +61,10 @@ namespace Aeronet.Chart.Options
             this.propertyGrid1.SelectedObject = ConfigOptions.Singleton;
         }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult=DialogResult.Cancel;
+        }
+
     }
 }

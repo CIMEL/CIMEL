@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -98,14 +99,26 @@ namespace Aeronet.Chart
             }
             else
             {
-                var options = (dynamic)JObject.Parse(content);
-                JObject.Parse("").
-                this.DATA_Dir = (string)options.input.data;
-                this.MODIS_BRDF_Dir = (string)options.input.modis_brdf;
-                this.INS_PARA_Dir = (string)options.input.ins_para;
-                this.METADATA_Dir = (string)options.input.metadata;
-                this.OUTPUT_Dir = (string)options.output;
-                this.IsInitialized = (bool)options.isInit;
+                try
+                {
+                    var options = (dynamic)JObject.Parse(content);
+                    this.DATA_Dir = (string)options.input.data;
+                    this.MODIS_BRDF_Dir = (string)options.input.modis_brdf;
+                    this.INS_PARA_Dir = (string)options.input.ins_para;
+                    this.METADATA_Dir = (string)options.input.metadata;
+                    this.OUTPUT_Dir = (string)options.output;
+                    bool isNotCompleted = string.IsNullOrEmpty(this.DATA_Dir)
+                                          || string.IsNullOrEmpty(this.MODIS_BRDF_Dir)
+                                          || string.IsNullOrEmpty(this.INS_PARA_Dir)
+                                          || string.IsNullOrEmpty(this.METADATA_Dir)
+                                          || string.IsNullOrEmpty(this.OUTPUT_Dir);
+                    this.IsInitialized = !isNotCompleted;
+                }
+                catch (Exception)
+                {
+                    // rebuild the config options if it's broken
+                    this.Initial(optionFile);
+                }
             }
         }
 

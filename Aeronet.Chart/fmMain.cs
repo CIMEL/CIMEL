@@ -40,5 +40,10 @@ namespace Aeronet.Chart
             fmOptions fmOptions = new fmOptions();
             fmOptions.ShowDialog(this);
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit(new CancelEventArgs(false));
+        }
     }
 }
