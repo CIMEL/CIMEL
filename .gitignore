@@ -1,0 +1,6 @@
+# git ignore files
+# ignore the files built by VS
+[Bb]in/
+obj/
+*.suo
+*.user
