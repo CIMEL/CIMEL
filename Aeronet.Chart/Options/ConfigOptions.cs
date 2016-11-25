@@ -15,14 +15,6 @@ namespace Aeronet.Chart
 {
     public class ConfigOptions
     {
-        //public static string STNS_FN = GetValue("ARG_STNS_FN", @default: "hangzhou");
-        public static string FIPT = string.Empty;//Utility.GetAppSettingValue("ARG_FIPT", @default: "ins_para");
-
-        public static string FOUT = string.Empty;//Utility.GetAppSettingValue("ARG_FOUT", @default: "input");
-        public static string FBRDF = string.Empty;//Utility.GetAppSettingValue("ARG_FBRDF", @default: "modis_brdf");
-        public static string FDAT = string.Empty;//Utility.GetAppSettingValue("ARG_FDAT", @default: "data");
-        public static string PROGRAM_OUTPUTOR = string.Empty;//Utility.GetAppSettingValue("Outputor", @default: "main.exe");
-        public static string PROGRAM_CREATOR = string.Empty;//Utility.GetAppSettingValue("Creator", @default: "create_input_carsnet.exe");
         public static string REGIONS_STORE = string.Empty;//Utility.GetAppSettingValue("Regions_store", @default: "regions.json");
 
         private static ConfigOptions _default = new ConfigOptions();
@@ -55,35 +47,47 @@ namespace Aeronet.Chart
         [Browsable(false)]
         public bool IsInitialized { get; set; }
 
-        [Category("Input"),
+        [Category("INPUT"),
         DisplayName(@"Data"),
         Description("The data path of the aeronet data of a region"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string DATA_Dir { get; set; }
 
-        [Category("Input"),
+        [Category("INPUT"),
         DisplayName(@"Modis_BRDF"),
         Description("The modis_brdf data path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string MODIS_BRDF_Dir { get; set; }
 
-        [Category("Input"),
+        [Category("INPUT"),
         DisplayName(@"INS_Para"),
         Description("The ins_para data path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string INS_PARA_Dir { get; set; }
 
-        [Category("Input"),
+        [Category("INPUT"),
         DisplayName(@"Metadata"),
         Description("The metadata path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string METADATA_Dir { get; set; }
 
-        [Category("Output"),
+        [Category("OUTPUT"),
         DisplayName(@"Output"),
         Description("The output path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string OUTPUT_Dir { get; set; }
+
+        [Category("PROCESSOR"),
+        DisplayName(@"Outputor"),
+        Description("Outputor"),
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        public string PROGRAM_OUTPUTOR { get; set; } //Utility.GetAppSettingValue("Outputor", @default: "main.exe");
+
+        [Category("PROCESSOR"),
+        DisplayName(@"Creator"),
+        Description("Initial"),
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        public string PROGRAM_CREATOR { get; set; }//Utility.GetAppSettingValue("Creator", @default: "create_input_carsnet.exe");
 
         /// <summary>
         /// Loads the options to memory
@@ -107,6 +111,8 @@ namespace Aeronet.Chart
                     this.INS_PARA_Dir = (string)options.input.ins_para;
                     this.METADATA_Dir = (string)options.input.metadata;
                     this.OUTPUT_Dir = (string)options.output;
+                    this.PROGRAM_CREATOR = (string)options.processor.creator;
+                    this.PROGRAM_OUTPUTOR = (string)options.processor.outputor;
                     bool isNotCompleted = string.IsNullOrEmpty(this.DATA_Dir)
                                           || string.IsNullOrEmpty(this.MODIS_BRDF_Dir)
                                           || string.IsNullOrEmpty(this.INS_PARA_Dir)
@@ -117,6 +123,11 @@ namespace Aeronet.Chart
                 catch (Exception)
                 {
                     // rebuild the config options if it's broken
+                    this.Initial(optionFile);
+                }
+
+                if (!this.IsInitialized)
+                {
                     this.Initial(optionFile);
                 }
             }
@@ -137,6 +148,11 @@ namespace Aeronet.Chart
                     modis_brdf = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
                     ins_para = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
                     metadata = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                },
+                processor = new
+                {
+                    creator = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "create_input_carsnet.exe"),
+                    outputor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "main.exe")
                 },
                 output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
                 isInit = true
@@ -167,7 +183,12 @@ namespace Aeronet.Chart
                     data = this.DATA_Dir,
                     modis_brdf = this.MODIS_BRDF_Dir,
                     ins_para = this.INS_PARA_Dir,
-                    metadata = this.METADATA_Dir
+                    metadata = this.METADATA_Dir,
+                },
+                processor = new
+                {
+                    outputor = this.PROGRAM_OUTPUTOR,
+                    creator = this.PROGRAM_CREATOR
                 },
                 output = this.OUTPUT_Dir,
                 isInit = true

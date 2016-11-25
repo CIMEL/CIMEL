@@ -15,9 +15,21 @@ namespace Aeronet.Chart.Options
         {
             InitializeComponent();
             this.Load += fmOptions_Load;
+            this.Closing += fmOptions_Closing;
         }
 
-        void fmOptions_Load(object sender, EventArgs e)
+        private void fmOptions_Closing(object sender, CancelEventArgs e)
+        {
+            // prevent it from closing if the options are not initialized
+            if (!ConfigOptions.Singleton.IsInitialized)
+            {
+                MessageBox.Show(this, "Must configurate the required options before anything stuff please!",
+                    "Warning of Option configuration", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
+        }
+
+        private void fmOptions_Load(object sender, EventArgs e)
         {
             this.Init();
         }
@@ -52,7 +64,7 @@ namespace Aeronet.Chart.Options
 
             ConfigOptions.Singleton.Save();
             MessageBox.Show(@"Save Successfully!");
-            this.DialogResult=DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void Init()
@@ -63,8 +75,7 @@ namespace Aeronet.Chart.Options
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult=DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
         }
-
     }
 }

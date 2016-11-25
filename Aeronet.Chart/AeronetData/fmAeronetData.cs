@@ -18,20 +18,9 @@ namespace Aeronet.Chart
     /// </summary>
     public partial class fmAeronetData : Form
     {
-        // the instance of DataWork
-        // we will manages it including start job and stop job
-        private DataWorker _dataWork;
-
         public fmAeronetData()
         {
             InitializeComponent();
-            // initial the instance of DataWork
-            this._dataWork = new DataWorker();
-            // register the events, info and Error
-            this._dataWork.Informed += this.LogInfo;
-            this._dataWork.Failed += this.LogError;
-            this._dataWork.Started += this.WorkerStarted;
-            this._dataWork.Completed += this.WorkerCompleted;
             // initial form events
             this.Load += fmAeronetData_Load;
         }
@@ -49,14 +38,13 @@ namespace Aeronet.Chart
                 rootNode.ImageKey = @"folder";
                 // attaches the instance of folder description to the root node, which will be used for the file view
                 rootNode.Tag = folderDescription;
-                // todo: show description and path below the tree view
                 // scans the subfolders and add them to the root node
                 this.AppendSubfolders(rootNode, folderDescription);
                 // add the root node to the tree view
                 this.tvDirs.Nodes.Add(rootNode);
             }
 
-            this.tvDirs.NodeMouseClick+=tvDirs_NodeMouseClick;
+            this.tvDirs.NodeMouseClick += tvDirs_NodeMouseClick;
 
             if (this.tvDirs.Nodes.Count > 0)
             {
@@ -115,73 +103,10 @@ namespace Aeronet.Chart
         /// <param name="e"></param>
         private void btAction_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
-            bool isStart = button.Text.CompareTo("Start") == 0;
-            if (isStart)
-            {
-                // 2 initial worker and run it
-                var worker = this._dataWork;
-                // todo: it should run within a thread which can be terminated
-                worker.Start();
-            }
-            else
-            {
-                // stop the worker
-                // 1 stop the running worker
-                var worker = this._dataWork;
-                worker.Stop();
-            }
-        }
-
-        /// <summary>
-        /// Adds the Info to the list box of logs
-        /// todo: reference the code implementation in the PZM
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void LogInfo(object sender, EventMessage message)
-        {
-            string info = "";
-            bool external = true;
-            string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), info);
-            Logger.Default.Info(msg);
-            Console.WriteLine(msg);
-        }
-
-        /// <summary>
-        /// Adds the error to the list box of logs
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void LogError(object sender, EventMessage message)
-        {
-            string error = "";
-            bool external = true;
-            string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), error);
-            Logger.Default.Error(msg);
-            Console.WriteLine(msg);
-        }
-
-        /// <summary>
-        /// Apply complete state to the UI controls when the worker completes the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerCompleted(object sender, EventMessage message)
-        {
-            // todo:it should be performed within UI thread
-            this.btAction.Text = @"Start";
-        }
-
-        /// <summary>
-        /// Apply start state to the UI controls when the worker starts the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerStarted(object sender, EventMessage message)
-        {
-            // todo:it should be performed within UI thread
-            this.btAction.Text = @"Stop";
+            // launch process dialog
+            fmDataProcessDialog fmDataProcessDlg = new fmDataProcessDialog();
+            fmDataProcessDlg.StartPosition = FormStartPosition.CenterParent;
+            fmDataProcessDlg.ShowDialog(this);
         }
 
         /// <summary>

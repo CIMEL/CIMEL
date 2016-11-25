@@ -61,7 +61,19 @@
     <Compile Include="AeronetData\FileViewer.Designer.cs">
       <DependentUpon>FileViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="AeronetData\fmDataProcessDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AeronetData\fmDataProcessDialog.Designer.cs">
+      <DependentUpon>fmDataProcessDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="AeronetData\MessageHandler.cs" />
+    <Compile Include="fmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmAboutBox.Designer.cs">
+      <DependentUpon>fmAboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Options\ConfigOptions.cs" />
     <Compile Include="AeronetData\fmAeronetData.cs">
       <SubType>Form</SubType>
@@ -91,6 +103,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AeronetData\fmAeronetData.resx">
       <DependentUpon>fmAeronetData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AeronetData\fmDataProcessDialog.resx">
+      <DependentUpon>fmDataProcessDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fmAboutBox.resx">
+      <DependentUpon>fmAboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmMain.resx">
       <DependentUpon>fmMain.cs</DependentUpon>

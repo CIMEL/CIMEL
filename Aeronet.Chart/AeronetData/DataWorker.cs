@@ -1,12 +1,13 @@
-﻿using Peach.Log;
+﻿using Aeronet.Chart.Options;
+using Peach.Log;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using Aeronet.Chart.Options;
 
 namespace Aeronet.Chart.AeronetData
 {
@@ -97,32 +98,9 @@ namespace Aeronet.Chart.AeronetData
             return success;
         }
 
-        private void InitWorkingFolder(string[] folders)
-        {
-            if (folders == null || folders.Length == 0) return;
-
-            foreach (string folder in folders)
-            {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-            }
-        }
-
-        private void InitRegionFolder(string region)
-        {
-            string[] workingfolders = new string[] { "output", ConfigOptions.FOUT };
-            foreach (string wf in workingfolders)
-            {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, wf, region);
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-            }
-        }
-
         private void Cleanup(string region)
         {
-            string input = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigOptions.FOUT, region);
+            string input = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigOptions.Singleton.OUTPUT_Dir, region);
             string[] files = Directory.GetFiles(input, "*.*", SearchOption.TopDirectoryOnly);
             // delete all resource excepts 130119
             string[] reserveds = new string[] { "hangzhou_808_130119" };
@@ -174,10 +152,9 @@ namespace Aeronet.Chart.AeronetData
         {
             this.OnStarted(new EventMessage("Started", false));
 
-            // todo: acquire the version from runtime
-            OnInformed("Aeronet Inversion VER: 1.0.0.1");
+            OnInformed(string.Format("Aeronet Inversion VER: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
 
-            // initial
+            // check if the data files are valid.
             OnInformed("Initial arguments");
 
             string STNS_FN = Utility.GetAppSettingValue("ARG_STNS_FN", @default: "hangzhou");
@@ -189,23 +166,17 @@ namespace Aeronet.Chart.AeronetData
             string FDATA = Utility.GetAppSettingValue("ARG_FDATA", @default: "hangzhou-808-1");
             OnInformed(string.Format("STNS_FN : {0}", FDATA));
 
-            string ipt = ConfigOptions.FIPT;
-            string @out = ConfigOptions.FOUT;
-            string brdf = ConfigOptions.FBRDF;
-            string dat = ConfigOptions.FDAT;
-
-            OnInformed("Initial working folders");
-            InitWorkingFolder(new string[] { ipt, @out, brdf, dat });
-
-            OnInformed("Initial input & output folders");
-            InitRegionFolder(STNS_FN);
+            string ipt = ConfigOptions.Singleton.INS_PARA_Dir;
+            string @out = ConfigOptions.Singleton.OUTPUT_Dir;
+            string brdf = ConfigOptions.Singleton.MODIS_BRDF_Dir;
+            string dat = ConfigOptions.Singleton.DATA_Dir;
 
 #if !DEBUGMATLAB
             // initial creator command arguments
             string commandArgs = string.Format("{0} {1} {2} {3} {4} {5} {6}", STNS_FN, STNS_ID, FDATA, ipt, @out, brdf, dat);
-            ProcessStartInfo creatorProInfo = NewStartInfo(ConfigOptions.PROGRAM_CREATOR, commandArgs);
+            ProcessStartInfo creatorProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_CREATOR, commandArgs);
             // show command line and args
-            OnInformed(string.Format("{0} {1}", ConfigOptions.PROGRAM_CREATOR, commandArgs));
+            OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_CREATOR, commandArgs));
             OnInformed(string.Format("{0} = {1}", "STNS_FN", STNS_FN));
             OnInformed(string.Format("{0} = {1}", "STNS_ID", STNS_ID));
             OnInformed(string.Format("{0} = {1}", "FDATA", FDATA));
@@ -230,9 +201,9 @@ namespace Aeronet.Chart.AeronetData
             Cleanup(STNS_FN);
 #endif
             // initial outputor command arguments
-            ProcessStartInfo outputorProInfo = NewStartInfo(ConfigOptions.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
+            ProcessStartInfo outputorProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
             // show command line and args
-            OnInformed(string.Format("{0} {1}", ConfigOptions.PROGRAM_OUTPUTOR, STNS_FN));
+            OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, STNS_FN));
             OnInformed(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
             // perform outputor process
             OnInformed("***************************************************************");
