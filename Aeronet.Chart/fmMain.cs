@@ -41,7 +41,9 @@ namespace Aeronet.Chart
             // check if the selected data set is empty
             if (string.IsNullOrEmpty(cmbCharts.Text))
                 return; // nothiing to do
-            string chartConfigDataFile = Path.Combine(this._currentDataSet.Path,((dynamic)cmbCharts.SelectedItem).Value);
+            // appends the extension (.dataconfig)
+            string chartConfigDataFile = Path.Combine(this._currentDataSet.Path,
+                string.Format("{0}.{1}", ((dynamic) cmbCharts.SelectedItem).Value, "dataconfig"));
             this.chartPanel1.DataConfigFile = chartConfigDataFile;
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
@@ -62,9 +64,11 @@ namespace Aeronet.Chart
 
             foreach (var chart in this._currentDataSet.Datas)
             {
-                // without the extension
-                int splitor = chart.IndexOf(".", StringComparison.Ordinal);
-                this.cmbCharts.Items.Add(new {Text=chart.Substring(0,splitor),Value=chart});
+                // ChartName|ChartDescription
+                string[] pair= chart.Split(new char[]{'|'},StringSplitOptions.None);
+                // 1: Description
+                // 0: ChartName
+                this.cmbCharts.Items.Add(new {Text = pair[1], Value = pair[0]});
             }
             this.cmbCharts.SelectedIndex = 0;
         }

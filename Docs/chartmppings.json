@@ -1,0 +1,54 @@
+{
+	"charts":[
+		{
+			"name":"SD",
+			"description":"Size Distribution",
+			"fields":"0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00"
+		},
+		{
+			"name":"Real",
+			"description":"Refractive Index (Real)",
+			"fields":"real440,real670,real870,real1020"
+		},
+		{
+			"name":"Imaginary",
+			"description":"Refractive Index (Imaginary)",
+			"fields":"imag440,imag670,imag870,imag1020"
+		},
+		{
+			"name":"AOD",
+			"description":"Absorption Optical Depth",
+			"fields":"aod440,aod675,aod870,aod1020"
+		},
+		{
+			"name":"EOD",
+			"description":"Extinction Optical Depth",
+			"fields":"extt440,extt670,extt870,extt1020,extf440,extf670,extf870,extf1020,extc440,extc670,extc870,extc1020"
+		},
+		{
+			"name":"SSA",
+			"description":"Single Scattering Albedo",
+			"fields":"ssat440,ssat670,ssat870,ssat1020,ssaf440,ssaf670,ssaf870,ssaf1020,ssac440,ssac670,ssac870,ssac1020"
+		},
+		{
+			"name":"REF",
+			"description":"REF",
+			"fields":"refft,refff,reffc"
+		},
+		{
+			"name":"VOL",
+			"description":"VOL",
+			"fields":"volt,volf,Volc"
+		},
+		{
+			"name":"RMEA",
+			"description":"RMEA",
+			"fields":"rmeat,rmeaf,rmeac"
+		},
+		{
+			"name":"AAOD",
+			"description":"AAOD",
+			"fields":"aaod440,aaod670,aaod870,aaod1020"
+		},
+	]
+}
