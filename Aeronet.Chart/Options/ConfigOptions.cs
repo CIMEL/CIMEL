@@ -146,15 +146,15 @@ namespace Aeronet.Chart
                 {
                     data = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data"),
                     modis_brdf = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
-                    ins_para = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
-                    metadata = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                    ins_para = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ins_para"),
+                    metadata = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "metadata"),
                 },
                 processor = new
                 {
                     creator = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "create_input_carsnet.exe"),
                     outputor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "main.exe")
                 },
-                output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "modis_brdf"),
+                output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output"),
                 isInit = true
             };
             using (StreamWriter sw = new StreamWriter(optionFile, false))

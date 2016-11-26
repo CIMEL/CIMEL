@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AeronetData\AeronetDataSet.cs" />
     <Compile Include="AeronetData\DataWorker.cs" />
     <Compile Include="AeronetData\FileViewer.cs">
       <SubType>UserControl</SubType>

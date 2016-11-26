@@ -14,7 +14,7 @@ namespace Aeronet.Chart.Chart
     {
         private string _dataFile;
 
-        public ChartReader(string dataFolder,string dataName, string year, string month, string day)
+        public ChartReader(string dataFolder,string dataName, int year, int month, int day)
         {
             // initial data file full name
             string fileName = string.Format("{0}.{1}.{2}.{3}.data",dataName,year,month,day);
