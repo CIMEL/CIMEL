@@ -19,6 +19,9 @@ namespace Aeronet.Splitter
                     throw new ArgumentException("Missing Argument: aeronet data file (.dat)");
 
                 string datFile = args[0];
+
+                if (string.IsNullOrEmpty(Path.GetDirectoryName(datFile)))
+                    datFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, datFile);
                 // check if the file exists
                 if (!File.Exists(datFile))
                     throw new FileNotFoundException("Not found file: " + datFile);
@@ -78,6 +81,9 @@ namespace Aeronet.Splitter
                                         for (int i = 6; i < arrLineDatas.Length; i++)
                                         {
                                             string strValue = arrLineDatas[i].Trim();
+                                            // validates the values, drop it if equals 'NaN'
+                                            if(string.IsNullOrEmpty(strValue) || string.Compare(strValue,"NaN",StringComparison.CurrentCultureIgnoreCase)==0)
+                                                continue;
                                             // lookup ChartMapping
                                             var chartMapping = ChartMappings.Signleton[i];
                                             if (chartMapping == null) continue;

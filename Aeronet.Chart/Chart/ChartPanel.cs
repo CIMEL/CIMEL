@@ -28,6 +28,8 @@ namespace Aeronet.Chart.Chart
 
         private void InitChart()
         {
+            this.tsCmbDay.SelectedIndexChanged += tsCmbDay_SelectedIndexChanged;
+            this.tsCmbMonth.SelectedIndexChanged += tsCmbMonth_SelectedIndexChanged;
             ChartArea caDefault = new ChartArea("Default");
             this.chart1.ChartAreas.Clear();
             this.chart1.ChartAreas.Add(caDefault);
@@ -43,6 +45,17 @@ namespace Aeronet.Chart.Chart
             this.chart1.Legends.Add(lgDefault);
             this.chart1.Series.Clear();
             this.chart1.Titles.Clear();
+        }
+
+        void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // initial the combox of day
+            this.tsCmbDay.Items.Clear();
+            foreach (int day in this._dataConfig.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
+            {
+                this.tsCmbDay.Items.Add(day);
+            }
+            this.tsCmbDay.SelectedIndex = 0;
         }
 
         public void Init()
@@ -84,7 +97,6 @@ namespace Aeronet.Chart.Chart
                 }
                 this.tsCmbDay.SelectedIndex = 0;
                 // register selectedChanged
-                this.tsCmbDay.SelectedIndexChanged += tsCmbDay_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
