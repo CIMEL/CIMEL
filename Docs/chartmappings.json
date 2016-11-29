@@ -1,0 +1,9 @@
+{
+	"charts":[
+		{
+			"name":"AAOD",
+			"description":"AAOD",
+			"fields":"aaod440,aaod670,aaod870,aaod1020"
+		}
+	]
+}
