@@ -1,4 +1,5 @@
-﻿using Aeronet.Chart.Options;
+﻿using Aeronet.Chart.AeronetData;
+using Aeronet.Chart.Options;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Aeronet.Chart.AeronetData;
 
 namespace Aeronet.Chart
 {
@@ -26,50 +26,63 @@ namespace Aeronet.Chart
             this.cmbDataSets.Items.Clear();
             this.cmbCharts.Items.Clear();
             // initial item structure
-            this.cmbDataSets.DisplayMember = "Text";
-            this.cmbDataSets.ValueMember = "Value";
+            this.cmbDataSets.DisplayMember = ComboBoxItem.DisplayName;
+            this.cmbDataSets.ValueMember = ComboBoxItem.ValueName;
 
-            this.cmbCharts.DisplayMember = "Text";
-            this.cmbCharts.ValueMember = "Value";
+            this.cmbCharts.DisplayMember = ComboBoxItem.DisplayName;
+            this.cmbCharts.ValueMember = ComboBoxItem.ValueName;
             // register selectedChanged
             this.cmbDataSets.SelectedIndexChanged += cmbDataSets_SelectedIndexChanged;
             this.cmbCharts.SelectedIndexChanged += cmbCharts_SelectedIndexChanged;
         }
 
-        void cmbCharts_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbCharts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // disable the chart panel
+            this.chartPanel1.Disable();
+
             // check if the selected data set is empty
-            if (string.IsNullOrEmpty(cmbCharts.Text))
+            if (string.IsNullOrEmpty(cmbCharts.Text) || cmbCharts.Text == ComboBoxItem.EmptyItem.Text)
                 return; // nothiing to do
             // appends the extension (.dataconfig)
             string chartConfigDataFile = Path.Combine(this._currentDataSet.Path,
-                string.Format("{0}.{1}", ((dynamic) cmbCharts.SelectedItem).Value, "dataconfig"));
+                string.Format("{0}.{1}", ((dynamic)cmbCharts.SelectedItem).Value, "dataconfig"));
             this.chartPanel1.DataConfigFile = chartConfigDataFile;
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
+            // enable the panel
+            this.chartPanel1.Enable();
         }
 
-        void cmbDataSets_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbDataSets_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // disable the combo box of charts
+            this.cmbCharts.Enabled = false;
             // clean up the items of combox charts
             this.cmbCharts.Items.Clear();
+            this.chartPanel1.Disable();
 
             // check if the selected data set is empty
-            if (string.IsNullOrEmpty(cmbDataSets.Text))
+            if (string.IsNullOrEmpty(cmbDataSets.Text) || cmbDataSets.Text == ComboBoxItem.EmptyItem.Text)
                 return; // nothiing to do
 
             string dataSetFile = ((dynamic)cmbDataSets.SelectedItem).Value;
             this._currentDataSet = new AeronetDataSet(dataSetFile);
 
-
             foreach (var chart in this._currentDataSet.Datas)
             {
                 // ChartName|ChartDescription
-                string[] pair= chart.Split(new char[]{'|'},StringSplitOptions.None);
+                string[] pair = chart.Split(new char[] { '|' }, StringSplitOptions.None);
                 // 1: Description
                 // 0: ChartName
-                this.cmbCharts.Items.Add(new {Text = pair[1], Value = pair[0]});
+                this.cmbCharts.Items.Add(new { Text = pair[1], Value = pair[0] });
             }
+
+            // insert empty item
+            this.cmbCharts.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
+            // enable the combox
+            this.cmbCharts.Enabled = true;
+            // initial to select the empty item
             this.cmbCharts.SelectedIndex = 0;
         }
 
@@ -85,13 +98,19 @@ namespace Aeronet.Chart
 
             // the aeronet data sets
             this.Scan();
-            
         }
+
         /// <summary>
         /// Scans the processed Aeronet data sets within output folder
         /// </summary>
         private void Scan()
         {
+            // disable actions
+            this.cmbDataSets.Enabled = false;
+            this.cmbCharts.Enabled = false;
+            this.cmbCharts.Items.Clear();
+            this.chartPanel1.Disable();
+
             // clean up the combox of data sets
             this.cmbDataSets.Items.Clear();
             string outputFolder = ConfigOptions.Singleton.OUTPUT_Dir;
@@ -107,12 +126,16 @@ namespace Aeronet.Chart
             {
                 // without the extension
                 string fileName = Path.GetFileNameWithoutExtension(dataSet);
-                this.cmbDataSets.Items.Add(new {Text=fileName,Value=dataSet});
+                this.cmbDataSets.Items.Add(new { Text = fileName, Value = dataSet });
             }
+            // insert the empty item
+            this.cmbDataSets.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
 
+            // enable the combo box of dataset when completely loads items
+            this.cmbDataSets.Enabled = true;
+            // targets to the empty item
             this.cmbDataSets.SelectedIndex = 0;
         }
-
 
         private void aeronetDataToolStripMenuItem_Click(object sender, EventArgs e)
         {

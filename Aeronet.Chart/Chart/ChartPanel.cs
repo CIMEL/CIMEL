@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using Newtonsoft.Json.Linq;
 
 namespace Aeronet.Chart.Chart
 {
@@ -47,24 +47,38 @@ namespace Aeronet.Chart.Chart
             this.chart1.Titles.Clear();
         }
 
-        void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        private void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // disable the combo box of day
+            this.tsCmbDay.Enabled = false;
             // initial the combox of day
             this.tsCmbDay.Items.Clear();
+            this.DisableChart();
+
+            if (string.IsNullOrEmpty(this.tsCmbMonth.Text) || this.tsCmbMonth.Text == ComboBoxItem.EmptyItem.Text)
+                return; // do nothing
+
             foreach (int day in this._dataConfig.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
             {
                 this.tsCmbDay.Items.Add(day);
             }
+            // insert empty item
+            this.tsCmbDay.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
+            // enable the combo box of day
+            this.tsCmbDay.Enabled = true;
+            // initial to select the empty item
             this.tsCmbDay.SelectedIndex = 0;
         }
 
         public void Init()
         {
-            // enable the funtion
-            this.Enabled = true;
-
             try
             {
+                //disiable the comboxes of month and day
+                this.tsCmbMonth.Enabled = false;
+                this.tsCmbDay.Enabled = false;
+                this.chart1.Enabled = false;
+
                 // the property DataConfigFile must be initialzied
                 if (string.IsNullOrEmpty(this.DataConfigFile))
                     throw new NotImplementedException("The property DataConfigFile must be initialized.");
@@ -87,16 +101,13 @@ namespace Aeronet.Chart.Chart
                 {
                     this.tsCmbMonth.Items.Add(month);
                 }
+
+                // insert empty item
+                this.tsCmbMonth.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
+                // enable month combo box
+                this.tsCmbMonth.Enabled = true;
+                // initial to select the empty item
                 this.tsCmbMonth.SelectedIndex = 0;
-                
-                // initial the combox of day
-                this.tsCmbDay.Items.Clear();
-                foreach (int day in this._dataConfig.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
-                {
-                    this.tsCmbDay.Items.Add(day);
-                }
-                this.tsCmbDay.SelectedIndex = 0;
-                // register selectedChanged
             }
             catch (Exception ex)
             {
@@ -105,7 +116,6 @@ namespace Aeronet.Chart.Chart
                 // disable all of funtions
                 this.Enabled = false;
             }
-
         }
 
         private ChartLine[] LoadChartLines()
@@ -149,13 +159,47 @@ namespace Aeronet.Chart.Chart
             }
         }
 
-        void tsCmbDay_SelectedIndexChanged(object sender, EventArgs e)
+        private void tsCmbDay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // disable the chart panel
+            this.DisableChart();
+
+            //skip when selected empty item
+            if (string.IsNullOrEmpty(tsCmbDay.Text) || tsCmbDay.Text == ComboBoxItem.EmptyItem.Text)
+                return; // do nothing
+
             // loads chart data
             ChartLine[] chartLines = this.LoadChartLines();
 
             // draw chart
             this.DrawChart(chartLines);
+
+            this.EnableChart();
+        }
+
+        private void DisableChart()
+        {
+            this.chart1.Titles.Clear();
+            this.chart1.Series.Clear();
+            this.chart1.Enabled = false;
+        }
+
+        private void EnableChart()
+        {
+            this.chart1.Enabled = true;
+        }
+
+        public void Disable()
+        {
+            this.tsCmbMonth.Items.Clear();
+            this.tsCmbDay.Items.Clear();
+            this.DisableChart();
+            this.Enabled = false;
+        }
+
+        public void Enable()
+        {
+            this.Enabled = true;
         }
     }
 }

@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="Chart\ChartReader.cs" />
     <Compile Include="Chart\DataConfig.cs" />
+    <Compile Include="EmptyComboxItem.cs" />
     <Compile Include="fmAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
