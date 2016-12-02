@@ -157,13 +157,14 @@ namespace Aeronet.Chart.AeronetData
             // check if the data files are valid.
             OnInformed("Initial arguments");
 
-            string STNS_FN = Utility.GetAppSettingValue("ARG_STNS_FN", @default: "hangzhou");
+            // todo: get FN, ID and Data from data file
+            string STNS_FN = "";//Utility.GetAppSettingValue("ARG_STNS_FN", @default: "hangzhou");
             OnInformed(string.Format("STNS_FN : {0}", STNS_FN));
 
-            string STNS_ID = Utility.GetAppSettingValue("ARG_STNS_ID", @default: "808");
+            string STNS_ID = "";//Utility.GetAppSettingValue("ARG_STNS_ID", @default: "808");
             OnInformed(string.Format("STNS_FN : {0}", STNS_ID));
 
-            string FDATA = Utility.GetAppSettingValue("ARG_FDATA", @default: "hangzhou-808-1");
+            string FDATA = "";//Utility.GetAppSettingValue("ARG_FDATA", @default: "hangzhou-808-1");
             OnInformed(string.Format("STNS_FN : {0}", FDATA));
 
             string ipt = ConfigOptions.Singleton.INS_PARA_Dir;
@@ -215,89 +216,15 @@ namespace Aeronet.Chart.AeronetData
                 return;
             }
 #endif
-            bool success = true;
-            // draw aeronent inversion
-            AeronetDrawNative.Drawing drawing = new AeronetDrawNative.Drawing();
-            try
-            {
-                OnInformed("***************************************************************");
-                string inputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", STNS_FN) + System.IO.Path.DirectorySeparatorChar;
-                string outputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "cimel_network", STNS_FN,
-                        "dubovik") + System.IO.Path.DirectorySeparatorChar;
-                string outputfile = Path.Combine(outputbase,
-                    string.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", STNS_FN, STNS_ID, DateTime.Now));
-
-                if (!Directory.Exists(outputbase))
-                    Directory.CreateDirectory(outputbase);
-
-                // 1 calculate Matrix of aeronent
-                OnInformed("Calculating Aeronet inversion Matrix");
-                string mwInput = inputbase;
-                string mwOutput = outputfile;
-                // get lat and lon of region
-                Region region = RegionStore.Singleton.FindRegion(STNS_FN);
-
-                double lat = region.Lat;
-                double lon = region.Lon;
-                OnInformed("\tARGUMENTS:");
-                OnInformed(string.Format("\t{0} : {1}", "INPUT", mwInput));
-                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOutput));
-                object[] results = drawing.MatrixAeronet(2, lat, lon, mwInput, mwOutput);
-                var stats_inversion = results[0];
-                var r = results[1];
-
-                OnInformed("stats_inversions");
-                Utility.PrintMatrix((double[,])stats_inversion, OnInformed);
-                OnInformed("r");
-                Utility.PrintMatrix((double[,])r, OnInformed);
-                OnInformed("DONE to Calculate Aeronet inversion Matrix");
-
-                // 2 draw SSA
-                OnInformed("Drawing SSA figures");
-                // MWArray mwYear = new MWNumericArray(new int[] {2013});
-                // MWArray mwOuputbase = new MWCharArray(new string[]{ outputbase});
-                double mwYear = 2013;
-                string mwOuputbase = outputbase;
-                string mwRegion = STNS_FN;
-
-                OnInformed("\tARGUMENTS:");
-                OnInformed(string.Format("\t{0} : {1}", "YEAR", mwYear));
-                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
-                drawing.DrawSSA(stats_inversion, r, mwYear, mwRegion, mwOuputbase);
-                drawing.WaitForFiguresToDie();
-                OnInformed("DONE to draw SSA figures");
-
-                // 3 draw SSA Statistic
-                OnInformed("Drawing SSA Statistic figures");
-                // MWArray mwRegion = new MWCharArray(new string[]{ STNS_FN});
-                OnInformed("\tARGUMENTS:");
-                OnInformed(string.Format("\t{0} : {1}", "YEAR", mwYear));
-                OnInformed(string.Format("\t{0} : {1}", "REGION", mwRegion));
-                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
-                drawing.DrawSSAStatistisc(stats_inversion, r, mwYear, mwRegion, mwOuputbase);
-                drawing.WaitForFiguresToDie();
-                OnInformed("DONE to draw SSA Statistic figures");
-
-                // 4 draw Aeronet Inversions
-                OnInformed("Drawing Aeronet Inversions figures");
-                OnInformed("\tARGUMENTS:");
-                OnInformed(string.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
-                drawing.DrawAeronetInversions(stats_inversion, r, mwOuputbase);
-                drawing.WaitForFiguresToDie();
-                OnInformed("DONE to drawing Aeronet Inversions figures");
-            }
-            catch (Exception ex)
-            {
-                OnFailed(ex.Message);
-                success = false;
-            }
-            finally
-            {
-                OnInformed("***************************************************************");
-                drawing.Dispose();
-            }
-            if (!success)
+            ProcessStartInfo drawProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
+            // show command line and args
+            OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, STNS_FN));
+            OnInformed(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
+            // perform outputor process
+            OnInformed("***************************************************************");
+            sucess = Run(drawProInfo);
+            OnInformed("***************************************************************");
+            if (!sucess)
             {
                 Exit();
                 return;
