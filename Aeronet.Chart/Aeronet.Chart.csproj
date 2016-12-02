@@ -191,8 +191,8 @@ if not exist "$(ProjectDir)$(OutDir)modis_brdf" mkdir "$(ProjectDir)$(OutDir)mod
 if not exist "$(ProjectDir)$(OutDir)ins_para" mkdir "$(ProjectDir)$(OutDir)ins_para"
 if not exist "$(ProjectDir)$(OutDir)metadata" mkdir "$(ProjectDir)$(OutDir)metadata"
 if not exist "$(ProjectDir)$(OutDir)output" mkdir "$(ProjectDir)$(OutDir)output"
-XCOPY "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(ProjectDir)$(OutDir)Draw$(TargetExt)" /Y
-XCOPY "$(SolutionDir)Aeronet.Draw\$(OutDir)Splitter$(TargetExt)" "$(ProjectDir)$(OutDir)Splitter$(TargetExt)" /Y</PostBuildEvent>
+XCOPY "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(ProjectDir)$(OutDir)AeronetData\Draw$(TargetExt)" /Y
+XCOPY "$(SolutionDir)Aeronet.Draw\$(OutDir)Splitter$(TargetExt)" "$(ProjectDir)$(OutDir)AeronetData\Splitter$(TargetExt)" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
