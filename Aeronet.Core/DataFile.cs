@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 
-namespace Aeronet.Splitter
+namespace Aeronet.Core
 {
     public class DataFiles
     {
@@ -13,7 +13,7 @@ namespace Aeronet.Splitter
 
         public DataFiles()
         {
-            this._dataFiles=new Dictionary<string, DataFile>();
+            this._dataFiles = new Dictionary<string, DataFile>();
         }
 
         public void AddData(string year, string month, string day, string hour, string min, string second,
@@ -23,7 +23,7 @@ namespace Aeronet.Splitter
             if (!this._dataFiles.ContainsKey(key))
                 this._dataFiles.Add(key, new DataFile());
 
-            this._dataFiles[key].AddData(hour, min, second,fieldIndex, value);
+            this._dataFiles[key].AddData(hour, min, second, fieldIndex, value);
         }
 
         public void Save(string chartSetPath, string chartName, string strHeader)
@@ -33,7 +33,7 @@ namespace Aeronet.Splitter
             {
                 string oneDay = day.Replace(',', '.');
                 string dataFile = Path.Combine(chartSetPath, string.Format("{0}.{1}.{2}", chartName, oneDay, extension));
-                this._dataFiles[day].Save(dataFile,day,strHeader);
+                this._dataFiles[day].Save(dataFile, day, strHeader);
             }
         }
     }
@@ -42,24 +42,24 @@ namespace Aeronet.Splitter
     {
         public DataFile()
         {
-            this.DataLines=new Dictionary<string, DataLine>();
+            this.DataLines = new Dictionary<string, DataLine>();
         }
+
         public Dictionary<string, DataLine> DataLines { get; private set; }
 
         public void AddData(string hour, string min, string second,
             int fieldIndex, string value)
         {
             string key = string.Format("{0},{1},{2}", hour, min, second);
-            if(!this.DataLines.ContainsKey(key))
-                this.DataLines.Add(key,new DataLine());
+            if (!this.DataLines.ContainsKey(key))
+                this.DataLines.Add(key, new DataLine());
 
-            this.DataLines[key].AddData(fieldIndex,value);
-
+            this.DataLines[key].AddData(fieldIndex, value);
         }
 
         public void Save(string fileName, string dayKeys, string strHeader)
         {
-            StringBuilder sb=new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.AppendLine(strHeader);
             foreach (string timeKeys in this.DataLines.Keys)
             {
@@ -79,16 +79,17 @@ namespace Aeronet.Splitter
     {
         public DataLine()
         {
-            this.Values=new Dictionary<int, string>();
+            this.Values = new Dictionary<int, string>();
         }
+
         // index, value
-        public Dictionary<int,string> Values { get; private set; }
+        public Dictionary<int, string> Values { get; private set; }
 
         public void AddData(int fieldIndex, string value)
         {
             // don't add duplicated value
-            if(!this.Values.ContainsKey(fieldIndex))
-                this.Values.Add(fieldIndex,value);
+            if (!this.Values.ContainsKey(fieldIndex))
+                this.Values.Add(fieldIndex, value);
         }
 
         public override string ToString()

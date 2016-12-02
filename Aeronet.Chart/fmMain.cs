@@ -1,5 +1,6 @@
 ﻿using Aeronet.Chart.AeronetData;
 using Aeronet.Chart.Options;
+using Aeronet.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace Aeronet.Chart
 {
     public partial class fmMain : Form
     {
-        private AeronetDataSet _currentDataSet;
+        private AeronetFile _currentFile;
 
         public fmMain()
         {
@@ -45,7 +46,7 @@ namespace Aeronet.Chart
             if (string.IsNullOrEmpty(cmbCharts.Text) || cmbCharts.Text == ComboBoxItem.EmptyItem.Text)
                 return; // nothiing to do
             // appends the extension (.dataconfig)
-            string chartConfigDataFile = Path.Combine(this._currentDataSet.Path,
+            string chartConfigDataFile = Path.Combine(this._currentFile.Path,
                 string.Format("{0}.{1}", ((dynamic)cmbCharts.SelectedItem).Value, "dataconfig"));
             this.chartPanel1.DataConfigFile = chartConfigDataFile;
             // !!! don't forget to initial the chart panel
@@ -67,9 +68,9 @@ namespace Aeronet.Chart
                 return; // nothiing to do
 
             string dataSetFile = ((dynamic)cmbDataSets.SelectedItem).Value;
-            this._currentDataSet = new AeronetDataSet(dataSetFile);
+            this._currentFile = new AeronetFile(dataSetFile);
 
-            foreach (var chart in this._currentDataSet.Datas)
+            foreach (var chart in this._currentFile.DataConfigs)
             {
                 // ChartName|ChartDescription
                 string[] pair = chart.Split(new char[] { '|' }, StringSplitOptions.None);

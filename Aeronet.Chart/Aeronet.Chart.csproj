@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AeronetData\AeronetDataSet.cs" />
     <Compile Include="AeronetData\DataWorker.cs" />
     <Compile Include="AeronetData\FileViewer.cs">
       <SubType>UserControl</SubType>
@@ -160,6 +159,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aeronet.Core\Aeronet.Core.csproj">
+      <Project>{3b64a613-ac08-477f-87ef-528332578edc}</Project>
+      <Name>Aeronet.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>
       <Name>Peach.Log</Name>

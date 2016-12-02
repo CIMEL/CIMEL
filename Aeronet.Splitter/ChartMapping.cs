@@ -1,3 +1,4 @@
+using Aeronet.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,24 @@ namespace Aeronet.Splitter
         {
             this.Name = (string)objChartMapping.name;
             this.Description = (string)objChartMapping.description;
-            var strFields = (string) objChartMapping.fields;
-            this.FieldNames = strFields.Split(new char[] {','}, StringSplitOptions.None).Select(f=>f.Trim().ToLower()).ToArray();
-            this.Fields=new Dictionary<string, Index>();
+            var strFields = (string)objChartMapping.fields;
+            this.FieldNames = strFields.Split(new char[] { ',' }, StringSplitOptions.None).Select(f => f.Trim().ToLower()).ToArray();
+            this.Fields = new Dictionary<string, int>();
             foreach (var strField in this.FieldNames)
             {
                 if (!this.Fields.ContainsKey(strField))
-                    this.Fields.Add(strField, new Index());
+                    // give an enough large number so that the field can be sorted to down in an asc order
+                    this.Fields.Add(strField, 9999);
             }
-            this.DataConfigFile=new DataConfigFile();
-            this.DataFiles=new DataFiles();
+            this.DataConfigFile = new DataConfigFile();
+            this.DataFiles = new DataFiles();
         }
 
         public string Name { get; private set; }
 
         public string Description { get; private set; }
 
-        public Dictionary<string,Index> Fields { get; private set; }
+        public Dictionary<string, int> Fields { get; private set; }
 
         public string[] FieldNames { get; private set; }
 
@@ -38,23 +40,10 @@ namespace Aeronet.Splitter
         {
             string @fixed = "year,mm,dd,hh,mm,ss,";
             // sorting the field names by the global index
-            string[] fields = this.Fields.OrderBy(p => p.Value.Global).Select(p => p.Key).ToArray();
+            string[] fields = this.Fields.OrderBy(p => p.Value).Select(p => p.Key).ToArray();
             string strFields = string.Join(",", fields);
             string header = @fixed + strFields;
             return header;
-        }
-    }
-
-    public class Index
-    {
-        public int Global { get; set; }
-
-        public int Local { get; set; }
-
-        public Index()
-        {
-            this.Global = -1;
-            this.Local = -1;
         }
     }
 }

@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Aeronet.Core;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using Newtonsoft.Json.Linq;
 
 namespace Aeronet.Splitter
 {
     public class ChartMappings
     {
         private static ChartMappings _default = new ChartMappings();
+
         // fields X chartmapping
-        private Dictionary<string,ChartMapping> _antFieldChartMappings;
+        private Dictionary<string, ChartMapping> _antFieldChartMappings;
 
         // field index X chartmapping
         private Dictionary<int, ChartMapping> _antIndexChartMappings;
@@ -32,9 +34,9 @@ namespace Aeronet.Splitter
         protected ChartMappings()
         {
             this._antFieldChartMappings = new Dictionary<string, ChartMapping>();
-            this._antIndexChartMappings=new Dictionary<int, ChartMapping>();
-            this._chartMappings=new List<ChartMapping>();
-            this.AeronetFile=new AeronetFile();
+            this._antIndexChartMappings = new Dictionary<int, ChartMapping>();
+            this._chartMappings = new List<ChartMapping>();
+            this.AeronetFile = new AeronetFile();
             this.Init();
         }
 
@@ -44,16 +46,16 @@ namespace Aeronet.Splitter
             if (!File.Exists(chartMappingsFile))
                 throw new FileNotFoundException("Not found chart mappings file: " + chartMappingsFile);
             string strChartMappings = File.ReadAllText(chartMappingsFile);
-            var jCharts = (JArray)((dynamic) JObject.Parse(strChartMappings)).charts;
+            var jCharts = (JArray)((dynamic)JObject.Parse(strChartMappings)).charts;
 
             foreach (JToken jChart in jCharts)
             {
                 // initial an instance of ChartMapping
-                var objChartMapping=new ChartMapping((dynamic)jChart);
+                var objChartMapping = new ChartMapping((dynamic)jChart);
                 foreach (string fieldName in objChartMapping.FieldNames)
                 {
-                    if(!this._antFieldChartMappings.ContainsKey(fieldName))
-                        this._antFieldChartMappings.Add(fieldName,objChartMapping);
+                    if (!this._antFieldChartMappings.ContainsKey(fieldName))
+                        this._antFieldChartMappings.Add(fieldName, objChartMapping);
                 }
                 this._chartMappings.Add(objChartMapping);
             }
@@ -63,10 +65,10 @@ namespace Aeronet.Splitter
         {
             get
             {
-            if (this._antIndexChartMappings.ContainsKey(index))
-                return this._antIndexChartMappings[index];
-            else
-                return null;
+                if (this._antIndexChartMappings.ContainsKey(index))
+                    return this._antIndexChartMappings[index];
+                else
+                    return null;
             }
         }
 
@@ -88,13 +90,13 @@ namespace Aeronet.Splitter
         /// <param name="chartMapping"></param>
         public void CreateIndexMapping(int index, ChartMapping chartMapping)
         {
-            if(!this._antIndexChartMappings.ContainsKey(index))
-                this._antIndexChartMappings.Add(index,chartMapping);
+            if (!this._antIndexChartMappings.ContainsKey(index))
+                this._antIndexChartMappings.Add(index, chartMapping);
         }
 
         public List<ChartMapping> GetAll()
         {
             return this._chartMappings;
-        } 
+        }
     }
 }

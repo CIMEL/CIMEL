@@ -58,7 +58,8 @@ namespace Aeronet.Splitter
                                         // create the mapping of column index - chart mapping
                                         ChartMappings.Signleton.CreateIndexMapping(i, chartMapping);
                                         if (chartMapping.Fields.ContainsKey(strField))
-                                            chartMapping.Fields[strField].Global = i;
+                                            // obtains the column index in the header line
+                                            chartMapping.Fields[strField] = i;
                                     }
 
                                     // reads line data
@@ -82,7 +83,7 @@ namespace Aeronet.Splitter
                                         {
                                             string strValue = arrLineDatas[i].Trim();
                                             // validates the values, drop it if equals 'NaN'
-                                            if(string.IsNullOrEmpty(strValue) || string.Compare(strValue,"NaN",StringComparison.CurrentCultureIgnoreCase)==0)
+                                            if (string.IsNullOrEmpty(strValue) || string.Compare(strValue, "NaN", StringComparison.CurrentCultureIgnoreCase) == 0)
                                                 continue;
                                             // lookup ChartMapping
                                             var chartMapping = ChartMappings.Signleton[i];

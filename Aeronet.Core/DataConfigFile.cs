@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 
-namespace Aeronet.Splitter
+namespace Aeronet.Core
 {
     public class DataConfigFile
     {
@@ -15,7 +15,7 @@ namespace Aeronet.Splitter
 
         public DataConfigFile()
         {
-            this.MonthAndDays=new Dictionary<int, List<int>>();
+            this.MonthAndDays = new Dictionary<int, List<int>>();
         }
 
         public void AddMonth(string month)
@@ -47,7 +47,7 @@ namespace Aeronet.Splitter
         {
             string extension = "dataconfig";
             string file = Path.Combine(chartSetPath, string.Format("{0}.{1}", chartName, extension));
-            string[] arrMonthAndDays=new string[12];
+            string[] arrMonthAndDays = new string[12];
             for (int i = 0; i < arrMonthAndDays.Length; i++)
             {
                 int month = i + 1;
@@ -60,8 +60,8 @@ namespace Aeronet.Splitter
             // apply defaults
             dynamic dataconfig = new
             {
-                year=this.Year,
-                monthAndDays=arrMonthAndDays
+                year = this.Year,
+                monthAndDays = arrMonthAndDays
             };
             using (StreamWriter sw = new StreamWriter(file, false))
             {

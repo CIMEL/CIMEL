@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
 
-namespace Aeronet.Splitter
+namespace Aeronet.Core
 {
     public class AeronetFile
     {
@@ -17,7 +16,12 @@ namespace Aeronet.Splitter
 
         public AeronetFile()
         {
-            this.DataConfigs=new List<string>();
+            this.DataConfigs = new List<string>();
+        }
+
+        public AeronetFile(string dataSetFile)
+        {
+            this.Read(dataSetFile);
         }
 
         public void Save(string root, string chartSetName)
@@ -31,12 +35,25 @@ namespace Aeronet.Splitter
             {
                 name = this.Name,
                 datapath = this.Path,
-                datas=arrDatas
+                datas = arrDatas
             };
             using (StreamWriter sw = new StreamWriter(file, false))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), aeronet);
             }
+        }
+
+        private void Read(string dataSetFile)
+        {
+            if (!File.Exists(dataSetFile))
+                throw new FileNotFoundException("Not found the data set file", dataSetFile);
+
+            string strDataSet = File.ReadAllText(dataSetFile);
+            var objDataSet = (dynamic)JObject.Parse(strDataSet);
+
+            this.Name = (string)objDataSet.name;
+            this.Path = (string)objDataSet.datapath;
+            this.DataConfigs = ((JArray)objDataSet.datas).Select(d => (string)d).ToList();
         }
     }
 }
