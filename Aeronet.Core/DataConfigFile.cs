@@ -43,7 +43,7 @@ namespace Aeronet.Core
                 this.MonthAndDays[intMonth].Add(intDay);
         }
 
-        public void Save(string chartSetPath, string chartName)
+        public string Save(string chartSetPath, string chartName)
         {
             string extension = "dataconfig";
             string file = Path.Combine(chartSetPath, string.Format("{0}.{1}", chartName, extension));
@@ -66,7 +66,11 @@ namespace Aeronet.Core
             using (StreamWriter sw = new StreamWriter(file, false))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), dataconfig);
+                sw.Flush();
+                sw.Close();
             }
+
+            return file;
         }
     }
 }

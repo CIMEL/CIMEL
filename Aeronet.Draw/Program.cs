@@ -14,35 +14,31 @@ namespace Aeronet.Draw
         {
             // draw aeronent inversion
             Drawing drawing = new Drawing();
-            string STNS_FN = args[0];
-            string STNS_ID = args[1];
 
             try
             {
                 OnInformed("***************************************************************");
-                string inputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", STNS_FN) + Path.DirectorySeparatorChar;
-                string outputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "cimel_network", STNS_FN,
-                        "dubovik") + Path.DirectorySeparatorChar;
-                string outputfile = Path.Combine(outputbase,
-                    String.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", STNS_FN, STNS_ID, DateTime.Now));
-
-                if (!Directory.Exists(outputbase))
-                    Directory.CreateDirectory(outputbase);
 
                 // 1 calculate Matrix of aeronent
                 OnInformed("Calculating Aeronet inversion Matrix");
-                string mwInput = inputbase;
-                string mwOutput = outputfile;
-                // get lat and lon of region
-                Region region = RegionStore.Singleton.FindRegion(STNS_FN);
+                if(args==null||args.Length<3)
+                    throw new ArgumentException("Missing arguments!\r\ndraw inputPath outputfile lat|lon");
+                string mwInput = args[0];
+                string mwOutput = args[1];
+                string location = args[2];
+                string[] arrLocation = location.Split(new char[] {'|'}, StringSplitOptions.None);
+                if (arrLocation.Length < 2)
+                    throw new ArgumentException("invalid location!\r\nlocation = \"lat|lon\"");
 
-                double lat = region.Lat;
-                double lon = region.Lon;
-                OnInformed("\tARGUMENTS:");
-                OnInformed(String.Format("\t{0} : {1}", "INPUT", mwInput));
-                OnInformed(String.Format("\t{0} : {1}", "OUTPUT", mwOutput));
-                object[] results = drawing.MatrixAeronet(2, lat, lon, mwInput, mwOutput);
+                // get lat and lon of region
+                double lat = ToDouble(arrLocation[0]);//region.Lat;
+                double lon = ToDouble(arrLocation[1]);//region.Lon;
+                /*
+                object[] results = 
+                 */
+                    drawing.MatrixAeronet(2, lat, lon, mwInput, mwOutput);
+                /*
+                 * Disable all drawing function
                 var stats_inversion = results[0];
                 var r = results[1];
 
@@ -69,7 +65,6 @@ namespace Aeronet.Draw
 
                 // 3 draw SSA Statistic
                 OnInformed("Drawing SSA Statistic figures");
-                // MWArray mwRegion = new MWCharArray(new string[]{ STNS_FN});
                 OnInformed("\tARGUMENTS:");
                 OnInformed(String.Format("\t{0} : {1}", "YEAR", mwYear));
                 OnInformed(String.Format("\t{0} : {1}", "REGION", mwRegion));
@@ -85,11 +80,11 @@ namespace Aeronet.Draw
                 drawing.DrawAeronetInversions(stats_inversion, r, mwOuputbase);
                 drawing.WaitForFiguresToDie();
                 OnInformed("DONE to drawing Aeronet Inversions figures");
+                */
             }
             catch (Exception ex)
             {
                 OnFailed(ex.Message);
-                success = false;
             }
             finally
             {
@@ -98,6 +93,33 @@ namespace Aeronet.Draw
             }
         }
 
+        /// <summary>
+        /// put the error message to error stream
+        /// </summary>
+        /// <param name="error"></param>
+        private static void OnFailed(string error)
+        {
+            Console.Error.WriteLine(error);
+        }
+
+        /// <summary>
+        /// put the info message to std output stream
+        /// </summary>
+        /// <param name="info"></param>
+        private static void OnInformed(string info)
+        {
+            Console.Out.WriteLine(info);
+        }
+
+        private static double ToDouble(string value)
+        {
+            double result;
+            if (!double.TryParse(value, out result))
+                result = 0f;
+            return result;
+        }
+
+        /*
         public static void PrintMatrix(double[,] arrary, Action<string, bool> log)
         {
             int d1 = arrary.GetLength(0);
@@ -112,5 +134,6 @@ namespace Aeronet.Draw
                 log.Invoke(line, true);
             }
         }
+         */
     }
 }

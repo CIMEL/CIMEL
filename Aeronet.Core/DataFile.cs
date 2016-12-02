@@ -26,7 +26,7 @@ namespace Aeronet.Core
             this._dataFiles[key].AddData(hour, min, second, fieldIndex, value);
         }
 
-        public void Save(string chartSetPath, string chartName, string strHeader)
+        public string Save(string chartSetPath, string chartName, string strHeader)
         {
             string extension = "data";
             foreach (string day in this._dataFiles.Keys)
@@ -35,6 +35,8 @@ namespace Aeronet.Core
                 string dataFile = Path.Combine(chartSetPath, string.Format("{0}.{1}.{2}", chartName, oneDay, extension));
                 this._dataFiles[day].Save(dataFile, day, strHeader);
             }
+
+            return this._dataFiles.Count.ToString();
         }
     }
 
@@ -57,7 +59,7 @@ namespace Aeronet.Core
             this.DataLines[key].AddData(fieldIndex, value);
         }
 
-        public void Save(string fileName, string dayKeys, string strHeader)
+        public string Save(string fileName, string dayKeys, string strHeader)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(strHeader);
@@ -72,6 +74,7 @@ namespace Aeronet.Core
                 sw.Flush();
                 sw.Close();
             }
+            return fileName;
         }
     }
 

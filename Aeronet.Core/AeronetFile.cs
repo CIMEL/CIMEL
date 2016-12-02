@@ -24,7 +24,7 @@ namespace Aeronet.Core
             this.Read(dataSetFile);
         }
 
-        public void Save(string root, string chartSetName)
+        public string Save(string root, string chartSetName)
         {
             string extension = "aeronet";
             string file = System.IO.Path.Combine(root, string.Format("{0}.{1}", chartSetName, extension));
@@ -40,7 +40,10 @@ namespace Aeronet.Core
             using (StreamWriter sw = new StreamWriter(file, false))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), aeronet);
+                sw.Flush();
+                sw.Close();
             }
+            return file;
         }
 
         private void Read(string dataSetFile)

@@ -14,6 +14,8 @@ namespace Aeronet.Splitter
         {
             try
             {
+                OnInformed("***************************************************************");
+
                 // check argument
                 if (args == null || args.Length == 0)
                     throw new ArgumentException("Missing Argument: aeronet data file (.dat)");
@@ -27,6 +29,8 @@ namespace Aeronet.Splitter
                     throw new FileNotFoundException("Not found file: " + datFile);
 
                 // loads file
+                OnInformed(string.Format("Loading dat file <- {0}", datFile));
+                int intDataLines = 0;
                 using (FileStream fs = new FileStream(datFile, FileMode.Open))
                 {
                     if (fs.Length == 0)
@@ -46,7 +50,8 @@ namespace Aeronet.Splitter
                                     // skips the empty line
                                     if (string.IsNullOrEmpty(strHeader))
                                         throw new FileLoadException("Not found header line");
-                                    string[] arrFields = strHeader.Split(new Char[] { ',' }, StringSplitOptions.None);
+                                    OnInformed("Reading header line");
+                                    string[] arrFields = strHeader.Split(new Char[] {','}, StringSplitOptions.None);
                                     if (arrFields.Length < 6) throw new FileLoadException("Missing aeronet data");
                                     // skip the first 6 fields which are the date and time fields
                                     for (int i = 6; i < arrFields.Length; i++)
@@ -63,12 +68,13 @@ namespace Aeronet.Splitter
                                     }
 
                                     // reads line data
+                                    OnInformed("Reading data lines");
                                     while (!sr.EndOfStream)
                                     {
                                         string strLineData = sr.ReadLine();
                                         // skips the empty line
                                         if (string.IsNullOrEmpty(strLineData)) continue;
-                                        string[] arrLineDatas = strLineData.Split(new Char[] { ',' },
+                                        string[] arrLineDatas = strLineData.Split(new Char[] {','},
                                             StringSplitOptions.None);
                                         // skips the broken line
                                         if (arrLineDatas.Length < 6) continue;
@@ -83,7 +89,9 @@ namespace Aeronet.Splitter
                                         {
                                             string strValue = arrLineDatas[i].Trim();
                                             // validates the values, drop it if equals 'NaN'
-                                            if (string.IsNullOrEmpty(strValue) || string.Compare(strValue, "NaN", StringComparison.CurrentCultureIgnoreCase) == 0)
+                                            if (string.IsNullOrEmpty(strValue) ||
+                                                string.Compare(strValue, "NaN",
+                                                    StringComparison.CurrentCultureIgnoreCase) == 0)
                                                 continue;
                                             // lookup ChartMapping
                                             var chartMapping = ChartMappings.Signleton[i];
@@ -96,7 +104,13 @@ namespace Aeronet.Splitter
                                             var datas = chartMapping.DataFiles;
                                             datas.AddData(year, month, day, hour, min, second, i, strValue);
                                         }
+
+                                        intDataLines++;
                                     }
+                                }
+                                else
+                                {
+                                    throw new FileLoadException("Empty file!");
                                 }
                             }
                             finally
@@ -110,7 +124,8 @@ namespace Aeronet.Splitter
                         fs.Close();
                     }
                 }
-
+                OnInformed(string.Format("Read {0} data lines", intDataLines));
+                OnInformed("Initial chart set data");
                 // initial Aeronet file attributes
                 string chartSetName = Path.GetFileNameWithoutExtension(datFile);
                 chartSetName = string.Format("{0}_{1:yyyMMddhhmmssfff}", chartSetName, DateTime.Now);
@@ -124,28 +139,57 @@ namespace Aeronet.Splitter
                 var aeronetFile = ChartMappings.Signleton.AeronetFile;
                 aeronetFile.Name = chartSetName;
                 aeronetFile.Path = chartSetPath;
+                OnInformed(string.Format("Chart Set Name -> {0}",chartSetName));
+                OnInformed(string.Format("Chart Set Root-> {0}", chartSetPath));
+
 
                 // save data config files and data files
                 foreach (ChartMapping objChartMapping in ChartMappings.Signleton.GetAll())
                 {
+                    OnInformed(string.Format("Processing data: {0} - {1}", objChartMapping.Name, objChartMapping.Description));
                     string chartName = objChartMapping.Name;
                     string chartDesc = objChartMapping.Description;
                     // generate data config file (.dataconfig)
-                    objChartMapping.DataConfigFile.Save(chartSetPath, chartName);
+                    string dataConfigFile= objChartMapping.DataConfigFile.Save(chartSetPath, chartName);
+                    OnInformed(string.Format("{0}: Saved -> {1}", objChartMapping.Name, dataConfigFile));
                     // ChartName | Description
                     aeronetFile.DataConfigs.Add(string.Format("{0}|{1}", chartName, chartDesc));
                     // splits data into one-day data file (.data)
                     string strHeader = objChartMapping.ToHeader();
-                    objChartMapping.DataFiles.Save(chartSetPath, chartName, strHeader);
+                    string strSaved= objChartMapping.DataFiles.Save(chartSetPath, chartName, strHeader);
+                    OnInformed(string.Format("{0}: Saved -> {1} data files", objChartMapping.Name, strSaved));
                 }
                 // generate aeronet file (.aeronet)
-                aeronetFile.Save(root, chartSetName);
+                string aeronetfile = aeronetFile.Save(root, chartSetName);
+                OnInformed(string.Format("Saved aeronet file -> {0}", aeronetfile));
             }
             catch (Exception ex)
             {
                 // alerts the error msg and exit program
-                Console.WriteLine(ex.Message);
+                OnFailed(ex.Message);
             }
+            finally
+            {
+                OnInformed("***************************************************************");
+            }
+        }
+
+        /// <summary>
+        /// put the error message to error stream
+        /// </summary>
+        /// <param name="error"></param>
+        private static void OnFailed(string error)
+        {
+            Console.Error.WriteLine(error);
+        }
+
+        /// <summary>
+        /// put the info message to std output stream
+        /// </summary>
+        /// <param name="info"></param>
+        private static void OnInformed(string info)
+        {
+            Console.Out.WriteLine(info);
         }
     }
 }

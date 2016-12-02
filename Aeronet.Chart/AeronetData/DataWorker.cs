@@ -216,6 +216,22 @@ namespace Aeronet.Chart.AeronetData
                 return;
             }
 #endif
+            string inputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", STNS_FN) + Path.DirectorySeparatorChar;
+            string outputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                "cimel_network", STNS_FN,
+                    "dubovik") + Path.DirectorySeparatorChar;
+            string outputfile = Path.Combine(outputbase,
+                String.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", STNS_FN, STNS_ID, DateTime.Now));
+
+            if (!Directory.Exists(outputbase))
+                Directory.CreateDirectory(outputbase);
+
+            OnInformed("\tARGUMENTS:");
+            OnInformed(String.Format("\t{0} : {1}", "LAT", lat));
+            OnInformed(String.Format("\t{0} : {1}", "LON", lon));
+            OnInformed(String.Format("\t{0} : {1}", "INPUT", mwInput));
+            OnInformed(String.Format("\t{0} : {1}", "OUTPUT", mwOutput));
+
             ProcessStartInfo drawProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
             // show command line and args
             OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, STNS_FN));
