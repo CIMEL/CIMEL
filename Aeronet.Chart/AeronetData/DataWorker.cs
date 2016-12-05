@@ -8,11 +8,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using ThreadState = System.Threading.ThreadState;
 
 namespace Aeronet.Chart.AeronetData
 {
     public class DataWorker
     {
+        private Thread _threadWorker;
+        private static bool _isStopped = false;
+
         #region Events
 
         public event MessageHandler Informed;
@@ -52,6 +57,10 @@ namespace Aeronet.Chart.AeronetData
 
         #endregion Events
 
+        public DataWorker()
+        {
+        }
+
         private ProcessStartInfo NewStartInfo(string command, string args)
         {
             string program = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, command);
@@ -61,7 +70,7 @@ namespace Aeronet.Chart.AeronetData
                 RedirectStandardError = true, // display error in current screen
                 CreateNoWindow = true, // don't launch another command line windows
                 UseShellExecute = false, // perform in current command line windows
-                ErrorDialog = false // the error will be displayed in current windows
+                ErrorDialog = false, // the error will be displayed in current windows,
             };
 
             return startInfo;
@@ -83,6 +92,7 @@ namespace Aeronet.Chart.AeronetData
                     }
                 };
 
+                OnInformed("***************************************************************");
                 // Run creator
                 process.Start();
 
@@ -93,6 +103,8 @@ namespace Aeronet.Chart.AeronetData
 
                 // waiting until exit
                 process.WaitForExit();
+
+                OnInformed("***************************************************************");
             }
 
             return success;
@@ -142,131 +154,128 @@ namespace Aeronet.Chart.AeronetData
         /// </summary>
         public void Stop()
         {
-            throw new NotImplementedException("Hasn't been implemented");
+            _isStopped = true;
+
+            while (this._threadWorker.ThreadState!=ThreadState.Stopped)
+            {
+                Thread.Sleep(0);
+            }
+            // release resource
+            this._threadWorker = null;
+        }
+
+        public void Start(string stns_fn,string stns_id,string fdata)
+        {
+            _isStopped = false;
+            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(this.Work);
+            this._threadWorker = new Thread(threadStart);
+            this._threadWorker.Start(new WorkParameters(stns_fn,stns_id,fdata));
         }
 
         /// <summary>
         /// Start the data process
         /// </summary>
-        public void Start()
+        private void Work(object state)
         {
             try
             {
+                var paras = state as WorkParameters;
                 this.OnStarted(new EventMessage("Started", false));
 
-                OnInformed(string.Format("Aeronet Inversion VER: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString()));
+                OnInformed(string.Format("Aeronet Inversion VER: {0}", Assembly.GetExecutingAssembly().GetName().Version));
 
-                // check if the data files are valid.
-                OnInformed("Initial arguments");
-                string[] dats = Directory.GetFiles(ConfigOptions.Singleton.DATA_Dir, "*.all|*.alr",
-                    SearchOption.TopDirectoryOnly);
-                if(dats.Length==0)
-                    throw new FileNotFoundException("Not found data files (*.ALL, *.ALR)");
+                if (_isStopped)
+                    throw new WorkCancelException();
 
-                string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
-                if(string.IsNullOrEmpty(dataFileName))
-                    throw new FileNotFoundException(string.Format("Invalid file name <-{0}",dats[0]));
-
-                string FDATA = dataFileName;//Utility.GetAppSettingValue("ARG_FDATA", @default: "hangzhou-808-1");
-                OnInformed(string.Format("STNS_FN : {0}", FDATA));
-
-                Match m = Regex.Match(dataFileName, "\\w+");
-                if (!m.Success)
-                    throw new Exception(string.Format("Cannot recognize the region name from the data file name <-{0}", dataFileName));
-
-                string STNS_FN = m.Value;//Utility.GetAppSettingValue("ARG_STNS_FN", @default: "hangzhou");
-                OnInformed(string.Format("STNS_FN : {0}", STNS_FN));
-
-                m = Regex.Match(dataFileName, "\\d+");
-                if(!m.Success)
-                    throw new Exception(string.Format("Cannot recognize the id of the instrument from the data file name <-{0}", dataFileName));
-
-                string STNS_ID = m.Value;//Utility.GetAppSettingValue("ARG_STNS_ID", @default: "808");
-                OnInformed(string.Format("STNS_FN : {0}", STNS_ID));
-
-
+                //OnInformed("Initial arguments");
                 string ipt = ConfigOptions.Singleton.INS_PARA_Dir;
-                string metaData = ConfigOptions.Singleton.METADATA_Dir;
-                string @out = Path.Combine(metaData, "input");
-                //string @out = ConfigOptions.Singleton.OUTPUT_Dir;
+                string @out = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir,"input");
                 string brdf = ConfigOptions.Singleton.MODIS_BRDF_Dir;
                 string dat = ConfigOptions.Singleton.DATA_Dir;
 
-                
+                // move the creator program to the working folder(metadata)
+                string metaData = ConfigOptions.Singleton.METADATA_Dir;
+                string creator = ConfigOptions.Singleton.PROGRAM_CREATOR;
+                string creatorName = Path.GetFileName(creator);
+                string nCreator = Path.Combine(metaData, creatorName);
+                File.Copy(creator, nCreator, true);
 
-#if !DEBUGMATLAB
+//#if !DEBUGMATLAB
                 // initial creator command arguments
-                string commandArgs = string.Format("{0} {1} {2} {3} {4} {5} {6}", STNS_FN, STNS_ID, FDATA, ipt, @out, brdf, dat);
-                ProcessStartInfo creatorProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_CREATOR, commandArgs);
+                string commandArgs = string.Format("{0} {1} {2} {3} {4} {5} {6}", paras.STNS_FN, paras.STNS_ID, paras.FDATA, ipt, @out, brdf, dat);
+                ProcessStartInfo startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_CREATOR, commandArgs);
                 // show command line and args
                 OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_CREATOR, commandArgs));
-                OnInformed(string.Format("{0} = {1}", "STNS_FN", STNS_FN));
-                OnInformed(string.Format("{0} = {1}", "STNS_ID", STNS_ID));
-                OnInformed(string.Format("{0} = {1}", "FDATA", FDATA));
+                OnInformed(string.Format("{0} = {1}", "STNS_FN", paras.STNS_FN));
+                OnInformed(string.Format("{0} = {1}", "STNS_ID", paras.STNS_ID));
+                OnInformed(string.Format("{0} = {1}", "FDATA", paras.FDATA));
                 OnInformed(string.Format("{0} = {1}", "FIPT", ipt));
                 OnInformed(string.Format("{0} = {1}", "FOUT", @out));
                 OnInformed(string.Format("{0} = {1}", "FBRDF", brdf));
                 OnInformed(string.Format("{0} = {1}", "FDAT", dat));
                 // perform creator process
-                OnInformed("***************************************************************");
-                bool sucess = Run(creatorProInfo);
-                OnInformed("***************************************************************");
+                bool sucess = Run(startInfo);
                 if (!sucess)
-                {
-                    Exit();
-                    return;
-                }
+                    throw new WorkFailedException();
 
-#if DEMON
-            // only keep a few of testing files for next step
-            // only keep 130119 files, FNAME.txt and FNAME
-            LogInfo("For demo presentation, only keeps the 130119 testing files");
-            Cleanup(STNS_FN);
-#endif
+                if (_isStopped)
+                    throw new WorkCancelException();
+
+//#if DEMON
+//            // only keep a few of testing files for next step
+//            // only keep 130119 files, FNAME.txt and FNAME
+//            LogInfo("For demo presentation, only keeps the 130119 testing files");
+//            Cleanup(STNS_FN);
+//#endif
+                // move the creator program to the working folder(metadata)
+                string outputor = ConfigOptions.Singleton.PROGRAM_CREATOR;
+                string outputorName = Path.GetFileName(outputor);
+                string nOutputor = Path.Combine(metaData, outputorName);
+                File.Copy(outputor, nOutputor, true);
+
                 // initial outputor command arguments
-                ProcessStartInfo outputorProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
+                commandArgs = paras.STNS_FN;
+                startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, commandArgs);
                 // show command line and args
-                OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, STNS_FN));
-                OnInformed(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
+                OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, commandArgs));
+                OnInformed(string.Format("{0} = {1}", "STNSSTR", paras.STNS_FN));
                 // perform outputor process
-                OnInformed("***************************************************************");
-                sucess = Run(outputorProInfo);
-                OnInformed("***************************************************************");
+                sucess = Run(startInfo);
                 if (!sucess)
-                {
-                    Exit();
-                    return;
-                }
-#endif
-                string inputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output", STNS_FN) + Path.DirectorySeparatorChar;
-                string outputbase = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                    "cimel_network", STNS_FN,
-                        "dubovik") + Path.DirectorySeparatorChar;
+                    throw new WorkFailedException();
+
+                //#endif
+                string inputbase = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) + Path.DirectorySeparatorChar;
+                string outputbase = ConfigOptions.Singleton.OUTPUT_Dir;// Path.DirectorySeparatorChar;
+                if (!outputbase.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    outputbase += Path.DirectorySeparatorChar;
+
+                // get lat and lon of region
+                Region region = RegionStore.Singleton.FindRegion(paras.STNS_FN);
+                commandArgs = string.Format("{0} {1} {2} {3}", region.Lat, region.Lon, inputbase, outputbase);
+                startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_DRAWER, commandArgs);
+                // show command line and args
+                OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_DRAWER, commandArgs));
+                OnInformed(String.Format("\t{0} : {1}", "LAT", region.Lat));
+                OnInformed(String.Format("\t{0} : {1}", "LON", region.Lon));
+                OnInformed(String.Format("\t{0} : {1}", "INPUT", inputbase));
+                OnInformed(String.Format("\t{0} : {1}", "OUTPUT", outputbase));
+                // perform outputor process
+                sucess = Run(startInfo);
+                if (!sucess)
+                    throw new WorkFailedException();
+
                 string outputfile = Path.Combine(outputbase,
-                    String.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", STNS_FN, STNS_ID, DateTime.Now));
-
-                if (!Directory.Exists(outputbase))
-                    Directory.CreateDirectory(outputbase);
-
-                OnInformed("\tARGUMENTS:");
-                OnInformed(String.Format("\t{0} : {1}", "LAT", lat));
-                OnInformed(String.Format("\t{0} : {1}", "LON", lon));
-                OnInformed(String.Format("\t{0} : {1}", "INPUT", mwInput));
-                OnInformed(String.Format("\t{0} : {1}", "OUTPUT", mwOutput));
-
-                ProcessStartInfo drawProInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_OUTPUTOR, string.Format("{0}", STNS_FN));
+                    String.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
+                commandArgs = outputfile;
+                startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs);
                 // show command line and args
-                OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_OUTPUTOR, STNS_FN));
-                OnInformed(string.Format("{0} = {1}", "STNSSTR", STNS_FN));
+                OnInformed(string.Format("{0} {1}", ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs));
+                OnInformed(String.Format("\t{0} : {1}", "OUTPUTFILE", outputfile));
                 // perform outputor process
-                OnInformed("***************************************************************");
-                sucess = Run(drawProInfo);
-                OnInformed("***************************************************************");
+                sucess = Run(startInfo);
                 if (!sucess)
-                {
-                    Exit();
-                    return;
-                }
+                    throw new WorkFailedException();
 
                 OnInformed("All jobs are complete!");
                 Exit();
@@ -277,5 +286,19 @@ namespace Aeronet.Chart.AeronetData
                 Exit();
             }
         }
+    }
+
+    public class WorkParameters
+    {
+        public WorkParameters(string stnsFn, string stnsId, string fdata)
+        {
+            STNS_FN = stnsFn;
+            STNS_ID = stnsId;
+            FDATA = fdata;
+        }
+
+        public string STNS_FN { get; private set; }
+        public string STNS_ID { get; private set; }
+        public string FDATA { get; private set; }
     }
 }

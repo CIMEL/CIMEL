@@ -15,8 +15,6 @@ namespace Aeronet.Chart
 {
     public class ConfigOptions
     {
-        public static string REGIONS_STORE = string.Empty;//Utility.GetAppSettingValue("Regions_store", @default: "regions.json");
-
         private static ConfigOptions _default = new ConfigOptions();
 
         protected string OptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "options.json");
@@ -80,14 +78,28 @@ namespace Aeronet.Chart
         [Category("PROCESSOR"),
         DisplayName(@"Outputor"),
         Description("Outputor"),
+        ReadOnly(true),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
-        public string PROGRAM_OUTPUTOR { get; set; } //Utility.GetAppSettingValue("Outputor", @default: "main.exe");
+        public string PROGRAM_OUTPUTOR { get; set; }
 
         [Category("PROCESSOR"),
         DisplayName(@"Creator"),
         Description("Initial"),
+        ReadOnly(true),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
-        public string PROGRAM_CREATOR { get; set; }//Utility.GetAppSettingValue("Creator", @default: "create_input_carsnet.exe");
+        public string PROGRAM_CREATOR { get; set; }
+
+        [Category("PROCESSOR"),
+        DisplayName(@"Drawer"),
+        ReadOnly(true),
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+
+        public string PROGRAM_DRAWER { get; set; }
+        [Category("PROCESSOR"),
+        DisplayName(@"Splitter"),
+        ReadOnly(true),
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        public string PROGRAM_SPLITTER { get; set; }
 
         /// <summary>
         /// Loads the options to memory
@@ -117,7 +129,9 @@ namespace Aeronet.Chart
                                           || string.IsNullOrEmpty(this.MODIS_BRDF_Dir)
                                           || string.IsNullOrEmpty(this.INS_PARA_Dir)
                                           || string.IsNullOrEmpty(this.METADATA_Dir)
-                                          || string.IsNullOrEmpty(this.OUTPUT_Dir);
+                                          || string.IsNullOrEmpty(this.OUTPUT_Dir)
+                                          || string.IsNullOrEmpty(this.PROGRAM_DRAWER)
+                                          || string.IsNullOrEmpty(this.PROGRAM_SPLITTER);
                     this.IsInitialized = !isNotCompleted;
                 }
                 catch (Exception)
@@ -151,8 +165,10 @@ namespace Aeronet.Chart
                 },
                 processor = new
                 {
-                    creator = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "create_input_carsnet.exe"),
-                    outputor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "main.exe")
+                    creator = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"AeronetData", "create_input_carsnet.exe"),
+                    outputor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "main.exe"),
+                    drawer = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "draw.exe"),
+                    splitter = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "splitter.exe"),
                 },
                 output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "output"),
                 isInit = true

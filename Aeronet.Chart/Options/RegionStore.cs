@@ -15,12 +15,11 @@ namespace Aeronet.Chart.Options
     {
         private static RegionStore _default = new RegionStore();
 
+        protected string OptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "regions.json");
+
         protected RegionStore()
         {
-            string regionStore = ConfigOptions.REGIONS_STORE;
-            string dataPath = Regex.IsMatch(regionStore, "^regions.json$", RegexOptions.IgnoreCase)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, regionStore)
-                : regionStore;
+            string dataPath = OptionsPath;
 
             string content = File.ReadAllText(dataPath);
             var j = new JsonTextReader(new StringReader(content));
@@ -37,6 +36,11 @@ namespace Aeronet.Chart.Options
             return
                 this.regions.RegionList.FirstOrDefault(
                     r => Regex.IsMatch(r.Name, "^" + regionName + "$", RegexOptions.IgnoreCase));
+        }
+
+        public List<Region> GetRegions()
+        {
+            return this.regions.RegionList;
         }
     }
 
