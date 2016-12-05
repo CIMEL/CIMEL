@@ -248,6 +248,100 @@ namespace Aeronet.Chart.AeronetData
 
         }
 
+        // see IPS Manufacturing\Project Files\Pull-O-Tron\Recyclometer\StatusForm.cs
+        private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index == -1)
+            {
+                return;
+            }
+
+            string line = this.listBox1.Items[e.Index].ToString();
+            Brush brush = Brushes.Black;
+            if (line.Contains("Poll complete"))
+            {
+                brush = Brushes.Blue;
+            }
+
+            if (line.Equals("Result: Failed"))
+            {
+                brush = Brushes.Red;
+            }
+
+            if (line.Equals("Result: OK"))
+            {
+                brush = Brushes.Green;
+            }
+
+            if (line.Contains("messages Low"))
+            {
+                brush = Brushes.DarkGoldenrod;
+            }
+
+            if (line.Contains("messages Med"))
+            {
+                brush = Brushes.Goldenrod;
+            }
+
+            if (line.Contains("messages High"))
+            {
+                brush = Brushes.OrangeRed;
+            }
+
+            if (line.Contains("messages Crit"))
+            {
+                brush = Brushes.Maroon;
+            }
+
+            if (line.Contains("!!!"))
+            {
+                brush = Brushes.Fuchsia;
+            }
+
+            if (line.Trim().StartsWith("+"))
+            {
+                brush = Brushes.Green;
+                line = line.Remove(line.IndexOf('+'), 1);
+            }
+            else if (line.Trim().StartsWith("-"))
+            {
+                brush = Brushes.Red;
+                line = line.Remove(line.IndexOf('-'), 1);
+            }
+
+            e.DrawBackground();
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                brush = new SolidBrush(SystemColors.HighlightText);
+            }
+
+            e.Graphics.DrawString(line, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
+            e.DrawFocusRectangle();
+        }
+
+        private void LogMessage(string message)
+        {
+            string[] strings = message.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string str in strings)
+            {
+                this.lstLogs.Items.Add(str);
+            }
+
+            int visibleLines = this.lstLogs.Height / this.lstLogs.ItemHeight;
+            if (this.lstLogs.Items.Count > visibleLines)
+            {
+                this.lstLogs.TopIndex = this.lstLogs.Items.Count - visibleLines;
+            }
+
+            if (this.lstLogs.Items.Count > 2000)
+            {
+                for (int i = 0; i < 500; i++)
+                {
+                    this.lstLogs.Items.RemoveAt(0);
+                }
+            }
+        }
+
         /// <summary>
         /// Apply complete state to the UI controls when the worker completes the job
         /// </summary>
