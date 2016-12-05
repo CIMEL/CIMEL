@@ -55,9 +55,9 @@
             // btAction
             // 
             this.btAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAction.Location = new System.Drawing.Point(405, 423);
+            this.btAction.Location = new System.Drawing.Point(405, 428);
             this.btAction.Name = "btAction";
-            this.btAction.Size = new System.Drawing.Size(75, 28);
+            this.btAction.Size = new System.Drawing.Size(75, 23);
             this.btAction.TabIndex = 2;
             this.btAction.Text = "Process";
             this.btAction.UseVisualStyleBackColor = true;
@@ -128,7 +128,6 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnImport,
             this.btnRefresh});
@@ -140,33 +139,26 @@
             // 
             // btnImport
             // 
-            this.btnImport.Image = global::Aeronet.Chart.Properties.Resources.Import_24;
-            this.btnImport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(72, 22);
+            this.btnImport.Size = new System.Drawing.Size(56, 22);
             this.btnImport.Text = "&Import...";
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Image = global::Aeronet.Chart.Properties.Resources.Refresh_24;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(66, 22);
+            this.btnRefresh.Size = new System.Drawing.Size(50, 22);
             this.btnRefresh.Text = "&Refresh";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(486, 423);
+            this.btnClose.Location = new System.Drawing.Point(486, 428);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 28);
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 

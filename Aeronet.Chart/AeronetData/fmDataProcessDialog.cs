@@ -24,6 +24,12 @@ namespace Aeronet.Chart.AeronetData
         private TaskScheduler _fmTaskScheduler;
         private string LABEL_GOOD = @"GOOD";
         private string LABEL_EMPTY = @"NOT CONFIG";
+        private string LOG_H_ERROR = @"[ERROR]";
+        private string LOG_H_INFO = @"[INFO]";
+        private string LOG_EXT = @"[EXT]";
+        private string LOG_INT = @"[INT]";
+        private string LOG_H_SUCCESS = @"[COMPLETED]";
+        private string LOG_H_ABORTED = @"[ABORTED]";
 
         public fmDataProcessDialog()
         {
@@ -107,7 +113,7 @@ namespace Aeronet.Chart.AeronetData
                 else
                 {
                     this.lblFDATA.Text = dataFileName;
-                    SetToGood(this.lblFDATA);
+                    SetToGood(this.lblVal_FDATA);
 //                  initial and validate the region name
                     Match m = Regex.Match(dataFileName, "\\w+");
                     if (!m.Success)
@@ -215,7 +221,6 @@ namespace Aeronet.Chart.AeronetData
 
         /// <summary>
         /// Adds the Info to the list box of logs
-        /// todo: reference the code implementation in the PZM
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="message"></param>
@@ -223,9 +228,8 @@ namespace Aeronet.Chart.AeronetData
         {
             Task.Factory.StartNew(() =>
             {
-                string info = "";
-                bool external = true;
-                string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), info);
+                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_INFO);
+                this.LogMessage(msg);
                 Logger.Default.Info(msg);
             }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
 
@@ -240,73 +244,101 @@ namespace Aeronet.Chart.AeronetData
         {
             Task.Factory.StartNew(() =>
             {
-                string error = "";
-                bool external = true;
-                string msg = string.Format("{0} -> {1}", (external ? "EXT" : "INT"), error);
+                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT),  message.Message, LOG_H_ERROR);
+                this.LogMessage(msg);
                 Logger.Default.Error(msg);
             }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
 
         }
 
+        /// <summary>
+        /// Apply complete state to the UI controls when the worker completes the job
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void WorkerCompleted(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                this.btnClose.Enabled = true;
+                this._isWorking = false;
+                string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
+                this.LogMessage(msg);
+                Logger.Default.Info(msg);
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+        }
+
+        /// <summary>
+        /// Apply start state to the UI controls when the worker starts the job
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void WorkerStarted(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                this.btnClose.Enabled = false;
+                this.btnAction.Enabled = true;
+                this._isWorking = true;
+                string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
+                this.LogMessage(msg);
+                Logger.Default.Info(msg);
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+        }
+
         // see IPS Manufacturing\Project Files\Pull-O-Tron\Recyclometer\StatusForm.cs
-        private void listBox1_DrawItem(object sender, DrawItemEventArgs e)
+        private void lstLogs_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index == -1)
             {
                 return;
             }
 
-            string line = this.listBox1.Items[e.Index].ToString();
+            string line = this.lstLogs.Items[e.Index].ToString();
             Brush brush = Brushes.Black;
-            if (line.Contains("Poll complete"))
+            if (line.Contains(LOG_EXT))
             {
-                brush = Brushes.Blue;
+                line = line.Replace(LOG_EXT, string.Empty);
+                if (line.Contains(LOG_H_INFO))
+                {
+                    line = line.Replace(LOG_H_INFO, string.Empty);
+                    brush = Brushes.Black;
+                }
+                else if (line.Contains(LOG_H_ERROR))
+                {
+                    line = line.Replace(LOG_H_ERROR, string.Empty);
+                    brush = Brushes.Red;
+                }
+                else if (line.Contains(LOG_H_SUCCESS))
+                {
+                    brush = Brushes.Green;
+                }
+                else if (line.Contains(LOG_H_ABORTED))
+                {
+                    brush = Brushes.Red;
+                }
             }
-
-            if (line.Equals("Result: Failed"))
+            else if (line.Contains(LOG_INT))
             {
-                brush = Brushes.Red;
-            }
-
-            if (line.Equals("Result: OK"))
-            {
-                brush = Brushes.Green;
-            }
-
-            if (line.Contains("messages Low"))
-            {
-                brush = Brushes.DarkGoldenrod;
-            }
-
-            if (line.Contains("messages Med"))
-            {
-                brush = Brushes.Goldenrod;
-            }
-
-            if (line.Contains("messages High"))
-            {
-                brush = Brushes.OrangeRed;
-            }
-
-            if (line.Contains("messages Crit"))
-            {
-                brush = Brushes.Maroon;
-            }
-
-            if (line.Contains("!!!"))
-            {
-                brush = Brushes.Fuchsia;
-            }
-
-            if (line.Trim().StartsWith("+"))
-            {
-                brush = Brushes.Green;
-                line = line.Remove(line.IndexOf('+'), 1);
-            }
-            else if (line.Trim().StartsWith("-"))
-            {
-                brush = Brushes.Red;
-                line = line.Remove(line.IndexOf('-'), 1);
+                line = line.Replace(LOG_INT, string.Empty);
+                if (line.Contains(LOG_H_INFO))
+                {
+                    line = line.Replace(LOG_H_INFO, string.Empty);
+                    brush = Brushes.Gray;
+                }
+                else if (line.Contains(LOG_H_ERROR))
+                {
+                    line = line.Replace(LOG_H_ERROR, string.Empty);
+                    brush = Brushes.PaleVioletRed;
+                }
+                else if (line.Contains(LOG_H_SUCCESS))
+                {
+                    brush = Brushes.LightGreen;
+                }
+                else if (line.Contains(LOG_H_ABORTED))
+                {
+                    brush = Brushes.PaleVioletRed;
+                }
             }
 
             e.DrawBackground();
@@ -342,35 +374,6 @@ namespace Aeronet.Chart.AeronetData
             }
         }
 
-        /// <summary>
-        /// Apply complete state to the UI controls when the worker completes the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerCompleted(object sender, EventMessage message)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                this.btnClose.Enabled = true;
-                this._isWorking = false;
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
-        }
-
-        /// <summary>
-        /// Apply start state to the UI controls when the worker starts the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerStarted(object sender, EventMessage message)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                this.btnClose.Enabled = false;
-                this.btnAction.Enabled = true;
-                this._isWorking = true;
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
-        }
-
         private void btnAction_Click(object sender, EventArgs e)
         {
             // prevent action from duplicated click
@@ -385,7 +388,9 @@ namespace Aeronet.Chart.AeronetData
                     if (AreAllGood())
                     {
                         //double confirms
-                        if (DialogResult.No == MessageBox.Show(@"Are you sure to start to process data?\r\n[Yes]: Start immediately\r\n[No]: Check again",
+                        string question =
+                            "Are you sure to start to process data?\r\n[Yes]: Start immediately\r\n[No]: Check again";
+                        if (DialogResult.No == MessageBox.Show(question,
                             @"Data Process Validation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
                             MessageBoxDefaultButton.Button1))
                             return;
@@ -398,7 +403,7 @@ namespace Aeronet.Chart.AeronetData
                     }
 
                     // initial worker
-                    string regionName = this.cmbRegions.Text;
+                    string regionName = (string)((dynamic)(this.cmbRegions.SelectedItem)).Value;
                     string dataFileName = this.lblFDATA.Text;
                     string instrumentId = this.txtSTNS_ID.Text;
                     // start the worker

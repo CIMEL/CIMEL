@@ -78,27 +78,23 @@ namespace Aeronet.Chart
         [Category("PROCESSOR"),
         DisplayName(@"Outputor"),
         Description("Outputor"),
-        ReadOnly(true),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        ReadOnly(true)]
         public string PROGRAM_OUTPUTOR { get; set; }
 
         [Category("PROCESSOR"),
         DisplayName(@"Creator"),
         Description("Initial"),
-        ReadOnly(true),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        ReadOnly(true)]
         public string PROGRAM_CREATOR { get; set; }
 
         [Category("PROCESSOR"),
         DisplayName(@"Drawer"),
-        ReadOnly(true),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        ReadOnly(true)]
 
         public string PROGRAM_DRAWER { get; set; }
         [Category("PROCESSOR"),
         DisplayName(@"Splitter"),
-        ReadOnly(true),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        ReadOnly(true)]
         public string PROGRAM_SPLITTER { get; set; }
 
         /// <summary>
@@ -125,6 +121,8 @@ namespace Aeronet.Chart
                     this.OUTPUT_Dir = (string)options.output;
                     this.PROGRAM_CREATOR = (string)options.processor.creator;
                     this.PROGRAM_OUTPUTOR = (string)options.processor.outputor;
+                    this.PROGRAM_DRAWER=(string)options.processor.drawer;
+                    this.PROGRAM_SPLITTER = (string) options.processor.splitter;
                     bool isNotCompleted = string.IsNullOrEmpty(this.DATA_Dir)
                                           || string.IsNullOrEmpty(this.MODIS_BRDF_Dir)
                                           || string.IsNullOrEmpty(this.INS_PARA_Dir)
@@ -204,7 +202,9 @@ namespace Aeronet.Chart
                 processor = new
                 {
                     outputor = this.PROGRAM_OUTPUTOR,
-                    creator = this.PROGRAM_CREATOR
+                    creator = this.PROGRAM_CREATOR,
+                    drawer=this.PROGRAM_DRAWER,
+                    splitter=this.PROGRAM_SPLITTER
                 },
                 output = this.OUTPUT_Dir,
                 isInit = true

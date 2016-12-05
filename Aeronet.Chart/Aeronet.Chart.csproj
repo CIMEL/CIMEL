@@ -177,12 +177,6 @@
     </Content>
     <Content Include="resource\File-24.png" />
     <Content Include="resource\Folder-24.png" />
-    <Content Include="resource\Import-24.png" />
-    <None Include="resource\Refresh-20.png" />
-    <Content Include="resource\Refresh-24.png" />
-    <None Include="resource\Save-20.png" />
-    <Content Include="resource\Save-24.png" />
-    <None Include="resource\Close Window-20.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -64,11 +64,13 @@
             this.lstLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstLogs.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lstLogs.FormattingEnabled = true;
             this.lstLogs.Location = new System.Drawing.Point(12, 220);
             this.lstLogs.Name = "lstLogs";
             this.lstLogs.Size = new System.Drawing.Size(446, 316);
             this.lstLogs.TabIndex = 0;
+            this.lstLogs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstLogs_DrawItem);
             // 
             // btnClose
             // 
