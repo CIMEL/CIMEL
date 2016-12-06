@@ -5,6 +5,15 @@
         "ins_para": "",
         "metadata": ""
     },
-    "output": "",
+    "output": {
+        "output": "",
+        "chartset": ""
+    },
+    "processor": {
+        "creator": "",
+        "outputor": "",
+        "drawer": "",
+        "splitter": ""
+    },
     "isInit": false
 }

@@ -61,6 +61,11 @@ namespace Aeronet.Chart.Options
                 MessageBox.Show(@"The Output path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (string.IsNullOrEmpty(ConfigOptions.Singleton.CHARTSET_Dir))
+            {
+                MessageBox.Show(@"The Chart set path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             ConfigOptions.Singleton.Save();
             MessageBox.Show(@"Save Successfully!");

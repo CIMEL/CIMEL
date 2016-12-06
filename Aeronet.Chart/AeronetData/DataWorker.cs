@@ -241,9 +241,15 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
-/*
+
+                string strOutputRoot = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN);
+                if (!Directory.Exists(strOutputRoot))
+                    Directory.CreateDirectory(strOutputRoot);
+
+                string outputfile = Path.Combine(strOutputRoot,
+                    string.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
                 // Run process of Drawer
-                sucess = RunDrawer(paras);
+                sucess = RunDrawer(paras,outputfile);
                 lock (_stateLocker)
                 {
                     if (_isStopped)
@@ -251,9 +257,8 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
-
                 // Run process of Splitter
-                sucess = RunSplitter(paras);
+                sucess = RunSplitter(paras,outputfile);
 
                 lock (_stateLocker)
                 {
@@ -262,7 +267,6 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
-*/
 
                 OnInformed("All jobs are complete!");
                 Exit(true);
@@ -278,40 +282,34 @@ namespace Aeronet.Chart.AeronetData
             }
         }
 
-        private bool RunSplitter(WorkParameters paras)
+        private bool RunSplitter(WorkParameters paras,string outputfile)
         {
-            string outputbase = ConfigOptions.Singleton.OUTPUT_Dir; // Path.DirectorySeparatorChar;
-            if (!outputbase.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                outputbase += Path.DirectorySeparatorChar;
-            string outputfile = Path.Combine(outputbase,
-                String.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
-            var commandArgs = outputfile;
+            var commandArgs = String.Format("{0} {1}", outputfile, ConfigOptions.Singleton.CHARTSET_Dir);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs);
             // show command line and args
             OnInformed(string.Format("{0} = {1}","SPLITTER", ConfigOptions.Singleton.PROGRAM_SPLITTER));
             OnInformed(String.Format("{0} = {1}", "OUTPUTFILE", outputfile));
+            OnInformed(String.Format("{0} = {1}", "CHARTSETROOT", ConfigOptions.Singleton.CHARTSET_Dir));
             // perform outputor process
             var sucess = Run(startInfo);
             return sucess;
         }
 
-        private bool RunDrawer(WorkParameters paras)
+        private bool RunDrawer(WorkParameters paras,string outputfile)
         {
-            string inputbase = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) + Path.DirectorySeparatorChar;
-            string outputbase = ConfigOptions.Singleton.OUTPUT_Dir;
-            if (outputbase[outputbase.Length - 1] != Path.DirectorySeparatorChar)
-                outputbase += Path.DirectorySeparatorChar;
+            string inputbase = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) +
+                               Path.DirectorySeparatorChar;
 
             // get lat and lon of region
             Region region = RegionStore.Singleton.FindRegion(paras.STNS_FN);
-            var commandArgs = string.Format("{0} {1} {2} {3}", region.Lat, region.Lon, inputbase, outputbase);
+            var commandArgs = string.Format("{0} {1} {2}|{3}", inputbase, outputfile, region.Lat, region.Lon);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_DRAWER, commandArgs);
             // show command line and args
-            OnInformed(string.Format("{0} = {1}","DRAWER", ConfigOptions.Singleton.PROGRAM_DRAWER));
+            OnInformed(string.Format("{0} = {1}", "DRAWER", ConfigOptions.Singleton.PROGRAM_DRAWER));
+            OnInformed(String.Format("{0} = {1}", "INPUT", inputbase));
+            OnInformed(String.Format("{0} = {1}", "OUTPUT", outputfile));
             OnInformed(String.Format("{0} = {1}", "LAT", region.Lat));
             OnInformed(String.Format("{0} = {1}", "LON", region.Lon));
-            OnInformed(String.Format("{0} = {1}", "INPUT", inputbase));
-            OnInformed(String.Format("{0} = {1}", "OUTPUT", outputbase));
             // perform outputor process
             var sucess = Run(startInfo);
             return sucess;
@@ -319,13 +317,18 @@ namespace Aeronet.Chart.AeronetData
 
         private bool RunOutputor(WorkParameters paras)
         {
-            string @out = Path.Combine(ConfigOptions.Singleton.METADATA_Dir, "input", paras.STNS_FN) + Path.DirectorySeparatorChar;
+            // string @out = Path.Combine(ConfigOptions.Singleton.METADATA_Dir, "input", paras.STNS_FN) + Path.DirectorySeparatorChar;
             // move the creator program to the working folder(metadata)
             string metaData = ConfigOptions.Singleton.METADATA_Dir;
             string outputor = ConfigOptions.Singleton.PROGRAM_OUTPUTOR;
             string outputorName = Path.GetFileName(outputor);
             string nOutputor = Path.Combine(metaData, outputorName);
             File.Copy(outputor, nOutputor, true);
+
+            // initial output path
+            string @out = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) + Path.DirectorySeparatorChar;
+            if (!Directory.Exists(@out))
+                Directory.CreateDirectory(@out);
 
             // initial outputor command arguments
             var commandArgs = paras.STNS_FN;
@@ -345,9 +348,10 @@ namespace Aeronet.Chart.AeronetData
             if (ipt[ipt.Length - 1] != Path.DirectorySeparatorChar)
                 ipt += Path.DirectorySeparatorChar;
 
-            string @out = Path.Combine(ConfigOptions.Singleton.METADATA_Dir, "input",paras.STNS_FN)+Path.DirectorySeparatorChar;
+            string @out = Path.Combine(ConfigOptions.Singleton.METADATA_Dir, "input", paras.STNS_FN) + Path.DirectorySeparatorChar;
             if (!Directory.Exists(@out))
                 Directory.CreateDirectory(@out);
+
             string brdf = ConfigOptions.Singleton.MODIS_BRDF_Dir;
             if (brdf[brdf.Length - 1] != Path.DirectorySeparatorChar)
                 brdf += Path.DirectorySeparatorChar;

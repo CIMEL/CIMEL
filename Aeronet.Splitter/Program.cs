@@ -22,6 +22,8 @@ namespace Aeronet.Splitter
                     throw new ArgumentException("Missing Argument: aeronet data file (.dat)");
 
                 string datFile = args[0];
+                if (args.Length < 2)
+                    throw new ArgumentException("Missing Argument: chart set root directory");
 
                 if (string.IsNullOrEmpty(Path.GetDirectoryName(datFile)))
                     datFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, datFile);
@@ -130,7 +132,7 @@ namespace Aeronet.Splitter
                 // initial Aeronet file attributes
                 string chartSetName = Path.GetFileNameWithoutExtension(datFile);
                 chartSetName = string.Format("{0}_{1:yyyMMddhhmmssfff}", chartSetName, DateTime.Now);
-                string root = Path.GetDirectoryName(datFile);
+                string root = args[1];
                 string chartSetPath = Path.Combine(root, chartSetName);
 
                 // initial the chartSet folder

@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AeronetDrawNative">
-      <HintPath>..\Matlablib\AeronetDrawNative.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -140,7 +137,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="App.config" />
     <None Include="Options\options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -181,12 +177,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "$(ProjectDir)$(OutDir)data" mkdir "$(ProjectDir)$(OutDir)data"
-if not exist "$(ProjectDir)$(OutDir)modis_brdf" mkdir "$(ProjectDir)$(OutDir)modis_brdf"
-if not exist "$(ProjectDir)$(OutDir)ins_para" mkdir "$(ProjectDir)$(OutDir)ins_para"
-if not exist "$(ProjectDir)$(OutDir)metadata" mkdir "$(ProjectDir)$(OutDir)metadata"
-if not exist "$(ProjectDir)$(OutDir)output" mkdir "$(ProjectDir)$(OutDir)output"
-XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)AeronetData"
+    <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)AeronetData"
 </PostBuildEvent>

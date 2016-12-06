@@ -114,7 +114,7 @@ namespace Aeronet.Chart
 
             // clean up the combox of data sets
             this.cmbDataSets.Items.Clear();
-            string outputFolder = ConfigOptions.Singleton.OUTPUT_Dir;
+            string outputFolder = ConfigOptions.Singleton.CHARTSET_Dir;
             string[] dataSets = Directory.GetFiles(outputFolder, "*.aeronet", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {

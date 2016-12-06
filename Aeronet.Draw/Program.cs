@@ -17,8 +17,6 @@ namespace Aeronet.Draw
 
             try
             {
-                OnInformed("***************************************************************");
-
                 // 1 calculate Matrix of aeronent
                 OnInformed("Calculating Aeronet inversion Matrix");
                 if(args==null||args.Length<3)
@@ -88,7 +86,6 @@ namespace Aeronet.Draw
             }
             finally
             {
-                OnInformed("***************************************************************");
                 drawing.Dispose();
             }
         }

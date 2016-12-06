@@ -213,7 +213,7 @@ namespace Aeronet.Chart.AeronetData
 //          Show all errors
             if (sb.Length > 0)
             {
-                MessageBox.Show(sb.ToString(), @"Parameters Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(sb.ToString(), @"Parameters Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
                 this.btnAction.Enabled = true;
