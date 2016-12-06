@@ -24,6 +24,8 @@ namespace Aeronet.Chart.AeronetData
         private TaskScheduler _fmTaskScheduler;
         private string LABEL_GOOD = @"GOOD";
         private string LABEL_EMPTY = @"NOT CONFIG";
+        private const int IMG_GOOD = 1;
+        private const int IMG_ERROR = 2;
         private string LOG_H_ERROR = @"[ERROR]";
         private string LOG_H_INFO = @"[INFO]";
         private string LOG_EXT = @"[EXT]";
@@ -284,12 +286,12 @@ namespace Aeronet.Chart.AeronetData
         {
             Task.Factory.StartNew(() =>
             {
-                this.btnClose.Enabled = false;
-                this.btnAction.Enabled = true;
                 lock (_workLocker)
                 {
                     this._isWorking = true;
                 }
+                this.btnClose.Enabled = false;
+                this.btnAction.Enabled = true;
                 string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
                 this.LogMessage(msg);
                 Logger.Default.Info(msg);
@@ -389,7 +391,6 @@ namespace Aeronet.Chart.AeronetData
             // prevent action from duplicated click
             this.btnAction.Enabled = false;
             // check action state
-            string action = btnAction.Text;
             var worker = this._dataWork;
 
             lock (_workLocker)
@@ -399,6 +400,7 @@ namespace Aeronet.Chart.AeronetData
                     // stop the worker
                     worker.Stop();
                     this.btnAction.Text = @"开始";
+                    this.btnAction.Enabled = true;
                 }
                 else
                 {
@@ -439,26 +441,26 @@ namespace Aeronet.Chart.AeronetData
 
         private void SetToGood(Label control)
         {
-            control.Text = LABEL_GOOD;
-            control.ForeColor=Color.Green;
+            control.ImageIndex = IMG_GOOD;// 1: good
+            this.toolTip1.SetToolTip(control,string.Empty);
         }
 
         private void SetToError(Label control, string error)
         {
-            control.Text = error;
-            control.ForeColor = Color.Red;
+            control.ImageIndex = IMG_ERROR;// 2: error
+            this.toolTip1.SetToolTip(control, error);
         }
 
         private bool AreAllGood()
         {
-            return lblVal_FDATA.Text == LABEL_GOOD
-                   && lblVal_STNS_FN.Text == LABEL_GOOD
-                   && lblVal_STNS_ID.Text == LABEL_GOOD
-                   && lblVal_FIPT.Text == LABEL_GOOD
-                   && lblVal_FBRDF.Text == LABEL_GOOD
-                   && lblVal_TEMP.Text == LABEL_GOOD
-                   && lblVal_FOUT.Text == LABEL_GOOD
-                   && lblVal_FDAT.Text == LABEL_GOOD;
+            return lblVal_FDATA.ImageIndex == IMG_GOOD
+                   && lblVal_STNS_FN.ImageIndex == IMG_GOOD
+                   && lblVal_STNS_ID.ImageIndex == IMG_GOOD
+                   && lblVal_FIPT.ImageIndex == IMG_GOOD
+                   && lblVal_FBRDF.ImageIndex == IMG_GOOD
+                   && lblVal_TEMP.ImageIndex == IMG_GOOD
+                   && lblVal_FOUT.ImageIndex == IMG_GOOD
+                   && lblVal_FDAT.ImageIndex == IMG_GOOD;
         }
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
@@ -471,7 +473,7 @@ namespace Aeronet.Chart.AeronetData
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
         {
-            if (txtSTNS_ID.Text == ComboBoxItem.EmptyItem.Text)
+            if (string.IsNullOrEmpty(txtSTNS_ID.Text)|| txtSTNS_ID.Text == ComboBoxItem.EmptyItem.Text)
                 this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
             else
                 this.SetToGood(this.lblVal_STNS_ID);

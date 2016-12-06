@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmDataProcessDialog));
             this.lstLogs = new System.Windows.Forms.ListBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAction = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblVal_TEMP = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lblVal_FOUT = new System.Windows.Forms.Label();
             this.lblVal_FDAT = new System.Windows.Forms.Label();
             this.lblVal_FBRDF = new System.Windows.Forms.Label();
@@ -56,6 +59,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblFDATA = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,80 +135,91 @@
             // 
             // lblVal_TEMP
             // 
-            this.lblVal_TEMP.AutoSize = true;
-            this.lblVal_TEMP.Location = new System.Drawing.Point(300, 182);
+            this.lblVal_TEMP.ImageIndex = 0;
+            this.lblVal_TEMP.ImageList = this.imageList1;
+            this.lblVal_TEMP.Location = new System.Drawing.Point(67, 182);
             this.lblVal_TEMP.Name = "lblVal_TEMP";
-            this.lblVal_TEMP.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_TEMP.Size = new System.Drawing.Size(13, 13);
             this.lblVal_TEMP.TabIndex = 25;
-            this.lblVal_TEMP.Text = "PENDING";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "question");
+            this.imageList1.Images.SetKeyName(1, "good");
+            this.imageList1.Images.SetKeyName(2, "error");
             // 
             // lblVal_FOUT
             // 
-            this.lblVal_FOUT.AutoSize = true;
-            this.lblVal_FOUT.Location = new System.Drawing.Point(300, 161);
+            this.lblVal_FOUT.ImageIndex = 0;
+            this.lblVal_FOUT.ImageList = this.imageList1;
+            this.lblVal_FOUT.Location = new System.Drawing.Point(67, 161);
             this.lblVal_FOUT.Name = "lblVal_FOUT";
-            this.lblVal_FOUT.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_FOUT.Size = new System.Drawing.Size(13, 13);
             this.lblVal_FOUT.TabIndex = 24;
-            this.lblVal_FOUT.Text = "PENDING";
             // 
             // lblVal_FDAT
             // 
-            this.lblVal_FDAT.AutoSize = true;
-            this.lblVal_FDAT.Location = new System.Drawing.Point(300, 140);
+            this.lblVal_FDAT.ImageIndex = 0;
+            this.lblVal_FDAT.ImageList = this.imageList1;
+            this.lblVal_FDAT.Location = new System.Drawing.Point(67, 140);
             this.lblVal_FDAT.Name = "lblVal_FDAT";
-            this.lblVal_FDAT.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_FDAT.Size = new System.Drawing.Size(13, 13);
             this.lblVal_FDAT.TabIndex = 23;
-            this.lblVal_FDAT.Text = "PENDING";
             // 
             // lblVal_FBRDF
             // 
-            this.lblVal_FBRDF.AutoSize = true;
-            this.lblVal_FBRDF.Location = new System.Drawing.Point(300, 119);
+            this.lblVal_FBRDF.ImageIndex = 0;
+            this.lblVal_FBRDF.ImageList = this.imageList1;
+            this.lblVal_FBRDF.Location = new System.Drawing.Point(67, 119);
             this.lblVal_FBRDF.Name = "lblVal_FBRDF";
-            this.lblVal_FBRDF.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_FBRDF.Size = new System.Drawing.Size(13, 13);
             this.lblVal_FBRDF.TabIndex = 22;
-            this.lblVal_FBRDF.Text = "PENDING";
             // 
             // lblVal_FIPT
             // 
-            this.lblVal_FIPT.AutoSize = true;
-            this.lblVal_FIPT.Location = new System.Drawing.Point(300, 98);
+            this.lblVal_FIPT.ImageIndex = 0;
+            this.lblVal_FIPT.ImageList = this.imageList1;
+            this.lblVal_FIPT.Location = new System.Drawing.Point(67, 98);
             this.lblVal_FIPT.Name = "lblVal_FIPT";
-            this.lblVal_FIPT.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_FIPT.Size = new System.Drawing.Size(13, 13);
             this.lblVal_FIPT.TabIndex = 21;
-            this.lblVal_FIPT.Text = "PENDING";
             // 
             // lblVal_STNS_ID
             // 
-            this.lblVal_STNS_ID.AutoSize = true;
-            this.lblVal_STNS_ID.Location = new System.Drawing.Point(300, 73);
+            this.lblVal_STNS_ID.BackColor = System.Drawing.SystemColors.Control;
+            this.lblVal_STNS_ID.ImageIndex = 0;
+            this.lblVal_STNS_ID.ImageList = this.imageList1;
+            this.lblVal_STNS_ID.Location = new System.Drawing.Point(67, 73);
             this.lblVal_STNS_ID.Name = "lblVal_STNS_ID";
-            this.lblVal_STNS_ID.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_STNS_ID.Size = new System.Drawing.Size(13, 13);
             this.lblVal_STNS_ID.TabIndex = 20;
-            this.lblVal_STNS_ID.Text = "PENDING";
             // 
             // lblVal_STNS_FN
             // 
-            this.lblVal_STNS_FN.AutoSize = true;
-            this.lblVal_STNS_FN.Location = new System.Drawing.Point(300, 44);
+            this.lblVal_STNS_FN.ImageIndex = 0;
+            this.lblVal_STNS_FN.ImageList = this.imageList1;
+            this.lblVal_STNS_FN.Location = new System.Drawing.Point(67, 44);
             this.lblVal_STNS_FN.Name = "lblVal_STNS_FN";
-            this.lblVal_STNS_FN.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_STNS_FN.Size = new System.Drawing.Size(13, 13);
             this.lblVal_STNS_FN.TabIndex = 19;
-            this.lblVal_STNS_FN.Text = "PENDING";
             // 
             // lblVal_FDATA
             // 
-            this.lblVal_FDATA.AutoSize = true;
+            this.lblVal_FDATA.BackColor = System.Drawing.SystemColors.Control;
             this.lblVal_FDATA.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblVal_FDATA.Location = new System.Drawing.Point(300, 20);
+            this.lblVal_FDATA.ImageIndex = 0;
+            this.lblVal_FDATA.ImageList = this.imageList1;
+            this.lblVal_FDATA.Location = new System.Drawing.Point(67, 20);
             this.lblVal_FDATA.Name = "lblVal_FDATA";
-            this.lblVal_FDATA.Size = new System.Drawing.Size(56, 13);
+            this.lblVal_FDATA.Size = new System.Drawing.Size(13, 13);
             this.lblVal_FDATA.TabIndex = 18;
-            this.lblVal_FDATA.Text = "PENDING";
+            this.toolTip1.SetToolTip(this.lblVal_FDATA, "1111");
             // 
             // txtSTNS_ID
             // 
-            this.txtSTNS_ID.Location = new System.Drawing.Point(79, 70);
+            this.txtSTNS_ID.Location = new System.Drawing.Point(86, 70);
             this.txtSTNS_ID.Name = "txtSTNS_ID";
             this.txtSTNS_ID.Size = new System.Drawing.Size(121, 20);
             this.txtSTNS_ID.TabIndex = 17;
@@ -213,7 +228,7 @@
             // lblTEMP
             // 
             this.lblTEMP.AutoSize = true;
-            this.lblTEMP.Location = new System.Drawing.Point(76, 182);
+            this.lblTEMP.Location = new System.Drawing.Point(83, 182);
             this.lblTEMP.Name = "lblTEMP";
             this.lblTEMP.Size = new System.Drawing.Size(58, 13);
             this.lblTEMP.TabIndex = 16;
@@ -222,7 +237,7 @@
             // lblFOUT
             // 
             this.lblFOUT.AutoSize = true;
-            this.lblFOUT.Location = new System.Drawing.Point(76, 161);
+            this.lblFOUT.Location = new System.Drawing.Point(83, 161);
             this.lblFOUT.Name = "lblFOUT";
             this.lblFOUT.Size = new System.Drawing.Size(58, 13);
             this.lblFOUT.TabIndex = 15;
@@ -249,7 +264,7 @@
             // lblDAT
             // 
             this.lblDAT.AutoSize = true;
-            this.lblDAT.Location = new System.Drawing.Point(76, 140);
+            this.lblDAT.Location = new System.Drawing.Point(83, 140);
             this.lblDAT.Name = "lblDAT";
             this.lblDAT.Size = new System.Drawing.Size(58, 13);
             this.lblDAT.TabIndex = 12;
@@ -258,7 +273,7 @@
             // lblFBRDF
             // 
             this.lblFBRDF.AutoSize = true;
-            this.lblFBRDF.Location = new System.Drawing.Point(76, 119);
+            this.lblFBRDF.Location = new System.Drawing.Point(83, 119);
             this.lblFBRDF.Name = "lblFBRDF";
             this.lblFBRDF.Size = new System.Drawing.Size(58, 13);
             this.lblFBRDF.TabIndex = 11;
@@ -267,7 +282,7 @@
             // lblFIPT
             // 
             this.lblFIPT.AutoSize = true;
-            this.lblFIPT.Location = new System.Drawing.Point(76, 98);
+            this.lblFIPT.Location = new System.Drawing.Point(83, 98);
             this.lblFIPT.Name = "lblFIPT";
             this.lblFIPT.Size = new System.Drawing.Size(58, 13);
             this.lblFIPT.TabIndex = 10;
@@ -303,7 +318,7 @@
             // cmbRegions
             // 
             this.cmbRegions.FormattingEnabled = true;
-            this.cmbRegions.Location = new System.Drawing.Point(79, 41);
+            this.cmbRegions.Location = new System.Drawing.Point(86, 41);
             this.cmbRegions.Name = "cmbRegions";
             this.cmbRegions.Size = new System.Drawing.Size(215, 21);
             this.cmbRegions.TabIndex = 6;
@@ -330,7 +345,7 @@
             // lblFDATA
             // 
             this.lblFDATA.AutoSize = true;
-            this.lblFDATA.Location = new System.Drawing.Point(76, 20);
+            this.lblFDATA.Location = new System.Drawing.Point(83, 20);
             this.lblFDATA.Name = "lblFDATA";
             this.lblFDATA.Size = new System.Drawing.Size(58, 13);
             this.lblFDATA.TabIndex = 1;
@@ -344,6 +359,12 @@
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "FDATA:";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ShowAlways = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // fmDataProcessDialog
             // 
@@ -392,5 +413,7 @@
         private System.Windows.Forms.Label lblVal_FDAT;
         private System.Windows.Forms.Label lblVal_FBRDF;
         private System.Windows.Forms.Label lblVal_FIPT;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
