@@ -74,8 +74,8 @@
             // lblYear
             // 
             this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(31, 22);
-            this.lblYear.Text = "2013";
+            this.lblYear.Size = new System.Drawing.Size(54, 22);
+            this.lblYear.Text = "- Select -";
             // 
             // toolStripSeparator1
             // 

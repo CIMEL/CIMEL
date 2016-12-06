@@ -101,6 +101,12 @@
     <Compile Include="Options\fmOptions.Designer.cs">
       <DependentUpon>fmOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Options\fmRegions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options\fmRegions.Designer.cs">
+      <DependentUpon>fmRegions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Options\FolderBrowserEditor.cs" />
     <Compile Include="Options\RegionStore.cs" />
     <Compile Include="Program.cs" />
@@ -126,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Options\fmOptions.resx">
       <DependentUpon>fmOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\fmRegions.resx">
+      <DependentUpon>fmRegions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -31,13 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aeronetDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -46,11 +45,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbRegions = new System.Windows.Forms.ComboBox();
             this.btnScan = new System.Windows.Forms.Button();
             this.cmbCharts = new System.Windows.Forms.ComboBox();
             this.chartPanel1 = new Aeronet.Chart.Chart.ChartPanel();
-            this.cmbRegions = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -63,35 +62,22 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(560, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(588, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.openToolStripMenuItem.Text = "&Open...";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(109, 6);
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -100,7 +86,8 @@
             this.toolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aeronetDataToolStripMenuItem,
             this.toolStripSeparator1,
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.regionsToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
             this.toolToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.toolToolStripMenuItem.Text = "&Tool";
@@ -124,6 +111,13 @@
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // regionsToolStripMenuItem
+            // 
+            this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.regionsToolStripMenuItem.Text = "Regions...";
+            this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -141,9 +135,9 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 433);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 508);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(560, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(588, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -160,7 +154,7 @@
             this.cmbDataSets.FormattingEnabled = true;
             this.cmbDataSets.Location = new System.Drawing.Point(69, 46);
             this.cmbDataSets.Name = "cmbDataSets";
-            this.cmbDataSets.Size = new System.Drawing.Size(325, 21);
+            this.cmbDataSets.Size = new System.Drawing.Size(353, 21);
             this.cmbDataSets.TabIndex = 2;
             // 
             // label1
@@ -194,15 +188,32 @@
             this.groupBox1.Controls.Add(this.cmbDataSets);
             this.groupBox1.Location = new System.Drawing.Point(13, 28);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(535, 103);
+            this.groupBox1.Size = new System.Drawing.Size(563, 103);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Aeronet Data";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "地区:";
+            // 
+            // cmbRegions
+            // 
+            this.cmbRegions.FormattingEnabled = true;
+            this.cmbRegions.Location = new System.Drawing.Point(69, 17);
+            this.cmbRegions.Name = "cmbRegions";
+            this.cmbRegions.Size = new System.Drawing.Size(240, 21);
+            this.cmbRegions.TabIndex = 7;
+            // 
             // btnScan
             // 
             this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScan.Location = new System.Drawing.Point(454, 17);
+            this.btnScan.Location = new System.Drawing.Point(482, 17);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(75, 23);
             this.btnScan.TabIndex = 6;
@@ -212,8 +223,6 @@
             // 
             // cmbCharts
             // 
-            this.cmbCharts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbCharts.FormattingEnabled = true;
             this.cmbCharts.Location = new System.Drawing.Point(69, 75);
             this.cmbCharts.Name = "cmbCharts";
@@ -228,36 +237,20 @@
             this.chartPanel1.DataConfigFile = null;
             this.chartPanel1.Location = new System.Drawing.Point(13, 137);
             this.chartPanel1.Name = "chartPanel1";
-            this.chartPanel1.Size = new System.Drawing.Size(536, 293);
+            this.chartPanel1.Size = new System.Drawing.Size(564, 368);
             this.chartPanel1.TabIndex = 6;
-            // 
-            // cmbRegions
-            // 
-            this.cmbRegions.FormattingEnabled = true;
-            this.cmbRegions.Location = new System.Drawing.Point(69, 17);
-            this.cmbRegions.Name = "cmbRegions";
-            this.cmbRegions.Size = new System.Drawing.Size(240, 21);
-            this.cmbRegions.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "地区:";
             // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 455);
+            this.ClientSize = new System.Drawing.Size(588, 530);
             this.Controls.Add(this.chartPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(604, 569);
             this.Name = "fmMain";
             this.Text = "Aeronet Chart";
             this.menuStrip1.ResumeLayout(false);
@@ -273,8 +266,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aeronetDataToolStripMenuItem;
@@ -293,6 +284,7 @@
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbRegions;
+        private System.Windows.Forms.ToolStripMenuItem regionsToolStripMenuItem;
     }
 }
 

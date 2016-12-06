@@ -226,5 +226,14 @@ namespace Aeronet.Chart
             this.cmbCharts.Text = ComboBoxItem.EmptyItem.Text;
             this.chartPanel1.Disable();
         }
+
+        private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (fmRegions fmRegions=new fmRegions())
+            {
+                fmRegions.StartPosition=FormStartPosition.CenterParent;
+                fmRegions.ShowDialog(this);
+            }
+        }
     }
 }
