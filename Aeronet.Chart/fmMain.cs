@@ -35,6 +35,17 @@ namespace Aeronet.Chart
             // register selectedChanged
             this.cmbDataSets.SelectedIndexChanged += cmbDataSets_SelectedIndexChanged;
             this.cmbCharts.SelectedIndexChanged += cmbCharts_SelectedIndexChanged;
+            this.cmbRegions.SelectedIndexChanged += cmbRegions_SelectedIndexChanged;
+        }
+
+        private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Reset();
+            if (cmbRegions.SelectedText != ComboBoxItem.EmptyItem.Text)
+            {
+                // the aeronet data sets
+                this.Scan();
+            }
         }
 
         private void cmbCharts_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,8 +108,28 @@ namespace Aeronet.Chart
                 fmOptions.ShowDialog(this);
             }
 
-            // the aeronet data sets
-            this.Scan();
+            this.cmbRegions.Items.Clear();
+            this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
+            this.cmbRegions.ValueMember = ComboBoxItem.ValueName;
+            this.cmbRegions.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
+            try
+            {
+                var regions = RegionStore.Singleton.GetRegions();
+                foreach (var region in regions)
+                {
+                    this.cmbRegions.Items.Add(
+                        new
+                        {
+                            Text = string.Format("{0} ({1} , {2})", region.Name, region.Lat, region.Lon),
+                            Value = region.Name
+                        });
+                }
+            }
+            catch
+            {
+                MessageBox.Show(@"地区配置错误",@"Aeronet Data Initial");
+            }
+            this.cmbRegions.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -106,15 +137,26 @@ namespace Aeronet.Chart
         /// </summary>
         private void Scan()
         {
-            // disable actions
-            this.cmbDataSets.Enabled = false;
-            this.cmbCharts.Enabled = false;
-            this.cmbCharts.Items.Clear();
-            this.chartPanel1.Disable();
+            // region
+            if (this.cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
+            {
+                return;
+            }
+            string region = ((dynamic)this.cmbRegions.SelectedItem).Value;
 
             // clean up the combox of data sets
             this.cmbDataSets.Items.Clear();
-            string outputFolder = ConfigOptions.Singleton.CHARTSET_Dir;
+            // insert the empty item
+            this.cmbDataSets.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
+
+            string outputFolder = Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, region);
+            if (!Directory.Exists(outputFolder))
+            {
+                MessageBox.Show(this,
+                    @"Not found any processed aeronet data sets, please process the data within the Aeronet Data dialog firstly.",
+                    @"Aeronet Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             string[] dataSets = Directory.GetFiles(outputFolder, "*.aeronet", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {
@@ -129,8 +171,6 @@ namespace Aeronet.Chart
                 string fileName = Path.GetFileNameWithoutExtension(dataSet);
                 this.cmbDataSets.Items.Add(new { Text = fileName, Value = dataSet });
             }
-            // insert the empty item
-            this.cmbDataSets.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
 
             // enable the combo box of dataset when completely loads items
             this.cmbDataSets.Enabled = true;
@@ -166,7 +206,25 @@ namespace Aeronet.Chart
 
         private void btnScan_Click(object sender, EventArgs e)
         {
+            this.Reset();
             this.Scan();
+        }
+
+        /// <summary>
+        /// Reset the controls to initial state including 
+        /// - the combo boxe of Chart Sets
+        /// - the combo box Aeronet Data 
+        /// - the chart panel 
+        /// </summary>
+        private void Reset()
+        {
+            // disable actions
+            this.cmbDataSets.Enabled = false;
+            this.cmbDataSets.Text = ComboBoxItem.EmptyItem.Text;
+            this.cmbCharts.Enabled = false;
+            this.cmbCharts.Items.Clear();
+            this.cmbCharts.Text = ComboBoxItem.EmptyItem.Text;
+            this.chartPanel1.Disable();
         }
     }
 }

@@ -68,14 +68,14 @@
             this.lstLogs.FormattingEnabled = true;
             this.lstLogs.Location = new System.Drawing.Point(12, 220);
             this.lstLogs.Name = "lstLogs";
-            this.lstLogs.Size = new System.Drawing.Size(446, 316);
+            this.lstLogs.Size = new System.Drawing.Size(490, 316);
             this.lstLogs.TabIndex = 0;
             this.lstLogs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstLogs_DrawItem);
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(383, 541);
+            this.btnClose.Location = new System.Drawing.Point(427, 541);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
@@ -86,7 +86,7 @@
             // btnAction
             // 
             this.btnAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAction.Location = new System.Drawing.Point(302, 541);
+            this.btnAction.Location = new System.Drawing.Point(346, 541);
             this.btnAction.Name = "btnAction";
             this.btnAction.Size = new System.Drawing.Size(75, 23);
             this.btnAction.TabIndex = 2;
@@ -124,7 +124,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(446, 204);
+            this.groupBox1.Size = new System.Drawing.Size(490, 204);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parameters";
@@ -132,7 +132,7 @@
             // lblVal_TEMP
             // 
             this.lblVal_TEMP.AutoSize = true;
-            this.lblVal_TEMP.Location = new System.Drawing.Point(237, 182);
+            this.lblVal_TEMP.Location = new System.Drawing.Point(300, 182);
             this.lblVal_TEMP.Name = "lblVal_TEMP";
             this.lblVal_TEMP.Size = new System.Drawing.Size(56, 13);
             this.lblVal_TEMP.TabIndex = 25;
@@ -141,7 +141,7 @@
             // lblVal_FOUT
             // 
             this.lblVal_FOUT.AutoSize = true;
-            this.lblVal_FOUT.Location = new System.Drawing.Point(237, 161);
+            this.lblVal_FOUT.Location = new System.Drawing.Point(300, 161);
             this.lblVal_FOUT.Name = "lblVal_FOUT";
             this.lblVal_FOUT.Size = new System.Drawing.Size(56, 13);
             this.lblVal_FOUT.TabIndex = 24;
@@ -150,7 +150,7 @@
             // lblVal_FDAT
             // 
             this.lblVal_FDAT.AutoSize = true;
-            this.lblVal_FDAT.Location = new System.Drawing.Point(237, 140);
+            this.lblVal_FDAT.Location = new System.Drawing.Point(300, 140);
             this.lblVal_FDAT.Name = "lblVal_FDAT";
             this.lblVal_FDAT.Size = new System.Drawing.Size(56, 13);
             this.lblVal_FDAT.TabIndex = 23;
@@ -159,7 +159,7 @@
             // lblVal_FBRDF
             // 
             this.lblVal_FBRDF.AutoSize = true;
-            this.lblVal_FBRDF.Location = new System.Drawing.Point(237, 119);
+            this.lblVal_FBRDF.Location = new System.Drawing.Point(300, 119);
             this.lblVal_FBRDF.Name = "lblVal_FBRDF";
             this.lblVal_FBRDF.Size = new System.Drawing.Size(56, 13);
             this.lblVal_FBRDF.TabIndex = 22;
@@ -168,7 +168,7 @@
             // lblVal_FIPT
             // 
             this.lblVal_FIPT.AutoSize = true;
-            this.lblVal_FIPT.Location = new System.Drawing.Point(237, 98);
+            this.lblVal_FIPT.Location = new System.Drawing.Point(300, 98);
             this.lblVal_FIPT.Name = "lblVal_FIPT";
             this.lblVal_FIPT.Size = new System.Drawing.Size(56, 13);
             this.lblVal_FIPT.TabIndex = 21;
@@ -177,7 +177,7 @@
             // lblVal_STNS_ID
             // 
             this.lblVal_STNS_ID.AutoSize = true;
-            this.lblVal_STNS_ID.Location = new System.Drawing.Point(237, 73);
+            this.lblVal_STNS_ID.Location = new System.Drawing.Point(300, 73);
             this.lblVal_STNS_ID.Name = "lblVal_STNS_ID";
             this.lblVal_STNS_ID.Size = new System.Drawing.Size(56, 13);
             this.lblVal_STNS_ID.TabIndex = 20;
@@ -186,7 +186,7 @@
             // lblVal_STNS_FN
             // 
             this.lblVal_STNS_FN.AutoSize = true;
-            this.lblVal_STNS_FN.Location = new System.Drawing.Point(237, 44);
+            this.lblVal_STNS_FN.Location = new System.Drawing.Point(300, 44);
             this.lblVal_STNS_FN.Name = "lblVal_STNS_FN";
             this.lblVal_STNS_FN.Size = new System.Drawing.Size(56, 13);
             this.lblVal_STNS_FN.TabIndex = 19;
@@ -196,7 +196,7 @@
             // 
             this.lblVal_FDATA.AutoSize = true;
             this.lblVal_FDATA.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblVal_FDATA.Location = new System.Drawing.Point(237, 20);
+            this.lblVal_FDATA.Location = new System.Drawing.Point(300, 20);
             this.lblVal_FDATA.Name = "lblVal_FDATA";
             this.lblVal_FDATA.Size = new System.Drawing.Size(56, 13);
             this.lblVal_FDATA.TabIndex = 18;
@@ -305,7 +305,7 @@
             this.cmbRegions.FormattingEnabled = true;
             this.cmbRegions.Location = new System.Drawing.Point(79, 41);
             this.cmbRegions.Name = "cmbRegions";
-            this.cmbRegions.Size = new System.Drawing.Size(121, 21);
+            this.cmbRegions.Size = new System.Drawing.Size(215, 21);
             this.cmbRegions.TabIndex = 6;
             this.cmbRegions.SelectedIndexChanged += new System.EventHandler(this.cmbRegions_SelectedIndexChanged);
             // 
@@ -349,7 +349,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 576);
+            this.ClientSize = new System.Drawing.Size(514, 576);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAction);
             this.Controls.Add(this.btnClose);

@@ -30,6 +30,7 @@ namespace Aeronet.Chart.AeronetData
         private string LOG_INT = @"[INT]";
         private string LOG_H_SUCCESS = @"[COMPLETED]";
         private string LOG_H_ABORTED = @"[ABORTED]";
+        private static object _workLocker=new object();
 
         public fmDataProcessDialog()
         {
@@ -48,10 +49,13 @@ namespace Aeronet.Chart.AeronetData
 
         private void fmDataProcessDialog_Closing(object sender, CancelEventArgs e)
         {
-            if (this._isWorking)
+            lock (_workLocker)
             {
-                e.Cancel = true;
-                MessageBox.Show(@"Cannot be closed, the data process is still in progress", @"Data Process Warning");
+                if (this._isWorking)
+                {
+                    e.Cancel = true;
+                    MessageBox.Show(@"Cannot be closed, the data process is still in progress", @"Data Process Warning");
+                }
             }
         }
 
@@ -69,6 +73,7 @@ namespace Aeronet.Chart.AeronetData
             this.cmbRegions.Items.Clear();
             this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
             this.cmbRegions.ValueMember = ComboBoxItem.ValueName;
+            this.cmbRegions.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
             try
             {
                 var regions = RegionStore.Singleton.GetRegions();
@@ -88,7 +93,6 @@ namespace Aeronet.Chart.AeronetData
                 sb.AppendLine(error);
                 this.SetToError(lblVal_STNS_FN, error);
             }
-            this.cmbRegions.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
             this.cmbRegions.SelectedIndex = 0;
 
 //          initial and validate the data file name
@@ -261,7 +265,10 @@ namespace Aeronet.Chart.AeronetData
             Task.Factory.StartNew(() =>
             {
                 this.btnClose.Enabled = true;
-                this._isWorking = false;
+                lock (_workLocker)
+                {
+                    this._isWorking = false;
+                }
                 string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
                 this.LogMessage(msg);
                 Logger.Default.Info(msg);
@@ -279,7 +286,10 @@ namespace Aeronet.Chart.AeronetData
             {
                 this.btnClose.Enabled = false;
                 this.btnAction.Enabled = true;
-                this._isWorking = true;
+                lock (_workLocker)
+                {
+                    this._isWorking = true;
+                }
                 string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
                 this.LogMessage(msg);
                 Logger.Default.Info(msg);
@@ -381,9 +391,17 @@ namespace Aeronet.Chart.AeronetData
             // check action state
             string action = btnAction.Text;
             var worker = this._dataWork;
-            switch (action)
+
+            lock (_workLocker)
             {
-                case "Start":
+                if (_isWorking)
+                {
+                    // stop the worker
+                    worker.Stop();
+                    this.btnAction.Text = @"开始";
+                }
+                else
+                {
                     // check validation state
                     if (AreAllGood())
                     {
@@ -407,14 +425,10 @@ namespace Aeronet.Chart.AeronetData
                     string dataFileName = this.lblFDATA.Text;
                     string instrumentId = this.txtSTNS_ID.Text;
                     // start the worker
-                    worker.Start(regionName,instrumentId,dataFileName);
-                    break;
-                case "Stop":
-                    // stop the worker
-                    worker.Stop();
-                    break;
-                default:
-                    break;
+                    worker.Start(regionName, instrumentId, dataFileName);
+
+                    this.btnAction.Text = @"终止";
+                }
             }
         }
 

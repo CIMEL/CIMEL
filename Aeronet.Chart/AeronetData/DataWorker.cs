@@ -284,12 +284,13 @@ namespace Aeronet.Chart.AeronetData
 
         private bool RunSplitter(WorkParameters paras,string outputfile)
         {
+            string strRoot = Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, paras.STNS_FN);
             var commandArgs = String.Format("{0} {1}", outputfile, ConfigOptions.Singleton.CHARTSET_Dir);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs);
             // show command line and args
             OnInformed(string.Format("{0} = {1}","SPLITTER", ConfigOptions.Singleton.PROGRAM_SPLITTER));
             OnInformed(String.Format("{0} = {1}", "OUTPUTFILE", outputfile));
-            OnInformed(String.Format("{0} = {1}", "CHARTSETROOT", ConfigOptions.Singleton.CHARTSET_Dir));
+            OnInformed(String.Format("{0} = {1}", "CHARTSETROOT", strRoot));
             // perform outputor process
             var sucess = Run(startInfo);
             return sucess;

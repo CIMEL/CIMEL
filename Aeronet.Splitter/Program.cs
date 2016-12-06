@@ -15,8 +15,6 @@ namespace Aeronet.Splitter
         {
             try
             {
-                OnInformed("***************************************************************");
-
                 // check argument
                 if (args == null || args.Length == 0)
                     throw new ArgumentException("Missing Argument: aeronet data file (.dat)");
@@ -170,10 +168,6 @@ namespace Aeronet.Splitter
             {
                 // alerts the error msg and exit program
                 OnFailed(ex.Message);
-            }
-            finally
-            {
-                OnInformed("***************************************************************");
             }
         }
 

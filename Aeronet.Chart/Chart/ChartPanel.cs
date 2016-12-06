@@ -191,8 +191,11 @@ namespace Aeronet.Chart.Chart
 
         public void Disable()
         {
+            this.lblYear.Text = ComboBoxItem.EmptyItem.Text;
             this.tsCmbMonth.Items.Clear();
+            this.tsCmbMonth.Text = ComboBoxItem.EmptyItem.Text;
             this.tsCmbDay.Items.Clear();
+            this.tsCmbDay.Text = ComboBoxItem.EmptyItem.Text;
             this.DisableChart();
             this.Enabled = false;
         }
