@@ -15,7 +15,7 @@ namespace Aeronet.Chart
 
     public class EmptyItem
     {
-        public string Text = "- Select -";
+        public string Text = "- 选择 -";
         public string Value = "";
 
         public dynamic ToItem()

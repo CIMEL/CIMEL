@@ -96,7 +96,7 @@ namespace Aeronet.Chart.Options
             string error;
             if (!ValidateRegion(editRegion, out error))
             {
-                MessageBox.Show(error, @"地区配置错误", MessageBoxButtons.OK,
+                MessageBox.Show(error, DLG_TITLE_ERROR, MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return false;
             }
@@ -106,7 +106,7 @@ namespace Aeronet.Chart.Options
 
                 if (this._regions.ContainsKey(editRegion.Name))
                 {
-                    MessageBox.Show(string.Format("{0}已经存在不能重复添加", editRegion.Name), @"地区配置错误", MessageBoxButtons.OK,
+                    MessageBox.Show(string.Format("{0}已经存在不能重复添加", editRegion.Name), DLG_TITLE_ERROR, MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;
                 }
@@ -128,14 +128,14 @@ namespace Aeronet.Chart.Options
         {
             if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show(@"请选择要删除的地区", @"地区配置错误", MessageBoxButtons.OK,
+                MessageBox.Show(@"请选择要删除的站台", DLG_TITLE_ERROR, MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return false;
             }
 
             if (!this._regions.ContainsKey(name))
             {
-                MessageBox.Show(@"数据异常，请重新刷新地区数据", @"地区配置错误", MessageBoxButtons.OK,
+                MessageBox.Show(@"数据异常，请重新刷新站台数据", DLG_TITLE_ERROR, MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return false;
             }
@@ -166,7 +166,7 @@ namespace Aeronet.Chart.Options
         {
             if (region == null)
             {
-                error = "数据异常，请点击 [新建] 重新填写地区信息";
+                error = "数据异常，请点击 [新建] 重新填写站点信息";
                 return false;
             }
             if (string.IsNullOrEmpty(region.Name))
@@ -195,7 +195,7 @@ namespace Aeronet.Chart.Options
             if (saved)
             {
                 this.LoadRegions();
-                MessageBox.Show(@"保存成功！", @"地区配置", MessageBoxButtons.OK,
+                MessageBox.Show(@"保存成功！", DLG_TITLE, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
         }
@@ -211,7 +211,7 @@ namespace Aeronet.Chart.Options
 
                 this.LoadRegions();
 
-                MessageBox.Show(@"删除成功！", @"地区配置", MessageBoxButtons.OK,
+                MessageBox.Show(@"删除成功！", DLG_TITLE, MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
         }

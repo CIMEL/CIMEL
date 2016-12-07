@@ -127,7 +127,7 @@ namespace Aeronet.Chart
             }
             catch
             {
-                MessageBox.Show(@"地区配置错误",@"Aeronet Data Initial");
+                MessageBox.Show(fmRegions.DLG_TITLE_ERROR,@"Aeronet Data Initial");
             }
             this.cmbRegions.SelectedIndex = 0;
         }
@@ -153,16 +153,16 @@ namespace Aeronet.Chart
             if (!Directory.Exists(outputFolder))
             {
                 MessageBox.Show(this,
-                    @"Not found any processed aeronet data sets, please process the data within the Aeronet Data dialog firstly.",
-                    @"Aeronet Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    @"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
+                    AeronetConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             string[] dataSets = Directory.GetFiles(outputFolder, "*.aeronet", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {
                 MessageBox.Show(this,
-                    @"Not found any processed aeronet data sets, please process the data within the Aeronet Data dialog firstly.",
-                    @"Aeronet Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    @"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
+                    AeronetConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             foreach (string dataSet in dataSets)

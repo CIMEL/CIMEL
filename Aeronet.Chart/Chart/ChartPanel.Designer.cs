@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.lblYear = new System.Windows.Forms.ToolStripLabel();
@@ -68,14 +68,14 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(32, 22);
-            this.toolStripLabel1.Text = "Year:";
+            this.toolStripLabel1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripLabel1.Text = "年:";
             // 
             // lblYear
             // 
             this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(54, 22);
-            this.lblYear.Text = "- Select -";
+            this.lblYear.Size = new System.Drawing.Size(49, 22);
+            this.lblYear.Text = "- 选择 -";
             // 
             // toolStripSeparator1
             // 
@@ -85,8 +85,8 @@
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(46, 22);
-            this.toolStripLabel3.Text = "Month:";
+            this.toolStripLabel3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripLabel3.Text = "月:";
             // 
             // tsCmbMonth
             // 
@@ -102,8 +102,8 @@
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(30, 22);
-            this.toolStripLabel4.Text = "Day:";
+            this.toolStripLabel4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripLabel4.Text = "日:";
             // 
             // tsCmbDay
             // 
@@ -122,17 +122,17 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(0, 25);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(563, 452);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";

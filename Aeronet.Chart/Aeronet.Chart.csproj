@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AeronetConst.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AeronetData\DataWorker.cs" />
     <Compile Include="AeronetData\FileViewer.cs">
       <SubType>UserControl</SubType>

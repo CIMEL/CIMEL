@@ -68,21 +68,21 @@ namespace Aeronet.Chart.Options
     }
 
     [DataContract]
-    public class Region
+    public partial class Region
     {
-        [Category("地区"),
+        [Category(CATELOG_REGION),
         DisplayName(@"名称"),
-        Description("地区名称")]
+        Description("站台名称")]
         [DataMember(Name = "name")]
         public string Name { get; set; }
-        [Category("地区"),
+        [Category(CATELOG_REGION),
         DisplayName(@"纬度"),
-        Description("地区所在纬度")]
+        Description("站台所在纬度")]
         [DataMember(Name = "lat")]
         public double Lat { get; set; }
-        [Category("地区"),
+        [Category(CATELOG_REGION),
         DisplayName(@"经度"),
-        Description("地区所在经度")]
+        Description("站台所在经度")]
         [DataMember(Name = "lon")]
         public double Lon { get; set; }
     }

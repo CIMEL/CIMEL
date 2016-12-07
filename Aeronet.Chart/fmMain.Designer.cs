@@ -71,14 +71,14 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.fileToolStripMenuItem.Text = "文件(&F)";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
@@ -89,14 +89,14 @@
             this.optionsToolStripMenuItem,
             this.regionsToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
-            this.toolToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
-            this.toolToolStripMenuItem.Text = "&Tool";
+            this.toolToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.toolToolStripMenuItem.Text = "工具(&T)";
             // 
             // aeronetDataToolStripMenuItem
             // 
             this.aeronetDataToolStripMenuItem.Name = "aeronetDataToolStripMenuItem";
             this.aeronetDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aeronetDataToolStripMenuItem.Text = "&Aeronet Data...";
+            this.aeronetDataToolStripMenuItem.Text = "数据处理(&Q)...";
             this.aeronetDataToolStripMenuItem.Click += new System.EventHandler(this.aeronetDataToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -108,14 +108,14 @@
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.optionsToolStripMenuItem.Text = "Options...";
+            this.optionsToolStripMenuItem.Text = "参数配置(&O)...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
             this.regionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.regionsToolStripMenuItem.Text = "Regions...";
+            this.regionsToolStripMenuItem.Text = "站台配置(&R)...";
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -123,14 +123,14 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.helpToolStripMenuItem.Text = "帮助(&H)";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "A&bout";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aboutToolStripMenuItem.Text = "关于(&A)...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1
@@ -162,18 +162,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Data Sets:";
+            this.label1.Text = "数据集:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 78);
+            this.label2.Location = new System.Drawing.Point(6, 78);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Charts:";
+            this.label2.Text = "图像类别:";
             // 
             // groupBox1
             // 
@@ -191,16 +191,16 @@
             this.groupBox1.Size = new System.Drawing.Size(563, 103);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Aeronet Data";
+            this.groupBox1.Text = "图像数据集";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 22);
+            this.label3.Location = new System.Drawing.Point(6, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "地区:";
+            this.label3.Text = "站台:";
             // 
             // cmbRegions
             // 
@@ -217,7 +217,7 @@
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(75, 23);
             this.btnScan.TabIndex = 6;
-            this.btnScan.Text = "Scan";
+            this.btnScan.Text = "扫描图像集";
             this.btnScan.UseVisualStyleBackColor = true;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
@@ -252,7 +252,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(604, 569);
             this.Name = "fmMain";
-            this.Text = "Aeronet Chart";
+            this.Text = "CIMEL光度计数据图像";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

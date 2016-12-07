@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace Aeronet.Chart
 {
-    public class ConfigOptions
+    public partial class ConfigOptions
     {
         private static ConfigOptions _default = new ConfigOptions();
 
@@ -64,60 +64,60 @@ namespace Aeronet.Chart
         [Browsable(false)]
         public bool IsInitialized { get; set; }
 
-        [Category("INPUT"),
-        DisplayName(@"Data"),
-        Description("The data path of the aeronet data of a region"),
+        [Category(CATELOG_INPUT),
+        DisplayName(@"主数据文件"),
+        Description("AERONET反演算法输入文件的目录"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string DATA_Dir { get; set; }
 
-        [Category("INPUT"),
-        DisplayName(@"Modis_BRDF"),
-        Description("The modis_brdf data path"),
+        [Category(CATELOG_INPUT),
+        DisplayName(@"BRDF文件"),
+        Description("MODIS观测数据的BRDF参数目录"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string MODIS_BRDF_Dir { get; set; }
 
-        [Category("INPUT"),
-        DisplayName(@"INS_Para"),
-        Description("The ins_para data path"),
+        [Category(CATELOG_INPUT),
+        DisplayName(@"参数文件"),
+        Description("参数文件以及数据文件主目录"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string INS_PARA_Dir { get; set; }
 
-        [Category("INPUT"),
-        DisplayName(@"Metadata"),
-        Description("The metadata path"),
+        [Category(CATELOG_INPUT),
+        DisplayName(@"其他数据文件"),
+        Description("其他必要数据文件目录"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string METADATA_Dir { get; set; }
 
-        [Category("OUTPUT"),
+        [Category(CATELOG_OUTPUT),
         DisplayName(@"Output"),
         Description("The output path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string OUTPUT_Dir { get; set; }
 
-        [Category("OUTPUT"),
+        [Category(CATELOG_OUTPUT),
         DisplayName(@"Chart Set"),
         Description("The chart set path"),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string CHARTSET_Dir { get; set; }
 
-        [Category("PROCESSOR"),
+        [Category(CATELOG_PROGRAM),
         DisplayName(@"Outputor"),
         Description("Outputor"),
         ReadOnly(true)]
         public string PROGRAM_OUTPUTOR { get; set; }
 
-        [Category("PROCESSOR"),
+        [Category(CATELOG_PROGRAM),
         DisplayName(@"Creator"),
         Description("Initial"),
         ReadOnly(true)]
         public string PROGRAM_CREATOR { get; set; }
 
-        [Category("PROCESSOR"),
+        [Category(CATELOG_PROGRAM),
         DisplayName(@"Drawer"),
         ReadOnly(true)]
 
         public string PROGRAM_DRAWER { get; set; }
-        [Category("PROCESSOR"),
+        [Category(CATELOG_PROGRAM),
         DisplayName(@"Splitter"),
         ReadOnly(true)]
         public string PROGRAM_SPLITTER { get; set; }

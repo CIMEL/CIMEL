@@ -150,7 +150,7 @@
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.listView1);
             this.Name = "fmRegions";
-            this.Text = "地区配置";
+            this.Text = DLG_TITLE;
             this.Load += new System.EventHandler(this.fmRegions_Load);
             this.ResumeLayout(false);
 
