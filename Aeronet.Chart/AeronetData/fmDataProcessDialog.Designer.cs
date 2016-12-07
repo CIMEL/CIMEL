@@ -83,7 +83,7 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_CLOSE_TEXT;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -94,7 +94,7 @@
             this.btnAction.Name = "btnAction";
             this.btnAction.Size = new System.Drawing.Size(75, 23);
             this.btnAction.TabIndex = 2;
-            this.btnAction.Text = "Start";
+            this.btnAction.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_START_TEXT;
             this.btnAction.UseVisualStyleBackColor = true;
             this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
@@ -131,7 +131,7 @@
             this.groupBox1.Size = new System.Drawing.Size(490, 204);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Parameters";
+            this.groupBox1.Text = "参数校验";
             // 
             // lblVal_TEMP
             // 
@@ -230,18 +230,18 @@
             this.lblTEMP.AutoSize = true;
             this.lblTEMP.Location = new System.Drawing.Point(83, 182);
             this.lblTEMP.Name = "lblTEMP";
-            this.lblTEMP.Size = new System.Drawing.Size(58, 13);
+            this.lblTEMP.Size = new System.Drawing.Size(49, 13);
             this.lblTEMP.TabIndex = 16;
-            this.lblTEMP.Text = "[Initializing]";
+            this.lblTEMP.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // lblFOUT
             // 
             this.lblFOUT.AutoSize = true;
             this.lblFOUT.Location = new System.Drawing.Point(83, 161);
             this.lblFOUT.Name = "lblFOUT";
-            this.lblFOUT.Size = new System.Drawing.Size(58, 13);
+            this.lblFOUT.Size = new System.Drawing.Size(49, 13);
             this.lblFOUT.TabIndex = 15;
-            this.lblFOUT.Text = "[Initializing]";
+            this.lblFOUT.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // label13
             // 
@@ -266,27 +266,27 @@
             this.lblDAT.AutoSize = true;
             this.lblDAT.Location = new System.Drawing.Point(83, 140);
             this.lblDAT.Name = "lblDAT";
-            this.lblDAT.Size = new System.Drawing.Size(58, 13);
+            this.lblDAT.Size = new System.Drawing.Size(49, 13);
             this.lblDAT.TabIndex = 12;
-            this.lblDAT.Text = "[Initializing]";
+            this.lblDAT.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // lblFBRDF
             // 
             this.lblFBRDF.AutoSize = true;
             this.lblFBRDF.Location = new System.Drawing.Point(83, 119);
             this.lblFBRDF.Name = "lblFBRDF";
-            this.lblFBRDF.Size = new System.Drawing.Size(58, 13);
+            this.lblFBRDF.Size = new System.Drawing.Size(49, 13);
             this.lblFBRDF.TabIndex = 11;
-            this.lblFBRDF.Text = "[Initializing]";
+            this.lblFBRDF.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // lblFIPT
             // 
             this.lblFIPT.AutoSize = true;
             this.lblFIPT.Location = new System.Drawing.Point(83, 98);
             this.lblFIPT.Name = "lblFIPT";
-            this.lblFIPT.Size = new System.Drawing.Size(58, 13);
+            this.lblFIPT.Size = new System.Drawing.Size(49, 13);
             this.lblFIPT.TabIndex = 10;
-            this.lblFIPT.Text = "[Initializing]";
+            this.lblFIPT.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // label8
             // 
@@ -347,9 +347,9 @@
             this.lblFDATA.AutoSize = true;
             this.lblFDATA.Location = new System.Drawing.Point(83, 20);
             this.lblFDATA.Name = "lblFDATA";
-            this.lblFDATA.Size = new System.Drawing.Size(58, 13);
+            this.lblFDATA.Size = new System.Drawing.Size(49, 13);
             this.lblFDATA.TabIndex = 1;
-            this.lblFDATA.Text = "[Initializing]";
+            this.lblFDATA.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_LBL_INITIAL;
             // 
             // label1
             // 
@@ -376,7 +376,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lstLogs);
             this.Name = "fmDataProcessDialog";
-            this.Text = "Data Process Dialog";
+            this.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_DATA_PRO_TEXT;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

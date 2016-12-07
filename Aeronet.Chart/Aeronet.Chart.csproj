@@ -149,6 +149,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="app.config" />
     <None Include="Options\options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

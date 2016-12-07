@@ -34,13 +34,13 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvDirs = new System.Windows.Forms.TreeView();
+            this.fileBrowser1 = new Aeronet.Chart.AeronetData.FileViewer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lblDescription = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnImport = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnClose = new System.Windows.Forms.Button();
-            this.fileBrowser1 = new Aeronet.Chart.AeronetData.FileViewer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -59,7 +59,7 @@
             this.btAction.Name = "btAction";
             this.btAction.Size = new System.Drawing.Size(75, 23);
             this.btAction.TabIndex = 2;
-            this.btAction.Text = "Process";
+            this.btAction.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_PROCESS_TEXT;
             this.btAction.UseVisualStyleBackColor = true;
             this.btAction.Click += new System.EventHandler(this.btAction_Click);
             // 
@@ -96,6 +96,15 @@
             this.tvDirs.SelectedImageIndex = 0;
             this.tvDirs.Size = new System.Drawing.Size(221, 346);
             this.tvDirs.TabIndex = 0;
+            // 
+            // fileBrowser1
+            // 
+            this.fileBrowser1.CurrentDirectory = "";
+            this.fileBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.fileBrowser1.Name = "fileBrowser1";
+            this.fileBrowser1.Size = new System.Drawing.Size(324, 346);
+            this.fileBrowser1.TabIndex = 0;
             // 
             // splitContainer2
             // 
@@ -140,15 +149,15 @@
             // btnImport
             // 
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(56, 22);
-            this.btnImport.Text = "&Import...";
+            this.btnImport.Size = new System.Drawing.Size(57, 22);
+            this.btnImport.Text = "导入(&I)...";
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(50, 22);
-            this.btnRefresh.Text = "&Refresh";
+            this.btnRefresh.Size = new System.Drawing.Size(52, 22);
+            this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnClose
@@ -158,18 +167,9 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_CLOSE_TEXT;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // fileBrowser1
-            // 
-            this.fileBrowser1.CurrentDirectory = "";
-            this.fileBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.fileBrowser1.Name = "fileBrowser1";
-            this.fileBrowser1.Size = new System.Drawing.Size(324, 346);
-            this.fileBrowser1.TabIndex = 0;
             // 
             // fmAeronetData
             // 
@@ -181,7 +181,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btAction);
             this.Name = "fmAeronetData";
-            this.Text = "Aeronet Data";
+            this.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_AERONET_DATA_TEXT;
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

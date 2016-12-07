@@ -81,10 +81,10 @@ namespace Aeronet.Chart.Chart
 
                 // the property DataConfigFile must be initialzied
                 if (string.IsNullOrEmpty(this.DataConfigFile))
-                    throw new NotImplementedException("The property DataConfigFile must be initialized.");
+                    throw new NotImplementedException("属性 DataConfigFile 没有初始化");
 
                 if (!File.Exists(this.DataConfigFile))
-                    throw new FileNotFoundException("Not found the data config file", this.DataConfigFile);
+                    throw new FileNotFoundException("没有找到图像集文件(.dataconfig)", this.DataConfigFile);
 
                 // initial Folder
                 this._dataFolder = Path.GetDirectoryName(this.DataConfigFile);
@@ -111,7 +111,7 @@ namespace Aeronet.Chart.Chart
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message, @"Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, ex.Message, @"图像加载错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 // disable all of funtions
                 this.Enabled = false;

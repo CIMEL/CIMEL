@@ -65,61 +65,63 @@ namespace Aeronet.Chart
         public bool IsInitialized { get; set; }
 
         [Category(CATELOG_INPUT),
-        DisplayName(@"主数据文件"),
-        Description("AERONET反演算法输入文件的目录"),
+        DisplayName(DATA_NAME),
+        Description(DATA_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string DATA_Dir { get; set; }
 
         [Category(CATELOG_INPUT),
-        DisplayName(@"BRDF文件"),
-        Description("MODIS观测数据的BRDF参数目录"),
+        DisplayName(MODIS_BRDF_NAME),
+        Description(MODIS_BRDF_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string MODIS_BRDF_Dir { get; set; }
 
         [Category(CATELOG_INPUT),
-        DisplayName(@"参数文件"),
-        Description("参数文件以及数据文件主目录"),
+        DisplayName(INS_PARA_NAME),
+        Description(INS_PARA_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string INS_PARA_Dir { get; set; }
 
         [Category(CATELOG_INPUT),
-        DisplayName(@"其他数据文件"),
-        Description("其他必要数据文件目录"),
+        DisplayName(METADATA_NAME),
+        Description(METADATA_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string METADATA_Dir { get; set; }
 
         [Category(CATELOG_OUTPUT),
-        DisplayName(@"Output"),
-        Description("The output path"),
+        DisplayName(OUTPUT_NAME),
+        Description(OUTPUT_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string OUTPUT_Dir { get; set; }
 
         [Category(CATELOG_OUTPUT),
-        DisplayName(@"Chart Set"),
-        Description("The chart set path"),
+        DisplayName(CHARTSET_NAME),
+        Description(CHARTSET_DESC),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string CHARTSET_Dir { get; set; }
 
         [Category(CATELOG_PROGRAM),
-        DisplayName(@"Outputor"),
-        Description("Outputor"),
+        DisplayName(@"格式化程序"),
+        Description("格式化和过滤ce318数据，为AERONET反演算法做数据准备"),
         ReadOnly(true)]
         public string PROGRAM_OUTPUTOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
-        DisplayName(@"Creator"),
-        Description("Initial"),
+        DisplayName(@"主生成程序"),
+        Description("执行AERONET反演算法"),
         ReadOnly(true)]
         public string PROGRAM_CREATOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
-        DisplayName(@"Drawer"),
-        ReadOnly(true)]
-
+        DisplayName(@"画图程序"),
+        ReadOnly(true),
+        Description("读取AERONET反演产品数据生成矩阵文件")]
         public string PROGRAM_DRAWER { get; set; }
+
         [Category(CATELOG_PROGRAM),
-        DisplayName(@"Splitter"),
-        ReadOnly(true)]
+        DisplayName(@"图像集程序"),
+        ReadOnly(true),
+        Description("生成图像集数据")]
         public string PROGRAM_SPLITTER { get; set; }
 
         /// <summary>
@@ -298,12 +300,12 @@ namespace Aeronet.Chart
         public FolderDescription[] GetFolders()
         {
             return new FolderDescription[]{
-                new FolderDescription("Data",this.DATA_Dir,"The data folder of one year period of the region data"),
-                new FolderDescription("Modis_BRDF",this.MODIS_BRDF_Dir,"The data folder of the Modis_BRDF data"),
-                new FolderDescription("Ins_Para",this.INS_PARA_Dir,"The data folder of the Ins_Para data"),
-                new FolderDescription("MetaData",this.METADATA_Dir,"The data folder containing other Aeronet computing meta data"),
-                new FolderDescription("Output",this.OUTPUT_Dir,"The output folder to put the generated Aeronet data"),
-                new FolderDescription("Chartset",this.CHARTSET_Dir,"The output folder to put the generated chart set data")
+                new FolderDescription(DATA_NAME,this.DATA_Dir,DATA_DESC),
+                new FolderDescription(MODIS_BRDF_NAME,this.MODIS_BRDF_Dir,MODIS_BRDF_DESC),
+                new FolderDescription(INS_PARA_NAME,this.INS_PARA_Dir,INS_PARA_DESC),
+                new FolderDescription(METADATA_NAME,this.METADATA_Dir,METADATA_DESC),
+                new FolderDescription(OUTPUT_NAME,this.OUTPUT_Dir,OUTPUT_DESC),
+                new FolderDescription(CHARTSET_NAME,this.CHARTSET_Dir,CHARTSET_DESC)
             };
         }
     }

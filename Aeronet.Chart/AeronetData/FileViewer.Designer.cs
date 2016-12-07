@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileViewer));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lvFiles = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colLastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,24 +65,26 @@
             this.lvFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.lvFiles_DragDrop);
             this.lvFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.lvFiles_DragEnter);
             // 
-            // colName
-            // 
-            this.colName.Text = "Name";
-            // 
-            // colType
-            // 
-            this.colType.Text = "Type";
-            // 
-            // colLastModified
-            // 
-            this.colLastModified.Text = "Last Modified";
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "folder");
             this.imageList1.Images.SetKeyName(1, "file");
+            // 
+            // colName
+            // 
+            this.colName.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_NAME;
+            this.colName.Width = 120;
+            // 
+            // colType
+            // 
+            this.colType.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_TYPE;
+            // 
+            // colLastModified
+            // 
+            this.colLastModified.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_LSTMDY;
+            this.colLastModified.Width = 80;
             // 
             // FileViewer
             // 

@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aeronet.Chart.Options;
+using Aeronet.Chart.Properties;
 
 namespace Aeronet.Chart.AeronetData
 {
@@ -399,7 +400,7 @@ namespace Aeronet.Chart.AeronetData
                 {
                     // stop the worker
                     worker.Stop();
-                    this.btnAction.Text = @"开始";
+                    this.btnAction.Text = Settings.Default.BTN_START_TEXT;
                     this.btnAction.Enabled = true;
                 }
                 else
@@ -429,7 +430,7 @@ namespace Aeronet.Chart.AeronetData
                     // start the worker
                     worker.Start(regionName, instrumentId, dataFileName);
 
-                    this.btnAction.Text = @"终止";
+                    this.btnAction.Text = Settings.Default.BTN_STOP_TEXT;
                 }
             }
         }

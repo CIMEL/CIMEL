@@ -23,8 +23,8 @@ namespace Aeronet.Chart.Options
             // prevent it from closing if the options are not initialized
             if (!ConfigOptions.Singleton.IsInitialized)
             {
-                MessageBox.Show(this, "Must configurate the required options before anything stuff please!",
-                    "Warning of Option configuration", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, @"开始数据处理与绘制图像前请先完成参数配置",
+                    DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 e.Cancel = true;
             }
         }
@@ -36,39 +36,40 @@ namespace Aeronet.Chart.Options
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string valFormat = @"抱歉, 请设置[{0}]";
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.DATA_Dir))
             {
-                MessageBox.Show(@"The Data path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.DATA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.MODIS_BRDF_Dir))
             {
-                MessageBox.Show(@"the Modis_BRDF path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.MODIS_BRDF_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.INS_PARA_Dir))
             {
-                MessageBox.Show(@"The Ins_Para path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.INS_PARA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.METADATA_Dir))
             {
-                MessageBox.Show(@"The Metadata path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.METADATA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.OUTPUT_Dir))
             {
-                MessageBox.Show(@"The Output path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.OUTPUT_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(ConfigOptions.Singleton.CHARTSET_Dir))
             {
-                MessageBox.Show(@"The Chart set path cannot be empty please!", @"Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(valFormat, ConfigOptions.CHARTSET_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             ConfigOptions.Singleton.Save();
-            MessageBox.Show(@"Save Successfully!");
+            MessageBox.Show(@"保存成功!",DLG_TITLE);
             this.DialogResult = DialogResult.OK;
         }
 

@@ -61,7 +61,7 @@ namespace Aeronet.Chart.Options
             }
             catch (Exception ex)
             {
-                Logger.Default.Error("Failed to save regions.json <- " + ex.Message);
+                Logger.Default.Error("保存 regions.json 失败 <- " + ex.Message);
                 return false;
             }
         }

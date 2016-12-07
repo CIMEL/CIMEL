@@ -8,22 +8,171 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aeronet.Chart.Properties
-{
-
-
+namespace Aeronet.Chart.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("保存(&S)")]
+        public string BTN_SAVE_TEXT {
+            get {
+                return ((string)(this["BTN_SAVE_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("刷新(&R)")]
+        public string BTN_REFRESH_TEXT {
+            get {
+                return ((string)(this["BTN_REFRESH_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("关闭(&C)")]
+        public string BTN_CLOSE_TEXT {
+            get {
+                return ((string)(this["BTN_CLOSE_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("参数配置")]
+        public string FM_OPTION_CONFIG_TEXT {
+            get {
+                return ((string)(this["FM_OPTION_CONFIG_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("站台配置")]
+        public string FM_REGION_CONFIG_TEXT {
+            get {
+                return ((string)(this["FM_REGION_CONFIG_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("新建(&N)")]
+        public string BTN_NEW_TEXT {
+            get {
+                return ((string)(this["BTN_NEW_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("删除(&D)")]
+        public string BTN_DELETE_TEXT {
+            get {
+                return ((string)(this["BTN_DELETE_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("数据处理")]
+        public string FM_AERONET_DATA_TEXT {
+            get {
+                return ((string)(this["FM_AERONET_DATA_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("扫描(&S)")]
+        public string BTN_SCAN_TEXT {
+            get {
+                return ((string)(this["BTN_SCAN_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("运行(&P)")]
+        public string BTN_PROCESS_TEXT {
+            get {
+                return ((string)(this["BTN_PROCESS_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("名称")]
+        public string LV_COL_NAME {
+            get {
+                return ((string)(this["LV_COL_NAME"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("类型")]
+        public string LV_COL_TYPE {
+            get {
+                return ((string)(this["LV_COL_TYPE"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("修改日期")]
+        public string LV_COL_LSTMDY {
+            get {
+                return ((string)(this["LV_COL_LSTMDY"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("数据运行")]
+        public string FM_DATA_PRO_TEXT {
+            get {
+                return ((string)(this["FM_DATA_PRO_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[初始化]")]
+        public string FM_DATA_PRO_LBL_INITIAL {
+            get {
+                return ((string)(this["FM_DATA_PRO_LBL_INITIAL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("开始(&S)")]
+        public string BTN_START_TEXT {
+            get {
+                return ((string)(this["BTN_START_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("终止(&S)")]
+        public string BTN_STOP_TEXT {
+            get {
+                return ((string)(this["BTN_STOP_TEXT"]));
             }
         }
     }

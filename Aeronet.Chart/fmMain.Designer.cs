@@ -217,7 +217,7 @@
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(75, 23);
             this.btnScan.TabIndex = 6;
-            this.btnScan.Text = "扫描图像集";
+            this.btnScan.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_SCAN_TEXT;
             this.btnScan.UseVisualStyleBackColor = true;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 

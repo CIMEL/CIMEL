@@ -1,7 +1,57 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Aeronet.Chart.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BTN_SAVE_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">保存(&amp;S)</Value>
+    </Setting>
+    <Setting Name="BTN_REFRESH_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">刷新(&amp;R)</Value>
+    </Setting>
+    <Setting Name="BTN_CLOSE_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">关闭(&amp;C)</Value>
+    </Setting>
+    <Setting Name="FM_OPTION_CONFIG_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">参数配置</Value>
+    </Setting>
+    <Setting Name="FM_REGION_CONFIG_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">站台配置</Value>
+    </Setting>
+    <Setting Name="BTN_NEW_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">新建(&amp;N)</Value>
+    </Setting>
+    <Setting Name="BTN_DELETE_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">删除(&amp;D)</Value>
+    </Setting>
+    <Setting Name="FM_AERONET_DATA_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">数据处理</Value>
+    </Setting>
+    <Setting Name="BTN_SCAN_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">扫描(&amp;S)</Value>
+    </Setting>
+    <Setting Name="BTN_PROCESS_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">运行(&amp;P)</Value>
+    </Setting>
+    <Setting Name="LV_COL_NAME" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">名称</Value>
+    </Setting>
+    <Setting Name="LV_COL_TYPE" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">类型</Value>
+    </Setting>
+    <Setting Name="LV_COL_LSTMDY" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">修改日期</Value>
+    </Setting>
+    <Setting Name="FM_DATA_PRO_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">数据运行</Value>
+    </Setting>
+    <Setting Name="FM_DATA_PRO_LBL_INITIAL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[初始化]</Value>
+    </Setting>
+    <Setting Name="BTN_START_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">开始(&amp;S)</Value>
+    </Setting>
+    <Setting Name="BTN_STOP_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">终止(&amp;S)</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

@@ -90,7 +90,7 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "关闭";
+            this.btnClose.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_CLOSE_TEXT;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -101,7 +101,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "保存";
+            this.btnSave.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_SAVE_TEXT;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -112,7 +112,7 @@
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 4;
-            this.btnNew.Text = "新建";
+            this.btnNew.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_NEW_TEXT;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
@@ -123,7 +123,7 @@
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 5;
-            this.btnRefresh.Text = "刷新";
+            this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -133,7 +133,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "删除";
+            this.btnDelete.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_DELETE_TEXT;
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -150,7 +150,7 @@
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.listView1);
             this.Name = "fmRegions";
-            this.Text = DLG_TITLE;
+            this.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_REGION_CONFIG_TEXT;
             this.Load += new System.EventHandler(this.fmRegions_Load);
             this.ResumeLayout(false);
 

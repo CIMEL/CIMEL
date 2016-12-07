@@ -14,7 +14,19 @@ namespace Aeronet.Chart
     {
         public const string CATELOG_INPUT = "输入";
         public const string CATELOG_OUTPUT = "输出";
-        public const string CATELOG_PROGRAM = "处理程序";
+        public const string CATELOG_PROGRAM = "程序";
+        public const string DATA_NAME = "主数据输入目录";
+        public const string MODIS_BRDF_NAME = "BRDF参数目录";
+        public const string INS_PARA_NAME = "参数目录";
+        public const string METADATA_NAME = "其他数据目录";
+        public const string OUTPUT_NAME = "主数据输出目录";
+        public const string CHARTSET_NAME = "图像集输入目录";
+        public const string DATA_DESC = "AERONET反演算法输入文件的目录";
+        public const string MODIS_BRDF_DESC = "MODIS观测数据的BRDF参数目录";
+        public const string INS_PARA_DESC = "参数文件以及数据文件主目录";
+        public const string METADATA_DESC = "其他必要数据文件目录";
+        public const string OUTPUT_DESC = "生成矩阵数据文件目录";
+        public const string CHARTSET_DESC = "生成的数据图像集数据目录";
     }
 }
 
@@ -29,5 +41,11 @@ namespace Aeronet.Chart.Options
     public partial class Region
     {
         public const string CATELOG_REGION = @"站台";
+    }
+
+    public partial class fmOptions
+    {
+        public const string DLG_TITLE_ERROR = "参数配置错误";
+        public const string DLG_TITLE = "参数配置";
     }
 }

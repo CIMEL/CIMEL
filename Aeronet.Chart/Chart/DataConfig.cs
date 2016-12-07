@@ -30,7 +30,7 @@ namespace Aeronet.Chart.Chart
 
             // check if it's an empty file
             if (string.IsNullOrEmpty(strDataConfig))
-                throw new FileLoadException("Invalid the data config file", dataConfigFile);
+                throw new FileLoadException("错误的图像集文件(.dataconfig)", dataConfigFile);
             // initial properties
             var objDataConfig = (dynamic)JObject.Parse(strDataConfig);
             this.Year = (int)objDataConfig.year;
