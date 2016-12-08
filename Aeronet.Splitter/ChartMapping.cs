@@ -36,6 +36,11 @@ namespace Aeronet.Splitter
 
         public DataFiles DataFiles { get; private set; }
 
+        public bool HasDataFiles
+        {
+            get { return this.DataFiles.Count>0; }
+        }
+
         public string ToHeader()
         {
             string @fixed = "year,mm,dd,hh,mm,ss,";

@@ -38,6 +38,11 @@ namespace Aeronet.Core
 
             return this._dataFiles.Count.ToString();
         }
+
+        public int Count
+        {
+            get { return this._dataFiles.Count; }
+        }
     }
 
     public class DataFile
@@ -75,6 +80,11 @@ namespace Aeronet.Core
                 sw.Close();
             }
             return fileName;
+        }
+
+        public bool IsEmpty()
+        {
+            return this.DataLines.Count == 0;
         }
     }
 

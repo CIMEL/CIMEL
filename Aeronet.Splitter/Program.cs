@@ -146,6 +146,9 @@ namespace Aeronet.Splitter
                 // save data config files and data files
                 foreach (ChartMapping objChartMapping in ChartMappings.Signleton.GetAll())
                 {
+                    // skip the chart mapping if no data file extracted from the aeronet inversion file(.dat)
+                    if(!objChartMapping.HasDataFiles) continue;
+
                     OnInformed(string.Format("Processing data: {0} - {1}", objChartMapping.Name, objChartMapping.Description));
                     string chartName = objChartMapping.Name;
                     string chartDesc = objChartMapping.Description;
