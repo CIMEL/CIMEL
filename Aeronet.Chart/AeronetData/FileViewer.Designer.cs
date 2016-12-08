@@ -74,16 +74,16 @@
             // 
             // colName
             // 
-            this.colName.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_NAME;
+            this.colName.Text = global::Aeronet.Chart.Properties.Settings.Default.COL_NAME;
             this.colName.Width = 120;
             // 
             // colType
             // 
-            this.colType.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_TYPE;
+            this.colType.Text = global::Aeronet.Chart.Properties.Settings.Default.COL_TYPE;
             // 
             // colLastModified
             // 
-            this.colLastModified.Text = global::Aeronet.Chart.Properties.Settings.Default.LV_COL_LSTMDY;
+            this.colLastModified.Text = global::Aeronet.Chart.Properties.Settings.Default.COL_LSTMDY;
             this.colLastModified.Width = 80;
             // 
             // FileViewer

@@ -32,19 +32,19 @@
     <Setting Name="BTN_PROCESS_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">运行(&amp;P)</Value>
     </Setting>
-    <Setting Name="LV_COL_NAME" Type="System.String" Scope="Application">
+    <Setting Name="COL_NAME" Type="System.String" Scope="Application">
       <Value Profile="(Default)">名称</Value>
     </Setting>
-    <Setting Name="LV_COL_TYPE" Type="System.String" Scope="Application">
+    <Setting Name="COL_TYPE" Type="System.String" Scope="Application">
       <Value Profile="(Default)">类型</Value>
     </Setting>
-    <Setting Name="LV_COL_LSTMDY" Type="System.String" Scope="Application">
+    <Setting Name="COL_LSTMDY" Type="System.String" Scope="Application">
       <Value Profile="(Default)">修改日期</Value>
     </Setting>
     <Setting Name="FM_DATA_PRO_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">数据运行</Value>
     </Setting>
-    <Setting Name="FM_DATA_PRO_LBL_INITIAL" Type="System.String" Scope="Application">
+    <Setting Name="LBL_INITIAL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">[初始化]</Value>
     </Setting>
     <Setting Name="BTN_START_TEXT" Type="System.String" Scope="Application">
@@ -52,6 +52,12 @@
     </Setting>
     <Setting Name="BTN_STOP_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">终止(&amp;S)</Value>
+    </Setting>
+    <Setting Name="DEFAULT_FONT" Type="System.Drawing.Font" Scope="Application">
+      <Value Profile="(Default)">Microsoft YaHei, 9pt</Value>
+    </Setting>
+    <Setting Name="FM_ABOUT_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">关于</Value>
     </Setting>
   </Settings>
 </SettingsFile>

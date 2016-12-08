@@ -122,40 +122,6 @@ namespace Aeronet.Chart.AeronetData
             return success;
         }
 
-        private void Cleanup(string region)
-        {
-            string input = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigOptions.Singleton.OUTPUT_Dir, region);
-            string[] files = Directory.GetFiles(input, "*.*", SearchOption.TopDirectoryOnly);
-            // delete all resource excepts 130119
-            string[] reserveds = new string[] { "hangzhou_808_130119" };
-
-            foreach (string f in files)
-            {
-                bool reserved = reserveds.Any(reservedFile => Regex.IsMatch(f, reservedFile, RegexOptions.IgnoreCase));
-                if (!reserved)
-                    File.Delete(f);
-                else
-                {
-                    this.OnInformed(string.Format("{0} - normal", f));
-                }
-            }
-
-            // revert FNAME
-            string fname = Path.Combine(input, "FNAME");
-            string content = @" 130119";
-            File.WriteAllText(fname, content);
-            this.OnInformed("Rewrite FNAME");
-
-            // revert FNAME.txt
-            content =
-@"    hangzhou_808_130119_011148
-    hangzhou_808_130119_021201
-    hangzhou_808_130119_031202";
-            string fnametxt = Path.Combine(input, "FNAME.txt");
-            File.WriteAllText(fnametxt, content);
-            this.OnInformed("Rewrite FNAME.txt");
-        }
-
         public void Exit(bool success)
         {
             this.OnCompleted(success ? new EventMessage(LOG_H_SUCCESS, true) : new EventMessage(LOG_H_ABORTED, true));
@@ -215,7 +181,7 @@ namespace Aeronet.Chart.AeronetData
                 var paras = state as WorkParameters;
                 this.OnStarted(new EventMessage("Started", true));
 
-                OnInformed(string.Format("Aeronet Inversion VER: {0}", Assembly.GetExecutingAssembly().GetName().Version));
+                OnInformed(string.Format("VER: {0}", Assembly.GetExecutingAssembly().GetName().Version));
 
                 lock (_stateLocker)
                 {
@@ -285,7 +251,7 @@ namespace Aeronet.Chart.AeronetData
         private bool RunSplitter(WorkParameters paras,string outputfile)
         {
             string strRoot = Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, paras.STNS_FN);
-            var commandArgs = String.Format("{0} {1}", outputfile, ConfigOptions.Singleton.CHARTSET_Dir);
+            var commandArgs = String.Format("{0} {1}", outputfile, strRoot);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs);
             // show command line and args
             OnInformed(string.Format("{0} = {1}","SPLITTER", ConfigOptions.Singleton.PROGRAM_SPLITTER));

@@ -143,7 +143,6 @@ namespace Aeronet.Splitter
                 OnInformed(string.Format("Chart Set Name -> {0}",chartSetName));
                 OnInformed(string.Format("Chart Set Root-> {0}", chartSetPath));
 
-
                 // save data config files and data files
                 foreach (ChartMapping objChartMapping in ChartMappings.Signleton.GetAll())
                 {

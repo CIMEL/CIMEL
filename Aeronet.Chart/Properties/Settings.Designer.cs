@@ -116,27 +116,27 @@ namespace Aeronet.Chart.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("名称")]
-        public string LV_COL_NAME {
+        public string COL_NAME {
             get {
-                return ((string)(this["LV_COL_NAME"]));
+                return ((string)(this["COL_NAME"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("类型")]
-        public string LV_COL_TYPE {
+        public string COL_TYPE {
             get {
-                return ((string)(this["LV_COL_TYPE"]));
+                return ((string)(this["COL_TYPE"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("修改日期")]
-        public string LV_COL_LSTMDY {
+        public string COL_LSTMDY {
             get {
-                return ((string)(this["LV_COL_LSTMDY"]));
+                return ((string)(this["COL_LSTMDY"]));
             }
         }
         
@@ -152,9 +152,9 @@ namespace Aeronet.Chart.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("[初始化]")]
-        public string FM_DATA_PRO_LBL_INITIAL {
+        public string LBL_INITIAL {
             get {
-                return ((string)(this["FM_DATA_PRO_LBL_INITIAL"]));
+                return ((string)(this["LBL_INITIAL"]));
             }
         }
         
@@ -173,6 +173,24 @@ namespace Aeronet.Chart.Properties {
         public string BTN_STOP_TEXT {
             get {
                 return ((string)(this["BTN_STOP_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft YaHei, 9pt")]
+        public global::System.Drawing.Font DEFAULT_FONT {
+            get {
+                return ((global::System.Drawing.Font)(this["DEFAULT_FONT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("关于")]
+        public string FM_ABOUT_TEXT {
+            get {
+                return ((string)(this["FM_ABOUT_TEXT"]));
             }
         }
     }

@@ -18,15 +18,15 @@ namespace Aeronet.Draw
             try
             {
                 // 1 calculate Matrix of aeronent
-                OnInformed("Calculating Aeronet inversion Matrix");
+                OnInformed("Reading Aeronet inversion Matrix");
                 if(args==null||args.Length<3)
-                    throw new ArgumentException("Missing arguments!\r\ndraw inputPath outputfile lat|lon");
+                    throw new ArgumentException("Missing arguments!\r\ndraw [inputPath] [outputfile] [lat|lon]");
                 string mwInput = args[0];
                 string mwOutput = args[1];
                 string location = args[2];
                 string[] arrLocation = location.Split(new char[] {'|'}, StringSplitOptions.None);
                 if (arrLocation.Length < 2)
-                    throw new ArgumentException("invalid location!\r\nlocation = \"lat|lon\"");
+                    throw new ArgumentException("invalid [location]!\r\n[location]= \"[lat|lon]\"");
 
                 // get lat and lon of region
                 double lat = ToDouble(arrLocation[0]);//region.Lat;

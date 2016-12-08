@@ -56,13 +56,15 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(588, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(686, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -71,13 +73,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.fileToolStripMenuItem.Text = "文件(&F)";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -89,7 +91,7 @@
             this.optionsToolStripMenuItem,
             this.regionsToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
-            this.toolToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.toolToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.toolToolStripMenuItem.Text = "工具(&T)";
             // 
             // aeronetDataToolStripMenuItem
@@ -123,21 +125,23 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.helpToolStripMenuItem.Text = "帮助(&H)";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "关于(&A)...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 508);
+            this.statusStrip1.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 671);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(588, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(686, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -152,26 +156,27 @@
             this.cmbDataSets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDataSets.FormattingEnabled = true;
-            this.cmbDataSets.Location = new System.Drawing.Point(69, 46);
+            this.cmbDataSets.Location = new System.Drawing.Point(80, 61);
+            this.cmbDataSets.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbDataSets.Name = "cmbDataSets";
-            this.cmbDataSets.Size = new System.Drawing.Size(353, 21);
+            this.cmbDataSets.Size = new System.Drawing.Size(411, 25);
             this.cmbDataSets.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 49);
+            this.label1.Location = new System.Drawing.Point(7, 64);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "数据集:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 78);
+            this.label2.Location = new System.Drawing.Point(7, 102);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(59, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "图像类别:";
             // 
@@ -186,9 +191,11 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmbDataSets);
-            this.groupBox1.Location = new System.Drawing.Point(13, 28);
+            this.groupBox1.Location = new System.Drawing.Point(15, 36);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(563, 103);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(657, 135);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "图像数据集";
@@ -196,26 +203,28 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 20);
+            this.label3.Location = new System.Drawing.Point(7, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "站台:";
             // 
             // cmbRegions
             // 
             this.cmbRegions.FormattingEnabled = true;
-            this.cmbRegions.Location = new System.Drawing.Point(69, 17);
+            this.cmbRegions.Location = new System.Drawing.Point(80, 22);
+            this.cmbRegions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbRegions.Name = "cmbRegions";
-            this.cmbRegions.Size = new System.Drawing.Size(240, 21);
+            this.cmbRegions.Size = new System.Drawing.Size(279, 25);
             this.cmbRegions.TabIndex = 7;
             // 
             // btnScan
             // 
             this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScan.Location = new System.Drawing.Point(482, 17);
+            this.btnScan.Location = new System.Drawing.Point(562, 22);
+            this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(75, 23);
+            this.btnScan.Size = new System.Drawing.Size(87, 30);
             this.btnScan.TabIndex = 6;
             this.btnScan.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_SCAN_TEXT;
             this.btnScan.UseVisualStyleBackColor = true;
@@ -224,9 +233,10 @@
             // cmbCharts
             // 
             this.cmbCharts.FormattingEnabled = true;
-            this.cmbCharts.Location = new System.Drawing.Point(69, 75);
+            this.cmbCharts.Location = new System.Drawing.Point(80, 98);
+            this.cmbCharts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbCharts.Name = "cmbCharts";
-            this.cmbCharts.Size = new System.Drawing.Size(240, 21);
+            this.cmbCharts.Size = new System.Drawing.Size(279, 25);
             this.cmbCharts.TabIndex = 5;
             // 
             // chartPanel1
@@ -235,23 +245,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartPanel1.DataConfigFile = null;
-            this.chartPanel1.Location = new System.Drawing.Point(13, 137);
+            this.chartPanel1.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
+            this.chartPanel1.Location = new System.Drawing.Point(15, 180);
+            this.chartPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chartPanel1.Name = "chartPanel1";
-            this.chartPanel1.Size = new System.Drawing.Size(564, 368);
+            this.chartPanel1.Size = new System.Drawing.Size(658, 481);
             this.chartPanel1.TabIndex = 6;
             // 
             // fmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 530);
+            this.ClientSize = new System.Drawing.Size(686, 693);
             this.Controls.Add(this.chartPanel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(604, 569);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MinimumSize = new System.Drawing.Size(702, 732);
             this.Name = "fmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CIMEL光度计数据图像";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

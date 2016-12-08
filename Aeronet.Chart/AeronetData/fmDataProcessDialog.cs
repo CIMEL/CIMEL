@@ -23,8 +23,8 @@ namespace Aeronet.Chart.AeronetData
         private DataWorker _dataWork;
         private bool _isWorking;
         private TaskScheduler _fmTaskScheduler;
-        private string LABEL_GOOD = @"GOOD";
-        private string LABEL_EMPTY = @"NOT CONFIG";
+        private string LABEL_GOOD = @"正常";
+        private string LABEL_EMPTY = @"缺少配置";
         private const int IMG_GOOD = 1;
         private const int IMG_ERROR = 2;
         private string LOG_H_ERROR = @"[ERROR]";
@@ -57,7 +57,7 @@ namespace Aeronet.Chart.AeronetData
                 if (this._isWorking)
                 {
                     e.Cancel = true;
-                    MessageBox.Show(@"Cannot be closed, the data process is still in progress", @"Data Process Warning");
+                    MessageBox.Show(@"数据处理中请不要关闭窗口", @"数据处理");
                 }
             }
         }
@@ -92,7 +92,7 @@ namespace Aeronet.Chart.AeronetData
             }
             catch (Exception ex)
             {
-                error = string.Format("- Failed to initial regions <- {0}", ex.Message);
+                error = string.Format("- 初始化站点失败 <- {0}", ex.Message);
                 sb.AppendLine(error);
                 this.SetToError(lblVal_STNS_FN, error);
             }
@@ -104,7 +104,7 @@ namespace Aeronet.Chart.AeronetData
                     .Where(s => s.EndsWith(".ALL") || s.EndsWith(".ALR")).ToArray();
             if (dats.Length == 0)
             {
-                error = "- Not found data files (*.ALL, *.ALR)";
+                error = "- 没有找到主数据文件 (*.ALL, *.ALR)";
                 sb.AppendLine(error);
                 SetToError(this.lblVal_FDATA,error);
             }
@@ -113,7 +113,7 @@ namespace Aeronet.Chart.AeronetData
                 string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
                 if (string.IsNullOrEmpty(dataFileName))
                 {
-                    error = string.Format("- Invalid file name <-{0}", dats[0]);
+                    error = string.Format("- 文件名命名错误 <-{0}", dats[0]);
                     sb.AppendLine(error);
                     SetToError(this.lblVal_FDATA, error);
                 }
@@ -125,7 +125,7 @@ namespace Aeronet.Chart.AeronetData
                     Match m = Regex.Match(dataFileName, "\\w+");
                     if (!m.Success)
                     {
-                        error = string.Format("- Cannot recognize the region name from the data file name <- {0}",
+                        error = string.Format("- 不能从文件名识别出站点名称 <- {0}",
                             dataFileName);
                         sb.AppendLine(error);
                         SetToError(this.lblVal_STNS_FN,error);
@@ -135,7 +135,7 @@ namespace Aeronet.Chart.AeronetData
                         var region = RegionStore.Singleton.FindRegion(m.Value);
                         if (region == null)
                         {
-                            error = string.Format("- Invalid region name <-{0}", m.Value);
+                            error = string.Format("- 站点不存在 <-{0}", m.Value);
                             sb.AppendLine(error);
                             SetToError(this.lblVal_STNS_FN, error);
                         }
@@ -150,7 +150,7 @@ namespace Aeronet.Chart.AeronetData
                     if (!m.Success)
                     {
                         error =
-                            string.Format("- Cannot recognize the id of the instrument from the data file name <- {0}",
+                            string.Format("- 不能从文件名识别出站点仪器编号 <- {0}",
                                 dataFileName);
                         sb.AppendLine(error);
                         this.SetToError(this.lblVal_STNS_ID, error);
@@ -174,24 +174,20 @@ namespace Aeronet.Chart.AeronetData
 //          validate the medata files
             if (!string.IsNullOrEmpty(ConfigOptions.Singleton.METADATA_Dir))
             {
-                string metaData = ConfigOptions.Singleton.METADATA_Dir;
-                this.lblTEMP.Text = Path.Combine(metaData, "input");
-                this.SetToGood(this.lblVal_TEMP);
-                // checks if the directory is available
-                try
-                {
-                    if (!Directory.Exists(this.lblTEMP.Text))
-                        Directory.CreateDirectory(this.lblTEMP.Text);
-                }
-                catch (Exception)
-                {
-                    error = string.Format("- Cannot create the path <- {0}", this.lblTEMP.Text);
-                    sb.AppendLine(error);
-                    this.SetToError(this.lblVal_TEMP, error);
-                }
+                this.lblMETADATA.Text = ConfigOptions.Singleton.METADATA_Dir;
+                this.SetToGood(this.lblVal_METADATA);
             }
             else
-                this.SetToError(this.lblVal_TEMP, LABEL_EMPTY);
+                this.SetToError(this.lblVal_METADATA, LABEL_EMPTY);
+            // validate the chart set dir
+            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.CHARTSET_Dir))
+            {
+                this.lblCHARTSET.Text = ConfigOptions.Singleton.CHARTSET_Dir;
+                this.SetToGood(this.lblVal_CHARTSET);
+            }
+            else
+                this.SetToError(this.lblVal_CHARTSET, LABEL_EMPTY);
+
 //          validate the output folder
             if (!string.IsNullOrEmpty(ConfigOptions.Singleton.OUTPUT_Dir))
             {
@@ -220,7 +216,7 @@ namespace Aeronet.Chart.AeronetData
 //          Show all errors
             if (sb.Length > 0)
             {
-                MessageBox.Show(sb.ToString(), @"Parameters Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(sb.ToString(), @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
                 this.btnAction.Enabled = true;
@@ -272,6 +268,7 @@ namespace Aeronet.Chart.AeronetData
                 {
                     this._isWorking = false;
                 }
+                this.btnAction.Text = Settings.Default.BTN_START_TEXT;
                 string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
                 this.LogMessage(msg);
                 Logger.Default.Info(msg);
@@ -292,6 +289,8 @@ namespace Aeronet.Chart.AeronetData
                     this._isWorking = true;
                 }
                 this.btnClose.Enabled = false;
+
+                this.btnAction.Text = Settings.Default.BTN_STOP_TEXT;
                 this.btnAction.Enabled = true;
                 string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
                 this.LogMessage(msg);
@@ -400,7 +399,6 @@ namespace Aeronet.Chart.AeronetData
                 {
                     // stop the worker
                     worker.Stop();
-                    this.btnAction.Text = Settings.Default.BTN_START_TEXT;
                     this.btnAction.Enabled = true;
                 }
                 else
@@ -410,17 +408,23 @@ namespace Aeronet.Chart.AeronetData
                     {
                         //double confirms
                         string question =
-                            "Are you sure to start to process data?\r\n[Yes]: Start immediately\r\n[No]: Check again";
+                            "准备好了吗?\r\n[Yes]: 马上开始\r\n[No]: 检查参数";
                         if (DialogResult.No == MessageBox.Show(question,
-                            @"Data Process Validation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
+                            @"参数校验", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
                             MessageBoxDefaultButton.Button1))
+                        {
+                            this.btnAction.Enabled = true;
                             return;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show(@"Cannot process data until all errors above are clean.",
-                            @"Data Process Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        MessageBox.Show(@"抱歉，参数配置仍有错误",
+                            @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        {
+                            this.btnAction.Enabled = true;
+                            return;
+                        }
                     }
 
                     // initial worker
@@ -429,8 +433,6 @@ namespace Aeronet.Chart.AeronetData
                     string instrumentId = this.txtSTNS_ID.Text;
                     // start the worker
                     worker.Start(regionName, instrumentId, dataFileName);
-
-                    this.btnAction.Text = Settings.Default.BTN_STOP_TEXT;
                 }
             }
         }
@@ -459,7 +461,7 @@ namespace Aeronet.Chart.AeronetData
                    && lblVal_STNS_ID.ImageIndex == IMG_GOOD
                    && lblVal_FIPT.ImageIndex == IMG_GOOD
                    && lblVal_FBRDF.ImageIndex == IMG_GOOD
-                   && lblVal_TEMP.ImageIndex == IMG_GOOD
+                   && lblVal_CHARTSET.ImageIndex == IMG_GOOD
                    && lblVal_FOUT.ImageIndex == IMG_GOOD
                    && lblVal_FDAT.ImageIndex == IMG_GOOD;
         }

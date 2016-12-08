@@ -49,10 +49,11 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView1.Location = new System.Drawing.Point(12, 12);
+            this.listView1.Location = new System.Drawing.Point(14, 16);
+            this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(292, 329);
+            this.listView1.Size = new System.Drawing.Size(340, 429);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -77,18 +78,20 @@
             // 
             this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.propertyGrid1.Location = new System.Drawing.Point(310, 12);
+            this.propertyGrid1.Location = new System.Drawing.Point(362, 16);
+            this.propertyGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(209, 329);
+            this.propertyGrid1.Size = new System.Drawing.Size(244, 430);
             this.propertyGrid1.TabIndex = 1;
             this.propertyGrid1.ToolbarVisible = false;
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(444, 347);
+            this.btnClose.Location = new System.Drawing.Point(518, 454);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(87, 30);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_CLOSE_TEXT;
             this.btnClose.UseVisualStyleBackColor = true;
@@ -97,9 +100,10 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(363, 347);
+            this.btnSave.Location = new System.Drawing.Point(423, 454);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(87, 30);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_SAVE_TEXT;
             this.btnSave.UseVisualStyleBackColor = true;
@@ -108,9 +112,10 @@
             // btnNew
             // 
             this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNew.Location = new System.Drawing.Point(282, 348);
+            this.btnNew.Location = new System.Drawing.Point(329, 455);
+            this.btnNew.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(75, 23);
+            this.btnNew.Size = new System.Drawing.Size(87, 30);
             this.btnNew.TabIndex = 4;
             this.btnNew.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_NEW_TEXT;
             this.btnNew.UseVisualStyleBackColor = true;
@@ -119,9 +124,10 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(201, 348);
+            this.btnRefresh.Location = new System.Drawing.Point(234, 455);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(87, 30);
             this.btnRefresh.TabIndex = 5;
             this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -129,9 +135,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(120, 348);
+            this.btnDelete.Location = new System.Drawing.Point(140, 455);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(87, 30);
             this.btnDelete.TabIndex = 6;
             this.btnDelete.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_DELETE_TEXT;
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -139,9 +146,9 @@
             // 
             // fmRegions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(531, 380);
+            this.ClientSize = new System.Drawing.Size(619, 497);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnNew);
@@ -149,6 +156,8 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.listView1);
+            this.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fmRegions";
             this.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_REGION_CONFIG_TEXT;
             this.Load += new System.EventHandler(this.fmRegions_Load);
