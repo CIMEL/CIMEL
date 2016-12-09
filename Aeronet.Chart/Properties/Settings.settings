@@ -59,5 +59,32 @@
     <Setting Name="FM_ABOUT_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">关于</Value>
     </Setting>
+    <Setting Name="BTN_OPTIONS_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">参数配置(&amp;O)...</Value>
+    </Setting>
+    <Setting Name="BTN_TOOLS_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">工具(&amp;T)</Value>
+    </Setting>
+    <Setting Name="BTN_FILE_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">文件(&amp;F)</Value>
+    </Setting>
+    <Setting Name="BTN_EXIT_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">退出(&amp;E)</Value>
+    </Setting>
+    <Setting Name="BTN_DATA_PRO_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">数据处理(&amp;Q)...</Value>
+    </Setting>
+    <Setting Name="BTN_REGIONS_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">站台配置(&amp;R)...</Value>
+    </Setting>
+    <Setting Name="BTN_HELP_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">帮助(&amp;H)</Value>
+    </Setting>
+    <Setting Name="BTN_ABOUT_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">关于(&amp;A)...</Value>
+    </Setting>
+    <Setting Name="BTN_IMPORT_TEXT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">导入(&amp;I)...</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

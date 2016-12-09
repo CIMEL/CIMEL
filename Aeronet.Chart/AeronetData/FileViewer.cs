@@ -31,7 +31,7 @@ namespace Aeronet.Chart.AeronetData
         /// </summary>
         public void LoadFiles(string directory)
         {
-            if (string.IsNullOrEmpty(directory)) return;// do nothing
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory)) return;// do nothing
 
             // update currentDirectory
             if (String.CompareOrdinal(directory, this.CurrentDirectory) != 0)

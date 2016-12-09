@@ -193,5 +193,86 @@ namespace Aeronet.Chart.Properties {
                 return ((string)(this["FM_ABOUT_TEXT"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("参数配置(&O)...")]
+        public string BTN_OPTIONS_TEXT {
+            get {
+                return ((string)(this["BTN_OPTIONS_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("工具(&T)")]
+        public string BTN_TOOLS_TEXT {
+            get {
+                return ((string)(this["BTN_TOOLS_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("文件(&F)")]
+        public string BTN_FILE_TEXT {
+            get {
+                return ((string)(this["BTN_FILE_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("退出(&E)")]
+        public string BTN_EXIT_TEXT {
+            get {
+                return ((string)(this["BTN_EXIT_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("数据处理(&Q)...")]
+        public string BTN_DATA_PRO_TEXT {
+            get {
+                return ((string)(this["BTN_DATA_PRO_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("站台配置(&R)...")]
+        public string BTN_REGIONS_TEXT {
+            get {
+                return ((string)(this["BTN_REGIONS_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("帮助(&H)")]
+        public string BTN_HELP_TEXT {
+            get {
+                return ((string)(this["BTN_HELP_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("关于(&A)...")]
+        public string BTN_ABOUT_TEXT {
+            get {
+                return ((string)(this["BTN_ABOUT_TEXT"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("导入(&I)...")]
+        public string BTN_IMPORT_TEXT {
+            get {
+                return ((string)(this["BTN_IMPORT_TEXT"]));
+            }
+        }
     }
 }

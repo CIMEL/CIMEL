@@ -37,10 +37,13 @@
             this.fileBrowser1 = new Aeronet.Chart.AeronetData.FileViewer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnImport = new System.Windows.Forms.ToolStripButton();
-            this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -49,7 +52,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btAction
@@ -142,31 +145,6 @@
             this.lblDescription.TabIndex = 0;
             this.lblDescription.Text = "lblDescription";
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnImport,
-            this.btnRefresh});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(668, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // btnImport
-            // 
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(57, 22);
-            this.btnImport.Text = "导入(&I)...";
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(52, 22);
-            this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -179,16 +157,67 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(379, 560);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(87, 30);
+            this.btnRefresh.TabIndex = 4;
+            this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnTools});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(668, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnTools
+            // 
+            this.btnTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnImport,
+            this.toolStripSeparator1,
+            this.btnOptions});
+            this.btnTools.Name = "btnTools";
+            this.btnTools.Size = new System.Drawing.Size(60, 20);
+            this.btnTools.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_TOOLS_TEXT;
+            // 
+            // btnImport
+            // 
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(152, 22);
+            this.btnImport.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_IMPORT_TEXT;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // btnOptions
+            // 
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_OPTIONS_TEXT;
+            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
             // fmAeronetData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 605);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btAction);
             this.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fmAeronetData";
             this.Text = global::Aeronet.Chart.Properties.Settings.Default.FM_AERONET_DATA_TEXT;
@@ -200,8 +229,8 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,8 +246,11 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btnImport;
-        private System.Windows.Forms.ToolStripButton btnRefresh;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem btnTools;
+        private System.Windows.Forms.ToolStripMenuItem btnImport;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem btnOptions;
     }
 }

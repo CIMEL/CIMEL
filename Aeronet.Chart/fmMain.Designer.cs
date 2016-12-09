@@ -74,13 +74,13 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
-            this.fileToolStripMenuItem.Text = "文件(&F)";
+            this.fileToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_FILE_TEXT;
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.exitToolStripMenuItem.Text = "退出(&E)";
+            this.exitToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_EXIT_TEXT;
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
@@ -92,32 +92,32 @@
             this.regionsToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
             this.toolToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
-            this.toolToolStripMenuItem.Text = "工具(&T)";
+            this.toolToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_TOOLS_TEXT;
             // 
             // aeronetDataToolStripMenuItem
             // 
             this.aeronetDataToolStripMenuItem.Name = "aeronetDataToolStripMenuItem";
-            this.aeronetDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aeronetDataToolStripMenuItem.Text = "数据处理(&Q)...";
+            this.aeronetDataToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.aeronetDataToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_DATA_PRO_TEXT;
             this.aeronetDataToolStripMenuItem.Click += new System.EventHandler(this.aeronetDataToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.optionsToolStripMenuItem.Text = "参数配置(&O)...";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.optionsToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_OPTIONS_TEXT;
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // regionsToolStripMenuItem
             // 
             this.regionsToolStripMenuItem.Name = "regionsToolStripMenuItem";
-            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.regionsToolStripMenuItem.Text = "站台配置(&R)...";
+            this.regionsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.regionsToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REGIONS_TEXT;
             this.regionsToolStripMenuItem.Click += new System.EventHandler(this.regionsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -126,13 +126,13 @@
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
-            this.helpToolStripMenuItem.Text = "帮助(&H)";
+            this.helpToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_HELP_TEXT;
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "关于(&A)...";
+            this.aboutToolStripMenuItem.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_ABOUT_TEXT;
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1

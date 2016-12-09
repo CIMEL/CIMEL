@@ -16,7 +16,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -31,6 +31,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -151,10 +156,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="app.config" />
-    <None Include="log4net.config">
+    <EmbeddedResource Include="log4net.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
+    <EmbeddedResource Include="app.manifest" />
     <None Include="Options\options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -201,7 +206,7 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)AeronetData"
-</PostBuildEvent>
+$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)AeronetData\Draw.exe" del "$(TargetDir)AeronetData\Draw.exe"

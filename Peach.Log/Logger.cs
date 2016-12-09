@@ -668,7 +668,6 @@ namespace Peach.Log
         {
             this._logger.WarnFormat(provider, format, args);
         }
-
         #endregion
     }
 }

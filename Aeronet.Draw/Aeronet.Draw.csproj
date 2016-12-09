@@ -60,6 +60,9 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)Matlablib\MWArray.dll" "$(TargetDir)"
 $(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetDir)Draw.exe" del "$(TargetDir)Draw.exe"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

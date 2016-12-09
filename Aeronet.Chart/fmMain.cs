@@ -103,9 +103,11 @@ namespace Aeronet.Chart
             // check if the options has been configurated
             if (!ConfigOptions.Singleton.IsInitialized)
             {
-                fmOptions fmOptions = new fmOptions();
-                fmOptions.StartPosition = FormStartPosition.CenterParent;
-                fmOptions.ShowDialog(this);
+                using (fmOptions fmOptions = new fmOptions())
+                {
+                    fmOptions.StartPosition = FormStartPosition.CenterParent;
+                    fmOptions.ShowDialog(this);
+                }
             }
 
             this.cmbRegions.Items.Clear();
@@ -180,16 +182,20 @@ namespace Aeronet.Chart
 
         private void aeronetDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fmAeronetData fmAeronetData = new fmAeronetData();
-            fmAeronetData.StartPosition = FormStartPosition.CenterParent;
-            fmAeronetData.ShowDialog(this);
+            using (fmAeronetData fmAeronetData = new fmAeronetData())
+            {
+                fmAeronetData.StartPosition = FormStartPosition.CenterParent;
+                fmAeronetData.ShowDialog(this);
+            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fmOptions fmOptions = new fmOptions();
-            fmOptions.StartPosition = FormStartPosition.CenterParent;
-            fmOptions.ShowDialog(this);
+            using (fmOptions fmOptions = new fmOptions())
+            {
+                fmOptions.StartPosition = FormStartPosition.CenterParent;
+                fmOptions.ShowDialog(this);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -199,9 +205,11 @@ namespace Aeronet.Chart
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fmAboutBox fmAboutBox = new fmAboutBox();
-            fmAboutBox.StartPosition = FormStartPosition.CenterParent;
-            fmAboutBox.ShowDialog(this);
+            using (fmAboutBox fmAboutBox = new fmAboutBox())
+            {
+                fmAboutBox.StartPosition = FormStartPosition.CenterParent;
+                fmAboutBox.ShowDialog(this);
+            }
         }
 
         private void btnScan_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -36,41 +37,34 @@ namespace Aeronet.Chart.Options
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string valFormat = @"抱歉, 请设置[{0}]";
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.DATA_Dir))
+            StringBuilder valErrors=new StringBuilder();
+            foreach (var folderDesc in ConfigOptions.Singleton.GetFolders())
             {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.DATA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                string dir = folderDesc.Path;
+                if (IsEmpty(dir))
+                    valErrors.AppendLine(string.Format(@"抱歉, 请设置[{0}]", folderDesc.Name));
+                if(!IsExist(dir))
+                    valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
             }
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.MODIS_BRDF_Dir))
+            if (valErrors.Length > 0)
             {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.MODIS_BRDF_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.INS_PARA_Dir))
-            {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.INS_PARA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.METADATA_Dir))
-            {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.METADATA_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.OUTPUT_Dir))
-            {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.OUTPUT_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (string.IsNullOrEmpty(ConfigOptions.Singleton.CHARTSET_Dir))
-            {
-                MessageBox.Show(string.Format(valFormat, ConfigOptions.CHARTSET_NAME), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(valErrors.ToString(), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             ConfigOptions.Singleton.Save();
             MessageBox.Show(@"保存成功!",DLG_TITLE);
             this.DialogResult = DialogResult.OK;
+        }
+
+        private bool IsEmpty(string dir)
+        {
+            return string.IsNullOrEmpty(dir);
+        }
+
+        private bool IsExist(string dir)
+        {
+            return Directory.Exists(dir);
         }
 
         private void Init()

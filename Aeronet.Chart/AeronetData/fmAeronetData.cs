@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aeronet.Chart.Options;
 
 namespace Aeronet.Chart
 {
@@ -27,32 +28,7 @@ namespace Aeronet.Chart
 
         private void fmAeronetData_Load(object sender, EventArgs e)
         {
-            //Initial folder view
-            var folders = ConfigOptions.Singleton.GetFolders();
-            // clean up the directory view
-            this.tvDirs.Nodes.Clear();
-            foreach (var folderDescription in folders)
-            {
-                // each of the working folder will be a root folder
-                TreeNode rootNode = new TreeNode(folderDescription.Name, 0, 0);
-                rootNode.ImageKey = @"folder";
-                // attaches the instance of folder description to the root node, which will be used for the file view
-                rootNode.Tag = folderDescription;
-                // scans the subfolders and add them to the root node
-                this.AppendSubfolders(rootNode, folderDescription);
-                // add the root node to the tree view
-                this.tvDirs.Nodes.Add(rootNode);
-            }
-
-            this.tvDirs.NodeMouseClick += tvDirs_NodeMouseClick;
-
-            if (this.tvDirs.Nodes.Count > 0)
-            {
-                // initial file view and description label
-                FolderDescription folderDescription = this.tvDirs.Nodes[0].Tag as FolderDescription;
-                // show the file view of the first folder node
-                this.OnSelectedNodeChanged(folderDescription);
-            }
+            this.Init();
         }
 
         private void tvDirs_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -71,6 +47,41 @@ namespace Aeronet.Chart
                 string description = string.Format("{0}: {1}\r\n{2}", folderDesc.Name, folderDesc.Description,
                     folderDesc.Path);
                 this.lblDescription.Text = description;
+            }
+        }
+
+        private void Init()
+        {
+            //Initial folder view
+            var folders = ConfigOptions.Singleton.GetFolders();
+            // clean up the directory view
+            this.tvDirs.Nodes.Clear();
+            foreach (var folderDescription in folders)
+            {
+                // each of the working folder will be a root folder
+                TreeNode rootNode = new TreeNode(folderDescription.Name, 0, 0);
+                rootNode.ImageKey = @"folder";
+                // attaches the instance of folder description to the root node, which will be used for the file view
+                rootNode.Tag = folderDescription;
+
+                // check if the dir existing
+                string path = folderDescription.Path;
+                if(string.IsNullOrEmpty(path) || !Directory.Exists(path))
+                    continue;
+                // scans the subfolders and add them to the root node
+                this.AppendSubfolders(rootNode, folderDescription);
+                // add the root node to the tree view
+                this.tvDirs.Nodes.Add(rootNode);
+            }
+
+            this.tvDirs.NodeMouseClick += tvDirs_NodeMouseClick;
+
+            if (this.tvDirs.Nodes.Count > 0)
+            {
+                // initial file view and description label
+                FolderDescription folderDescription = this.tvDirs.Nodes[0].Tag as FolderDescription;
+                // show the file view of the first folder node
+                this.OnSelectedNodeChanged(folderDescription);
             }
         }
 
@@ -104,9 +115,11 @@ namespace Aeronet.Chart
         private void btAction_Click(object sender, EventArgs e)
         {
             // launch process dialog
-            fmDataProcessDialog fmDataProcessDlg = new fmDataProcessDialog();
-            fmDataProcessDlg.StartPosition = FormStartPosition.CenterParent;
-            fmDataProcessDlg.ShowDialog(this);
+            using (fmDataProcessDialog fmDataProcessDlg = new fmDataProcessDialog())
+            {
+                fmDataProcessDlg.StartPosition = FormStartPosition.CenterParent;
+                fmDataProcessDlg.ShowDialog(this);
+            }
         }
 
         /// <summary>
@@ -120,20 +133,22 @@ namespace Aeronet.Chart
             if (selectedFolder == null) return;
 
             // show file open dialog
-            var fileOpenDlg = new OpenFileDialog();
-            fileOpenDlg.Multiselect = true;
-            fileOpenDlg.CheckFileExists = true;
-            fileOpenDlg.InitialDirectory = string.IsNullOrEmpty(selectedFolder.Path)
-                ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-                : selectedFolder.Path;
-            var result = fileOpenDlg.ShowDialog(this);
-            if (result == DialogResult.OK)
+            using (var fileOpenDlg = new OpenFileDialog())
             {
-                string[] files = fileOpenDlg.FileNames;
-                // copy to the current directory
-                this.fileBrowser1.Copy(files, selectedFolder.Path);
-                // refresh view
-                this.fileBrowser1.LoadFiles(selectedFolder.Path);
+                fileOpenDlg.Multiselect = true;
+                fileOpenDlg.CheckFileExists = true;
+                fileOpenDlg.InitialDirectory = string.IsNullOrEmpty(selectedFolder.Path)
+                    ? Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                    : selectedFolder.Path;
+                var result = fileOpenDlg.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    string[] files = fileOpenDlg.FileNames;
+                    // copy to the current directory
+                    this.fileBrowser1.Copy(files, selectedFolder.Path);
+                    // refresh view
+                    this.fileBrowser1.LoadFiles(selectedFolder.Path);
+                }
             }
         }
 
@@ -157,9 +172,25 @@ namespace Aeronet.Chart
 
         private FolderDescription GetSelectedFolder()
         {
-            if (this.tvDirs.Nodes.Count == 0) return null;
+            if (this.tvDirs.Nodes.Count == 0)
+            {
+                this.Init();
+            }
             var folderDesc = this.tvDirs.Nodes[0].Tag as FolderDescription;
             return folderDesc;
+        }
+
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            using (var fmOptions=new fmOptions())
+            {
+                fmOptions.StartPosition = FormStartPosition.CenterParent;
+                DialogResult result = fmOptions.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    this.Init();
+                }
+            }
         }
     }
 }

@@ -1,1 +1,1 @@
-%1Ilmerge.exe %2Aeronet.Splitter.exe %2Aeronet.Core.dll %2Newtonsoft.json.dll /t:ext /out:%2Splitter.exe /targetplatform:v4 /internalize /ndebug
+%1Ilmerge.exe %2Aeronet.Splitter.exe %2Aeronet.Core.dll %2Newtonsoft.json.dll /t:exe /out:%2Splitter.exe /targetplatform:v4 /internalize /ndebug

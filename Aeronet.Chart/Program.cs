@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Peach.Log;
@@ -15,6 +16,10 @@ namespace Aeronet.Chart
         static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            // config log4net
+            var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
+            Stream logConfigStream = thisExe.GetManifestResourceStream("Aeronet.Chart.log4net.config");
+            Peach.Log.Configurator.Configurate(logConfigStream);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

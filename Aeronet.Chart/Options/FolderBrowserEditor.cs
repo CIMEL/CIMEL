@@ -26,22 +26,24 @@ namespace Aeronet.Chart.Options
 
                 // open folder brower dialog to specify a folder 
 
-                FolderBrowserDialog dialog = new FolderBrowserDialog();
-                dialog.RootFolder = Environment.SpecialFolder.MyComputer;
-                // initial dialog begining folder
-                if (value != null && !string.IsNullOrEmpty(value.ToString()) && Directory.Exists(value.ToString()))
+                using (FolderBrowserDialog dialog = new FolderBrowserDialog())
                 {
-                    dialog.SelectedPath = value.ToString();
-                }
-                else
-                {
-                    dialog.SelectedPath = Environment.GetFolderPath(dialog.RootFolder);
-                }
-                dialog.ShowNewFolderButton = true;
+                    dialog.RootFolder = Environment.SpecialFolder.MyComputer;
+                    // initial dialog begining folder
+                    if (value != null && !string.IsNullOrEmpty(value.ToString()) && Directory.Exists(value.ToString()))
+                    {
+                        dialog.SelectedPath = value.ToString();
+                    }
+                    else
+                    {
+                        dialog.SelectedPath = Environment.GetFolderPath(dialog.RootFolder);
+                    }
+                    dialog.ShowNewFolderButton = true;
 
-                if (dialog.ShowDialog().Equals(DialogResult.OK))
-                {
-                    return dialog.SelectedPath;
+                    if (dialog.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        return dialog.SelectedPath;
+                    }
                 }
             }
 
