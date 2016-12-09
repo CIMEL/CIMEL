@@ -34,8 +34,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -83,7 +84,6 @@
       <DependentUpon>ChartPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Chart\ChartReader.cs" />
-    <Compile Include="Chart\DataConfig.cs" />
     <Compile Include="EmptyComboxItem.cs" />
     <Compile Include="fmAboutBox.cs">
       <SubType>Form</SubType>
@@ -159,7 +159,6 @@
     <EmbeddedResource Include="log4net.config">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="app.manifest" />
     <None Include="Options\options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

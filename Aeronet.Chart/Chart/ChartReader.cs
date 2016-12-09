@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Aeronet.Chart.Chart
+namespace Aeronet.Chart
 {
     /// <summary>
     /// Reads the chart data from the one-day data file

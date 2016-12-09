@@ -4,18 +4,77 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Aeronet.Core
 {
     public class DataConfigFile
     {
-        public string Year { get; set; }
+        public string Name { get; set; }
+
+        public int Year { get; set; }
 
         public Dictionary<int, List<int>> MonthAndDays { get; private set; }
 
+        public string Description { get; set; }
+
+        public List<string> AxisXLabels { get; private set; }
+
+        public List<double> AxisXs { get; private set; } 
+
         public DataConfigFile()
         {
+            this.Name = string.Empty;
+            this.Description = string.Empty;
+            this.Year = 0;
             this.MonthAndDays = new Dictionary<int, List<int>>();
+            this.AxisXs=new List<double>();
+            this.AxisXLabels=new List<string>();
+        }
+
+        public DataConfigFile(string dataConfigFile)
+            : this()
+        {
+            // this.Name = Path.GetFileNameWithoutExtension(dataConfigFile);
+
+            string strDataConfig = File.ReadAllText(dataConfigFile);
+
+            // check if it's an empty file
+            if (string.IsNullOrEmpty(strDataConfig))
+                throw new FileLoadException("错误的图像集文件(.dataconfig)", dataConfigFile);
+            // initial properties
+            var objDataConfig = (dynamic)JObject.Parse(strDataConfig);
+            this.Name = (string) objDataConfig.name;
+            this.Description = (string) objDataConfig.description;
+            this.Year = (int)objDataConfig.year;
+            var arrMonthNDays = (JArray)objDataConfig.monthAndDays;
+            for (int i = 0; i < arrMonthNDays.Count; i++)
+            {
+                //ignore the empty month
+                string strDays = (string)arrMonthNDays[i];
+                if (string.IsNullOrEmpty(strDays)) continue;
+
+                List<int> days = strDays.Split(new char[] { ',' }, StringSplitOptions.None)
+                        .Select(int.Parse)
+                        .ToList();
+                int month = i + 1;
+                if (!this.MonthAndDays.ContainsKey(month))
+                    this.MonthAndDays.Add(month, days);
+                else
+                    this.MonthAndDays[month] = days;
+            }
+            var strAxisXLabels = (string)objDataConfig.axisXLabels;
+            if (!string.IsNullOrEmpty(strAxisXLabels))
+                this.AxisXLabels = strAxisXLabels.Split(new char[] {','}, StringSplitOptions.None).ToList();
+            var strAxisXs = (string)objDataConfig.axisXs;
+            if (!string.IsNullOrEmpty(strAxisXs))
+                this.AxisXs = strAxisXs.Split(new char[] {','}, StringSplitOptions.None).Select(a =>
+                {
+                    double v;
+                    if (!double.TryParse(a, out v))
+                        v = 0f;
+                    return v;
+                }).ToList();
         }
 
         public void AddMonth(string month)
@@ -60,8 +119,12 @@ namespace Aeronet.Core
             // apply defaults
             dynamic dataconfig = new
             {
+                name = this.Name,
+                description = this.Description,
                 year = this.Year,
-                monthAndDays = arrMonthAndDays
+                monthAndDays = arrMonthAndDays,
+                axisXLabels = string.Join(",",this.AxisXLabels),
+                axisXs = string.Join(",",this.AxisXs)
             };
             using (StreamWriter sw = new StreamWriter(file, false))
             {

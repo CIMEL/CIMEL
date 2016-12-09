@@ -9,15 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Aeronet.Core;
 
-namespace Aeronet.Chart.Chart
+namespace Aeronet.Chart
 {
     public partial class ChartPanel : UserControl
     {
         public string DataConfigFile { get; set; }
 
         private string _dataFolder;
-        private DataConfig _dataConfig;
+        private DataConfigFile _dataConfigFile;
 
         public ChartPanel()
         {
@@ -34,12 +35,12 @@ namespace Aeronet.Chart.Chart
             this.chart1.ChartAreas.Clear();
             this.chart1.ChartAreas.Add(caDefault);
             // X axis value labels
-            caDefault.AxisX.Minimum = 350;
-            caDefault.AxisX.Interval = 150;
-            caDefault.AxisX.Maximum = 900;
+            caDefault.AxisX.Minimum = 0;
+            // caDefault.AxisX.Interval = 150;
+            caDefault.AxisX.Maximum = 0;
             // X axis and Y axis Title
-            caDefault.AxisX.Title = "X Axis";
-            caDefault.AxisY.Title = "Y Axis";
+            caDefault.AxisX.Title = string.Empty;//"X Axis";
+            caDefault.AxisY.Title = string.Empty;// "Y Axis";
             Legend lgDefault = new Legend("Default");
             this.chart1.Legends.Clear();
             this.chart1.Legends.Add(lgDefault);
@@ -58,7 +59,7 @@ namespace Aeronet.Chart.Chart
             if (string.IsNullOrEmpty(this.tsCmbMonth.Text) || this.tsCmbMonth.Text == ComboBoxItem.EmptyItem.Text)
                 return; // do nothing
 
-            foreach (int day in this._dataConfig.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
+            foreach (int day in this._dataConfigFile.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
             {
                 this.tsCmbDay.Items.Add(day);
             }
@@ -89,15 +90,56 @@ namespace Aeronet.Chart.Chart
                 // initial Folder
                 this._dataFolder = Path.GetDirectoryName(this.DataConfigFile);
 
-                // initial instance of DataConfig
-                this._dataConfig = new DataConfig(this.DataConfigFile);
+                // initial instance of DataConfigFile
+                this._dataConfigFile = new DataConfigFile(this.DataConfigFile);
 
                 // the label of year
-                this.lblYear.Text = this._dataConfig.Year.ToString();
+                this.lblYear.Text = this._dataConfigFile.Year.ToString();
+                ChartArea caDefault = this.chart1.ChartAreas["Default"];
+                caDefault.AxisY.Title = string.Format("{0} {1}", this._dataConfigFile.Name,
+                    this._dataConfigFile.Description);
+                double min = 0f;
+                double max = 0f;
+                if (this._dataConfigFile.AxisXs.Count == 0)
+                {
+                    min = 0f;
+                    max = 1200f;
+                }
+                else
+                {
+                    double first = this._dataConfigFile.AxisXs.FirstOrDefault();
+                    double last = this._dataConfigFile.AxisXs.LastOrDefault();
+
+                    double avgDiff = Math.Round((last - first)/this._dataConfigFile.AxisXs.Count,3);
+                    if (first - avgDiff <= 0f)
+                        min = 0f;
+                    else
+                        min = first - avgDiff;
+                    max = last + avgDiff;
+                }
+
+                caDefault.AxisX.Minimum = min;
+                caDefault.AxisX.Maximum = max;
+                double fromOffset = this._dataConfigFile.AxisXs.FirstOrDefault();
+                double toOffset = fromOffset+10f;
+                for (int i = 0; i < this._dataConfigFile.AxisXs.Count; i++)
+                {
+                    // the axis labels collection has the same length as the axis values
+                    string label = this._dataConfigFile.AxisXLabels[i];
+                    caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromOffset,toOffset,label,0,LabelMarkStyle.None,GridTickTypes.TickMark));
+                    if (i < this._dataConfigFile.AxisXs.Count - 1)
+                    {
+                        double current = this._dataConfigFile.AxisXs[i];
+                        double next = this._dataConfigFile.AxisXs[i + 1];
+                        double diff = next - current;
+                        fromOffset += diff;
+                        toOffset += diff;
+                    }
+                }
 
                 // initial the combox of month
                 this.tsCmbMonth.Items.Clear();
-                foreach (int month in this._dataConfig.MonthAndDays.Keys.OrderBy(k => k).ToArray())
+                foreach (int month in this._dataConfigFile.MonthAndDays.Keys.OrderBy(k => k).ToArray())
                 {
                     this.tsCmbMonth.Items.Add(month);
                 }
@@ -120,11 +162,11 @@ namespace Aeronet.Chart.Chart
 
         private ChartLine[] LoadChartLines()
         {
-            int year = this._dataConfig.Year;
+            int year = this._dataConfigFile.Year;
             int month = (int)this.tsCmbMonth.SelectedItem;
             int day = (int)this.tsCmbDay.SelectedItem;
             string dataFolder = this._dataFolder;
-            string dataName = this._dataConfig.Name;
+            string dataName = this._dataConfigFile.Name;
             ChartReader chartReader = new ChartReader(dataFolder, dataName, year, month, day);
             ChartLine[] chartLines = chartReader.Read();
             return chartLines;
@@ -132,7 +174,7 @@ namespace Aeronet.Chart.Chart
 
         private void DrawChart(ChartLine[] chartLines)
         {
-            int year = this._dataConfig.Year;
+            int year = this._dataConfigFile.Year;
             int month = (int)this.tsCmbMonth.SelectedItem;
             int day = (int)this.tsCmbDay.SelectedItem;
 

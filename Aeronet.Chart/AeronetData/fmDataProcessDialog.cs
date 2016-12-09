@@ -69,8 +69,6 @@ namespace Aeronet.Chart.AeronetData
             this._fmTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             // initial regions combo box
-            StringBuilder sb = new StringBuilder();
-            string error;
 
             this.cmbRegions.Items.Clear();
             this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
@@ -91,8 +89,7 @@ namespace Aeronet.Chart.AeronetData
             }
             catch (Exception ex)
             {
-                error = string.Format("- 初始化站点失败 <- {0}", ex.Message);
-                sb.AppendLine(error);
+                var error = string.Format("- 初始化站点失败 <- {0}", ex.Message);
                 this.SetToError(lblVal_STNS_FN, error);
             }
             this.cmbRegions.SelectedIndex = 0;
@@ -100,101 +97,92 @@ namespace Aeronet.Chart.AeronetData
 
         private void Init(string region)
         {
+            // validate data files
+            string dataDir= this.ValidateOption(region, ConfigOptions.Singleton.DATA_Dir, lblFDAT, lblVal_FDAT);
+
             // validate and initial data and instrument Id
-            this.InitFDATA(region);
+            string dataFile = this.InitFDATA(dataDir);
+            // initial instrument id
+            this.InitSTNS_ID(dataFile);
 
             // validate the parameters files
-            this.ValidateOption(region, ConfigOptions.Singleton.INS_PARA_Dir, lblFIPT, lblVal_FIPT);
+            this.ValidateOption(string.Empty, ConfigOptions.Singleton.INS_PARA_Dir, lblFIPT, lblVal_FIPT);
             // validate the medata files
-            this.ValidateOption(region, ConfigOptions.Singleton.METADATA_Dir, lblMETADATA, lblVal_METADATA);
+            this.ValidateOption(String.Empty, ConfigOptions.Singleton.METADATA_Dir, lblMETADATA, lblVal_METADATA);
             // validate the chart set dir
             this.ValidateOption(region, ConfigOptions.Singleton.CHARTSET_Dir, lblCHARTSET, lblVal_CHARTSET);
             // validate the output folder
             this.ValidateOption(region, ConfigOptions.Singleton.OUTPUT_Dir, lblFOUT, lblVal_FOUT);
             // validate modifies files
-            this.ValidateOption(region, ConfigOptions.Singleton.MODIS_BRDF_Dir, lblFBRDF, lblVal_FBRDF);
-            // validate data files
-            this.ValidateOption(region, ConfigOptions.Singleton.DATA_Dir, lblDAT, lblVal_FDAT);
-
-            // Show all errors
-            if (sb.Length > 0)
-            {
-                MessageBox.Show(sb.ToString(), @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-                this.btnAction.Enabled = true;
+            this.ValidateOption(string.Empty, ConfigOptions.Singleton.MODIS_BRDF_Dir, lblFBRDF, lblVal_FBRDF);
         }
 
-        private void InitFDATA(string region)
+        private string InitFDATA(string dataDir)
         {
+            // defaults
+            this.lblFDATA.Text = Properties.Settings.Default.LBL_INITIAL;
+            this.SetToQuestion(lblVal_FDATA);
+
             // initial and validate the data file name
-            string[] dats =
-                Directory.EnumerateFiles(ConfigOptions.Singleton.DATA_Dir, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(s => s.EndsWith(".ALL") || s.EndsWith(".ALR")).ToArray();
-            if (dats.Length == 0)
+            if (string.IsNullOrEmpty(dataDir))
+                return string.Empty;
+
+            string[] dats;
+            try
             {
-                error = "- 没有找到主数据文件 (*.ALL, *.ALR)";
-                sb.AppendLine(error);
-                SetToError(this.lblVal_FDATA, error);
+                dats =
+                    Directory.EnumerateFiles(dataDir, "*.*", SearchOption.TopDirectoryOnly)
+                        .Where(s => s.EndsWith(".ALL") || s.EndsWith(".ALR")).ToArray();
+                if (dats.Length == 0)
+                {
+                    SetToError(this.lblVal_FDATA, "没有找到主输入数据文件 (*.ALL, *.ALR)");
+                    return string.Empty;
+                }
+            }
+            catch (Exception)
+            {
+                SetToError(this.lblVal_FDATA, "没有找到主输入数据文件 (*.ALL, *.ALR)");
+                return string.Empty;
+            }
+
+            string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
+            if (string.IsNullOrEmpty(dataFileName))
+            {
+                SetToError(this.lblVal_FDATA, string.Format("- 文件名命名错误 <-{0}", dats[0]));
+                return string.Empty;
+            }
+
+            this.lblFDATA.Text = dataFileName;
+            SetToGood(this.lblVal_FDATA);
+            return dataFileName;
+        }
+
+        private void InitSTNS_ID(string dataFileName)
+        {
+            if (string.IsNullOrEmpty(dataFileName))
+            {
+                this.txtSTNS_ID.Text = Properties.Settings.Default.LBL_INITIAL;
+                this.SetToQuestion(lblVal_STNS_ID);
+                return;
+            }
+
+            // initial and validate the instrument id
+            Match m = Regex.Match(dataFileName, "\\d+");
+            if (!m.Success)
+            {
+               string error =
+                    string.Format("- 不能从文件名识别出站点仪器编号 <- {0}",
+                        dataFileName);
+                this.SetToError(this.lblVal_STNS_ID, error);
             }
             else
             {
-                string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
-                if (string.IsNullOrEmpty(dataFileName))
-                {
-                    error = string.Format("- 文件名命名错误 <-{0}", dats[0]);
-                    sb.AppendLine(error);
-                    SetToError(this.lblVal_FDATA, error);
-                }
-                else
-                {
-                    this.lblFDATA.Text = dataFileName;
-                    SetToGood(this.lblVal_FDATA);
-                    //                  initial and validate the region name
-                    Match m = Regex.Match(dataFileName, "\\w+");
-                    if (!m.Success)
-                    {
-                        error = string.Format("- 不能从文件名识别出站点名称 <- {0}",
-                            dataFileName);
-                        sb.AppendLine(error);
-                        SetToError(this.lblVal_STNS_FN, error);
-                    }
-                    else
-                    {
-                        var region = RegionStore.Singleton.FindRegion(m.Value);
-                        if (region == null)
-                        {
-                            error = string.Format("- 站点不存在 <-{0}", m.Value);
-                            sb.AppendLine(error);
-                            SetToError(this.lblVal_STNS_FN, error);
-                        }
-                        else
-                        {
-                            this.cmbRegions.Text = string.Format("{0} ({1} , {2})", region.Name, region.Lat, region.Lon);
-                            this.SetToGood(this.lblVal_STNS_FN);
-                        }
-                    }
-                    //                  initial and validate the instrument id
-                    m = Regex.Match(dataFileName, "\\d+");
-                    if (!m.Success)
-                    {
-                        error =
-                            string.Format("- 不能从文件名识别出站点仪器编号 <- {0}",
-                                dataFileName);
-                        sb.AppendLine(error);
-                        this.SetToError(this.lblVal_STNS_ID, error);
-
-                    }
-                    else
-                    {
-                        this.txtSTNS_ID.Text = m.Value;
-                        this.SetToGood(this.lblVal_STNS_ID);
-                    }
-                }
+                this.txtSTNS_ID.Text = m.Value;
+                this.SetToGood(this.lblVal_STNS_ID);
             }
         }
 
-        private void ValidateOption(string region, string optionDir, Label optionLabel, Label valLabel)
+        private string ValidateOption(string region, string optionDir, Label optionLabel, Label valLabel)
         {
             string path = optionDir;
 
@@ -202,7 +190,7 @@ namespace Aeronet.Chart.AeronetData
             {
                 optionLabel.Text = Properties.Settings.Default.LBL_INITIAL;
                 this.SetToError(valLabel, LABEL_EMPTY);
-                return;
+                return string.Empty;
             }
 
             try
@@ -215,7 +203,7 @@ namespace Aeronet.Chart.AeronetData
                     path += Path.DirectorySeparatorChar;
                 path += region;
                 this.SetToError(valLabel, "目录无效");
-                return;
+                return string.Empty;
             }
             finally
             {
@@ -230,10 +218,11 @@ namespace Aeronet.Chart.AeronetData
             catch (Exception)
             {
                 this.SetToError(valLabel, "目录无法创建");
-                return;
+                return string.Empty;
             }
 
             this.SetToGood(valLabel);
+            return path;
         }
 
         /// <summary>
@@ -312,7 +301,6 @@ namespace Aeronet.Chart.AeronetData
             }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
         }
 
-        // see IPS Manufacturing\Project Files\Pull-O-Tron\Recyclometer\StatusForm.cs
         private void lstLogs_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index == -1)
@@ -399,7 +387,6 @@ namespace Aeronet.Chart.AeronetData
                 }
             }
         }
-
         private void btnAction_Click(object sender, EventArgs e)
         {
             // prevent action from duplicated click
@@ -450,7 +437,6 @@ namespace Aeronet.Chart.AeronetData
                 }
             }
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -476,10 +462,24 @@ namespace Aeronet.Chart.AeronetData
 
         private void SetToDefault()
         {
-            //set the label of dirs to initializing
             //set the marks to question
-            //this.SetToQuestion(this.);
-            // this.SetToError(this.lblVal_STNS_FN, LABEL_EMPTY);
+            this.SetToQuestion(this.lblVal_FDATA);
+            this.SetToQuestion(this.lblVal_CHARTSET);
+            this.SetToQuestion(this.lblVal_FBRDF);
+            this.SetToQuestion(this.lblVal_FDAT);
+            this.SetToQuestion(this.lblVal_FIPT);
+            this.SetToQuestion(this.lblVal_FOUT);
+            this.SetToQuestion(this.lblVal_METADATA);
+            this.SetToQuestion(this.lblVal_STNS_ID);
+            //set the label of dirs to initializing
+            this.lblFDATA.Text = Settings.Default.LBL_INITIAL;
+            this.lblCHARTSET.Text = Settings.Default.LBL_INITIAL;
+            this.lblFBRDF.Text = Settings.Default.LBL_INITIAL;
+            this.lblFDAT.Text = Settings.Default.LBL_INITIAL;
+            this.lblFIPT.Text = Settings.Default.LBL_INITIAL;
+            this.lblFOUT.Text = Settings.Default.LBL_INITIAL;
+            this.lblMETADATA.Text = Settings.Default.LBL_INITIAL;
+            this.txtSTNS_ID.Text = Settings.Default.LBL_INITIAL;
         }
 
         private bool AreAllGood()
@@ -491,7 +491,8 @@ namespace Aeronet.Chart.AeronetData
                    && lblVal_FBRDF.ImageIndex == IMG_GOOD
                    && lblVal_CHARTSET.ImageIndex == IMG_GOOD
                    && lblVal_FOUT.ImageIndex == IMG_GOOD
-                   && lblVal_FDAT.ImageIndex == IMG_GOOD;
+                   && lblVal_FDAT.ImageIndex == IMG_GOOD
+                   && lblVal_METADATA.ImageIndex == IMG_GOOD;
         }
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
@@ -500,19 +501,24 @@ namespace Aeronet.Chart.AeronetData
             {
                 // disable action
                 this.btnAction.Enabled = false;
+                this.SetToQuestion(this.lblVal_STNS_FN);
                 this.SetToDefault();
             }
             else
             {
                 this.SetToGood(this.lblVal_STNS_FN);
-                this.Init(cmbRegions.Text);
+                string region = ((dynamic) cmbRegions.SelectedItem).Value;
+                this.Init(region);
+                this.btnAction.Enabled = AreAllGood();
             }
         }
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSTNS_ID.Text)|| txtSTNS_ID.Text == ComboBoxItem.EmptyItem.Text)
+            if (string.IsNullOrEmpty(txtSTNS_ID.Text))
                 this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
+            else if(txtSTNS_ID.Text == Settings.Default.LBL_INITIAL)
+                this.SetToQuestion(this.lblVal_STNS_ID);
             else
                 this.SetToGood(this.lblVal_STNS_ID);
         }

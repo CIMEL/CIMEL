@@ -1,4 +1,4 @@
-﻿namespace Aeronet.Chart.Chart
+﻿namespace Aeronet.Chart
 {
     partial class ChartPanel
     {

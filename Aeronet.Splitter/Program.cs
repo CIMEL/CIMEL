@@ -80,7 +80,7 @@ namespace Aeronet.Splitter
                                         // skips the broken line
                                         if (arrLineDatas.Length < 6) continue;
                                         // the first 6 fields are the date and time fields
-                                        string year = arrLineDatas[0].Trim();
+                                        string strYear = arrLineDatas[0].Trim();
                                         string month = arrLineDatas[1].Trim();
                                         string day = arrLineDatas[2].Trim();
                                         string hour = arrLineDatas[3].Trim();
@@ -99,11 +99,14 @@ namespace Aeronet.Splitter
                                             if (chartMapping == null) continue;
                                             // initial year, month and day to .dataconfig
                                             var dataConfig = chartMapping.DataConfigFile;
+                                            int year;
+                                            if (!int.TryParse(strYear, out year))
+                                                year = DateTime.Now.Year;
                                             dataConfig.Year = year;
                                             dataConfig.AddDay(month, day);
                                             // initial current value to .data file
                                             var datas = chartMapping.DataFiles;
-                                            datas.AddData(year, month, day, hour, min, second, i, strValue);
+                                            datas.AddData(year.ToString(), month, day, hour, min, second, i, strValue);
                                         }
 
                                         intDataLines++;

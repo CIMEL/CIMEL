@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Aeronet.Chart.Chart
 {
-    public class DataConfig
+    public class DataConfigFile
     {
         public string Name { get; set; }
 
@@ -15,14 +15,14 @@ namespace Aeronet.Chart.Chart
 
         public IDictionary<int, int[]> MonthAndDays { get; set; }
 
-        public DataConfig()
+        public DataConfigFile()
         {
             this.Name = string.Empty;
             this.Year = 0;
             this.MonthAndDays=new Dictionary<int, int[]>();
         }
 
-        public DataConfig(string dataConfigFile):this()
+        public DataConfigFile(string dataConfigFile):this()
         {
             this.Name = Path.GetFileNameWithoutExtension(dataConfigFile);
 

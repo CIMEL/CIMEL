@@ -51,7 +51,7 @@
             this.lblFOUT = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lblDAT = new System.Windows.Forms.Label();
+            this.lblFDAT = new System.Windows.Forms.Label();
             this.lblFBRDF = new System.Windows.Forms.Label();
             this.lblFIPT = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -125,7 +125,7 @@
             this.groupBox1.Controls.Add(this.lblFOUT);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.lblDAT);
+            this.groupBox1.Controls.Add(this.lblFDAT);
             this.groupBox1.Controls.Add(this.lblFBRDF);
             this.groupBox1.Controls.Add(this.lblFIPT);
             this.groupBox1.Controls.Add(this.label8);
@@ -301,14 +301,14 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "主输出目录:";
             // 
-            // lblDAT
+            // lblFDAT
             // 
-            this.lblDAT.AutoSize = true;
-            this.lblDAT.Location = new System.Drawing.Point(147, 161);
-            this.lblDAT.Name = "lblDAT";
-            this.lblDAT.Size = new System.Drawing.Size(52, 17);
-            this.lblDAT.TabIndex = 12;
-            this.lblDAT.Text = global::Aeronet.Chart.Properties.Settings.Default.LBL_INITIAL;
+            this.lblFDAT.AutoSize = true;
+            this.lblFDAT.Location = new System.Drawing.Point(147, 161);
+            this.lblFDAT.Name = "lblFDAT";
+            this.lblFDAT.Size = new System.Drawing.Size(52, 17);
+            this.lblFDAT.TabIndex = 12;
+            this.lblFDAT.Text = global::Aeronet.Chart.Properties.Settings.Default.LBL_INITIAL;
             // 
             // lblFBRDF
             // 
@@ -440,7 +440,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbRegions;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label lblDAT;
+        private System.Windows.Forms.Label lblFDAT;
         private System.Windows.Forms.Label lblFBRDF;
         private System.Windows.Forms.Label lblFIPT;
         private System.Windows.Forms.Label lblCHARTSET;

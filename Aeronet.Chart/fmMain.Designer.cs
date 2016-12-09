@@ -49,7 +49,7 @@
             this.cmbRegions = new System.Windows.Forms.ComboBox();
             this.btnScan = new System.Windows.Forms.Button();
             this.cmbCharts = new System.Windows.Forms.ComboBox();
-            this.chartPanel1 = new Aeronet.Chart.Chart.ChartPanel();
+            this.chartPanel1 = new Aeronet.Chart.ChartPanel();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
