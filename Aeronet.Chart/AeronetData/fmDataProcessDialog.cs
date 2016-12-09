@@ -27,6 +27,7 @@ namespace Aeronet.Chart.AeronetData
         private string LABEL_EMPTY = @"缺少配置";
         private const int IMG_GOOD = 1;
         private const int IMG_ERROR = 2;
+        private const int IMG_QUESTION = 0;
         private string LOG_H_ERROR = @"[ERROR]";
         private string LOG_H_INFO = @"[INFO]";
         private string LOG_EXT = @"[EXT]";
@@ -66,12 +67,10 @@ namespace Aeronet.Chart.AeronetData
         {
             // initial current task scheduler
             this._fmTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            // disable action
-            this.btnAction.Enabled = false;
 
             // initial regions combo box
             StringBuilder sb = new StringBuilder();
-            string error = string.Empty;
+            string error;
 
             this.cmbRegions.Items.Clear();
             this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
@@ -97,8 +96,38 @@ namespace Aeronet.Chart.AeronetData
                 this.SetToError(lblVal_STNS_FN, error);
             }
             this.cmbRegions.SelectedIndex = 0;
+        }
 
-//          initial and validate the data file name
+        private void Init(string region)
+        {
+            // validate and initial data and instrument Id
+            this.InitFDATA(region);
+
+            // validate the parameters files
+            this.ValidateOption(region, ConfigOptions.Singleton.INS_PARA_Dir, lblFIPT, lblVal_FIPT);
+            // validate the medata files
+            this.ValidateOption(region, ConfigOptions.Singleton.METADATA_Dir, lblMETADATA, lblVal_METADATA);
+            // validate the chart set dir
+            this.ValidateOption(region, ConfigOptions.Singleton.CHARTSET_Dir, lblCHARTSET, lblVal_CHARTSET);
+            // validate the output folder
+            this.ValidateOption(region, ConfigOptions.Singleton.OUTPUT_Dir, lblFOUT, lblVal_FOUT);
+            // validate modifies files
+            this.ValidateOption(region, ConfigOptions.Singleton.MODIS_BRDF_Dir, lblFBRDF, lblVal_FBRDF);
+            // validate data files
+            this.ValidateOption(region, ConfigOptions.Singleton.DATA_Dir, lblDAT, lblVal_FDAT);
+
+            // Show all errors
+            if (sb.Length > 0)
+            {
+                MessageBox.Show(sb.ToString(), @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+                this.btnAction.Enabled = true;
+        }
+
+        private void InitFDATA(string region)
+        {
+            // initial and validate the data file name
             string[] dats =
                 Directory.EnumerateFiles(ConfigOptions.Singleton.DATA_Dir, "*.*", SearchOption.TopDirectoryOnly)
                     .Where(s => s.EndsWith(".ALL") || s.EndsWith(".ALR")).ToArray();
@@ -106,7 +135,7 @@ namespace Aeronet.Chart.AeronetData
             {
                 error = "- 没有找到主数据文件 (*.ALL, *.ALR)";
                 sb.AppendLine(error);
-                SetToError(this.lblVal_FDATA,error);
+                SetToError(this.lblVal_FDATA, error);
             }
             else
             {
@@ -121,14 +150,14 @@ namespace Aeronet.Chart.AeronetData
                 {
                     this.lblFDATA.Text = dataFileName;
                     SetToGood(this.lblVal_FDATA);
-//                  initial and validate the region name
+                    //                  initial and validate the region name
                     Match m = Regex.Match(dataFileName, "\\w+");
                     if (!m.Success)
                     {
                         error = string.Format("- 不能从文件名识别出站点名称 <- {0}",
                             dataFileName);
                         sb.AppendLine(error);
-                        SetToError(this.lblVal_STNS_FN,error);
+                        SetToError(this.lblVal_STNS_FN, error);
                     }
                     else
                     {
@@ -145,7 +174,7 @@ namespace Aeronet.Chart.AeronetData
                             this.SetToGood(this.lblVal_STNS_FN);
                         }
                     }
-//                  initial and validate the instrument id
+                    //                  initial and validate the instrument id
                     m = Regex.Match(dataFileName, "\\d+");
                     if (!m.Success)
                     {
@@ -163,63 +192,48 @@ namespace Aeronet.Chart.AeronetData
                     }
                 }
             }
-//          validate the parameters files            
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.INS_PARA_Dir))
-            {
-                this.lblFIPT.Text = ConfigOptions.Singleton.INS_PARA_Dir;
-                this.SetToGood(this.lblVal_FIPT);
-            }
-            else
-                this.SetToError(this.lblVal_FIPT, LABEL_EMPTY);
-//          validate the medata files
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.METADATA_Dir))
-            {
-                this.lblMETADATA.Text = ConfigOptions.Singleton.METADATA_Dir;
-                this.SetToGood(this.lblVal_METADATA);
-            }
-            else
-                this.SetToError(this.lblVal_METADATA, LABEL_EMPTY);
-            // validate the chart set dir
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.CHARTSET_Dir))
-            {
-                this.lblCHARTSET.Text = ConfigOptions.Singleton.CHARTSET_Dir;
-                this.SetToGood(this.lblVal_CHARTSET);
-            }
-            else
-                this.SetToError(this.lblVal_CHARTSET, LABEL_EMPTY);
+        }
 
-//          validate the output folder
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.OUTPUT_Dir))
-            {
-                this.lblFOUT.Text = ConfigOptions.Singleton.OUTPUT_Dir;
-                this.SetToGood(this.lblVal_FOUT);
-            }
-            else
-                this.SetToError(this.lblVal_FOUT, LABEL_EMPTY);
-//          validate modifies files
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.MODIS_BRDF_Dir))
-            {
-                this.lblFBRDF.Text = ConfigOptions.Singleton.MODIS_BRDF_Dir;
-                this.SetToGood(this.lblVal_FBRDF);
-            }
-            else
-                this.SetToError(this.lblVal_FBRDF, LABEL_EMPTY);
-//          validate data files
-            if (!string.IsNullOrEmpty(ConfigOptions.Singleton.DATA_Dir))
-            {
-                this.lblDAT.Text = ConfigOptions.Singleton.DATA_Dir;
-                this.SetToGood(this.lblVal_FDAT);
-            }
-            else
-                this.SetToError(this.lblVal_FDAT, LABEL_EMPTY);
+        private void ValidateOption(string region, string optionDir, Label optionLabel, Label valLabel)
+        {
+            string path = optionDir;
 
-//          Show all errors
-            if (sb.Length > 0)
+            if (string.IsNullOrEmpty(path))
             {
-                MessageBox.Show(sb.ToString(), @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                optionLabel.Text = Properties.Settings.Default.LBL_INITIAL;
+                this.SetToError(valLabel, LABEL_EMPTY);
+                return;
             }
-            else
-                this.btnAction.Enabled = true;
+
+            try
+            {
+                path = Path.Combine(optionDir, region);
+            }
+            catch (Exception)
+            {
+                if (!path.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    path += Path.DirectorySeparatorChar;
+                path += region;
+                this.SetToError(valLabel, "目录无效");
+                return;
+            }
+            finally
+            {
+                optionLabel.Text = path;
+            }
+
+            try
+            {
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+            catch (Exception)
+            {
+                this.SetToError(valLabel, "目录无法创建");
+                return;
+            }
+
+            this.SetToGood(valLabel);
         }
 
         /// <summary>
@@ -454,6 +468,20 @@ namespace Aeronet.Chart.AeronetData
             this.toolTip1.SetToolTip(control, error);
         }
 
+        private void SetToQuestion(Label control)
+        {
+            control.ImageIndex = IMG_QUESTION; // 0: question
+            this.toolTip1.SetToolTip(control,string.Empty);
+        }
+
+        private void SetToDefault()
+        {
+            //set the label of dirs to initializing
+            //set the marks to question
+            //this.SetToQuestion(this.);
+            // this.SetToError(this.lblVal_STNS_FN, LABEL_EMPTY);
+        }
+
         private bool AreAllGood()
         {
             return lblVal_FDATA.ImageIndex == IMG_GOOD
@@ -469,9 +497,16 @@ namespace Aeronet.Chart.AeronetData
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
-                this.SetToError(this.lblVal_STNS_FN, LABEL_EMPTY);
+            {
+                // disable action
+                this.btnAction.Enabled = false;
+                this.SetToDefault();
+            }
             else
+            {
                 this.SetToGood(this.lblVal_STNS_FN);
+                this.Init(cmbRegions.Text);
+            }
         }
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)

@@ -149,7 +149,7 @@
             // 
             this.lblVal_METADATA.ImageIndex = 0;
             this.lblVal_METADATA.ImageList = this.imageList1;
-            this.lblVal_METADATA.Location = new System.Drawing.Point(126, 242);
+            this.lblVal_METADATA.Location = new System.Drawing.Point(126, 239);
             this.lblVal_METADATA.Name = "lblVal_METADATA";
             this.lblVal_METADATA.Size = new System.Drawing.Size(15, 17);
             this.lblVal_METADATA.TabIndex = 28;
@@ -165,7 +165,7 @@
             // lblMETADATA
             // 
             this.lblMETADATA.AutoSize = true;
-            this.lblMETADATA.Location = new System.Drawing.Point(148, 242);
+            this.lblMETADATA.Location = new System.Drawing.Point(148, 239);
             this.lblMETADATA.Name = "lblMETADATA";
             this.lblMETADATA.Size = new System.Drawing.Size(52, 17);
             this.lblMETADATA.TabIndex = 27;
@@ -174,7 +174,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 243);
+            this.label2.Location = new System.Drawing.Point(6, 239);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 17);
             this.label2.TabIndex = 26;
@@ -184,7 +184,7 @@
             // 
             this.lblVal_CHARTSET.ImageIndex = 0;
             this.lblVal_CHARTSET.ImageList = this.imageList1;
-            this.lblVal_CHARTSET.Location = new System.Drawing.Point(126, 216);
+            this.lblVal_CHARTSET.Location = new System.Drawing.Point(126, 213);
             this.lblVal_CHARTSET.Name = "lblVal_CHARTSET";
             this.lblVal_CHARTSET.Size = new System.Drawing.Size(15, 17);
             this.lblVal_CHARTSET.TabIndex = 25;
@@ -193,7 +193,7 @@
             // 
             this.lblVal_FOUT.ImageIndex = 0;
             this.lblVal_FOUT.ImageList = this.imageList1;
-            this.lblVal_FOUT.Location = new System.Drawing.Point(126, 190);
+            this.lblVal_FOUT.Location = new System.Drawing.Point(126, 187);
             this.lblVal_FOUT.Name = "lblVal_FOUT";
             this.lblVal_FOUT.Size = new System.Drawing.Size(15, 17);
             this.lblVal_FOUT.TabIndex = 24;
@@ -202,7 +202,7 @@
             // 
             this.lblVal_FDAT.ImageIndex = 0;
             this.lblVal_FDAT.ImageList = this.imageList1;
-            this.lblVal_FDAT.Location = new System.Drawing.Point(126, 164);
+            this.lblVal_FDAT.Location = new System.Drawing.Point(126, 161);
             this.lblVal_FDAT.Name = "lblVal_FDAT";
             this.lblVal_FDAT.Size = new System.Drawing.Size(15, 17);
             this.lblVal_FDAT.TabIndex = 23;
@@ -211,7 +211,7 @@
             // 
             this.lblVal_FBRDF.ImageIndex = 0;
             this.lblVal_FBRDF.ImageList = this.imageList1;
-            this.lblVal_FBRDF.Location = new System.Drawing.Point(126, 138);
+            this.lblVal_FBRDF.Location = new System.Drawing.Point(126, 135);
             this.lblVal_FBRDF.Name = "lblVal_FBRDF";
             this.lblVal_FBRDF.Size = new System.Drawing.Size(15, 17);
             this.lblVal_FBRDF.TabIndex = 22;
@@ -220,7 +220,7 @@
             // 
             this.lblVal_FIPT.ImageIndex = 0;
             this.lblVal_FIPT.ImageList = this.imageList1;
-            this.lblVal_FIPT.Location = new System.Drawing.Point(126, 112);
+            this.lblVal_FIPT.Location = new System.Drawing.Point(126, 109);
             this.lblVal_FIPT.Name = "lblVal_FIPT";
             this.lblVal_FIPT.Size = new System.Drawing.Size(15, 17);
             this.lblVal_FIPT.TabIndex = 21;
@@ -230,7 +230,7 @@
             this.lblVal_STNS_ID.BackColor = System.Drawing.SystemColors.Control;
             this.lblVal_STNS_ID.ImageIndex = 0;
             this.lblVal_STNS_ID.ImageList = this.imageList1;
-            this.lblVal_STNS_ID.Location = new System.Drawing.Point(126, 83);
+            this.lblVal_STNS_ID.Location = new System.Drawing.Point(126, 80);
             this.lblVal_STNS_ID.Name = "lblVal_STNS_ID";
             this.lblVal_STNS_ID.Size = new System.Drawing.Size(15, 17);
             this.lblVal_STNS_ID.TabIndex = 20;
@@ -239,7 +239,7 @@
             // 
             this.lblVal_STNS_FN.ImageIndex = 0;
             this.lblVal_STNS_FN.ImageList = this.imageList1;
-            this.lblVal_STNS_FN.Location = new System.Drawing.Point(126, 49);
+            this.lblVal_STNS_FN.Location = new System.Drawing.Point(126, 20);
             this.lblVal_STNS_FN.Name = "lblVal_STNS_FN";
             this.lblVal_STNS_FN.Size = new System.Drawing.Size(15, 17);
             this.lblVal_STNS_FN.TabIndex = 19;
@@ -250,7 +250,7 @@
             this.lblVal_FDATA.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblVal_FDATA.ImageIndex = 0;
             this.lblVal_FDATA.ImageList = this.imageList1;
-            this.lblVal_FDATA.Location = new System.Drawing.Point(126, 20);
+            this.lblVal_FDATA.Location = new System.Drawing.Point(126, 51);
             this.lblVal_FDATA.Name = "lblVal_FDATA";
             this.lblVal_FDATA.Size = new System.Drawing.Size(15, 17);
             this.lblVal_FDATA.TabIndex = 18;
@@ -258,7 +258,7 @@
             // 
             // txtSTNS_ID
             // 
-            this.txtSTNS_ID.Location = new System.Drawing.Point(150, 80);
+            this.txtSTNS_ID.Location = new System.Drawing.Point(150, 77);
             this.txtSTNS_ID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSTNS_ID.Name = "txtSTNS_ID";
             this.txtSTNS_ID.Size = new System.Drawing.Size(140, 23);
@@ -268,7 +268,7 @@
             // lblCHARTSET
             // 
             this.lblCHARTSET.AutoSize = true;
-            this.lblCHARTSET.Location = new System.Drawing.Point(147, 216);
+            this.lblCHARTSET.Location = new System.Drawing.Point(147, 213);
             this.lblCHARTSET.Name = "lblCHARTSET";
             this.lblCHARTSET.Size = new System.Drawing.Size(52, 17);
             this.lblCHARTSET.TabIndex = 16;
@@ -277,7 +277,7 @@
             // lblFOUT
             // 
             this.lblFOUT.AutoSize = true;
-            this.lblFOUT.Location = new System.Drawing.Point(147, 190);
+            this.lblFOUT.Location = new System.Drawing.Point(147, 187);
             this.lblFOUT.Name = "lblFOUT";
             this.lblFOUT.Size = new System.Drawing.Size(52, 17);
             this.lblFOUT.TabIndex = 15;
@@ -286,7 +286,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 216);
+            this.label13.Location = new System.Drawing.Point(6, 213);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(71, 17);
             this.label13.TabIndex = 14;
@@ -295,7 +295,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 190);
+            this.label12.Location = new System.Drawing.Point(6, 187);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(71, 17);
             this.label12.TabIndex = 13;
@@ -304,7 +304,7 @@
             // lblDAT
             // 
             this.lblDAT.AutoSize = true;
-            this.lblDAT.Location = new System.Drawing.Point(147, 164);
+            this.lblDAT.Location = new System.Drawing.Point(147, 161);
             this.lblDAT.Name = "lblDAT";
             this.lblDAT.Size = new System.Drawing.Size(52, 17);
             this.lblDAT.TabIndex = 12;
@@ -313,7 +313,7 @@
             // lblFBRDF
             // 
             this.lblFBRDF.AutoSize = true;
-            this.lblFBRDF.Location = new System.Drawing.Point(147, 138);
+            this.lblFBRDF.Location = new System.Drawing.Point(147, 135);
             this.lblFBRDF.Name = "lblFBRDF";
             this.lblFBRDF.Size = new System.Drawing.Size(52, 17);
             this.lblFBRDF.TabIndex = 11;
@@ -322,7 +322,7 @@
             // lblFIPT
             // 
             this.lblFIPT.AutoSize = true;
-            this.lblFIPT.Location = new System.Drawing.Point(147, 112);
+            this.lblFIPT.Location = new System.Drawing.Point(147, 109);
             this.lblFIPT.Name = "lblFIPT";
             this.lblFIPT.Size = new System.Drawing.Size(52, 17);
             this.lblFIPT.TabIndex = 10;
@@ -331,7 +331,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 164);
+            this.label8.Location = new System.Drawing.Point(6, 161);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 17);
             this.label8.TabIndex = 9;
@@ -340,7 +340,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 138);
+            this.label7.Location = new System.Drawing.Point(6, 135);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(114, 17);
             this.label7.TabIndex = 8;
@@ -349,7 +349,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 112);
+            this.label4.Location = new System.Drawing.Point(6, 109);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 17);
             this.label4.TabIndex = 7;
@@ -358,7 +358,7 @@
             // cmbRegions
             // 
             this.cmbRegions.FormattingEnabled = true;
-            this.cmbRegions.Location = new System.Drawing.Point(150, 46);
+            this.cmbRegions.Location = new System.Drawing.Point(151, 17);
             this.cmbRegions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbRegions.Name = "cmbRegions";
             this.cmbRegions.Size = new System.Drawing.Size(250, 25);
@@ -368,7 +368,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 83);
+            this.label5.Location = new System.Drawing.Point(6, 80);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 17);
             this.label5.TabIndex = 4;
@@ -377,7 +377,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 49);
+            this.label3.Location = new System.Drawing.Point(6, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 2;
@@ -386,7 +386,7 @@
             // lblFDATA
             // 
             this.lblFDATA.AutoSize = true;
-            this.lblFDATA.Location = new System.Drawing.Point(147, 20);
+            this.lblFDATA.Location = new System.Drawing.Point(147, 51);
             this.lblFDATA.Name = "lblFDATA";
             this.lblFDATA.Size = new System.Drawing.Size(52, 17);
             this.lblFDATA.TabIndex = 1;
@@ -395,7 +395,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 20);
+            this.label1.Location = new System.Drawing.Point(6, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 17);
             this.label1.TabIndex = 0;
