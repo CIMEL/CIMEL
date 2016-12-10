@@ -1,3 +1,4 @@
+// #define AUTO_INIT
 using Aeronet.Chart.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,6 +12,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Peach.Log;
 
 namespace Aeronet.Chart
 {
@@ -27,6 +29,7 @@ namespace Aeronet.Chart
             {
                 this.Load(this.OptionsPath);
             }
+#if AUTO_INIT
             else
             {
                 // initial it
@@ -35,8 +38,9 @@ namespace Aeronet.Chart
 
             // initial all of the working folders
             this.InitialEnv();
+#endif
         }
-
+#if AUTO_INIT
         private void InitialEnv()
         {
             string[] pathes=new string[]
@@ -51,7 +55,7 @@ namespace Aeronet.Chart
                     Directory.CreateDirectory(p);
             });
         }
-
+#endif
         [Browsable(false)]
         public static ConfigOptions Singleton
         {
@@ -62,7 +66,17 @@ namespace Aeronet.Chart
         }
 
         [Browsable(false)]
-        public bool IsInitialized { get; set; }
+        public bool IsInitialized {
+            get
+            {
+                return Utility.IsInit(this.DATA_Dir)
+                                      && Utility.IsInit(this.MODIS_BRDF_Dir)
+                                      && Utility.IsInit(this.INS_PARA_Dir)
+                                      && Utility.IsInit(this.METADATA_Dir)
+                                      && Utility.IsInit(this.OUTPUT_Dir)
+                                      && Utility.IsInit(this.CHARTSET_Dir);
+            }
+        }
 
         [Category(CATELOG_INPUT),
         DisplayName(DATA_NAME),
@@ -131,6 +145,7 @@ namespace Aeronet.Chart
         private void Load(string optionFile)
         {
             string content = File.ReadAllText(optionFile);
+#if AUTO_INIT
             // initial if it's empty file
             if (string.IsNullOrEmpty(content))
             {
@@ -138,6 +153,7 @@ namespace Aeronet.Chart
             }
             else
             {
+#endif
                 try
                 {
                     var options = (dynamic)JObject.Parse(content);
@@ -148,32 +164,42 @@ namespace Aeronet.Chart
                     this.OUTPUT_Dir = (string)options.output.output;
                     this.CHARTSET_Dir = (string) options.output.chartset;
                     this.PROGRAM_CREATOR = (string)options.processor.creator;
+
+                    // initial creator
+                    if (string.IsNullOrEmpty(this.PROGRAM_CREATOR))
+                        this.PROGRAM_CREATOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                            "create_input_carsnet.exe");
+                    // initial outputor
                     this.PROGRAM_OUTPUTOR = (string)options.processor.outputor;
-                    this.PROGRAM_DRAWER=(string)options.processor.drawer;
+                    if(string.IsNullOrEmpty(this.PROGRAM_OUTPUTOR))
+                        this.PROGRAM_OUTPUTOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                            "main.exe");
+                    // initial drawer
+                    this.PROGRAM_DRAWER = (string)options.processor.drawer;
+                    if (string.IsNullOrEmpty(this.PROGRAM_DRAWER))
+                        this.PROGRAM_DRAWER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                            "draw.exe");
+                    // initial splitter
                     this.PROGRAM_SPLITTER = (string) options.processor.splitter;
-                    bool isNotCompleted = string.IsNullOrEmpty(this.DATA_Dir)
-                                          || string.IsNullOrEmpty(this.MODIS_BRDF_Dir)
-                                          || string.IsNullOrEmpty(this.INS_PARA_Dir)
-                                          || string.IsNullOrEmpty(this.METADATA_Dir)
-                                          || string.IsNullOrEmpty(this.OUTPUT_Dir)
-                                          || string.IsNullOrEmpty(this.CHARTSET_Dir)
-                                          || string.IsNullOrEmpty(this.PROGRAM_CREATOR)
-                                          || string.IsNullOrEmpty(this.PROGRAM_OUTPUTOR)
-                                          || string.IsNullOrEmpty(this.PROGRAM_DRAWER)
-                                          || string.IsNullOrEmpty(this.PROGRAM_SPLITTER);
-                    this.IsInitialized = !isNotCompleted;
+                    if (string.IsNullOrEmpty(this.PROGRAM_SPLITTER))
+                        this.PROGRAM_SPLITTER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                            "splitter.exe");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Logger.Default.Error(ex.Message);
+#if AUTO_INIT
                     // rebuild the config options if it's broken
                     this.Initial(optionFile);
+#endif
                 }
-
+#if AUTO_INIT
                 if (!this.IsInitialized)
                 {
                     this.Initial(optionFile);
                 }
             }
+#endif
         }
 
         /// <summary>
@@ -182,6 +208,7 @@ namespace Aeronet.Chart
         /// <param name="optionFile"></param>
         private void Initial(string optionFile)
         {
+#if AUTO_INIT
             dynamic options = new
             {
                 input = new
@@ -233,8 +260,7 @@ namespace Aeronet.Chart
                         string.IsNullOrEmpty(this.CHARTSET_Dir)
                             ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chartset")
                             : CHARTSET_Dir
-                },
-                isInit = true
+                }
             };
 
             using (StreamWriter sw = new StreamWriter(optionFile, false))
@@ -252,7 +278,7 @@ namespace Aeronet.Chart
             this.PROGRAM_OUTPUTOR = (string) options.processor.outputor;
             this.PROGRAM_DRAWER = (string) options.processor.drawer;
             this.PROGRAM_SPLITTER = (string) options.processor.splitter;
-            this.IsInitialized = (bool)options.isInit;
+#endif
         }
 
         /// <summary>
@@ -281,16 +307,13 @@ namespace Aeronet.Chart
                 {
                     output = this.OUTPUT_Dir,
                     chartset=this.CHARTSET_Dir
-                }, 
-                isInit = true
+                }
             };
 
             using (StreamWriter sw = new StreamWriter(optionFile, false))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), option);
             }
-            // set the options to be initialized
-            this.IsInitialized = true;
         }
 
         /// <summary>

@@ -105,8 +105,12 @@ namespace Aeronet.Chart
             {
                 using (fmOptions fmOptions = new fmOptions())
                 {
+                    fmOptions.AllowForceExit = true;
                     fmOptions.StartPosition = FormStartPosition.CenterParent;
-                    fmOptions.ShowDialog(this);
+                    if (DialogResult.Abort == fmOptions.ShowDialog(this))
+                    {
+                        Application.Exit();
+                    }
                 }
             }
 
