@@ -34,10 +34,6 @@ namespace Aeronet.Chart
             ChartArea caDefault = new ChartArea("Default");
             this.chart1.ChartAreas.Clear();
             this.chart1.ChartAreas.Add(caDefault);
-            // X axis value labels
-            caDefault.AxisX.Minimum = 0;
-            // caDefault.AxisX.Interval = 150;
-            caDefault.AxisX.Maximum = 0;
             // X axis and Y axis Title
             caDefault.AxisX.Title = string.Empty;//"X Axis";
             caDefault.AxisY.Title = string.Empty;// "Y Axis";
@@ -98,17 +94,29 @@ namespace Aeronet.Chart
                 ChartArea caDefault = this.chart1.ChartAreas["Default"];
                 caDefault.AxisY.Title = string.Format("{0} {1}", this._dataConfigFile.Name,
                     this._dataConfigFile.Description);
-                double min = 0f;
-                double max = 0f;
+
+                // clean up the custom labels
+                caDefault.AxisX.CustomLabels.Clear();
+                // set to default
+                caDefault.AxisX.LabelStyle.Angle = 0;
+                caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
+
+                double min;
+                double max;
                 if (this._dataConfigFile.AxisXs.Count == 0)
                 {
                     min = 0f;
                     max = 1200f;
                 }
+                else if (this._dataConfigFile.Name == "SD")
+                {
+                    min = 0f;
+                    max = 15.05f;
+                }
                 else
                 {
-                    double first = this._dataConfigFile.AxisXs.FirstOrDefault();
-                    double last = this._dataConfigFile.AxisXs.LastOrDefault();
+                    double first = this._dataConfigFile.AxisXs[0];
+                    double last = this._dataConfigFile.AxisXs[this._dataConfigFile.AxisXs.Count-1];
 
                     double avgDiff = Math.Round((last - first)/this._dataConfigFile.AxisXs.Count,3);
                     if (first - avgDiff <= 0f)
@@ -120,20 +128,20 @@ namespace Aeronet.Chart
 
                 caDefault.AxisX.Minimum = min;
                 caDefault.AxisX.Maximum = max;
-                double fromOffset = this._dataConfigFile.AxisXs.FirstOrDefault();
-                double toOffset = fromOffset+10f;
-                for (int i = 0; i < this._dataConfigFile.AxisXs.Count; i++)
+                var offset = 50f;
+                // add custom labels for non-SD chart
+                if (this._dataConfigFile.Name != "SD")
                 {
-                    // the axis labels collection has the same length as the axis values
-                    string label = this._dataConfigFile.AxisXLabels[i];
-                    caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromOffset,toOffset,label,0,LabelMarkStyle.None,GridTickTypes.TickMark));
-                    if (i < this._dataConfigFile.AxisXs.Count - 1)
+                    for (int i = 0; i < this._dataConfigFile.AxisXs.Count; i++)
                     {
-                        double current = this._dataConfigFile.AxisXs[i];
-                        double next = this._dataConfigFile.AxisXs[i + 1];
-                        double diff = next - current;
-                        fromOffset += diff;
-                        toOffset += diff;
+                        // the axis labels collection has the same length as the axis values
+                        string label = this._dataConfigFile.AxisXLabels[i].ToUpper();
+                        var sizeF = this.CreateGraphics().MeasureString(label, chart1.Font);
+                        var diff = sizeF.Width / 2f;
+                        var axisX = this._dataConfigFile.AxisXs[i];
+                        double fromPosition = axisX - diff - offset <= 0 ? 0f : axisX - diff - offset;
+                        double toPosition = axisX + diff + offset;
+                        caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromPosition, toPosition, label, 0, LabelMarkStyle.None, GridTickTypes.All));
                     }
                 }
 
@@ -168,7 +176,7 @@ namespace Aeronet.Chart
             string dataFolder = this._dataFolder;
             string dataName = this._dataConfigFile.Name;
             ChartReader chartReader = new ChartReader(dataFolder, dataName, year, month, day);
-            ChartLine[] chartLines = chartReader.Read();
+            ChartLine[] chartLines = chartReader.Read(this._dataConfigFile.AxisXs);
             return chartLines;
         }
 

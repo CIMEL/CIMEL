@@ -21,7 +21,7 @@ namespace Aeronet.Chart
             this._dataFile = Path.Combine(dataFolder, fileName);
         }
 
-        public ChartLine[] Read()
+        public ChartLine[] Read(List<double> axisXs )
         {
             ChartLine[] result;
             using (FileStream fs=new FileStream(this._dataFile,FileMode.Open))
@@ -32,15 +32,15 @@ namespace Aeronet.Chart
                     if (!sr.EndOfStream)
                     {
                         // extract header data
-                        string headerLine = sr.ReadLine();
-                        if (string.IsNullOrEmpty(headerLine)) return new ChartLine[] {};
-                        string[] headerData = headerLine.Split(new char[] { ',' }, StringSplitOptions.None);
+                        sr.ReadLine();
+                        //if (string.IsNullOrEmpty(headerLine)) return new ChartLine[] {};
+                        //string[] headerData = headerLine.Split(new char[] { ',' }, StringSplitOptions.None);
                         IList<ChartLine> chartlines = new List<ChartLine>();
                         while (!sr.EndOfStream)
                         {
                             // initial line data
                             string lineData = sr.ReadLine();
-                            var chartLine = new ChartLine(lineData, headerData);
+                            var chartLine = new ChartLine(lineData, axisXs);
                             chartlines.Add(chartLine);
                         }
                         result= chartlines.ToArray();

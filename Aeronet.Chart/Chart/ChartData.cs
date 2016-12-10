@@ -12,12 +12,12 @@ namespace Aeronet.Chart
     /// </summary>
     public class ChartLine
     {
-        public ChartLine(string lineData,string[] headerData)
+        public ChartLine(string lineData,List<double> axisXs)
         {
-            this.Init(lineData,headerData);
+            this.Init(lineData, axisXs);
         }
 
-        private void Init(string lineData,string[] headerData)
+        private void Init(string lineData, List<double> axisXs)
         {
             string[] data = lineData.Split(new[] {','}, StringSplitOptions.None);
             // the first 3 fields are year, month and day
@@ -29,7 +29,7 @@ namespace Aeronet.Chart
             for (int i = 0; i < this.Points.Length; i++)
             {
                 // the fields in the header are the Axis X
-                var point=new ChartPoint(headerData[i+6].Trim(), data[i+6].Trim());
+                var point = new ChartPoint(axisXs[i], data[i + 6].Trim());
                 this.Points[i] = point;
             }
         }
@@ -40,20 +40,10 @@ namespace Aeronet.Chart
 
     public class ChartPoint
     {
-        public ChartPoint(string x, string y)
+        public ChartPoint(double x, string y)
         {
-            // initial Axis label of X
-            this.AxisLabelX = x;
-
             // initial X which would be either integer or null
-            var m=Regex.Match(x, "\\d+", RegexOptions.Compiled);
-            if (m.Success)
-            {
-                int intX;
-                if (!int.TryParse(m.Value, out intX))
-                    intX = 0;
-                this.X = intX;
-            }
+            this.X = x;
 
             // initial Y
             double fY;
@@ -74,11 +64,10 @@ namespace Aeronet.Chart
         public ChartPoint()
         {
             this.X = 0;
-            this.AxisLabelX = string.Empty;
             this.Y = 0f;
         }
 
-        public int X { get; set; }
+        public double X { get; set; }
         public double Y { get; set; }
         public string AxisLabelX { get; set; }
     }
