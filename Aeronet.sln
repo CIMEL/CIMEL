@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeronet.Console", "Console\Aeronet.Console.csproj", "{F196C4D1-4001-4E67-894C-09CD52297C54}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peach.Log", "Peach.Log\Peach.Log.csproj", "{F594087C-8118-4931-9AF4-2F1033635417}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeronetChartSample", "ChartSample\AeronetChartSample.csproj", "{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeronet.Chart", "Aeronet.Chart\Aeronet.Chart.csproj", "{34889688-578D-4C65-ACE1-106FB0DC91EB}"
 EndProject
@@ -17,24 +13,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeronet.Core", "Aeronet.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeronet.Draw", "Aeronet.Draw\Aeronet.Draw.csproj", "{B8FB19A0-3A4D-4072-A4F6-BC330094F1D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AeronetChartSample", "ChartSample\AeronetChartSample.csproj", "{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aeronet.Console", "Console\Aeronet.Console.csproj", "{F196C4D1-4001-4E67-894C-09CD52297C54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F196C4D1-4001-4E67-894C-09CD52297C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F196C4D1-4001-4E67-894C-09CD52297C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F196C4D1-4001-4E67-894C-09CD52297C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F196C4D1-4001-4E67-894C-09CD52297C54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F594087C-8118-4931-9AF4-2F1033635417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F594087C-8118-4931-9AF4-2F1033635417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F594087C-8118-4931-9AF4-2F1033635417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F594087C-8118-4931-9AF4-2F1033635417}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34889688-578D-4C65-ACE1-106FB0DC91EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34889688-578D-4C65-ACE1-106FB0DC91EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34889688-578D-4C65-ACE1-106FB0DC91EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +43,14 @@ Global
 		{B8FB19A0-3A4D-4072-A4F6-BC330094F1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8FB19A0-3A4D-4072-A4F6-BC330094F1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FB19A0-3A4D-4072-A4F6-BC330094F1D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6F44CE-97E0-40B2-BBA8-7CB4F4879DD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F196C4D1-4001-4E67-894C-09CD52297C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F196C4D1-4001-4E67-894C-09CD52297C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F196C4D1-4001-4E67-894C-09CD52297C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F196C4D1-4001-4E67-894C-09CD52297C54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
