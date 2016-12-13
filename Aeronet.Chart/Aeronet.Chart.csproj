@@ -55,6 +55,9 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dog_net_windows">
+      <HintPath>..\..\AeronetSuperDog\Licensing\DotNet\dog_net_windows.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -243,7 +246,12 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)AeronetData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)AeronetData"
-$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
+$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
+echo $(ProjectDir)ILMergeX64.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)AeronetData\Draw.exe" del "$(TargetDir)AeronetData\Draw.exe"

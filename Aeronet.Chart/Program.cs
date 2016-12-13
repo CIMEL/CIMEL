@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Aeronet.Core;
 using Peach.Log;
+using SuperDog;
 
 namespace Aeronet.Chart
 {
@@ -15,6 +17,30 @@ namespace Aeronet.Chart
         [STAThread]
         static void Main()
         {
+            try
+            {
+                // check superdog
+                using (Dog dog = new Dog(DogFeature.Default))
+                {
+                    string scope = SuperDogVendor.DefaultScope;
+                    DogStatus status = dog.Login(SuperDogVendor.VendorCode, scope);
+                    if (status != DogStatus.StatusOk)
+                    {
+                        MessageBox.Show(string.Format("运行禁止: {0} (DogStatus::{1})\r\n",
+                                       SuperDogVendor.Default.GetStatus((int)status),
+                                       status),@"安全锁");
+                        return;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"运行禁止!", @"超级狗");
+                return;
+            }
+
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             // config log4net
              

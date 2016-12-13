@@ -48,6 +48,7 @@
     <Compile Include="DataConfigFile.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuperDogVendor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
