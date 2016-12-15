@@ -244,7 +244,7 @@
             this.chartPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartPanel1.DataConfigFile = null;
+            this.chartPanel1.DataConfigFiles = null;
             this.chartPanel1.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
             this.chartPanel1.Location = new System.Drawing.Point(15, 180);
             this.chartPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -295,7 +295,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbCharts;
-        private Chart.ChartPanel chartPanel1;
+        private ChartPanel chartPanel1;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbRegions;

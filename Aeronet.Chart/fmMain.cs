@@ -59,7 +59,7 @@ namespace Aeronet.Chart
             // appends the extension (.dataconfig)
             string chartConfigDataFile = Path.Combine(this._currentFile.Path,
                 string.Format("{0}.{1}", ((dynamic)cmbCharts.SelectedItem).Value, "dataconfig"));
-            this.chartPanel1.DataConfigFile = chartConfigDataFile;
+            this.chartPanel1.DataConfigFiles = chartConfigDataFile;
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
             // enable the panel
