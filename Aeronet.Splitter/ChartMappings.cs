@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -19,7 +20,15 @@ namespace Aeronet.Splitter
         // field index X chartmapping
         private Dictionary<int, ChartMapping> _antIndexChartMappings;
 
-        private List<ChartMapping> _chartMappings;
+        /// <summary>
+        /// all of the real chart mappings
+        /// </summary>
+        private Dictionary<string, ChartMapping> _dicChartMappings;
+
+        /// <summary>
+        /// all of the chart mapping groups
+        /// </summary>
+        private Dictionary<string, ChartMapping> _dicChartMappingGroups; 
 
         public AeronetFile AeronetFile { get; private set; }
 
@@ -35,7 +44,8 @@ namespace Aeronet.Splitter
         {
             this._antFieldChartMappings = new Dictionary<string, ChartMapping>();
             this._antIndexChartMappings = new Dictionary<int, ChartMapping>();
-            this._chartMappings = new List<ChartMapping>();
+            this._dicChartMappings = new Dictionary<string, ChartMapping>();
+            this._dicChartMappingGroups = new Dictionary<string, ChartMapping>();
             this.AeronetFile = new AeronetFile();
             this.Init();
         }
@@ -50,36 +60,77 @@ namespace Aeronet.Splitter
 
             foreach (JToken jChart in jCharts)
             {
+                JObject joChart = jChart as JObject;
+                if (joChart == null) continue;
+
                 // initial an instance of ChartMapping
-                var objChartMapping = new ChartMapping((dynamic)jChart);
+                var objChartMapping = new ChartMapping(joChart);
+
+                // push the chart group and self-group to the group dictionary
+                if (objChartMapping.Type == ChartMappingType.SelfGroup ||
+                    objChartMapping.Type == ChartMappingType.ChartGroup)
+                {
+                    if (!this._dicChartMappingGroups.ContainsKey(objChartMapping.Name))
+                        this._dicChartMappingGroups.Add(objChartMapping.Name, objChartMapping);
+                    else
+                        this._dicChartMappingGroups[objChartMapping.Name] = objChartMapping;
+                }
+
+                // skip the chart group when building fields mapping 
+                if (objChartMapping.Type == ChartMappingType.ChartGroup) continue;
+
                 foreach (string fieldName in objChartMapping.FieldNames)
                 {
                     if (!this._antFieldChartMappings.ContainsKey(fieldName))
                         this._antFieldChartMappings.Add(fieldName, objChartMapping);
                 }
-                this._chartMappings.Add(objChartMapping);
+                // pushes to the collection of the real charts
+                if (!this._dicChartMappings.ContainsKey(objChartMapping.Name))
+                    this._dicChartMappings.Add(objChartMapping.Name, objChartMapping);
+                else
+                    this._dicChartMappings[objChartMapping.Name] = objChartMapping;
             }
         }
 
-        public ChartMapping this[int index]
+        public ChartMapping this[int index, IndexType type = IndexType.Column]
         {
             get
             {
-                if (this._antIndexChartMappings.ContainsKey(index))
-                    return this._antIndexChartMappings[index];
-                else
-                    return null;
+                if (type == IndexType.Column)
+                {
+                    if (this._antIndexChartMappings.ContainsKey(index))
+                        return this._antIndexChartMappings[index];
+                    else
+                        return null;
+                }
+                return null;
             }
         }
 
-        public ChartMapping this[string fieldName]
+        public ChartMapping this[string name, IndexType type]
         {
             get
             {
-                if (this._antFieldChartMappings.ContainsKey(fieldName))
-                    return this._antFieldChartMappings[fieldName];
-                else
-                    return null;
+                switch (type)
+                {
+                    case IndexType.ColumnName:
+                    {
+                        if (this._antFieldChartMappings.ContainsKey(name))
+                            return this._antFieldChartMappings[name];
+                        else
+                            return null;
+                    }
+                    case IndexType.ChartMappingName:
+                    {
+                        if (this._dicChartMappings.ContainsKey(name))
+                            return this._dicChartMappings[name];
+                        else
+                            return null;
+                    }
+                    case IndexType.Column:
+                    default:
+                        return null;
+                }
             }
         }
 
@@ -94,9 +145,16 @@ namespace Aeronet.Splitter
                 this._antIndexChartMappings.Add(index, chartMapping);
         }
 
-        public List<ChartMapping> GetAll()
+        public Dictionary<string,ChartMapping> GetGroups()
         {
-            return this._chartMappings;
+            return this._dicChartMappingGroups;
         }
+    }
+
+    public enum IndexType
+    {
+        Column = 0,
+        ColumnName = 1,
+        ChartMappingName = 2
     }
 }

@@ -52,11 +52,18 @@ namespace Aeronet.Core
                 throw new FileNotFoundException("Not found the data set file", dataSetFile);
 
             string strDataSet = File.ReadAllText(dataSetFile);
-            var objDataSet = (dynamic)JObject.Parse(strDataSet);
+            // deserialize from json
+            var joDataSet = JObject.Parse(strDataSet);
 
-            this.Name = (string)objDataSet.name;
-            this.Path = (string)objDataSet.datapath;
-            this.DataConfigs = ((JArray)objDataSet.datas).Select(d => (string)d).ToList();
+            // extracts values
+            JToken value;
+            string strName = joDataSet.TryGetValue("name", out value) ? value.Value<string>() : string.Empty;
+            string strPath = joDataSet.TryGetValue("datapath", out value) ? value.Value<string>() : string.Empty;
+            JArray jarrDatas = joDataSet.TryGetValue("datas", out value) ? value.Value<JArray>() : new JArray();
+
+            this.Name = strName;
+            this.Path = strPath;
+            this.DataConfigs = jarrDatas.Select(d => (string)d).ToList();
         }
     }
 }

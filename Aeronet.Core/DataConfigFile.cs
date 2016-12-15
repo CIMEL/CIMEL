@@ -20,7 +20,13 @@ namespace Aeronet.Core
 
         public List<string> AxisXLabels { get; private set; }
 
-        public List<double> AxisXs { get; private set; } 
+        public List<double> AxisXs { get; private set; }
+
+        public List<string> Notes { get; private set; }
+
+        public List<string> NotesX { get; private set; }
+
+        public List<string> NotesY { get; private set; } 
 
         public DataConfigFile()
         {
@@ -30,6 +36,9 @@ namespace Aeronet.Core
             this.MonthAndDays = new Dictionary<int, List<int>>();
             this.AxisXs=new List<double>();
             this.AxisXLabels=new List<string>();
+            this.Notes=new List<string>();
+            this.NotesX=new List<string>();
+            this.NotesY=new List<string>();
         }
 
         public DataConfigFile(string dataConfigFile)
@@ -42,39 +51,52 @@ namespace Aeronet.Core
             // check if it's an empty file
             if (string.IsNullOrEmpty(strDataConfig))
                 throw new FileLoadException("错误的图像集文件(.dataconfig)", dataConfigFile);
+            // deserialize from json
+            JObject joDataConfig = JObject.Parse(strDataConfig);
+
+            // extracts raw values
+            JToken value;
+            string strName = !joDataConfig.TryGetValue("name", out value)?string.Empty:value.Value<string>();
+            string strDesc = !joDataConfig.TryGetValue("description", out value) ? string.Empty : value.Value<string>();
+            int intYear = !joDataConfig.TryGetValue("year", out value) ? 1900 : value.Value<int>();
+            JArray jarrMonthNDays = !joDataConfig.TryGetValue("monthAndDays", out value) ? new JArray() : value.Value<JArray>();
+            string strAxisXLabels = !joDataConfig.TryGetValue("axisXLabels", out value) ? string.Empty : value.Value<string>();
+            string strAxisXs = !joDataConfig.TryGetValue("axisXs", out value) ? string.Empty : value.Value<string>();
+            string strNotes = !joDataConfig.TryGetValue("notes", out value) ? string.Empty : value.Value<string>();
+            string strNotesX = !joDataConfig.TryGetValue("notesX", out value) ? string.Empty : value.Value<string>();
+            string strNotesY = !joDataConfig.TryGetValue("notesY", out value) ? string.Empty : value.Value<string>();
+
             // initial properties
-            var objDataConfig = (dynamic)JObject.Parse(strDataConfig);
-            this.Name = (string) objDataConfig.name;
-            this.Description = (string) objDataConfig.description;
-            this.Year = (int)objDataConfig.year;
-            var arrMonthNDays = (JArray)objDataConfig.monthAndDays;
+            this.Name = strName;
+            this.Description = strDesc;
+            this.Year = intYear;
+            var arrMonthNDays = jarrMonthNDays;
             for (int i = 0; i < arrMonthNDays.Count; i++)
             {
                 //ignore the empty month
                 string strDays = (string)arrMonthNDays[i];
                 if (string.IsNullOrEmpty(strDays)) continue;
 
-                List<int> days = strDays.Split(new char[] { ',' }, StringSplitOptions.None)
-                        .Select(int.Parse)
-                        .ToList();
+                List<int> days = strDays.Split(',').Select(int.Parse).ToList();
                 int month = i + 1;
                 if (!this.MonthAndDays.ContainsKey(month))
                     this.MonthAndDays.Add(month, days);
                 else
                     this.MonthAndDays[month] = days;
             }
-            var strAxisXLabels = (string)objDataConfig.axisXLabels;
             if (!string.IsNullOrEmpty(strAxisXLabels))
-                this.AxisXLabels = strAxisXLabels.Split(new char[] {','}, StringSplitOptions.None).ToList();
-            var strAxisXs = (string)objDataConfig.axisXs;
+                this.AxisXLabels = strAxisXLabels.Split(',').ToList();
             if (!string.IsNullOrEmpty(strAxisXs))
-                this.AxisXs = strAxisXs.Split(new char[] {','}, StringSplitOptions.None).Select(a =>
+                this.AxisXs = strAxisXs.Split(',').Select(a =>
                 {
                     double v;
                     if (!double.TryParse(a, out v))
                         v = 0f;
                     return v;
                 }).ToList();
+            this.Notes = string.IsNullOrEmpty(strNotes) ? new List<string>() : strNotes.Split(',').ToList();
+            this.NotesX = string.IsNullOrEmpty(strNotesX) ? new List<string>() : strNotesX.Split(',').ToList();
+            this.NotesY = string.IsNullOrEmpty(strNotesY) ? new List<string>() : strNotesY.Split(',').ToList();
         }
 
         public void AddMonth(string month)
@@ -124,7 +146,10 @@ namespace Aeronet.Core
                 year = this.Year,
                 monthAndDays = arrMonthAndDays,
                 axisXLabels = string.Join(",",this.AxisXLabels),
-                axisXs = string.Join(",",this.AxisXs)
+                axisXs = string.Join(",",this.AxisXs),
+                notes=string.Join(",",this.Notes),
+                notesX=string.Join(",",this.NotesX),
+                notesY=string.Join(",",this.NotesY)
             };
             using (StreamWriter sw = new StreamWriter(file, false))
             {

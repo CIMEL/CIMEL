@@ -59,7 +59,7 @@ namespace Aeronet.Splitter
                                     {
                                         string strField = arrFields[i].Trim().ToLower();
                                         // initial global index
-                                        ChartMapping chartMapping = ChartMappings.Signleton[strField];
+                                        ChartMapping chartMapping = ChartMappings.Signleton[strField,IndexType.ColumnName];
                                         if (chartMapping == null) continue;
                                         // create the mapping of column index - chart mapping
                                         ChartMappings.Signleton.CreateIndexMapping(i, chartMapping);
@@ -147,23 +147,38 @@ namespace Aeronet.Splitter
                 OnInformed(string.Format("Chart Set Root-> {0}", chartSetPath));
 
                 // save data config files and data files
-                foreach (ChartMapping objChartMapping in ChartMappings.Signleton.GetAll())
+                foreach (var pair in ChartMappings.Signleton.GetGroups())
                 {
-                    // skip the chart mapping if no data file extracted from the aeronet inversion file(.dat)
-                    if(!objChartMapping.HasDataFiles) continue;
+                    var chartMappingGroup = pair.Value;
 
-                    OnInformed(string.Format("Processing data: {0} - {1}", objChartMapping.Name, objChartMapping.Description));
-                    string chartName = objChartMapping.Name;
-                    string chartDesc = objChartMapping.Description;
-                    // generate data config file (.dataconfig)
-                    string dataConfigFile= objChartMapping.DataConfigFile.Save(chartSetPath, chartName);
-                    OnInformed(string.Format("{0}: Saved -> {1}", objChartMapping.Name, dataConfigFile));
+                    string strGroupNames=string.Empty;
+
+                    string[] arrGroups = chartMappingGroup.SubCharts;
+
+                    foreach (var strChartName in arrGroups)
+                    {
+                        var objChartMapping = ChartMappings.Signleton[strChartName, IndexType.ChartMappingName];
+
+                        // skip the chart mapping if no data file extracted from the aeronet inversion file(.dat)
+                        if (!objChartMapping.HasDataFiles) continue;
+
+                        OnInformed(string.Format("Processing data: {0} - {1}", objChartMapping.Name, objChartMapping.Description));
+                        string chartName = objChartMapping.Name;
+                        strGroupNames += string.Format("{0}@", chartName);
+                        // generate data config file (.dataconfig)
+                        string dataConfigFile = objChartMapping.DataConfigFile.Save(chartSetPath, chartName);
+                        OnInformed(string.Format("{0}: Saved -> {1}", objChartMapping.Name, dataConfigFile));
+                        // splits data into one-day data file (.data)
+                        string strHeader = objChartMapping.ToHeader();
+                        string strSaved = objChartMapping.DataFiles.Save(chartSetPath, chartName, strHeader);
+                        OnInformed(string.Format("{0}: Saved -> {1} data files", objChartMapping.Name, strSaved));
+                    }
+
+                    string chartDesc = chartMappingGroup.Description;
+                    if (strGroupNames.EndsWith("@"))
+                        strGroupNames = strGroupNames.Substring(0, strGroupNames.Length - 1);
                     // ChartName | Description
-                    aeronetFile.DataConfigs.Add(string.Format("{0}|{1}", chartName, chartDesc));
-                    // splits data into one-day data file (.data)
-                    string strHeader = objChartMapping.ToHeader();
-                    string strSaved= objChartMapping.DataFiles.Save(chartSetPath, chartName, strHeader);
-                    OnInformed(string.Format("{0}: Saved -> {1} data files", objChartMapping.Name, strSaved));
+                    aeronetFile.DataConfigs.Add(string.Format("{0}|{1}", strGroupNames, chartDesc));
                 }
                 // generate aeronet file (.aeronet)
                 string aeronetfile = aeronetFile.Save(root, chartSetName);
