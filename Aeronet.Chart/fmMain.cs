@@ -56,10 +56,16 @@ namespace Aeronet.Chart
             // check if the selected data set is empty
             if (string.IsNullOrEmpty(cmbCharts.Text) || cmbCharts.Text == ComboBoxItem.EmptyItem.Text)
                 return; // nothiing to do
-            // appends the extension (.dataconfig)
-            string chartConfigDataFile = Path.Combine(this._currentFile.Path,
-                string.Format("{0}.{1}", ((dynamic)cmbCharts.SelectedItem).Value, "dataconfig"));
-            this.chartPanel1.DataConfigFiles = chartConfigDataFile;
+
+            string strChartNames = ((dynamic) cmbCharts.SelectedItem).Value;
+            string[] arrChartNames = strChartNames.Split('@');
+
+
+            if (this.chartPanel1.DataConfigFiles.Count > 0)
+                this.chartPanel1.DataConfigFiles.Clear();
+            this.chartPanel1.DataConfigFiles.AddRange(arrChartNames
+                .Select(cn => Path.Combine(this._currentFile.Path,string.Format("{0}.{1}", cn, "dataconfig")))
+                .ToList());
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
             // enable the panel

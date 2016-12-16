@@ -55,7 +55,7 @@ namespace Aeronet.Splitter
             string chartMappingsFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "chartmappings.json");
             if (!File.Exists(chartMappingsFile))
                 throw new FileNotFoundException("Not found chart mappings file: " + chartMappingsFile);
-            string strChartMappings = File.ReadAllText(chartMappingsFile);
+            string strChartMappings = File.ReadAllText(chartMappingsFile,Encoding.GetEncoding("GB2312"));
             var jCharts = (JArray)((dynamic)JObject.Parse(strChartMappings)).charts;
 
             foreach (JToken jChart in jCharts)

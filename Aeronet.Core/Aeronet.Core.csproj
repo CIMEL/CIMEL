@@ -47,6 +47,7 @@
     <Compile Include="AeronetFile.cs" />
     <Compile Include="DataConfigFile.cs" />
     <Compile Include="DataFile.cs" />
+    <Compile Include="DataFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

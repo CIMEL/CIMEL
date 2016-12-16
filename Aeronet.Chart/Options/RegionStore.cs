@@ -15,6 +15,8 @@ namespace Aeronet.Chart.Options
 {
     public class RegionStore
     {
+        private static readonly Encoding EncodingCode = Encoding.GetEncoding("GB2312");
+
         private static RegionStore _default = new RegionStore();
 
         protected string OptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "regions.json");
@@ -23,7 +25,7 @@ namespace Aeronet.Chart.Options
         {
             string dataPath = OptionsPath;
 
-            string content = File.ReadAllText(dataPath);
+            string content = File.ReadAllText(dataPath, EncodingCode);
             var j = new JsonTextReader(new StringReader(content));
             var serializer = new JsonSerializer();
             _regions = serializer.Deserialize<Regions>(j);
@@ -52,7 +54,7 @@ namespace Aeronet.Chart.Options
                 string optionFile = this.OptionsPath;
                 this._regions.RegionList = lstRegions;
 
-                using (StreamWriter sw = new StreamWriter(optionFile, false))
+                using (StreamWriter sw = new StreamWriter(optionFile, false,EncodingCode))
                 {
                     JsonSerializer.Create().Serialize(new JsonTextWriter(sw), _regions);
                 }

@@ -10,6 +10,8 @@ namespace Aeronet.Core
 {
     public class DataConfigFile
     {
+        private static readonly Encoding EncodingCode = Encoding.GetEncoding("GB2312");
+
         public string Name { get; set; }
 
         public int Year { get; set; }
@@ -46,7 +48,7 @@ namespace Aeronet.Core
         {
             // this.Name = Path.GetFileNameWithoutExtension(dataConfigFile);
 
-            string strDataConfig = File.ReadAllText(dataConfigFile);
+            string strDataConfig = File.ReadAllText(dataConfigFile,EncodingCode);
 
             // check if it's an empty file
             if (string.IsNullOrEmpty(strDataConfig))
@@ -84,8 +86,13 @@ namespace Aeronet.Core
                 else
                     this.MonthAndDays[month] = days;
             }
+
+            // defaults to be the same as AxisX
+            if (string.IsNullOrEmpty(strAxisXLabels))
+                strAxisXLabels = strAxisXs;
             if (!string.IsNullOrEmpty(strAxisXLabels))
                 this.AxisXLabels = strAxisXLabels.Split(',').ToList();
+
             if (!string.IsNullOrEmpty(strAxisXs))
                 this.AxisXs = strAxisXs.Split(',').Select(a =>
                 {
@@ -94,9 +101,9 @@ namespace Aeronet.Core
                         v = 0f;
                     return v;
                 }).ToList();
-            this.Notes = string.IsNullOrEmpty(strNotes) ? new List<string>() : strNotes.Split(',').ToList();
-            this.NotesX = string.IsNullOrEmpty(strNotesX) ? new List<string>() : strNotesX.Split(',').ToList();
-            this.NotesY = string.IsNullOrEmpty(strNotesY) ? new List<string>() : strNotesY.Split(',').ToList();
+            this.Notes = string.IsNullOrEmpty(strNotes) ? new List<string>() : strNotes.Split('|').ToList();
+            this.NotesX = string.IsNullOrEmpty(strNotesX) ? new List<string>() : strNotesX.Split('|').ToList();
+            this.NotesY = string.IsNullOrEmpty(strNotesY) ? new List<string>() : strNotesY.Split('|').ToList();
         }
 
         public void AddMonth(string month)
@@ -151,7 +158,7 @@ namespace Aeronet.Core
                 notesX=string.Join(",",this.NotesX),
                 notesY=string.Join(",",this.NotesY)
             };
-            using (StreamWriter sw = new StreamWriter(file, false))
+            using (StreamWriter sw = new StreamWriter(file, false,EncodingCode))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), dataconfig);
                 sw.Flush();

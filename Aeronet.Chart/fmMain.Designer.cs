@@ -244,7 +244,6 @@
             this.chartPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartPanel1.DataConfigFiles = null;
             this.chartPanel1.Font = global::Aeronet.Chart.Properties.Settings.Default.DEFAULT_FONT;
             this.chartPanel1.Location = new System.Drawing.Point(15, 180);
             this.chartPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

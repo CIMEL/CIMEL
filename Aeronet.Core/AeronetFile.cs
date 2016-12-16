@@ -3,11 +3,14 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Aeronet.Core
 {
     public class AeronetFile
     {
+        private static readonly Encoding EncodingCode = Encoding.GetEncoding("GB2312");
+
         public string Name { get; set; }
 
         public string Path { get; set; }
@@ -37,7 +40,7 @@ namespace Aeronet.Core
                 datapath = this.Path,
                 datas = arrDatas
             };
-            using (StreamWriter sw = new StreamWriter(file, false))
+            using (StreamWriter sw = new StreamWriter(file, false,EncodingCode))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), aeronet);
                 sw.Flush();
@@ -51,7 +54,7 @@ namespace Aeronet.Core
             if (!File.Exists(dataSetFile))
                 throw new FileNotFoundException("Not found the data set file", dataSetFile);
 
-            string strDataSet = File.ReadAllText(dataSetFile);
+            string strDataSet = File.ReadAllText(dataSetFile,EncodingCode);
             // deserialize from json
             var joDataSet = JObject.Parse(strDataSet);
 

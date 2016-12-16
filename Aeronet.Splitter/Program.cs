@@ -11,6 +11,8 @@ namespace Aeronet.Splitter
 {
     internal class Program
     {
+        private static readonly Encoding EncodingCode = Encoding.UTF8;
+
         private static void Main(string[] args)
         {
             try
@@ -40,7 +42,7 @@ namespace Aeronet.Splitter
                     try
                     {
                         // loop data lines
-                        using (StreamReader sr = new StreamReader(fs))
+                        using (StreamReader sr = new StreamReader(fs,EncodingCode))
                         {
                             try
                             {

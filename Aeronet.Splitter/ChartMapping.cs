@@ -56,10 +56,15 @@ namespace Aeronet.Splitter
                         v = 0f;
                     return v;
                 }).ToArray();
+
+            // defaults to be same as the AxisX
+            if (string.IsNullOrEmpty(strAxisXLabels))
+                strAxisXLabels = strAxisXs;
+
             string[] arrAxisXLabels = string.IsNullOrEmpty(strAxisXLabels) ? new string[0] : strAxisXLabels.Split(',');
-            string[] arrNotes = string.IsNullOrEmpty(strNotes) ? new string[0] : strNotes.Split(',');
-            string[] arrNotesX = string.IsNullOrEmpty(strNotesX) ? new string[0] : strNotesX.Split(',');
-            string[] arrNotesY = string.IsNullOrEmpty(strNotesY) ? new string[0] : strNotesY.Split(',');
+            string[] arrNotes = string.IsNullOrEmpty(strNotes) ? new string[0] : strNotes.Split('|');
+            string[] arrNotesX = string.IsNullOrEmpty(strNotesX) ? new string[0] : strNotesX.Split('|');
+            string[] arrNotesY = string.IsNullOrEmpty(strNotesY) ? new string[0] : strNotesY.Split('|');
 
             this.DataConfigFile = new DataConfigFile
             {

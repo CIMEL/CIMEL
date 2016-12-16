@@ -14,7 +14,8 @@ namespace Aeronet.Chart
 {
     public partial class AeroChart : UserControl
     {
-        public string DataConfigFile { get; set; }
+        public string DataFolder { get { return this._dataFolder; } set { this._dataFolder = value; } }
+        public DataConfigFile DataConfigFile { get { return _objDataConfigFile; } set { _objDataConfigFile = value; } }
 
         private string _dataFolder;
         private DataConfigFile _objDataConfigFile;
@@ -54,30 +55,28 @@ namespace Aeronet.Chart
             //disiable
             this.Disable();
 
-            // the property DataConfigFile must be initialzied
-            if (string.IsNullOrEmpty(this.DataConfigFile))
+            if(this.DataConfigFile==null)
                 throw new NotImplementedException("属性 DataConfigFile 没有初始化");
 
-            if (!File.Exists(this.DataConfigFile))
-                throw new FileNotFoundException("没有找到图像集文件(.dataconfig)", this.DataConfigFile);
+            if (this.DataFolder == null)
+                throw new NotImplementedException("属性 DataFolder 没有初始化");
 
-            // initial Folder
-            this._dataFolder = Path.GetDirectoryName(this.DataConfigFile);
-
-            // initial instance of DataConfigFile
-            this._objDataConfigFile = new DataConfigFile(this.DataConfigFile);
 
             // the label of year
             ChartArea caDefault = this.chart1.ChartAreas["Default"];
-            caDefault.AxisY.Title = string.Format("{0} {1}", this._objDataConfigFile.Name,
-                this._objDataConfigFile.Description);
 
-            // clean up the custom labels
-            caDefault.AxisX.CustomLabels.Clear();
-            // set to default
-            caDefault.AxisX.LabelStyle.Angle = 0;
-            caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
+            // initial Y title
+            var notesY = this.DataConfigFile.NotesY.ToList();
+            notesY.Insert(0,string.Format("{0} {1}", this.DataConfigFile.Name,
+                this.DataConfigFile.Description));
+            caDefault.AxisY.Title = string.Join(Environment.NewLine, notesY);
 
+            // initial X title
+            var notesX = this.DataConfigFile.NotesX;
+            if(notesX.Count>0)
+                caDefault.AxisX.Title = string.Join(Environment.NewLine, notesX);
+
+            // initial Axis X range
             double min;
             double max;
             if (this._objDataConfigFile.AxisXs.Count == 0)
@@ -88,25 +87,39 @@ namespace Aeronet.Chart
             else if (this._objDataConfigFile.Name == "SD")
             {
                 min = 0f;
-                max = 15.05f;
+                max = 15.2f;
             }
             else
             {
                 double first = this._objDataConfigFile.AxisXs[0];
                 double last = this._objDataConfigFile.AxisXs[this._objDataConfigFile.AxisXs.Count - 1];
 
-                double avgDiff = Math.Round((last - first) / this._objDataConfigFile.AxisXs.Count, 3);
+                double avgDiff = Math.Round((last - first) / (double)this._objDataConfigFile.AxisXs.Count,1,MidpointRounding.ToEven);
+
                 if (first - avgDiff <= 0f)
+                {
+                    max = last + first;
                     min = 0f;
+                }
                 else
+                {
                     min = first - avgDiff;
-                max = last + avgDiff;
+                    max = last + avgDiff;
+                }
             }
 
-            caDefault.AxisX.Minimum = min;
-            caDefault.AxisX.Maximum = max;
+            caDefault.AxisX.Minimum = Math.Round(min, 1, MidpointRounding.ToEven);
+            caDefault.AxisX.Maximum = Math.Round(max, 1, MidpointRounding.ToEven);
+
+            caDefault.AxisX.IsLabelAutoFit = true;
+            // clean up the custom labels
+            caDefault.AxisX.CustomLabels.Clear();
+            // set to default
+            caDefault.AxisX.LabelStyle.Angle = 0;
+            caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
+            // add custom labels on Axis X for non-SD chart
+            caDefault.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
             var offset = 50f;
-            // add custom labels for non-SD chart
             if (this._objDataConfigFile.Name != "SD")
             {
                 for (int i = 0; i < this._objDataConfigFile.AxisXs.Count; i++)
@@ -128,18 +141,20 @@ namespace Aeronet.Chart
             this.chart1.Titles.Clear();
             this.chart1.Series.Clear();
             this.chart1.Enabled = false;
+            this.chart1.Refresh();
         }
 
         public void Enable()
         {
             this.chart1.Enabled = true;
+            this.chart1.Refresh();
         }
 
         private ChartLine[] LoadChartLines(int year,int month,int day)
         {
-            //int year = this._dataConfigFile.Year;
-            //int month = (int)this.tsCmbMonth.SelectedItem;
-            //int day = (int)this.tsCmbDay.SelectedItem;
+            if (this.DataFolder == null)
+                throw new NotImplementedException("属性 DataFolder 没有初始化");
+
             string dataFolder = this._dataFolder;
             string dataName = this._objDataConfigFile.Name;
             ChartReader chartReader = new ChartReader(dataFolder, dataName, year, month, day);
@@ -149,17 +164,14 @@ namespace Aeronet.Chart
 
         private void DrawChart(ChartLine[] chartLines,int year,int month,int day)
         {
-            //int year = this._dataConfigFile.Year;
-            //int month = (int)this.tsCmbMonth.SelectedItem;
-            //int day = (int)this.tsCmbDay.SelectedItem;
-
+            // initial title
             this.chart1.Titles.Clear();
-            this.chart1.Titles.Add(new Title(string.Format("{0} / {1} / {2}", month, day, year), Docking.Top)
-            {
-                DockedToChartArea = "Default",
-                IsDockedInsideChartArea = false
-            });
+            var notes = this.DataConfigFile.Notes.ToList();
+            notes.Insert(0, string.Format("{0} / {1} / {2}", month, day, year));
+            this.chart1.Titles.Add(new Title(string.Join(Environment.NewLine, notes), Docking.Top));
 
+            double first=-1f;
+            double last=-1f;
             // add series
             this.chart1.Series.Clear();
             foreach (ChartLine chartLine in chartLines)
@@ -170,10 +182,43 @@ namespace Aeronet.Chart
                 timeLine.ChartArea = "Default";
                 foreach (var point in chartLine.Points)
                 {
+                    // initial min and max guards of Axis Y
+                    if (first < 0)
+                        first = point.Y;
+                    if (last < 0)
+                        last = point.Y;
+
+                    // check if it is great than the max guard of Axis Y
+                    if (point.Y > last)
+                        last = point.Y;
+                    // check if it is less than the min guard of Axis Y
+                    if (point.Y < first)
+                        first = point.Y;
+
                     timeLine.Points.Add(new DataPoint(point.X, point.Y) { MarkerSize = 5, MarkerStyle = MarkerStyle.Square });
                 }
                 this.chart1.Series.Add(timeLine);
             }
+
+            // optimize Axis Y range
+            var caDefault = this.chart1.ChartAreas["Default"];
+            caDefault.AxisY.IntervalAutoMode=IntervalAutoMode.VariableCount;
+            double avgDiff = (last - first)/chartLines.Length;
+            double max, min;
+            // check if min is down below Zero
+            if (first - avgDiff <= 0)
+            {
+                max = last + first;
+                min = 0f;
+            }
+            else
+            {
+                max = last + avgDiff;
+                min = first - avgDiff;
+            }
+
+            caDefault.AxisY.Minimum = Math.Round(min, 3, MidpointRounding.ToEven);
+            caDefault.AxisY.Maximum = Math.Round(max, 3, MidpointRounding.ToEven);
         }
     }
 }
