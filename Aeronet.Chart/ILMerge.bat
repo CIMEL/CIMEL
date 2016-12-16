@@ -1,1 +1,1 @@
-%1Ilmerge.exe %2Aeronet.Chart.exe %2Aeronet.Core.dll %2Newtonsoft.json.dll %2Peach.Log.dll /t:winexe /out:%2AeronetChart.exe /targetplatform:v4 /internalize /ndebug
+%1Ilmerge.exe %2Aeronet.Chart.exe %2Aeronet.Core.dll %2Newtonsoft.json.dll %2Peach.Log.dll %2log4net.dll /t:winexe /out:%2AeronetChart.exe /targetplatform:v4 /internalize /ndebug
