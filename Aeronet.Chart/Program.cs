@@ -17,9 +17,30 @@ namespace Aeronet.Chart
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             // config log4net
-            var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
-            Stream logConfigStream = thisExe.GetManifestResourceStream("Aeronet.Chart.log4net.config");
-            Peach.Log.Configurator.Configurate(logConfigStream);
+             
+             // load stream of config file from embeded resource
+             var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
+             Stream logConfigStream = thisExe.GetManifestResourceStream("Aeronet.Chart.log4net.config");
+             Peach.Log.Configurator.Configurate(logConfigStream);
+            
+            // load config file from working folder
+            /*
+            try
+            {
+                string configfile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "log4net.config");
+                if (File.Exists(configfile))
+                {
+                    using (FileStream fs = new FileStream(configfile, FileMode.Open))
+                    {
+                        Peach.Log.Configurator.Configurate(fs);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            */
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -322,7 +322,9 @@ namespace Aeronet.Chart.AeronetData
             string brdf = ConfigOptions.Singleton.MODIS_BRDF_Dir;
             if (brdf[brdf.Length - 1] != Path.DirectorySeparatorChar)
                 brdf += Path.DirectorySeparatorChar;
-            string dat = ConfigOptions.Singleton.DATA_Dir;
+            string dat = Path.Combine(ConfigOptions.Singleton.DATA_Dir,paras.STNS_FN);
+            if(!Directory.Exists(dat))
+                Directory.CreateDirectory(dat);
 
             // move the creator program to the working folder(metadata)
             string metaData = ConfigOptions.Singleton.METADATA_Dir;
