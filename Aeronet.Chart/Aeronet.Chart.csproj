@@ -55,9 +55,6 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="dog_net_windows">
-      <HintPath>..\..\AeronetSuperDog\Licensing\DotNet\dog_net_windows.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -212,6 +209,10 @@
     <ProjectReference Include="..\Aeronet.Core\Aeronet.Core.csproj">
       <Project>{3b64a613-ac08-477f-87ef-528332578edc}</Project>
       <Name>Aeronet.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aeronet.Dog\Aeronet.Dog.csproj">
+      <Project>{708564A9-832C-4DAC-97C3-3FDB163C841A}</Project>
+      <Name>Aeronet.Dog</Name>
     </ProjectReference>
     <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>

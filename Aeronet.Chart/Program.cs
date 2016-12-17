@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Aeronet.Core;
+using Aeronet.Dog;
 using Peach.Log;
-using SuperDog;
-
 namespace Aeronet.Chart
 {
     static class Program
@@ -19,20 +18,10 @@ namespace Aeronet.Chart
         {
             try
             {
-                // check superdog
-                using (Dog dog = new Dog(DogFeature.Default))
-                {
-                    string scope = SuperDogVendor.DefaultScope;
-                    DogStatus status = dog.Login(SuperDogVendor.VendorCode, scope);
-                    if (status != DogStatus.StatusOk)
-                    {
-                        MessageBox.Show(string.Format("运行禁止: {0} (DogStatus::{1})\r\n",
-                                       SuperDogVendor.Default.GetStatus((int)status),
-                                       status),@"安全锁");
-                        return;
-                    }
-
-                }
+                //MessageBox.Show(string.Format("运行禁止: {0} (DogStatus::{1})\r\n",
+                //               AeronetDog.Default.GetStatus((int)status),
+                //               status), @"安全锁");
+                //// check superdog
             }
             catch (Exception)
             {

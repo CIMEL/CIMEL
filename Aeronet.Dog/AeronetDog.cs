@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
+using Aeronet.Core;
+using SuperDog;
 
-namespace Aeronet.Core
+namespace Aeronet.Dog
 {
-    public class SuperDogVendor
+    public class AeronetDog
     {
-        private static SuperDogVendor _default=new SuperDogVendor();
+        private static AeronetDog _default=new AeronetDog();
 
         private StringCollection _stringCollection;
 
-        protected SuperDogVendor()
+        private SuperDog.Dog _dog;
+
+        protected AeronetDog()
         {
             // next could be considered ugly.
             // build up a string collection holding
@@ -128,9 +133,11 @@ namespace Aeronet.Core
 
             _stringCollection.Insert(698, "Capability is not available.");
             _stringCollection.Insert(699, "Internal API error.");
+
+            this._dog = new SuperDog.Dog(DogFeature.Default);
         }
 
-        public static SuperDogVendor Default { get { return _default;} }
+        public static AeronetDog Default { get { return _default;} }
 
         public string GetStatus(int status)
         {
@@ -176,5 +183,38 @@ namespace Aeronet.Core
         }
 
         public static string DefaultScope { get { return DEFAULT_SCOPE; } }
+
+        public MethodResult IsAlive()
+        {
+            if (!this._dog.IsLoggedIn())
+                return this.WakeUp();
+            return new MethodResult(this._dog.IsValid(),string.Empty);
+        }
+
+        public MethodResult WakeUp()
+        {
+            if (!this._dog.IsLoggedIn())
+            {
+                string scope = DefaultScope;
+                DogStatus status= this._dog.Login(VendorCode, scope);
+                if (status != DogStatus.StatusOk)
+                {
+                    return new MethodResult(false, this.GetStatus((int)status));
+                }
+            }
+
+            return new MethodResult();
+        }
+
+        public MethodResult Sleep()
+        {
+            if (this._dog.IsLoggedIn())
+            {
+                
+
+            }
+
+            return new MethodResult();
+        }
     }
 }
