@@ -3,11 +3,14 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Aeronet.Core
 {
     public class AeronetFile
     {
+        private static readonly Encoding EncodingCode = Encoding.GetEncoding("GB2312");
+
         public string Name { get; set; }
 
         public string Path { get; set; }
@@ -37,7 +40,7 @@ namespace Aeronet.Core
                 datapath = this.Path,
                 datas = arrDatas
             };
-            using (StreamWriter sw = new StreamWriter(file, false))
+            using (StreamWriter sw = new StreamWriter(file, false,EncodingCode))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), aeronet);
                 sw.Flush();
@@ -51,12 +54,19 @@ namespace Aeronet.Core
             if (!File.Exists(dataSetFile))
                 throw new FileNotFoundException("Not found the data set file", dataSetFile);
 
-            string strDataSet = File.ReadAllText(dataSetFile);
-            var objDataSet = (dynamic)JObject.Parse(strDataSet);
+            string strDataSet = File.ReadAllText(dataSetFile,EncodingCode);
+            // deserialize from json
+            var joDataSet = JObject.Parse(strDataSet);
 
-            this.Name = (string)objDataSet.name;
-            this.Path = (string)objDataSet.datapath;
-            this.DataConfigs = ((JArray)objDataSet.datas).Select(d => (string)d).ToList();
+            // extracts values
+            JToken value;
+            string strName = joDataSet.TryGetValue("name", out value) ? value.Value<string>() : string.Empty;
+            string strPath = joDataSet.TryGetValue("datapath", out value) ? value.Value<string>() : string.Empty;
+            JArray jarrDatas = joDataSet.TryGetValue("datas", out value) ? value.Value<JArray>() : new JArray();
+
+            this.Name = strName;
+            this.Path = strPath;
+            this.DataConfigs = jarrDatas.Select(d => (string)d).ToList();
         }
     }
 }

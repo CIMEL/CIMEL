@@ -10,38 +10,33 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Aeronet.Core;
+using Peach.Log;
 
 namespace Aeronet.Chart
 {
     public partial class ChartPanel : UserControl
     {
-        public string DataConfigFile { get; set; }
+        public List<string> DataConfigFiles { get; private set; }
 
-        private string _dataFolder;
+        // private string _dataFolder;
+        // the selected the chartdata
         private DataConfigFile _dataConfigFile;
 
         public ChartPanel()
         {
+            this.DataConfigFiles=new List<string>();
+
             InitializeComponent();
             // initial the chart control
-            this.InitChart();
+            this.Init(true);
         }
 
-        private void InitChart()
+        private void Init(bool state)
         {
             this.tsCmbDay.SelectedIndexChanged += tsCmbDay_SelectedIndexChanged;
             this.tsCmbMonth.SelectedIndexChanged += tsCmbMonth_SelectedIndexChanged;
-            ChartArea caDefault = new ChartArea("Default");
-            this.chart1.ChartAreas.Clear();
-            this.chart1.ChartAreas.Add(caDefault);
-            // X axis and Y axis Title
-            caDefault.AxisX.Title = string.Empty;//"X Axis";
-            caDefault.AxisY.Title = string.Empty;// "Y Axis";
-            Legend lgDefault = new Legend("Default");
-            this.chart1.Legends.Clear();
-            this.chart1.Legends.Add(lgDefault);
-            this.chart1.Series.Clear();
-            this.chart1.Titles.Clear();
+            // remove all tab pages
+            this.tabControl1.TabPages.Clear();
         }
 
         private void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,8 +58,8 @@ namespace Aeronet.Chart
             this.tsCmbDay.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
             // enable the combo box of day
             this.tsCmbDay.Enabled = true;
-            // initial to select the empty item
-            this.tsCmbDay.SelectedIndex = 0;
+            // initial to select the empty item, defaults to select the first day having data
+            this.tsCmbDay.SelectedIndex = this.tsCmbDay.Items.Count > 1 ? 1 : 0;
         }
 
         public void Init()
@@ -74,76 +69,49 @@ namespace Aeronet.Chart
                 //disiable the comboxes of month and day
                 this.tsCmbMonth.Enabled = false;
                 this.tsCmbDay.Enabled = false;
-                this.chart1.Enabled = false;
+                this.tabControl1.Enabled = false;
 
                 // the property DataConfigFile must be initialzied
-                if (string.IsNullOrEmpty(this.DataConfigFile))
-                    throw new NotImplementedException("属性 DataConfigFile 没有初始化");
+                if (this.DataConfigFiles.Count==0 || this.DataConfigFiles.All(string.IsNullOrEmpty))
+                    throw new NotImplementedException("属性 DataConfigFiles 没有初始化");
 
-                if (!File.Exists(this.DataConfigFile))
-                    throw new FileNotFoundException("没有找到图像集文件(.dataconfig)", this.DataConfigFile);
+                // initial tab pages
+                this.tabControl1.TabPages.Clear();
+                for (int i=0;i<this.DataConfigFiles.Count;i++)
+                {
+                    string strDataConfigFile = this.DataConfigFiles[i];
+                    if (!File.Exists(strDataConfigFile))
+                        throw new FileNotFoundException("没有找到图像集文件(.dataconfig)", strDataConfigFile);
 
-                // initial Folder
-                this._dataFolder = Path.GetDirectoryName(this.DataConfigFile);
+                    // initial instance of DataConfigFile
+                    DataConfigFile objDataConfigFile = new DataConfigFile(strDataConfigFile);
 
-                // initial instance of DataConfigFile
-                this._dataConfigFile = new DataConfigFile(this.DataConfigFile);
+                    if (i == 0)
+                        this._dataConfigFile = objDataConfigFile;
+                    // initial rootfolder
+                    string rootFolder = Path.GetDirectoryName(strDataConfigFile);
 
+                    AeroChartPage chartPage = new AeroChartPage
+                    {
+                        DataConfigFile = objDataConfigFile,
+                        DataFolder = rootFolder
+                    };
+                    // initial font
+                    //var oFont = this.Font;
+                    //chartPage.Font = new Font(oFont.FontFamily, 12);
+                    chartPage.Init();
+
+                    this.tabControl1.TabPages.Add(chartPage);
+                }
+                // defaults to select the first page
+                if(this.tabControl1.TabPages.Count>0)
+                    this.tabControl1.SelectTab(0);
+
+                if (this._dataConfigFile == null)
+                    throw new NotImplementedException("初始化图像集文件失败");
                 // the label of year
                 this.lblYear.Text = this._dataConfigFile.Year.ToString();
-                ChartArea caDefault = this.chart1.ChartAreas["Default"];
-                caDefault.AxisY.Title = string.Format("{0} {1}", this._dataConfigFile.Name,
-                    this._dataConfigFile.Description);
 
-                // clean up the custom labels
-                caDefault.AxisX.CustomLabels.Clear();
-                // set to default
-                caDefault.AxisX.LabelStyle.Angle = 0;
-                caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
-
-                double min;
-                double max;
-                if (this._dataConfigFile.AxisXs.Count == 0)
-                {
-                    min = 0f;
-                    max = 1200f;
-                }
-                else if (this._dataConfigFile.Name == "SD")
-                {
-                    min = 0f;
-                    max = 15.05f;
-                }
-                else
-                {
-                    double first = this._dataConfigFile.AxisXs[0];
-                    double last = this._dataConfigFile.AxisXs[this._dataConfigFile.AxisXs.Count-1];
-
-                    double avgDiff = Math.Round((last - first)/this._dataConfigFile.AxisXs.Count,3);
-                    if (first - avgDiff <= 0f)
-                        min = 0f;
-                    else
-                        min = first - avgDiff;
-                    max = last + avgDiff;
-                }
-
-                caDefault.AxisX.Minimum = min;
-                caDefault.AxisX.Maximum = max;
-                var offset = 50f;
-                // add custom labels for non-SD chart
-                if (this._dataConfigFile.Name != "SD")
-                {
-                    for (int i = 0; i < this._dataConfigFile.AxisXs.Count; i++)
-                    {
-                        // the axis labels collection has the same length as the axis values
-                        string label = this._dataConfigFile.AxisXLabels[i].ToUpper();
-                        var sizeF = this.CreateGraphics().MeasureString(label, chart1.Font);
-                        var diff = sizeF.Width / 2f;
-                        var axisX = this._dataConfigFile.AxisXs[i];
-                        double fromPosition = axisX - diff - offset <= 0 ? 0f : axisX - diff - offset;
-                        double toPosition = axisX + diff + offset;
-                        caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromPosition, toPosition, label, 0, LabelMarkStyle.None, GridTickTypes.All));
-                    }
-                }
 
                 // initial the combox of month
                 this.tsCmbMonth.Items.Clear();
@@ -156,8 +124,8 @@ namespace Aeronet.Chart
                 this.tsCmbMonth.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
                 // enable month combo box
                 this.tsCmbMonth.Enabled = true;
-                // initial to select the empty item
-                this.tsCmbMonth.SelectedIndex = 0;
+                // initial to select the empty item, defaults to select Jan.
+                this.tsCmbMonth.SelectedIndex = this.tsCmbMonth.Items.Count > 1 ? 1 : 0;
             }
             catch (Exception ex)
             {
@@ -165,47 +133,6 @@ namespace Aeronet.Chart
 
                 // disable all of funtions
                 this.Enabled = false;
-            }
-        }
-
-        private ChartLine[] LoadChartLines()
-        {
-            int year = this._dataConfigFile.Year;
-            int month = (int)this.tsCmbMonth.SelectedItem;
-            int day = (int)this.tsCmbDay.SelectedItem;
-            string dataFolder = this._dataFolder;
-            string dataName = this._dataConfigFile.Name;
-            ChartReader chartReader = new ChartReader(dataFolder, dataName, year, month, day);
-            ChartLine[] chartLines = chartReader.Read(this._dataConfigFile.AxisXs);
-            return chartLines;
-        }
-
-        private void DrawChart(ChartLine[] chartLines)
-        {
-            int year = this._dataConfigFile.Year;
-            int month = (int)this.tsCmbMonth.SelectedItem;
-            int day = (int)this.tsCmbDay.SelectedItem;
-
-            this.chart1.Titles.Clear();
-            this.chart1.Titles.Add(new Title(string.Format("{0} / {1} / {2}", month, day, year), Docking.Top)
-            {
-                DockedToChartArea = "Default",
-                IsDockedInsideChartArea = false
-            });
-
-            // add series
-            this.chart1.Series.Clear();
-            foreach (ChartLine chartLine in chartLines)
-            {
-                Series timeLine = new Series(chartLine.TimePoint);
-                timeLine.Legend = "Default";
-                timeLine.ChartType = SeriesChartType.Line;
-                timeLine.ChartArea = "Default";
-                foreach (var point in chartLine.Points)
-                {
-                    timeLine.Points.Add(new DataPoint(point.X, point.Y) { MarkerSize = 5, MarkerStyle = MarkerStyle.Square });
-                }
-                this.chart1.Series.Add(timeLine);
             }
         }
 
@@ -218,25 +145,62 @@ namespace Aeronet.Chart
             if (string.IsNullOrEmpty(tsCmbDay.Text) || tsCmbDay.Text == ComboBoxItem.EmptyItem.Text)
                 return; // do nothing
 
-            // loads chart data
-            ChartLine[] chartLines = this.LoadChartLines();
-
-            // draw chart
-            this.DrawChart(chartLines);
+            this.DrawChart();
 
             this.EnableChart();
         }
 
+        private void DrawChart()
+        {
+            // check if there are any tabs
+            if (this.tabControl1.TabPages.Count == 0) return;
+            
+            int year = this._dataConfigFile.Year;
+            int month = (int)this.tsCmbMonth.SelectedItem;
+            int day = (int)this.tsCmbDay.SelectedItem;
+
+            foreach (var tabPage in this.tabControl1.TabPages)
+            {
+                var aeroChartPage = tabPage as AeroChartPage;
+                if(aeroChartPage==null) continue;
+                try
+                {
+                    aeroChartPage.Draw(year, month, day);
+                    aeroChartPage.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Default.Error(ex);
+                    // do nothing
+                }
+            }
+            this.tabControl1.Refresh();
+        }
+
         private void DisableChart()
         {
-            this.chart1.Titles.Clear();
-            this.chart1.Series.Clear();
-            this.chart1.Enabled = false;
+            foreach (var tabPage in this.tabControl1.TabPages)
+            {
+                var aeroChartPage = tabPage as AeroChartPage;
+                if (aeroChartPage == null) continue;
+                aeroChartPage.Disable();
+                aeroChartPage.Refresh();
+            }
+            this.tabControl1.Enabled = false;
+            this.tabControl1.Refresh();
         }
 
         private void EnableChart()
         {
-            this.chart1.Enabled = true;
+            foreach (var tabPage in this.tabControl1.TabPages)
+            {
+                var aeroChartPage = tabPage as AeroChartPage;
+                if (aeroChartPage == null) continue;
+                aeroChartPage.Enable();
+                aeroChartPage.Refresh();
+            }
+            this.tabControl1.Enabled = true;
+            this.tabControl1.Refresh();
         }
 
         public void Disable()

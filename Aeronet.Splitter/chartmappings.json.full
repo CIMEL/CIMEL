@@ -4,23 +4,13 @@
     Created:     Baker Wang @ 11/27/2016
     --------------------------------------------------------------
     Definitions:
-    [name]:
-        the chart name which is apart of the naming of the chart config file
-    [description]:
-        the chart description which displays on the chart
-    [fields]:
-        The columns pointing to the raw data
-    [axisX]:
-        The values of the Axis X
-    [axisXLabels]:
-        The labels of the Axis X, defaults the same as the axisXs
-    [type]: 
+    type: 
         the chart mapping type, available values are 1,2,3
             1: Chart group (Virtual chart)
             2: Child chart of a group (Real chart)
             3: Self-group chart (which is a real chart and considered as a group as well, and the child chart is itself)
         defaults to 3 and the subcharts is itself
-    [subcharts]:
+    subcharts:
         the children of a chart group; it's the chart-self if the chart is a the Self-group chart(3); it will be nothing if the chart is a Child chart(2).
     --------------------------------------------------------------
     History:
@@ -32,82 +22,145 @@
             "name": "SD",
             "description": "Size Distribution",
             "fields": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
+            "axisXLabels": "",
             "axisXs": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
             "notes": "体积谱分布，单位 微米",
-            "notesX": "μm",
-            "notesY": "μm3/μm2"
+            "notesX": "um",
+            "notesY": "um3/um2",
+            "type": 3,
+            "subcharts":"SD" 
         },
         {
             "name": "Real",
             "description": "Refractive Index (Real)",
             "fields": "real440,real670,real870,real1020",
-            "axisXs": "440,670,870,1020"
+            "axisXLabels": "",
+            "axisXs": "440,670,870,1020",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"Real" 
         },
         {
             "name": "Imaginary",
             "description": "Refractive Index (Imaginary)",
             "fields": "imag440,imag670,imag870,imag1020",
-            "axisXs": "440,670,870,1020"
+            "axisXLabels": "",
+            "axisXs": "440,670,870,1020",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"Real" 
         },
         {
             "name": "AOD",
             "description": "Absorption Optical Depth",
             "fields": "aod440,aod675,aod870,aod1020",
-            "axisXs": "440,675,870,1020"
+            "axisXLabels": "",
+            "axisXs": "440,675,870,1020",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"AOD" 
         },
         {
             "name": "EXT",
             "description": "Extinction Optical Depth",
+            "fields": "",
+            "axisXLabels": "",
+            "axisXs": "",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
             "type": 1,
-            "subcharts": "EXT-T|EXT-F|EXT-C"
+            "subcharts":"EXT-T|EXT-F|EXT-C" 
         },
         {
             "name": "EXT-T",
-            "description": "Extinction Optical Depth (T)",
+            "description": "Extinction Optical Depth",
             "fields": "extt440,extt670,extt870,extt1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "EXT-F",
-            "description": "Extinction Optical Depth (F)",
+            "description": "Extinction Optical Depth",
             "fields": "extf440,extf670,extf870,extf1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "EXT-C",
-            "description": "Extinction Optical Depth (C)",
+            "description": "Extinction Optical Depth",
             "fields": "extc440,extc670,extc870,extc1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "SSA",
             "description": "Single Scattering Albedo",
+            "fields": "ssat440,ssat670,ssat870,ssat1020,ssaf440,ssaf670,ssaf870,ssaf1020,ssac440,ssac670,ssac870,ssac1020",
+            "axisXLabels": "",
+            "axisXs": "440,670,870,1020,1460,1690,1890,2040,2480,2710,2910,3060",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
             "type": 1,
-            "subcharts": "SSA-T|SSA-F|SSA-C"
+            "subcharts":"SSA-T|SSA-F|SSA-C" 
         },
         {
             "name": "SSA-T",
-            "description": "Single Scattering Albedo (T)",
+            "description": "Single Scattering Albedo",
             "fields": "ssat440,ssat670,ssat870,ssat1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "SSA-F",
-            "description": "Single Scattering Albedo (F)",
+            "description": "Single Scattering Albedo",
             "fields": "ssaf440,ssaf670,ssaf870,ssaf1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "SSA-C",
-            "description": "Single Scattering Albedo (C)",
+            "description": "Single Scattering Albedo",
             "fields": "ssac440,ssac670,ssac870,ssac1020",
+            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 2,
+            "subcharts":"" 
         },
         {
             "name": "REF",
@@ -115,7 +168,11 @@
             "fields": "refft,refff,reffc",
             "axisXLabels": "refft,refff,reffc",
             "axisXs": "400,800,1200",
-            "notes": "有效半径 总体T, 细模态f, 粗模态c"
+            "notes": "有效半径 总体T, 细模态f, 粗模态c",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"REF" 
         },
         {
             "name": "VOL",
@@ -123,14 +180,23 @@
             "fields": "volt,volf,Volc",
             "axisXLabels": "volt,volf,Volc",
             "axisXs": "400,800,1200",
-            "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c"
+            "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"REF" 
         },
         {
             "name": "RMEA",
             "description": "RMEA",
             "fields": "rmeat,rmeaf,rmeac",
             "axisXLabels": "volt,volf,Volc",
-            "axisXs": "400,800,1200"
+            "axisXs": "400,800,1200",
+            "notes": "",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"RMEA" 
         },
         {
             "name": "AAOD",
@@ -138,7 +204,11 @@
             "fields": "aaod440,aaod670,aaod870,aaod1020",
             "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "notes": "吸收性光学厚度"
+            "notes": "吸收性光学厚度",
+            "notesX": "",
+            "notesY": "",
+            "type": 3,
+            "subcharts":"AAOD" 
         }
     ]
 }

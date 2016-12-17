@@ -95,6 +95,9 @@
       <DependentUpon>fmDataProcessDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="AeronetData\MessageHandler.cs" />
+    <Compile Include="Chart\AeroChartPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Chart\ChartData.cs" />
     <Compile Include="Chart\ChartPanel.cs">
       <SubType>UserControl</SubType>
@@ -103,6 +106,12 @@
       <DependentUpon>ChartPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Chart\ChartReader.cs" />
+    <Compile Include="Chart\AeroChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chart\AeroChart.Designer.cs">
+      <DependentUpon>AeroChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmptyComboxItem.cs" />
     <Compile Include="fmAboutBox.cs">
       <SubType>Form</SubType>
@@ -152,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Chart\ChartPanel.resx">
       <DependentUpon>ChartPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart\AeroChart.resx">
+      <DependentUpon>AeroChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fmAboutBox.resx">
       <DependentUpon>fmAboutBox.cs</DependentUpon>

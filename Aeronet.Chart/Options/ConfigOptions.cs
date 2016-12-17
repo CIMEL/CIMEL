@@ -9,6 +9,7 @@ using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +19,8 @@ namespace Aeronet.Chart
 {
     public partial class ConfigOptions
     {
+        private static readonly Encoding EncodingCode = Encoding.GetEncoding("GB2312");
+
         private static ConfigOptions _default = new ConfigOptions();
 
         protected string OptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "options.json");
@@ -144,7 +147,7 @@ namespace Aeronet.Chart
         /// <param name="optionFile"></param>
         private void Load(string optionFile)
         {
-            string content = File.ReadAllText(optionFile);
+            string content = File.ReadAllText(optionFile,EncodingCode);
 #if AUTO_INIT
             // initial if it's empty file
             if (string.IsNullOrEmpty(content))
@@ -310,7 +313,7 @@ namespace Aeronet.Chart
                 }
             };
 
-            using (StreamWriter sw = new StreamWriter(optionFile, false))
+            using (StreamWriter sw = new StreamWriter(optionFile, false,EncodingCode))
             {
                 JsonSerializer.Create().Serialize(new JsonTextWriter(sw), option);
             }
