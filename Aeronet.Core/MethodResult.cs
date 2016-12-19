@@ -37,5 +37,12 @@ namespace Aeronet.Core
         {
             return new MethodResult(result,string.Empty);
         }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrEmpty(this.Message))
+                return Result ? "True" : "False";
+            return string.Format("{0}: {1}", Result ? "True" : "False", Message);
+        }
     }
 }

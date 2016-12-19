@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart.AeronetData
 {
@@ -85,12 +86,18 @@ namespace Aeronet.Chart.AeronetData
 
         private void lvFiles_DragEnter(object sender, DragEventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // just allow files drag-drop
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
         private void lvFiles_DragDrop(object sender, DragEventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             // just process files drag-drop
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 

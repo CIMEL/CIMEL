@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Aeronet.Chart.Properties;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart.Options
 {
@@ -25,6 +26,9 @@ namespace Aeronet.Chart.Options
 
         private void fmOptions_Closing(object sender, CancelEventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // prevent it from closing if the options are not initialized
             if (!ConfigOptions.Singleton.IsInitialized)
             {
@@ -52,11 +56,17 @@ namespace Aeronet.Chart.Options
 
         private void fmOptions_Load(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.Init();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             StringBuilder valErrors=new StringBuilder();
             foreach (var folderDesc in ConfigOptions.Singleton.GetFolders())
             {
@@ -85,7 +95,19 @@ namespace Aeronet.Chart.Options
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
+            ConfigOptions.Singleton.Refresh();
+            this.Init();
         }
     }
 }

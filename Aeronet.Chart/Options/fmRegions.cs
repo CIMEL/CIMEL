@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart.Options
 {
@@ -24,11 +25,17 @@ namespace Aeronet.Chart.Options
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             this.DialogResult=DialogResult.Cancel;
         }
 
         private void fmRegions_Load(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.LoadRegions();
         }
 
@@ -70,6 +77,9 @@ namespace Aeronet.Chart.Options
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             var items = this.listView1.SelectedItems;
             if(items.Count==0) return;
 
@@ -149,11 +159,17 @@ namespace Aeronet.Chart.Options
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.LoadRegions();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // reset selected item
             this._currentSelected = string.Empty;
             // change editing state
@@ -190,6 +206,9 @@ namespace Aeronet.Chart.Options
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             bool saved=this.SaveRegions();
 
             if (saved)
@@ -202,6 +221,9 @@ namespace Aeronet.Chart.Options
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             bool deleted = this.DeleteRegion(this._currentSelected);
 
             if (deleted)

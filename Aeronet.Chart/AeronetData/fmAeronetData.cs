@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aeronet.Chart.Options;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart
 {
@@ -114,6 +115,10 @@ namespace Aeronet.Chart
         /// <param name="e"></param>
         private void btAction_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is working
+            if (!AeronetDog.Default.IsAlive(true))
+                return;
+
             // launch process dialog
             using (fmDataProcessDialog fmDataProcessDlg = new fmDataProcessDialog())
             {
@@ -129,6 +134,9 @@ namespace Aeronet.Chart
         /// <param name="e"></param>
         private void btnImport_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             var selectedFolder = this.GetSelectedFolder();
             if (selectedFolder == null) return;
 
@@ -159,6 +167,9 @@ namespace Aeronet.Chart
         /// <param name="e"></param>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             var selectedFolder = this.GetSelectedFolder();
             if (selectedFolder == null) return;
             // loads the view from the current directory
@@ -167,6 +178,9 @@ namespace Aeronet.Chart
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             this.DialogResult = DialogResult.Cancel;
         }
 
@@ -182,6 +196,9 @@ namespace Aeronet.Chart
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             using (var fmOptions=new fmOptions())
             {
                 fmOptions.StartPosition = FormStartPosition.CenterParent;

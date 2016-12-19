@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Aeronet.Core;
+using Aeronet.Dog;
 using Peach.Log;
 
 namespace Aeronet.Chart
@@ -41,6 +42,9 @@ namespace Aeronet.Chart
 
         private void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // disable the combo box of day
             this.tsCmbDay.Enabled = false;
             // initial the combox of day
@@ -138,6 +142,9 @@ namespace Aeronet.Chart
 
         private void tsCmbDay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // disable the chart panel
             this.DisableChart();
 

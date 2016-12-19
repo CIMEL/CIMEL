@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aeronet.Chart.Options;
 using Aeronet.Chart.Properties;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart.AeronetData
 {
@@ -34,7 +35,8 @@ namespace Aeronet.Chart.AeronetData
         private string LOG_INT = @"[INT]";
         private string LOG_H_SUCCESS = @"[COMPLETED]";
         private string LOG_H_ABORTED = @"[ABORTED]";
-        private static object _workLocker=new object();
+        private string LOG_H_DOG = @"[DOG]";
+        private static object _workLocker = new object();
 
         public fmDataProcessDialog()
         {
@@ -57,14 +59,31 @@ namespace Aeronet.Chart.AeronetData
             {
                 if (this._isWorking)
                 {
+                    // checks if the super dog is still working
+                    var isActived = AeronetDog.Default.IsAlive();
+                    if(!isActived)
+                    {
+                        Utility.ShowDogAlert(this,isActived.Message);
+                        this._dataWork.Stop();
+                        Utility.ExitApp();
+                    }
+
                     e.Cancel = true;
                     MessageBox.Show(@"数据处理中请不要关闭窗口", @"数据处理");
+                }
+                else
+                {
+                    // checks if the super dog is still working
+                    AeronetDog.Default.IsAlive(true);
                 }
             }
         }
 
         private void fmDataProcessDialog_Load(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // initial current task scheduler
             this._fmTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -272,9 +291,25 @@ namespace Aeronet.Chart.AeronetData
                     this._isWorking = false;
                 }
                 this.btnAction.Text = Settings.Default.BTN_START_TEXT;
-                string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
+                // checks if it's Dog exception
+                string msg = message.Message;
+                bool isDogException = msg.StartsWith(LOG_H_DOG);
+                // if true, remove the [DOG] mark
+                if (isDogException)
+                    msg = msg.Replace(LOG_H_DOG, string.Empty);
+
+                msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), msg);
                 this.LogMessage(msg);
                 Logger.Default.Info(msg);
+
+                if (isDogException)
+                {
+                    // remove the [ABORTED] mark
+                    msg = msg.Replace(LOG_H_ABORTED, string.Empty);
+                    Utility.ShowDogAlert(msg);
+                    Utility.ExitApp();
+                }
+
             }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
         }
 
@@ -401,9 +436,14 @@ namespace Aeronet.Chart.AeronetData
                     // stop the worker
                     worker.Stop();
                     this.btnAction.Enabled = true;
+                    // checks if the super dog is still working
+                    AeronetDog.Default.IsAlive(true);
                 }
                 else
                 {
+                    // checks if the super dog is still working
+                    if (!AeronetDog.Default.IsAlive(true)) return;
+
                     // check validation state
                     if (AreAllGood())
                     {
@@ -439,6 +479,9 @@ namespace Aeronet.Chart.AeronetData
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             this.Close();
         }
 
@@ -497,6 +540,9 @@ namespace Aeronet.Chart.AeronetData
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
             {
                 // disable action
@@ -515,6 +561,9 @@ namespace Aeronet.Chart.AeronetData
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             if (string.IsNullOrEmpty(txtSTNS_ID.Text))
                 this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
             else if(txtSTNS_ID.Text == Settings.Default.LBL_INITIAL)

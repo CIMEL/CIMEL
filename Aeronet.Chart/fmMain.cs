@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Aeronet.Dog;
 
 namespace Aeronet.Chart
 {
@@ -40,6 +41,9 @@ namespace Aeronet.Chart
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.Reset();
             if (cmbRegions.SelectedText != ComboBoxItem.EmptyItem.Text)
             {
@@ -50,6 +54,9 @@ namespace Aeronet.Chart
 
         private void cmbCharts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // disable the chart panel
             this.chartPanel1.Disable();
 
@@ -74,6 +81,9 @@ namespace Aeronet.Chart
 
         private void cmbDataSets_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // disable the combo box of charts
             this.cmbCharts.Enabled = false;
             // clean up the items of combox charts
@@ -106,6 +116,9 @@ namespace Aeronet.Chart
 
         private void fmMain_Load(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             // check if the options has been configurated
             if (!ConfigOptions.Singleton.IsInitialized)
             {
@@ -192,6 +205,9 @@ namespace Aeronet.Chart
 
         private void aeronetDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             using (fmAeronetData fmAeronetData = new fmAeronetData())
             {
                 fmAeronetData.StartPosition = FormStartPosition.CenterParent;
@@ -201,6 +217,9 @@ namespace Aeronet.Chart
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+            
             using (fmOptions fmOptions = new fmOptions())
             {
                 fmOptions.StartPosition = FormStartPosition.CenterParent;
@@ -224,6 +243,9 @@ namespace Aeronet.Chart
 
         private void btnScan_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             this.Reset();
             this.Scan();
         }
@@ -247,6 +269,9 @@ namespace Aeronet.Chart
 
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // checks if the super dog is still working
+            if (!AeronetDog.Default.IsAlive(true)) return;
+
             using (fmRegions fmRegions=new fmRegions())
             {
                 fmRegions.StartPosition=FormStartPosition.CenterParent;

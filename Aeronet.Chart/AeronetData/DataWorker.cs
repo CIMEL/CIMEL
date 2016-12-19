@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Aeronet.Dog;
 using ThreadState = System.Threading.ThreadState;
 
 namespace Aeronet.Chart.AeronetData
@@ -24,6 +25,7 @@ namespace Aeronet.Chart.AeronetData
 
         private string LOG_H_SUCCESS = @"[COMPLETED]";
         private string LOG_H_ABORTED = @"[ABORTED]";
+        private string LOG_H_DOG = @"[DOG]";
 
         #region Events
 
@@ -178,6 +180,11 @@ namespace Aeronet.Chart.AeronetData
         {
             try
             {
+                // checks if the super dog is still working
+                var isActived = AeronetDog.Default.IsAlive();
+                if(!isActived)
+                    throw new DogException(isActived.Message);
+
                 var paras = state as WorkParameters;
                 this.OnStarted(new EventMessage("Started", true));
 
@@ -188,6 +195,12 @@ namespace Aeronet.Chart.AeronetData
                     if (_isStopped)
                         throw new WorkCancelException();
                 }
+
+                // checks if the super dog is still working
+                isActived = AeronetDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
+
                 // Run process of Creator
                 bool sucess = RunCreator(paras);
 
@@ -198,6 +211,12 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
+
+                // checks if the super dog is still working
+                isActived = AeronetDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
+
                 // Run process of Outputor
                 sucess = RunOutputor(paras);
                 lock (_stateLocker)
@@ -208,6 +227,11 @@ namespace Aeronet.Chart.AeronetData
                 if (!sucess)
                     throw new WorkFailedException();
 
+                // checks if the super dog is still working
+                isActived = AeronetDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
+
                 string strOutputRoot = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN);
                 if (!Directory.Exists(strOutputRoot))
                     Directory.CreateDirectory(strOutputRoot);
@@ -215,7 +239,7 @@ namespace Aeronet.Chart.AeronetData
                 string outputfile = Path.Combine(strOutputRoot,
                     string.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
                 // Run process of Drawer
-                sucess = RunDrawer(paras,outputfile);
+                sucess = RunDrawer(paras, outputfile);
                 lock (_stateLocker)
                 {
                     if (_isStopped)
@@ -223,8 +247,14 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
+
+                // checks if the super dog is still working
+                isActived = AeronetDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
+
                 // Run process of Splitter
-                sucess = RunSplitter(paras,outputfile);
+                sucess = RunSplitter(paras, outputfile);
 
                 lock (_stateLocker)
                 {
@@ -233,6 +263,11 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
+
+                // checks if the super dog is still working
+                isActived = AeronetDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
 
                 OnInformed("All jobs are complete!");
                 Exit(true);
@@ -240,6 +275,10 @@ namespace Aeronet.Chart.AeronetData
             catch (WorkFailedException)
             {
                 Exit(false);
+            }
+            catch (DogException ex)
+            {
+                this.OnCompleted(new EventMessage(string.Format("{0}{1}{2}", LOG_H_DOG, LOG_H_ABORTED, ex.Message), true));
             }
             catch (Exception ex)
             {

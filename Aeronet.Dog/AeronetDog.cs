@@ -4,7 +4,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Windows.Forms;
 using Aeronet.Core;
+using Peach.Log;
 using SuperDog;
 
 namespace Aeronet.Dog
@@ -15,7 +17,9 @@ namespace Aeronet.Dog
 
         private StringCollection _stringCollection;
 
-        private SuperDog.Dog _dog;
+        // private SuperDog.Dog _dog;
+
+        private Logger _logger;
 
         protected AeronetDog()
         {
@@ -134,7 +138,8 @@ namespace Aeronet.Dog
             _stringCollection.Insert(698, "Capability is not available.");
             _stringCollection.Insert(699, "Internal API error.");
 
-            this._dog = new SuperDog.Dog(DogFeature.Default);
+            // this._dog = new SuperDog.Dog(DogFeature.Default);
+            this._logger=Logger.CreateNew("dog");
         }
 
         public static AeronetDog Default { get { return _default;} }
@@ -184,37 +189,101 @@ namespace Aeronet.Dog
 
         public static string DefaultScope { get { return DEFAULT_SCOPE; } }
 
-        public MethodResult IsAlive()
+        /// <summary>
+        /// checks if the dog is active, if not wakes it up; in dog term means checks if the dog instance is still valid.
+        /// </summary>
+        /// <returns></returns>
+        public MethodResult IsAlive(bool autoExit=false,IWin32Window owner=null)
         {
-            if (!this._dog.IsLoggedIn())
-                return this.WakeUp();
-            return new MethodResult(this._dog.IsValid(),string.Empty);
-        }
+            MethodResult isActived = new MethodResult();
 
-        public MethodResult WakeUp()
-        {
-            if (!this._dog.IsLoggedIn())
+            using (SuperDog.Dog dog=new SuperDog.Dog(DogFeature.Default))
             {
-                string scope = DefaultScope;
-                DogStatus status= this._dog.Login(VendorCode, scope);
-                if (status != DogStatus.StatusOk)
+                try
                 {
-                    return new MethodResult(false, this.GetStatus((int)status));
+                    string scope = DefaultScope;
+                    DogStatus status = dog.Login(VendorCode, scope);
+                    if (status != DogStatus.StatusOk)
+                    {
+                        isActived = new MethodResult(false, this.GetStatus((int)status));
+                        LogError(string.Format("Is dog active? {0}", isActived));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogError(string.Format("Is dog active? {0}", ex.Message));
+                    isActived = new MethodResult(false, string.Empty);
                 }
             }
 
-            return new MethodResult();
-        }
+            // var isActived = new MethodResult();
+            if (isActived)
+                LogInfo(string.Format("Is dog active? {0}", isActived));
 
-        public MethodResult Sleep()
-        {
-            if (this._dog.IsLoggedIn())
+            if (!isActived && autoExit)
             {
-                
+                string message = string.IsNullOrEmpty(isActived.Message)
+                    ? @"运行禁止!"
+                    : string.Format("运行禁止: {0}", isActived.Message);
+                if (owner != null)
+                    MessageBox.Show(owner, message, @"安全锁", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    MessageBox.Show(message, @"安全锁", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+                if (System.Windows.Forms.Application.MessageLoop)
+                {
+                    // Use this since we are a WinForms app
+                    System.Windows.Forms.Application.Exit();
+                }
+                else
+                {
+                    // Use this since we are a console app
+                    System.Environment.Exit(1);
+                }
             }
 
-            return new MethodResult();
+            return isActived;
+
+
+            /* unused
+            if (!this._dog.IsLoggedIn())
+            {
+                LogInfo("The dog is still in sleep, wakes it up");
+                var result = this.WakeUp();
+                LogInfo(string.Format("Is dog active? {0}", result));
+                return result;
+            }
+
+            try
+            {
+                var isActived = new MethodResult(this._dog.IsValid(), string.Empty);
+                LogInfo(string.Format("Is dog active? {0}", isActived));
+                return isActived;
+            }
+            catch (Exception ex)
+            {
+                var result = new MethodResult(false, ex.Message);
+                LogError(string.Format("Is dog active? {0}", result));
+                return new MethodResult(false, string.Empty);
+            }
+            */
+        }
+
+        public void LogError(string message)
+        {
+            this._logger.Error(message);
+            // todo: show dog's session info
+        }
+
+        public void LogError(Exception ex)
+        {
+            this._logger.Error(ex);
+            // todo: show dog's session info
+        }
+
+        public void LogInfo(string message)
+        {
+            this._logger.Info(message);
         }
     }
 }

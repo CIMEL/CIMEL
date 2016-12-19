@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,54 +17,39 @@ namespace Aeronet.Chart
         [STAThread]
         static void Main()
         {
-            try
-            {
-                //MessageBox.Show(string.Format("运行禁止: {0} (DogStatus::{1})\r\n",
-                //               AeronetDog.Default.GetStatus((int)status),
-                //               status), @"安全锁");
-                //// check superdog
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"运行禁止!", @"超级狗");
-                return;
-            }
-
-
+            // handle the unHandle the exception
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            // config log4net
-             
-             // load stream of config file from embeded resource
-             var thisExe = System.Reflection.Assembly.GetExecutingAssembly();
-             Stream logConfigStream = thisExe.GetManifestResourceStream("Aeronet.Chart.log4net.config");
-             Peach.Log.Configurator.Configurate(logConfigStream);
-            
-            // load config file from working folder
             /*
-            try
-            {
-                string configfile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Options", "log4net.config");
-                if (File.Exists(configfile))
-                {
-                    using (FileStream fs = new FileStream(configfile, FileMode.Open))
-                    {
-                        Peach.Log.Configurator.Configurate(fs);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            */
+            // do release dog when the application exit
+            Application.ApplicationExit += Application_ApplicationExit;
+             * */
+
+            // config and initial log4net
+            Utility.InitialLogger();
+
+            // check superdog
+            if(!AeronetDog.Default.IsAlive(true)) return;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new fmMain());
         }
 
+        /*
+        static void Application_ApplicationExit(object sender, EventArgs e)
+        {
+            // logout super dog
+            var slept = AeronetDog.Default.Sleep(true);
+            if (!slept)
+            {
+                string message = "关闭安全锁异常，请重新插拔安全锁";
+                Utility.ShowDogAlert(message);
+            }
+        }
+        */
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            // log unexpected error
             Logger.Default.Error(e.ExceptionObject);
         }
     }

@@ -75,6 +75,20 @@ namespace Peach.Log
             }
         }
 
+        public static Logger CreateNew(string logName="default")
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(logName))
+                    logName = "default";
+                return new Logger(logName);
+            }
+            catch (Exception)
+            {
+                return new Logger("default");
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether is debug enabled.
         /// </summary>
