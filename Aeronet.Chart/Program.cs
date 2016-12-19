@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Aeronet.Core;
-using Aeronet.Dog;
 using Peach.Log;
 namespace Aeronet.Chart
 {
@@ -16,20 +15,6 @@ namespace Aeronet.Chart
         [STAThread]
         static void Main()
         {
-            try
-            {
-                //MessageBox.Show(string.Format("运行禁止: {0} (DogStatus::{1})\r\n",
-                //               AeronetDog.Default.GetStatus((int)status),
-                //               status), @"安全锁");
-                //// check superdog
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(@"运行禁止!", @"超级狗");
-                return;
-            }
-
-
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             // config log4net
              
