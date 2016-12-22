@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Aeronet.Draw")]
-[assembly: AssemblyDescription("Generates aeronet data for charts")]
+[assembly: AssemblyDescription("Generates CIMEL data for charts")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("北京宇星惠通科技有限公司")]
 [assembly: AssemblyProduct("CIMEL光度计数据处理软件")]

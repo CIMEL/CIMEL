@@ -19,7 +19,7 @@ namespace Aeronet.Splitter
             {
                 // check argument
                 if (args == null || args.Length == 0)
-                    throw new ArgumentException("Missing Argument: aeronet data file (.dat)");
+                    throw new ArgumentException("Missing Argument: CIMEL data file (.dat)");
 
                 string datFile = args[0];
                 if (args.Length < 2)
@@ -54,8 +54,8 @@ namespace Aeronet.Splitter
                                     if (string.IsNullOrEmpty(strHeader))
                                         throw new FileLoadException("Not found header line");
                                     OnInformed("Reading header line");
-                                    string[] arrFields = strHeader.Split(new Char[] {','}, StringSplitOptions.None);
-                                    if (arrFields.Length < 6) throw new FileLoadException("Missing aeronet data");
+                                    string[] arrFields = strHeader.Split(',');
+                                    if (arrFields.Length < 6) throw new FileLoadException("Missing CIMEL data");
                                     // skip the first 6 fields which are the date and time fields
                                     for (int i = 6; i < arrFields.Length; i++)
                                     {
@@ -190,9 +190,9 @@ namespace Aeronet.Splitter
                     // ChartName | Description
                     aeronetFile.DataConfigs.Add(string.Format("{0}|{1}", strGroupNames, chartDesc));
                 }
-                // generate aeronet file (.aeronet)
+                // generate aeronet file (.cimel)
                 string aeronetfile = aeronetFile.Save(root, chartSetName);
-                OnInformed(string.Format("Saved aeronet file -> {0}", aeronetfile));
+                OnInformed(string.Format("Saved cimel file -> {0}", aeronetfile));
             }
             catch (Exception ex)
             {

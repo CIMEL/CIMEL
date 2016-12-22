@@ -21,7 +21,7 @@ namespace Aeronet.Chart
         public const string METADATA_NAME = "其他数据目录";
         public const string OUTPUT_NAME = "主数据输出目录";
         public const string CHARTSET_NAME = "图像集输入目录";
-        public const string DATA_DESC = "AERONET反演算法输入文件的目录";
+        public const string DATA_DESC = "CIMEL反演算法输入文件的目录";
         public const string MODIS_BRDF_DESC = "MODIS观测数据的BRDF参数目录";
         public const string INS_PARA_DESC = "参数文件以及数据文件主目录";
         public const string METADATA_DESC = "其他必要数据文件目录";

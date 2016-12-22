@@ -139,7 +139,7 @@ namespace Aeronet.Chart
             }
             catch
             {
-                MessageBox.Show(fmRegions.DLG_TITLE_ERROR,@"Aeronet Data Initial");
+                MessageBox.Show(this,@"缺少站台配置",fmRegions.DLG_TITLE_ERROR);
             }
             this.cmbRegions.SelectedIndex = 0;
         }
@@ -169,7 +169,7 @@ namespace Aeronet.Chart
                     AeronetConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string[] dataSets = Directory.GetFiles(outputFolder, "*.aeronet", SearchOption.TopDirectoryOnly);
+            string[] dataSets = Directory.GetFiles(outputFolder, "*.cimel", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {
                 MessageBox.Show(this,
