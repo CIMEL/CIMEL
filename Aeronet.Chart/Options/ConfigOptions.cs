@@ -119,20 +119,20 @@ namespace Aeronet.Chart
 
         [Category(CATELOG_PROGRAM),
         DisplayName(@"格式化程序"),
-        Description("格式化和过滤ce318数据，为AERONET反演算法做数据准备"),
+        Description("格式化和过滤ce318数据，为CIMEL反演算法做数据准备"),
         ReadOnly(true)]
         public string PROGRAM_OUTPUTOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
         DisplayName(@"主生成程序"),
-        Description("执行AERONET反演算法"),
+        Description("执行CIMEL反演算法"),
         ReadOnly(true)]
         public string PROGRAM_CREATOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
         DisplayName(@"画图程序"),
         ReadOnly(true),
-        Description("读取AERONET反演产品数据生成矩阵文件")]
+        Description("读取CIMEL反演产品数据生成矩阵文件")]
         public string PROGRAM_DRAWER { get; set; }
 
         [Category(CATELOG_PROGRAM),
@@ -170,22 +170,22 @@ namespace Aeronet.Chart
 
                     // initial creator
                     if (string.IsNullOrEmpty(this.PROGRAM_CREATOR))
-                        this.PROGRAM_CREATOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
-                            "create_input_carsnet.exe");
+                        this.PROGRAM_CREATOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData",
+                            "create_input.exe");
                     // initial outputor
                     this.PROGRAM_OUTPUTOR = (string)options.processor.outputor;
                     if(string.IsNullOrEmpty(this.PROGRAM_OUTPUTOR))
-                        this.PROGRAM_OUTPUTOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                        this.PROGRAM_OUTPUTOR = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData",
                             "main.exe");
                     // initial drawer
                     this.PROGRAM_DRAWER = (string)options.processor.drawer;
                     if (string.IsNullOrEmpty(this.PROGRAM_DRAWER))
-                        this.PROGRAM_DRAWER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                        this.PROGRAM_DRAWER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData",
                             "draw.exe");
                     // initial splitter
                     this.PROGRAM_SPLITTER = (string) options.processor.splitter;
                     if (string.IsNullOrEmpty(this.PROGRAM_SPLITTER))
-                        this.PROGRAM_SPLITTER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
+                        this.PROGRAM_SPLITTER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData",
                             "splitter.exe");
                 }
                 catch (Exception ex)
@@ -237,20 +237,20 @@ namespace Aeronet.Chart
                 {
                     creator =
                         string.IsNullOrEmpty(this.PROGRAM_CREATOR)
-                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData",
-                                "create_input_carsnet.exe")
+                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData",
+                                "create_input.exe")
                             : this.PROGRAM_CREATOR,
                     outputor =
                         string.IsNullOrEmpty(this.PROGRAM_OUTPUTOR)
-                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "main.exe")
+                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData", "main.exe")
                             : this.PROGRAM_OUTPUTOR,
                     drawer =
                         string.IsNullOrEmpty(this.PROGRAM_DRAWER)
-                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "draw.exe")
+                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData", "draw.exe")
                             : this.PROGRAM_DRAWER,
                     splitter =
                         string.IsNullOrEmpty(this.PROGRAM_SPLITTER)
-                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AeronetData", "splitter.exe")
+                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CIMELData", "splitter.exe")
                             : this.PROGRAM_SPLITTER,
                 },
                 output = new

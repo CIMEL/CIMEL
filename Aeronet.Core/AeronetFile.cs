@@ -29,7 +29,7 @@ namespace Aeronet.Core
 
         public string Save(string root, string chartSetName)
         {
-            string extension = "aeronet";
+            string extension = "cimel";
             string file = System.IO.Path.Combine(root, string.Format("{0}.{1}", chartSetName, extension));
             string[] arrDatas = this.DataConfigs.ToArray();
 

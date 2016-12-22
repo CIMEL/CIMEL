@@ -1,1 +1,1 @@
-%1Ilmerge.exe /log %2Aeronet.Chart.exe /log %2Aeronet.Core.dll /log %2Newtonsoft.json.dll /log %2Peach.Log.dll /log %2log4net.dll /t:winexe /out:%2AeronetChart.exe /targetplatform:v4 /ndebug
+%1Ilmerge.exe /log %2Aeronet.Chart.exe /log %2Aeronet.Core.dll /log %2Newtonsoft.json.dll /log %2Peach.Log.dll /log %2log4net.dll /t:winexe /out:%2CIMELChart.exe /targetplatform:v4 /ndebug
