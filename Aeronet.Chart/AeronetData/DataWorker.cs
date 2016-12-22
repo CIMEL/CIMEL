@@ -213,7 +213,7 @@ namespace Aeronet.Chart.AeronetData
                     Directory.CreateDirectory(strOutputRoot);
 
                 string outputfile = Path.Combine(strOutputRoot,
-                    string.Format("Dubovik_stats_{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
+                    string.Format("{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
                 // Run process of Drawer
                 sucess = RunDrawer(paras,outputfile);
                 lock (_stateLocker)
