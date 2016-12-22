@@ -216,7 +216,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AeronetData\create_input_carsnet.exe">
+    <Content Include="AeronetData\create_input.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="AeronetData\Main.exe">
