@@ -22,9 +22,13 @@
         defaults to 3 and the subcharts is itself
     [subcharts]:
         the children of a chart group; it's the chart-self if the chart is a the Self-group chart(3); it will be nothing if the chart is a Child chart(2).
+    [index]:
+        the index of chart mapping in the chart mapping collection, which will control the order of loading chart.
+        It's 0 based, and more larger more later loading
     --------------------------------------------------------------
     History:
     12/15/2016 - Added axisXLabels, notes, notesX, notesY, type and subcharts
+    12/22/2016 - Added Index to control the order of loading chart
 */
 {
     "charts": [
@@ -33,112 +37,153 @@
             "description": "Size Distribution",
             "fields": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
             "axisXs": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
-            "notes": "体积谱分布，单位 微米",
-            "notesX": "μm",
-            "notesY": "μm3/μm2"
-        },
-        {
-            "name": "Real",
-            "description": "Refractive Index (Real)",
-            "fields": "real440,real670,real870,real1020",
-            "axisXs": "440,670,870,1020"
-        },
-        {
-            "name": "Imaginary",
-            "description": "Refractive Index (Imaginary)",
-            "fields": "imag440,imag670,imag870,imag1020",
-            "axisXs": "440,670,870,1020"
-        },
-        {
-            "name": "AOD",
-            "description": "Absorption Optical Depth",
-            "fields": "aod440,aod675,aod870,aod1020",
-            "axisXs": "440,675,870,1020"
-        },
-        {
-            "name": "EXT",
-            "description": "Extinction Optical Depth",
-            "type": 1,
-            "subcharts": "EXT-T|EXT-F|EXT-C"
-        },
-        {
-            "name": "EXT-T",
-            "description": "Extinction Optical Depth (T)",
-            "fields": "extt440,extt670,extt870,extt1020",
-            "axisXs": "440,670,870,1020",
-            "type": 2
-        },
-        {
-            "name": "EXT-F",
-            "description": "Extinction Optical Depth (F)",
-            "fields": "extf440,extf670,extf870,extf1020",
-            "axisXs": "440,670,870,1020",
-            "type": 2
-        },
-        {
-            "name": "EXT-C",
-            "description": "Extinction Optical Depth (C)",
-            "fields": "extc440,extc670,extc870,extc1020",
-            "axisXs": "440,670,870,1020",
-            "type": 2
+            "notes": "体积谱分布",
+            "notesX": "Radius (μm)",
+            "notesY": "Volume Size Distribution (μm3/μm2)",
+            "index": 0
         },
         {
             "name": "SSA",
             "description": "Single Scattering Albedo",
             "type": 1,
-            "subcharts": "SSA-T|SSA-F|SSA-C"
+            "subcharts": "SSA-T|SSA-F|SSA-C",
+            "index": 1
         },
         {
             "name": "SSA-T",
-            "description": "Single Scattering Albedo (T)",
+            "description": "Single Scattering Albedo (Coarse)",
             "fields": "ssat440,ssat670,ssat870,ssat1020",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "type": 2,
+            "notes": "Wavelength (μm)",
+            "notesY": "Single Scattering Albedo (Total)",
+            "index": 1
         },
         {
             "name": "SSA-F",
-            "description": "Single Scattering Albedo (F)",
+            "description": "Single Scattering Albedo (Coarse)",
             "fields": "ssaf440,ssaf670,ssaf870,ssaf1020",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "type": 2,
+            "notes": "Wavelength (μm)",
+            "notesY": "Single Scattering Albedo (Fine)",
+            "index": 1
         },
         {
             "name": "SSA-C",
-            "description": "Single Scattering Albedo (C)",
+            "description": "Single Scattering Albedo (Coarse)",
             "fields": "ssac440,ssac670,ssac870,ssac1020",
             "axisXs": "440,670,870,1020",
-            "type": 2
+            "type": 2,
+            "notes": "Wavelength (μm)",
+            "notesY": "Single Scattering Albedo (Coarse)",
+            "index": 1
         },
         {
-            "name": "REF",
-            "description": "REF",
-            "fields": "refft,refff,reffc",
-            "axisXLabels": "refft,refff,reffc",
-            "axisXs": "400,800,1200",
-            "notes": "有效半径 总体T, 细模态f, 粗模态c"
+            "name": "Real",
+            "description": "Refractive Index (Real)",
+            "fields": "real440,real670,real870,real1020",
+            "axisXs": "440,670,870,1020",
+            "notesX": "Wavelength (μm)",
+            "notesY": "Refractive Index (Real)",
+            "index": 2
         },
         {
-            "name": "VOL",
-            "description": "VOL",
-            "fields": "volt,volf,Volc",
-            "axisXLabels": "volt,volf,Volc",
-            "axisXs": "400,800,1200",
-            "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c"
+            "name": "Imaginary",
+            "description": "Refractive Index (Imaginary)",
+            "fields": "imag440,imag670,imag870,imag1020",
+            "axisXs": "440,670,870,1020",
+            "notesX": "Wavelength (μm)",
+            "notesY": "Refractive Index (Imaginary)",
+            "index": 3
         },
         {
-            "name": "RMEA",
-            "description": "RMEA",
-            "fields": "rmeat,rmeaf,rmeac",
-            "axisXLabels": "volt,volf,Volc",
-            "axisXs": "400,800,1200"
+            "name": "EXT",
+            "description": "Extinction Optical Depth",
+            "type": 1,
+            "subcharts": "EXT-T|EXT-F|EXT-C",
+            "index": 4
+        },
+        {
+            "name": "EXT-T",
+            "description": "Extinction Optical Depth (Total)",
+            "fields": "extt440,aod550,extt670,extt870,extt1020",
+            "axisXs": "440,550,670,870,1020",
+            "type": 2,
+            "notesX": "Wavelength (μm)",
+            "notesY": "Extinction Optical Depth (Total)",
+            "index": 4
+        },
+        {
+            "name": "EXT-F",
+            "description": "Extinction Optical Depth (Fine)",
+            "fields": "extf440,extf670,extf870,extf1020",
+            "axisXs": "440,670,870,1020",
+            "type": 2,
+            "notesX": "Wavelength (μm)",
+            "notesY": "Extinction Optical Depth (Fine)",
+            "index": 4
+        },
+        {
+            "name": "EXT-C",
+            "description": "Extinction Optical Depth (Coarse)",
+            "fields": "extc440,extc670,extc870,extc1020",
+            "axisXs": "440,670,870,1020",
+            "type": 2,
+            "notesX": "Wavelength (μm)",
+            "notesY": "Extinction Optical Depth (Coarse)",
+            "index": 4
         },
         {
             "name": "AAOD",
             "description": "AAOD",
             "fields": "aaod440,aaod670,aaod870,aaod1020",
-            "axisXLabels": "",
             "axisXs": "440,670,870,1020",
-            "notes": "吸收性光学厚度"
+            "notes": "吸收性光学厚度",
+            "notesY": "Absorption AOD",
+            "notesX": "Wavelength (μm)",
+            "index": 5
+        },
+        {
+            "name": "AE/AAE",
+            "description": "AE/AAE",
+            "fields": "ae,aae",
+            "axisXLabels": "AE,AAE",
+            "axisXs": "500,1000",
+            "notes": "",
+            "notesY": "",
+            "notesX": "",
+            "index": 6
+        },
+        {
+            "name": "VOL",
+            "description": "Vol",
+            "fields": "volt,volf,Volc",
+            "axisXLabels": "Total,Fine,Coarse",
+            "axisXs": "400,800,1200",
+            "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c",
+            "notesY": "Volume (μm3)",
+            "index": 7
+        },
+        {
+            "name": "Reff",
+            "description": "Reff",
+            "fields": "refft,refff,reffc",
+            "axisXLabels": "Total,Fine,Coarse",
+            "axisXs": "400,800,1200",
+            "notes": "有效半径",
+            "notesY": "Effective Radius (μm)",
+            "index": 8
+        },
+        {
+            "name": "RMEA",
+            "description": "Rmea",
+            "fields": "rmeat,rmeaf,rmeac",
+            "axisXLabels": "Total,Fine,Coarse",
+            "axisXs": "400,800,1200",
+            "notes": "中值半径",
+            "notesY": "Median Radius (μm)",
+            "index": 9
         }
     ]
 }

@@ -67,8 +67,9 @@ namespace Aeronet.Chart
 
             // initial Y title
             var notesY = this.DataConfigFile.NotesY.ToList();
-            notesY.Insert(0,string.Format("{0} {1}", this.DataConfigFile.Name,
-                this.DataConfigFile.Description));
+            // Just looks NotesY for Axis Y title
+            //notesY.Insert(0,string.Format("{0} {1}", this.DataConfigFile.Name,
+            //    this.DataConfigFile.Description));
             caDefault.AxisY.Title = string.Join(Environment.NewLine, notesY);
 
             // initial X title
@@ -178,7 +179,6 @@ namespace Aeronet.Chart
             {
                 Series timeLine = new Series(chartLine.TimePoint);
                 timeLine.Legend = "Default";
-                timeLine.ChartType = SeriesChartType.Line;
                 timeLine.ChartArea = "Default";
                 foreach (var point in chartLine.Points)
                 {
@@ -195,8 +195,29 @@ namespace Aeronet.Chart
                     if (point.Y < first)
                         first = point.Y;
 
-                    timeLine.Points.Add(new DataPoint(point.X, point.Y) { MarkerSize = 5, MarkerStyle = MarkerStyle.Square });
+                    timeLine.Points.Add(new DataPoint(point.X, point.Y));
                 }
+
+                if (this._objDataConfigFile.Name == "AE/AAE")
+                {
+                    /*
+                     * AE和AAE使用不同形状的点表示，之间不用连线，只显示点就可以
+                     */
+                    // Shows AE points as circle
+                    if(timeLine.Points.Count>0)
+                        timeLine.Points[0].MarkerStyle=MarkerStyle.Circle;
+                    // Shows AAE points as triangle
+                    if (timeLine.Points.Count > 1)
+                        timeLine.Points[1].MarkerStyle = MarkerStyle.Triangle;
+
+                    timeLine.ChartType=SeriesChartType.Point;
+                }
+                else
+                {
+                    timeLine.MarkerStyle = MarkerStyle.Square;
+                    timeLine.ChartType = SeriesChartType.Line;
+                }
+                timeLine.MarkerSize = 5;
                 this.chart1.Series.Add(timeLine);
             }
 

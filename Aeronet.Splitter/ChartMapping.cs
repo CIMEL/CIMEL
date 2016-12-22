@@ -24,10 +24,12 @@ namespace Aeronet.Splitter
             string strNotesX = !joChartMapping.TryGetValue("notesX", out jValue) ? string.Empty : jValue.Value<string>();
             string strNotesY = !joChartMapping.TryGetValue("notesY", out jValue) ? string.Empty : jValue.Value<string>();
             int type = !joChartMapping.TryGetValue("type", out jValue) ? -1 : jValue.Value<int>();
+            int index = !joChartMapping.TryGetValue("index", out jValue) ? -1 : jValue.Value<int>();
 
             // initial this chart mapping instance 
             this.Name = strName;
             this.Description = strDesc;
+            this.Index = index;
             // defaults to 3(Self-group)
             this.Type = type < 0 ? ChartMappingType.SelfGroup : (ChartMappingType) type;
             // for Self-Group the subcharts just contains itself
@@ -93,6 +95,8 @@ namespace Aeronet.Splitter
         public DataFiles DataFiles { get; private set; }
 
         public ChartMappingType Type { get; private set; }
+
+        public int Index { get; private set; }
 
         public string[] SubCharts { get; private set; }
 
