@@ -61,13 +61,17 @@ namespace Aeronet.Splitter
                                     {
                                         string strField = arrFields[i].Trim().ToLower();
                                         // initial global index
-                                        ChartMapping chartMapping = ChartMappings.Signleton[strField,IndexType.ColumnName];
-                                        if (chartMapping == null) continue;
-                                        // create the mapping of column index - chart mapping
-                                        ChartMappings.Signleton.CreateIndexMapping(i, chartMapping);
-                                        if (chartMapping.Fields.ContainsKey(strField))
-                                            // obtains the column index in the header line
-                                            chartMapping.Fields[strField] = i;
+                                        List<ChartMapping> chartMappings = ChartMappings.Signleton[strField];
+
+                                        foreach (var chartMapping in chartMappings)
+                                        {
+                                            if (chartMapping == null) continue;
+                                            // create the mapping of column index - chart mapping
+                                            ChartMappings.Signleton.CreateIndexMapping(i, chartMapping);
+                                            if (chartMapping.Fields.ContainsKey(strField))
+                                                // obtains the column index in the header line
+                                                chartMapping.Fields[strField] = i;
+                                        }
                                     }
 
                                     // reads line data
@@ -97,18 +101,22 @@ namespace Aeronet.Splitter
                                                     StringComparison.CurrentCultureIgnoreCase) == 0)
                                                 continue;
                                             // lookup ChartMapping
-                                            var chartMapping = ChartMappings.Signleton[i];
-                                            if (chartMapping == null) continue;
-                                            // initial year, month and day to .dataconfig
-                                            var dataConfig = chartMapping.DataConfigFile;
-                                            int year;
-                                            if (!int.TryParse(strYear, out year))
-                                                year = DateTime.Now.Year;
-                                            dataConfig.Year = year;
-                                            dataConfig.AddDay(month, day);
-                                            // initial current value to .data file
-                                            var datas = chartMapping.DataFiles;
-                                            datas.AddData(year.ToString(), month, day, hour, min, second, i, strValue);
+                                            var chartMappings = ChartMappings.Signleton[i];
+
+                                            foreach (var chartMapping in chartMappings)
+                                            {
+                                                if (chartMapping == null) continue;
+                                                // initial year, month and day to .dataconfig
+                                                var dataConfig = chartMapping.DataConfigFile;
+                                                int year;
+                                                if (!int.TryParse(strYear, out year))
+                                                    year = DateTime.Now.Year;
+                                                dataConfig.Year = year;
+                                                dataConfig.AddDay(month, day);
+                                                // initial current value to .data file
+                                                var datas = chartMapping.DataFiles;
+                                                datas.AddData(year.ToString(), month, day, hour, min, second, i, strValue);
+                                            }
                                         }
 
                                         intDataLines++;
@@ -159,7 +167,7 @@ namespace Aeronet.Splitter
 
                     foreach (var strChartName in arrGroups)
                     {
-                        var objChartMapping = ChartMappings.Signleton[strChartName, IndexType.ChartMappingName];
+                        var objChartMapping = ChartMappings.Signleton.Get(strChartName);
 
                         // skip the chart mapping if no data file extracted from the aeronet inversion file(.dat)
                         if (!objChartMapping.HasDataFiles) continue;
