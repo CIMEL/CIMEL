@@ -15,10 +15,10 @@ namespace Aeronet.Splitter
         private static ChartMappings _default = new ChartMappings();
 
         // fields X chartmapping
-        private Dictionary<string, ChartMapping> _antFieldChartMappings;
+        private Dictionary<string, List<ChartMapping>> _antFieldChartMappings;
 
         // field index X chartmapping
-        private Dictionary<int, ChartMapping> _antIndexChartMappings;
+        private Dictionary<int, List<ChartMapping>> _antIndexChartMappings;
 
         /// <summary>
         /// all of the real chart mappings
@@ -42,8 +42,8 @@ namespace Aeronet.Splitter
 
         protected ChartMappings()
         {
-            this._antFieldChartMappings = new Dictionary<string, ChartMapping>();
-            this._antIndexChartMappings = new Dictionary<int, ChartMapping>();
+            this._antFieldChartMappings = new Dictionary<string, List<ChartMapping>>();
+            this._antIndexChartMappings = new Dictionary<int, List<ChartMapping>>();
             this._dicChartMappings = new Dictionary<string, ChartMapping>();
             this._dicChartMappingGroups = new Dictionary<string, ChartMapping>();
             this.AeronetFile = new AeronetFile();
@@ -82,7 +82,8 @@ namespace Aeronet.Splitter
                 foreach (string fieldName in objChartMapping.FieldNames)
                 {
                     if (!this._antFieldChartMappings.ContainsKey(fieldName))
-                        this._antFieldChartMappings.Add(fieldName, objChartMapping);
+                        this._antFieldChartMappings.Add(fieldName, new List<ChartMapping>());
+                    this._antFieldChartMappings[fieldName].Add(objChartMapping);
                 }
                 // pushes to the collection of the real charts
                 if (!this._dicChartMappings.ContainsKey(objChartMapping.Name))
@@ -92,46 +93,49 @@ namespace Aeronet.Splitter
             }
         }
 
-        public ChartMapping this[int index, IndexType type = IndexType.Column]
+        /// <summary>
+        /// Gets the list of column mappings by column index
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
+        public List<ChartMapping> this[int columnIndex]
         {
             get
             {
-                if (type == IndexType.Column)
-                {
-                    if (this._antIndexChartMappings.ContainsKey(index))
-                        return this._antIndexChartMappings[index];
-                    else
-                        return null;
-                }
-                return null;
+                if (this._antIndexChartMappings.ContainsKey(columnIndex))
+                    return this._antIndexChartMappings[columnIndex];
+                else
+                    return new List<ChartMapping>();
             }
         }
 
-        public ChartMapping this[string name, IndexType type]
+        /// <summary>
+        /// Gets the list of column mappings by column name
+        /// </summary>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public List<ChartMapping> this[string columnName]
         {
             get
             {
-                switch (type)
-                {
-                    case IndexType.ColumnName:
-                    {
-                        if (this._antFieldChartMappings.ContainsKey(name))
-                            return this._antFieldChartMappings[name];
-                        else
-                            return null;
-                    }
-                    case IndexType.ChartMappingName:
-                    {
-                        if (this._dicChartMappings.ContainsKey(name))
-                            return this._dicChartMappings[name];
-                        else
-                            return null;
-                    }
-                    case IndexType.Column:
-                    default:
-                        return null;
-                }
+                if (this._antFieldChartMappings.ContainsKey(columnName))
+                    return this._antFieldChartMappings[columnName];
+                else
+                    return new List<ChartMapping>();
             }
+        }
+
+        /// <summary>
+        /// Gets a chart mapping instace by chart mapping name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public ChartMapping Get(string name)
+        {
+            if (this._dicChartMappings.ContainsKey(name))
+                return this._dicChartMappings[name];
+            else
+                return null;
         }
 
         /// <summary>
@@ -142,12 +146,14 @@ namespace Aeronet.Splitter
         public void CreateIndexMapping(int index, ChartMapping chartMapping)
         {
             if (!this._antIndexChartMappings.ContainsKey(index))
-                this._antIndexChartMappings.Add(index, chartMapping);
+                this._antIndexChartMappings.Add(index, new List<ChartMapping>());
+
+            this._antIndexChartMappings[index].Add(chartMapping);
         }
 
         public Dictionary<string,ChartMapping> GetGroups()
         {
-            return this._dicChartMappingGroups;
+            return this._dicChartMappingGroups.OrderBy(p=>p.Value.Index,Comparer<int>.Default).ToDictionary(p=>p.Key,p=>p.Value);
         }
     }
 
