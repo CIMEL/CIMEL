@@ -334,6 +334,20 @@ namespace Aeronet.Chart
                 new FolderDescription(CHARTSET_NAME,this.CHARTSET_Dir,CHARTSET_DESC)
             };
         }
+
+        public string ValidateDirs()
+        {
+            StringBuilder valErrors = new StringBuilder();
+            foreach (var folderDesc in ConfigOptions.Singleton.GetFolders())
+            {
+                string dir = folderDesc.Path;
+                if (Utility.IsEmpty(dir))
+                    valErrors.AppendLine(string.Format(@"抱歉, 请设置[{0}]", folderDesc.Name));
+                if (!Utility.IsExist(dir))
+                    valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+            }
+            return valErrors.ToString();
+        }
     }
 
     public class FolderDescription

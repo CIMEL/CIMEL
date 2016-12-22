@@ -202,6 +202,12 @@ namespace Aeronet.Chart.AeronetData
                 return string.Empty;
             }
 
+            if (!Directory.Exists(optionDir))
+            {
+                this.SetToError(valLabel, "对不起，目录不存在，请查看参数配置");
+                return string.Empty;
+            }
+
             try
             {
                 path = Path.Combine(optionDir, region);

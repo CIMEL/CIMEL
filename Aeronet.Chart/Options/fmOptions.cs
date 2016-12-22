@@ -57,18 +57,10 @@ namespace Aeronet.Chart.Options
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            StringBuilder valErrors=new StringBuilder();
-            foreach (var folderDesc in ConfigOptions.Singleton.GetFolders())
+            string validationMsg = ConfigOptions.Singleton.ValidateDirs();
+            if (!string.IsNullOrEmpty(validationMsg))
             {
-                string dir = folderDesc.Path;
-                if (Utility.IsEmpty(dir))
-                    valErrors.AppendLine(string.Format(@"抱歉, 请设置[{0}]", folderDesc.Name));
-                if (!Utility.IsExist(dir))
-                    valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
-            }
-            if (valErrors.Length > 0)
-            {
-                MessageBox.Show(valErrors.ToString(), DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(validationMsg, DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aeronet.Chart.Options;
+using Aeronet.Chart.Properties;
 
 namespace Aeronet.Chart
 {
@@ -28,7 +29,7 @@ namespace Aeronet.Chart
 
         private void fmAeronetData_Load(object sender, EventArgs e)
         {
-            this.Init();
+            this.LoadDirs();
         }
 
         private void tvDirs_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -47,6 +48,29 @@ namespace Aeronet.Chart
                 string description = string.Format("{0}: {1}\r\n{2}", folderDesc.Name, folderDesc.Description,
                     folderDesc.Path);
                 this.lblDescription.Text = description;
+            }
+        }
+
+        private void LoadDirs()
+        {
+            // check if the options has been configurated
+            if (!ConfigOptions.Singleton.IsInitialized)
+            {
+                string validationMsg = ConfigOptions.Singleton.ValidateDirs();
+                if (!string.IsNullOrEmpty(validationMsg))
+                {
+                    MessageBox.Show(validationMsg, fmOptions.DLG_TITLE_ERROR, MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+
+                this.btAction.Enabled = false;
+                this.btnImport.Enabled = false;
+            }
+            else
+            {
+                this.Init();
+                this.btAction.Enabled = true;
+                this.btnImport.Enabled = true;
             }
         }
 
@@ -130,7 +154,12 @@ namespace Aeronet.Chart
         private void btnImport_Click(object sender, EventArgs e)
         {
             var selectedFolder = this.GetSelectedFolder();
-            if (selectedFolder == null) return;
+            if (selectedFolder == null)
+            {
+                MessageBox.Show(@"对不起，请选择目录", Settings.Default.FM_AERONET_DATA_TEXT, MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
 
             // show file open dialog
             using (var fileOpenDlg = new OpenFileDialog())
@@ -160,9 +189,16 @@ namespace Aeronet.Chart
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             var selectedFolder = this.GetSelectedFolder();
-            if (selectedFolder == null) return;
-            // loads the view from the current directory
-            this.fileBrowser1.LoadFiles(selectedFolder.Path);
+            if (selectedFolder == null)
+            {
+                // refresh all nodes
+                this.LoadDirs();
+            }
+            else
+            {
+                // loads the view from the current directory
+                this.fileBrowser1.LoadFiles(selectedFolder.Path);
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -172,12 +208,15 @@ namespace Aeronet.Chart
 
         private FolderDescription GetSelectedFolder()
         {
-            if (this.tvDirs.Nodes.Count == 0)
+            if (this.tvDirs.Nodes.Count == 0 || this.tvDirs.SelectedNode==null)
             {
-                this.Init();
+                return null;
             }
-            var folderDesc = this.tvDirs.Nodes[0].Tag as FolderDescription;
-            return folderDesc;
+            else
+            {
+                var folderDesc = this.tvDirs.SelectedNode.Tag as FolderDescription;
+                return folderDesc;
+            }
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -189,6 +228,8 @@ namespace Aeronet.Chart
                 if (result == DialogResult.OK)
                 {
                     this.Init();
+                    this.btAction.Enabled = true;
+                    this.btnImport.Enabled = true;
                 }
             }
         }

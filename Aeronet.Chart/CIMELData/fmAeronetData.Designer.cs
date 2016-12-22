@@ -143,7 +143,6 @@
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(640, 52);
             this.lblDescription.TabIndex = 0;
-            this.lblDescription.Text = "lblDescription";
             // 
             // btnClose
             // 

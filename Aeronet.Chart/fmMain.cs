@@ -109,8 +109,16 @@ namespace Aeronet.Chart
             // check if the options has been configurated
             if (!ConfigOptions.Singleton.IsInitialized)
             {
+                string validationMsg = ConfigOptions.Singleton.ValidateDirs();
+                if (!string.IsNullOrEmpty(validationMsg))
+                {
+                    MessageBox.Show(validationMsg, fmOptions.DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 using (fmOptions fmOptions = new fmOptions())
                 {
+
+
                     fmOptions.AllowForceExit = true;
                     fmOptions.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.Abort == fmOptions.ShowDialog(this))
