@@ -79,5 +79,11 @@ namespace Aeronet.Chart.Options
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            ConfigOptions.Singleton.Refresh();
+            this.Init();
+        }
     }
 }

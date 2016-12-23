@@ -69,6 +69,7 @@
             this.btnRefresh.TabIndex = 2;
             this.btnRefresh.Text = global::Aeronet.Chart.Properties.Settings.Default.BTN_REFRESH_TEXT;
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSave
             // 

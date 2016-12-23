@@ -343,10 +343,18 @@ namespace Aeronet.Chart
                 string dir = folderDesc.Path;
                 if (Utility.IsEmpty(dir))
                     valErrors.AppendLine(string.Format(@"抱歉, 请设置[{0}]", folderDesc.Name));
-                if (!Utility.IsExist(dir))
-                    valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+                else
+                {
+                    if (!Utility.IsExist(dir))
+                        valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+                }
             }
             return valErrors.ToString();
+        }
+
+        public void Refresh()
+        {
+            this.Load(this.OptionsPath);
         }
     }
 
