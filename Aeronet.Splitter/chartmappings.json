@@ -55,7 +55,7 @@
             "fields": "ssat440,ssat670,ssat870,ssat1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notes": "Wavelength (¦Ìm)",
+            "notesX": "Wavelength (¦Ìm)",
             "notesY": "Single Scattering Albedo (Total)",
             "index": 1
         },
@@ -65,7 +65,7 @@
             "fields": "ssaf440,ssaf670,ssaf870,ssaf1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notes": "Wavelength (¦Ìm)",
+            "notesX": "Wavelength (¦Ìm)",
             "notesY": "Single Scattering Albedo (Fine)",
             "index": 1
         },
@@ -75,7 +75,7 @@
             "fields": "ssac440,ssac670,ssac870,ssac1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notes": "Wavelength (¦Ìm)",
+            "notesX": "Wavelength (¦Ìm)",
             "notesY": "Single Scattering Albedo (Coarse)",
             "index": 1
         },
@@ -145,9 +145,9 @@
             "index": 5
         },
         {
-            "name": "AE/AAE",
+            "name": "AE_AAE",
             "description": "AE/AAE",
-            "fields": "ae,aae",
+            "fields": "ae440/870,aae440/870",
             "axisXLabels": "AE,AAE",
             "axisXs": "500,1000",
             "notes": "",

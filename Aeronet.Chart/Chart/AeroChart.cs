@@ -120,9 +120,9 @@ namespace Aeronet.Chart
             caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
             // add custom labels on Axis X for non-SD chart
             caDefault.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            var offset = 50f;
             if (this._objDataConfigFile.Name != "SD")
             {
+                var offset = 100f;// label length
                 for (int i = 0; i < this._objDataConfigFile.AxisXs.Count; i++)
                 {
                     // the axis labels collection has the same length as the axis values
@@ -198,17 +198,17 @@ namespace Aeronet.Chart
                     timeLine.Points.Add(new DataPoint(point.X, point.Y));
                 }
 
-                if (this._objDataConfigFile.Name == "AE/AAE")
+                if (this._objDataConfigFile.Name == "AE_AAE")
                 {
                     /*
                      * AE和AAE使用不同形状的点表示，之间不用连线，只显示点就可以
                      */
-                    // Shows AE points as circle
+                    // Shows AE points as square
                     if(timeLine.Points.Count>0)
-                        timeLine.Points[0].MarkerStyle=MarkerStyle.Circle;
-                    // Shows AAE points as triangle
+                        timeLine.Points[0].MarkerStyle=MarkerStyle.Square;
+                    // Shows AAE points as star
                     if (timeLine.Points.Count > 1)
-                        timeLine.Points[1].MarkerStyle = MarkerStyle.Triangle;
+                        timeLine.Points[1].MarkerStyle = MarkerStyle.Star5;
 
                     timeLine.ChartType=SeriesChartType.Point;
                 }
