@@ -204,20 +204,21 @@ namespace Aeronet.Chart
                      * AE和AAE使用不同形状的点表示，之间不用连线，只显示点就可以
                      */
                     // Shows AE points as square
-                    if(timeLine.Points.Count>0)
-                        timeLine.Points[0].MarkerStyle=MarkerStyle.Square;
-                    // Shows AAE points as star
+                    if (timeLine.Points.Count > 0)
+                        timeLine.Points[0].MarkerStyle = MarkerStyle.Square;
+                    // Shows AAE points as cross
                     if (timeLine.Points.Count > 1)
-                        timeLine.Points[1].MarkerStyle = MarkerStyle.Star5;
+                        timeLine.Points[1].MarkerStyle = MarkerStyle.Cross;
 
-                    timeLine.ChartType=SeriesChartType.Point;
+                    timeLine.MarkerSize = 10;
+                    timeLine.ChartType = SeriesChartType.Point;
                 }
                 else
                 {
+                    timeLine.MarkerSize = 5;
                     timeLine.MarkerStyle = MarkerStyle.Square;
                     timeLine.ChartType = SeriesChartType.Line;
                 }
-                timeLine.MarkerSize = 5;
                 this.chart1.Series.Add(timeLine);
             }
 

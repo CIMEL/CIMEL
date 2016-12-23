@@ -64,7 +64,13 @@ namespace Aeronet.Chart
             if (this.chartPanel1.DataConfigFiles.Count > 0)
                 this.chartPanel1.DataConfigFiles.Clear();
             this.chartPanel1.DataConfigFiles.AddRange(arrChartNames
-                .Select(cn => Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, this._currentFile.Path,string.Format("{0}.{1}", cn, "dataconfig")))
+                .Select(
+                    cn =>
+                    {
+                        string strCIMELFile = ((dynamic) cmbDataSets.SelectedItem).Value;
+                        string strRoot = Path.GetDirectoryName(strCIMELFile);
+                        return Path.Combine(strRoot, this._currentFile.Path,string.Format("{0}.{1}", cn, "dataconfig"));
+                    })
                 .ToList());
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
