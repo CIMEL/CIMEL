@@ -152,7 +152,8 @@ namespace Aeronet.Splitter
 
                 var aeronetFile = ChartMappings.Signleton.AeronetFile;
                 aeronetFile.Name = chartSetName;
-                aeronetFile.Path = chartSetPath;
+                // relative path
+                aeronetFile.Path = chartSetName; //chartSetPath;
                 OnInformed(string.Format("Chart Set Name -> {0}",chartSetName));
                 OnInformed(string.Format("Chart Set Root-> {0}", chartSetPath));
 
