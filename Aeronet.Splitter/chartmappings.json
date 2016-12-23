@@ -39,7 +39,7 @@
             "axisXs": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
             "notes": "体积谱分布",
             "notesX": "Radius (μm)",
-            "notesY": "Volume Size Distribution (μm3/μm2)",
+            "notesY": "Volume Size Distribution (μm^3/μm^2)",
             "index": 0
         },
         {
@@ -162,7 +162,7 @@
             "axisXLabels": "Total,Fine,Coarse",
             "axisXs": "400,800,1200",
             "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c",
-            "notesY": "Volume (μm3)",
+            "notesY": "Volume (μm^3)",
             "index": 7
         },
         {
