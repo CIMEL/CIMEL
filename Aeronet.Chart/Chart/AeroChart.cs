@@ -208,20 +208,23 @@ namespace Aeronet.Chart
                      */
                     // Shows AE points as square
                     if (timeLine.Points.Count > 0)
-                        timeLine.Points[0].MarkerStyle = MarkerStyle.Square;
+                        timeLine.Points[0].MarkerStyle = MarkerStyle.Diamond;
                     // Shows AAE points as cross
                     if (timeLine.Points.Count > 1)
                         timeLine.Points[1].MarkerStyle = MarkerStyle.Cross;
 
-                    timeLine.MarkerSize = 10;
                     timeLine.ChartType = SeriesChartType.Point;
                 }
                 else
                 {
-                    timeLine.MarkerSize = 5;
-                    timeLine.MarkerStyle = MarkerStyle.Square;
+                    timeLine.MarkerStyle = MarkerStyle.Diamond;
                     timeLine.ChartType = SeriesChartType.Line;
                 }
+
+                // initial marker size
+                timeLine.MarkerSize = 10;
+                // bold line
+                timeLine.BorderWidth = 4;
                 this.chart1.Series.Add(timeLine);
             }
 
