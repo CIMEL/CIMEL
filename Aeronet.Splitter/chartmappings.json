@@ -162,7 +162,7 @@
             "fields": "volt,volf,Volc",
             "axisXLabels": "Total,Fine,Coarse",
             "axisXs": "400,800,1200",
-            "notes": "粒子体积, 有效半径 总体T, 细模态f, 粗模态c",
+            "notes": "粒子体积",
             "notesY": "Volume (μm^3)",
             "index": 7
         },
