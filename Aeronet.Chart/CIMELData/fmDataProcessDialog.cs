@@ -120,9 +120,7 @@ namespace Aeronet.Chart.AeronetData
             string dataDir= this.ValidateOption(region, ConfigOptions.Singleton.DATA_Dir, lblFDAT, lblVal_FDAT);
 
             // validate and initial data and instrument Id
-            string dataFile = this.InitFDATA(dataDir);
-            // initial instrument id
-            this.InitSTNS_ID(dataFile);
+            this.InitFDATA(dataDir);
 
             // validate the parameters files
             this.ValidateOption(string.Empty, ConfigOptions.Singleton.INS_PARA_Dir, lblFIPT, lblVal_FIPT);
@@ -136,44 +134,55 @@ namespace Aeronet.Chart.AeronetData
             this.ValidateOption(string.Empty, ConfigOptions.Singleton.MODIS_BRDF_Dir, lblFBRDF, lblVal_FBRDF);
         }
 
-        private string InitFDATA(string dataDir)
+        private void InitFDATA(string dataDir)
         {
             // defaults
-            this.lblFDATA.Text = Properties.Settings.Default.LBL_INITIAL;
+            this.cmbFdatas.Text = Settings.Default.LBL_INITIAL;
             this.SetToQuestion(lblVal_FDATA);
 
             // initial and validate the data file name
             if (string.IsNullOrEmpty(dataDir))
-                return string.Empty;
+                return;
 
+            this.cmbFdatas.Items.Clear();
+            this.cmbFdatas.DisplayMember = ComboBoxItem.DisplayName;
+            this.cmbFdatas.ValueMember = ComboBoxItem.ValueName;
+            this.cmbFdatas.Items.Add(ComboBoxItem.EmptyItem.ToItem());
             string[] dats;
             try
             {
                 dats =
                     Directory.EnumerateFiles(dataDir, "*.*", SearchOption.TopDirectoryOnly)
-                        .Where(s => s.EndsWith(".ALL") || s.EndsWith(".ALR")).ToArray();
+                        .Where(s => s.EndsWith(".ALL")).ToArray();
                 if (dats.Length == 0)
                 {
                     SetToError(this.lblVal_FDATA, "没有找到主输入数据文件 (*.ALL, *.ALR)");
-                    return string.Empty;
+                    return;
                 }
             }
             catch (Exception)
             {
                 SetToError(this.lblVal_FDATA, "没有找到主输入数据文件 (*.ALL, *.ALR)");
-                return string.Empty;
+                return;
             }
 
-            string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
-            if (string.IsNullOrEmpty(dataFileName))
+            //string dataFileName = Path.GetFileNameWithoutExtension(dats[0]);
+            //if (string.IsNullOrEmpty(dataFileName))
+            //{
+            //    SetToError(this.lblVal_FDATA, string.Format("- 文件名命名错误 <-{0}", dats[0]));
+            //    return;
+            //}
+
+            this.cmbFdatas.Items.AddRange(dats.Select(d =>
             {
-                SetToError(this.lblVal_FDATA, string.Format("- 文件名命名错误 <-{0}", dats[0]));
-                return string.Empty;
-            }
+                string fileName = Path.GetFileNameWithoutExtension(d);
+                return new {Text = fileName, Value = fileName};
+            }).Cast<object>().ToArray());
 
-            this.lblFDATA.Text = dataFileName;
-            SetToGood(this.lblVal_FDATA);
-            return dataFileName;
+            this.cmbFdatas.SelectedIndex = dats.Length > 0 ? 1 : 0;
+
+            //this.lblFDATA.Text = dataFileName;
+            //SetToGood(this.lblVal_FDATA);
         }
 
         private void InitSTNS_ID(string dataFileName)
@@ -209,6 +218,12 @@ namespace Aeronet.Chart.AeronetData
             {
                 optionLabel.Text = Properties.Settings.Default.LBL_INITIAL;
                 this.SetToError(valLabel, LABEL_EMPTY);
+                return string.Empty;
+            }
+
+            if (!Directory.Exists(optionDir))
+            {
+                this.SetToError(valLabel, "对不起，目录不存在，请查看参数配置");
                 return string.Empty;
             }
 
@@ -470,7 +485,7 @@ namespace Aeronet.Chart.AeronetData
 
                     // initial worker
                     string regionName = (string)((dynamic)(this.cmbRegions.SelectedItem)).Value;
-                    string dataFileName = this.lblFDATA.Text;
+                    string dataFileName = this.cmbFdatas.Text;
                     string instrumentId = this.txtSTNS_ID.Text;
                     // start the worker
                     worker.Start(regionName, instrumentId, dataFileName);
@@ -515,7 +530,7 @@ namespace Aeronet.Chart.AeronetData
             this.SetToQuestion(this.lblVal_METADATA);
             this.SetToQuestion(this.lblVal_STNS_ID);
             //set the label of dirs to initializing
-            this.lblFDATA.Text = Settings.Default.LBL_INITIAL;
+            this.cmbFdatas.Text = Settings.Default.LBL_INITIAL;
             this.lblCHARTSET.Text = Settings.Default.LBL_INITIAL;
             this.lblFBRDF.Text = Settings.Default.LBL_INITIAL;
             this.lblFDAT.Text = Settings.Default.LBL_INITIAL;
@@ -570,6 +585,27 @@ namespace Aeronet.Chart.AeronetData
                 this.SetToQuestion(this.lblVal_STNS_ID);
             else
                 this.SetToGood(this.lblVal_STNS_ID);
+        }
+
+        private void cmbFdatas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cmbFdatas.Text == ComboBoxItem.EmptyItem.Text)
+            {
+                SetToQuestion(lblVal_FDATA);
+                this.InitSTNS_ID(string.Empty);
+            }
+            else if (string.IsNullOrEmpty(this.cmbFdatas.Text))
+            {
+                SetToError(lblVal_FDATA, "- 文件名命名错误");
+                this.InitSTNS_ID(string.Empty);
+            }
+            else
+            {
+                SetToGood(this.lblVal_FDATA);
+                // initial STNS_ID
+                string dataFile = this.cmbFdatas.Text;
+                this.InitSTNS_ID(dataFile);
+            }
         }
     }
 }

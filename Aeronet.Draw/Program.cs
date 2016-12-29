@@ -18,7 +18,7 @@ namespace Aeronet.Draw
             try
             {
                 // 1 calculate Matrix of aeronent
-                OnInformed("Reading Aeronet inversion Matrix");
+                OnInformed("Reading CIMEL inversion Matrix");
                 if(args==null||args.Length<3)
                     throw new ArgumentException("Missing arguments!\r\ndraw [inputPath] [outputfile] [lat|lon]");
                 string mwInput = args[0];
@@ -44,7 +44,7 @@ namespace Aeronet.Draw
                 PrintMatrix((double[,])stats_inversion, OnInformed);
                 OnInformed("r");
                 PrintMatrix((double[,])r, OnInformed);
-                OnInformed("DONE to Calculate Aeronet inversion Matrix");
+                OnInformed("DONE to Calculate CIMEL inversion Matrix");
 
                 // 2 draw SSA
                 OnInformed("Drawing SSA figures");
@@ -71,13 +71,13 @@ namespace Aeronet.Draw
                 drawing.WaitForFiguresToDie();
                 OnInformed("DONE to draw SSA Statistic figures");
 
-                // 4 draw Aeronet Inversions
-                OnInformed("Drawing Aeronet Inversions figures");
+                // 4 draw CIMEL Inversions
+                OnInformed("Drawing CIMEL Inversions figures");
                 OnInformed("\tARGUMENTS:");
                 OnInformed(String.Format("\t{0} : {1}", "OUTPUT", mwOuputbase));
                 drawing.DrawAeronetInversions(stats_inversion, r, mwOuputbase);
                 drawing.WaitForFiguresToDie();
-                OnInformed("DONE to drawing Aeronet Inversions figures");
+                OnInformed("DONE to drawing CIMEL Inversions figures");
                 */
             }
             catch (Exception ex)

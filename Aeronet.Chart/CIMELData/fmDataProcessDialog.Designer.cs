@@ -34,6 +34,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnAction = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbFdatas = new System.Windows.Forms.ComboBox();
             this.lblVal_METADATA = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lblMETADATA = new System.Windows.Forms.Label();
@@ -60,7 +61,6 @@
             this.cmbRegions = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblFDATA = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
@@ -109,6 +109,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cmbFdatas);
             this.groupBox1.Controls.Add(this.lblVal_METADATA);
             this.groupBox1.Controls.Add(this.lblMETADATA);
             this.groupBox1.Controls.Add(this.label2);
@@ -134,7 +135,6 @@
             this.groupBox1.Controls.Add(this.cmbRegions);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.lblFDATA);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(14, 16);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -144,6 +144,15 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "参数校验";
+            // 
+            // cmbFdatas
+            // 
+            this.cmbFdatas.FormattingEnabled = true;
+            this.cmbFdatas.Location = new System.Drawing.Point(151, 49);
+            this.cmbFdatas.Name = "cmbFdatas";
+            this.cmbFdatas.Size = new System.Drawing.Size(250, 25);
+            this.cmbFdatas.TabIndex = 29;
+            this.cmbFdatas.SelectedIndexChanged += new System.EventHandler(this.cmbFdatas_SelectedIndexChanged);
             // 
             // lblVal_METADATA
             // 
@@ -258,7 +267,7 @@
             // 
             // txtSTNS_ID
             // 
-            this.txtSTNS_ID.Location = new System.Drawing.Point(150, 77);
+            this.txtSTNS_ID.Location = new System.Drawing.Point(151, 81);
             this.txtSTNS_ID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSTNS_ID.Name = "txtSTNS_ID";
             this.txtSTNS_ID.Size = new System.Drawing.Size(140, 23);
@@ -368,7 +377,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 80);
+            this.label5.Location = new System.Drawing.Point(6, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 17);
             this.label5.TabIndex = 4;
@@ -383,19 +392,10 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "站点:";
             // 
-            // lblFDATA
-            // 
-            this.lblFDATA.AutoSize = true;
-            this.lblFDATA.Location = new System.Drawing.Point(147, 51);
-            this.lblFDATA.Name = "lblFDATA";
-            this.lblFDATA.Size = new System.Drawing.Size(52, 17);
-            this.lblFDATA.TabIndex = 1;
-            this.lblFDATA.Text = global::Aeronet.Chart.Properties.Settings.Default.LBL_INITIAL;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 51);
+            this.label1.Location = new System.Drawing.Point(6, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 17);
             this.label1.TabIndex = 0;
@@ -435,7 +435,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblFDATA;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbRegions;
@@ -447,7 +446,6 @@
         private System.Windows.Forms.Label lblFOUT;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtSTNS_ID;
         private System.Windows.Forms.Label lblVal_STNS_ID;
         private System.Windows.Forms.Label lblVal_STNS_FN;
         private System.Windows.Forms.Label lblVal_FDATA;
@@ -461,5 +459,7 @@
         private System.Windows.Forms.Label lblVal_METADATA;
         private System.Windows.Forms.Label lblMETADATA;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbFdatas;
+        private System.Windows.Forms.TextBox txtSTNS_ID;
     }
 }

@@ -55,7 +55,7 @@ namespace Aeronet.Chart
             //disiable
             this.Disable();
 
-            if(this.DataConfigFile==null)
+            if (this.DataConfigFile == null)
                 throw new NotImplementedException("属性 DataConfigFile 没有初始化");
 
             if (this.DataFolder == null)
@@ -67,72 +67,76 @@ namespace Aeronet.Chart
 
             // initial Y title
             var notesY = this.DataConfigFile.NotesY.ToList();
-            notesY.Insert(0,string.Format("{0} {1}", this.DataConfigFile.Name,
-                this.DataConfigFile.Description));
+            // Just looks NotesY for Axis Y title
+            //notesY.Insert(0,string.Format("{0} {1}", this.DataConfigFile.Name,
+            //    this.DataConfigFile.Description));
             caDefault.AxisY.Title = string.Join(Environment.NewLine, notesY);
 
             // initial X title
             var notesX = this.DataConfigFile.NotesX;
-            if(notesX.Count>0)
+            if (notesX.Count > 0)
                 caDefault.AxisX.Title = string.Join(Environment.NewLine, notesX);
 
             // initial Axis X range
             double min;
             double max;
-            if (this._objDataConfigFile.AxisXs.Count == 0)
+
+            double first = this._objDataConfigFile.AxisXs[0];
+            double last = this._objDataConfigFile.AxisXs[this._objDataConfigFile.AxisXs.Count - 1];
+
+            double avgDiff = Math.Round((last - first)/(double) this._objDataConfigFile.AxisXs.Count, 1,
+                MidpointRounding.ToEven);
+
+            if (first - avgDiff <= 0f)
             {
+                max = last + first;
                 min = 0f;
-                max = 1200f;
-            }
-            else if (this._objDataConfigFile.Name == "SD")
-            {
-                min = 0f;
-                max = 15.2f;
             }
             else
             {
-                double first = this._objDataConfigFile.AxisXs[0];
-                double last = this._objDataConfigFile.AxisXs[this._objDataConfigFile.AxisXs.Count - 1];
-
-                double avgDiff = Math.Round((last - first) / (double)this._objDataConfigFile.AxisXs.Count,1,MidpointRounding.ToEven);
-
-                if (first - avgDiff <= 0f)
-                {
-                    max = last + first;
-                    min = 0f;
-                }
-                else
-                {
-                    min = first - avgDiff;
-                    max = last + avgDiff;
-                }
+                min = first - avgDiff;
+                max = last + avgDiff;
             }
 
             caDefault.AxisX.Minimum = Math.Round(min, 1, MidpointRounding.ToEven);
             caDefault.AxisX.Maximum = Math.Round(max, 1, MidpointRounding.ToEven);
 
             caDefault.AxisX.IsLabelAutoFit = true;
+            caDefault.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
             // clean up the custom labels
             caDefault.AxisX.CustomLabels.Clear();
             // set to default
             caDefault.AxisX.LabelStyle.Angle = 0;
             caDefault.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
+
             // add custom labels on Axis X for non-SD chart
-            caDefault.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            var offset = 50f;
-            if (this._objDataConfigFile.Name != "SD")
+            if (this._objDataConfigFile.Name == "SD")
             {
-                for (int i = 0; i < this._objDataConfigFile.AxisXs.Count; i++)
-                {
-                    // the axis labels collection has the same length as the axis values
-                    string label = this._objDataConfigFile.AxisXLabels[i].ToUpper();
-                    var sizeF = this.CreateGraphics().MeasureString(label, chart1.Font);
-                    var diff = sizeF.Width / 2f;
-                    var axisX = this._objDataConfigFile.AxisXs[i];
-                    double fromPosition = axisX - diff - offset <= 0 ? 0f : axisX - diff - offset;
-                    double toPosition = axisX + diff + offset;
-                    caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromPosition, toPosition, label, 0, LabelMarkStyle.None, GridTickTypes.All));
-                }
+                caDefault.AxisX.Interval = 2f;
+
+            }
+
+            int baseIndex = 0;
+            int labelCount = this._objDataConfigFile.AxisXLabels.Count;
+            int step = this._objDataConfigFile.Name == "SD" ? 2 : 1;
+
+            for (int i = 0; i < labelCount; i++)
+            {
+
+                // the axis labels collection has the same length as the axis values
+                string label = this._objDataConfigFile.AxisXLabels[i].ToUpper();
+                int curIndex = baseIndex + i*step;
+                int neighborIndex = i == labelCount - 1 ? baseIndex + (i - 1)*step : baseIndex + (i + 1)*step;
+
+                var axisX = this._objDataConfigFile.AxisXs[curIndex];
+                var axisXn = this._objDataConfigFile.AxisXs[neighborIndex];
+                var offset = Math.Abs(axisXn - axisX)/2f;
+                double fromPosition = axisX - offset <= caDefault.AxisX.Minimum
+                    ? caDefault.AxisX.Minimum
+                    : axisX - offset;
+                double toPosition = axisX + offset >= caDefault.AxisX.Maximum ? caDefault.AxisX.Maximum : axisX + offset;
+                caDefault.AxisX.CustomLabels.Add(new CustomLabel(fromPosition, toPosition, label, 0, LabelMarkStyle.None,
+                    GridTickTypes.All));
             }
         }
 
@@ -178,7 +182,6 @@ namespace Aeronet.Chart
             {
                 Series timeLine = new Series(chartLine.TimePoint);
                 timeLine.Legend = "Default";
-                timeLine.ChartType = SeriesChartType.Line;
                 timeLine.ChartArea = "Default";
                 foreach (var point in chartLine.Points)
                 {
@@ -195,8 +198,33 @@ namespace Aeronet.Chart
                     if (point.Y < first)
                         first = point.Y;
 
-                    timeLine.Points.Add(new DataPoint(point.X, point.Y) { MarkerSize = 5, MarkerStyle = MarkerStyle.Square });
+                    timeLine.Points.Add(new DataPoint(point.X, point.Y));
                 }
+
+                if (this._objDataConfigFile.Name == "AE_AAE")
+                {
+                    /*
+                     * AE和AAE使用不同形状的点表示，之间不用连线，只显示点就可以
+                     */
+                    // Shows AE points as square
+                    if (timeLine.Points.Count > 0)
+                        timeLine.Points[0].MarkerStyle = MarkerStyle.Diamond;
+                    // Shows AAE points as cross
+                    if (timeLine.Points.Count > 1)
+                        timeLine.Points[1].MarkerStyle = MarkerStyle.Cross;
+
+                    timeLine.ChartType = SeriesChartType.Point;
+                }
+                else
+                {
+                    timeLine.MarkerStyle = MarkerStyle.Diamond;
+                    timeLine.ChartType = SeriesChartType.Line;
+                }
+
+                // initial marker size
+                timeLine.MarkerSize = 10;
+                // bold line
+                timeLine.BorderWidth = 4;
                 this.chart1.Series.Add(timeLine);
             }
 

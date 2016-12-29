@@ -41,6 +41,7 @@ namespace Aeronet.Chart
             }
         }
 
+        private string _text=null;
         /// <summary>
         /// The chart name displaying on the tab 
         /// </summary>
@@ -48,9 +49,17 @@ namespace Aeronet.Chart
         {
             get
             {
+                string text;
                 if (this.DataConfigFile != null)
-                    return this.DataConfigFile.Name;
-                return base.Text;
+                {
+                    text = this.DataConfigFile.Name;
+                    if (text == @"AE_AAE")
+                        text = @"AE/AAE";
+                }
+                else
+                    text = base.Text;
+
+                return text;
             }
         }
 

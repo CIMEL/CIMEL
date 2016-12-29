@@ -78,20 +78,21 @@
     <Compile Include="AeronetConst.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AeronetData\DataWorker.cs" />
-    <Compile Include="AeronetData\FileViewer.cs">
+    <Compile Include="ArgumentException.cs" />
+    <Compile Include="CIMELData\DataWorker.cs" />
+    <Compile Include="CIMELData\FileViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AeronetData\FileViewer.Designer.cs">
+    <Compile Include="CIMELData\FileViewer.Designer.cs">
       <DependentUpon>FileViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="AeronetData\fmDataProcessDialog.cs">
+    <Compile Include="CIMELData\fmDataProcessDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AeronetData\fmDataProcessDialog.Designer.cs">
+    <Compile Include="CIMELData\fmDataProcessDialog.Designer.cs">
       <DependentUpon>fmDataProcessDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="AeronetData\MessageHandler.cs" />
+    <Compile Include="CIMELData\MessageHandler.cs" />
     <Compile Include="Chart\AeroChartPage.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,10 +117,10 @@
     <Compile Include="fmAboutBox.Designer.cs">
       <DependentUpon>fmAboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="AeronetData\fmAeronetData.cs">
+    <Compile Include="CIMELData\fmAeronetData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AeronetData\fmAeronetData.Designer.cs">
+    <Compile Include="CIMELData\fmAeronetData.Designer.cs">
       <DependentUpon>fmAeronetData.cs</DependentUpon>
     </Compile>
     <Compile Include="fmMain.cs">
@@ -145,15 +146,17 @@
     <Compile Include="Options\RegionStore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertySorter.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="WorkCancelException.cs" />
-    <EmbeddedResource Include="AeronetData\FileViewer.resx">
+    <Compile Include="WorkFailedException.cs" />
+    <EmbeddedResource Include="CIMELData\FileViewer.resx">
       <DependentUpon>FileViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AeronetData\fmAeronetData.resx">
+    <EmbeddedResource Include="CIMELData\fmAeronetData.resx">
       <DependentUpon>fmAeronetData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AeronetData\fmDataProcessDialog.resx">
+    <EmbeddedResource Include="CIMELData\fmDataProcessDialog.resx">
       <DependentUpon>fmDataProcessDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Chart\ChartPanel.resx">
@@ -210,24 +213,21 @@
       <Project>{3b64a613-ac08-477f-87ef-528332578edc}</Project>
       <Name>Aeronet.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Aeronet.Dog\Aeronet.Dog.csproj">
-      <Project>{708564A9-832C-4DAC-97C3-3FDB163C841A}</Project>
-      <Name>Aeronet.Dog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>
       <Name>Peach.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AeronetData\create_input_carsnet.exe">
+    <Content Include="CIMELData\create_input.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AeronetData\Main.exe">
+    <Content Include="CIMELData\Main.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="resource\Cancel-12.png" />
     <Content Include="resource\Checked-12.png" />
+    <Content Include="resource\Fast Forward-24.png" />
     <Content Include="resource\File-24.png" />
     <Content Include="resource\Folder-24.png" />
     <Content Include="resource\Help-12.png" />
@@ -256,20 +256,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)AeronetData"
-XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)AeronetData"
-XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)AeronetData"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
+    <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)CIMELData"
+XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)CIMELData"
+XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
 $(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
 echo $(ProjectDir)ILMergeX64.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetDir)AeronetData\Draw.exe" del "$(TargetDir)AeronetData\Draw.exe"
-if exist "$(TargetDir)AeronetData\Splitter.exe" del "$(TargetDir)AeronetData\Splitter.exe"
-if exist "$(TargetDir)AeronetData\chartmappings.json" del "$(TargetDir)AeronetData\chartmappings.json"</PreBuildEvent>
+    <PreBuildEvent>if exist "$(TargetDir)CIMELData\Draw.exe" del "$(TargetDir)CIMELData\Draw.exe"
+if exist "$(TargetDir)CIMELData\Splitter.exe" del "$(TargetDir)CIMELData\Splitter.exe"
+if exist "$(TargetDir)CIMELData\chartmappings.json" del "$(TargetDir)CIMELData\chartmappings.json"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

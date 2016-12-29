@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Aeronet.Draw")]
-[assembly: AssemblyDescription("Generates aeronet data for charts")]
+[assembly: AssemblyDescription("Generates CIMEL data for charts")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("北京宇星惠通科技有限公司")]
 [assembly: AssemblyProduct("CIMEL光度计数据处理软件")]
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.0.1.16357")]
+[assembly: AssemblyFileVersion("1.0.1.16357")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

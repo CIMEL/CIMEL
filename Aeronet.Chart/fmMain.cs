@@ -71,7 +71,13 @@ namespace Aeronet.Chart
             if (this.chartPanel1.DataConfigFiles.Count > 0)
                 this.chartPanel1.DataConfigFiles.Clear();
             this.chartPanel1.DataConfigFiles.AddRange(arrChartNames
-                .Select(cn => Path.Combine(this._currentFile.Path,string.Format("{0}.{1}", cn, "dataconfig")))
+                .Select(
+                    cn =>
+                    {
+                        string strCIMELFile = ((dynamic) cmbDataSets.SelectedItem).Value;
+                        string strRoot = Path.GetDirectoryName(strCIMELFile);
+                        return Path.Combine(strRoot, this._currentFile.Path,string.Format("{0}.{1}", cn, "dataconfig"));
+                    })
                 .ToList());
             // !!! don't forget to initial the chart panel
             this.chartPanel1.Init();
@@ -122,8 +128,16 @@ namespace Aeronet.Chart
             // check if the options has been configurated
             if (!ConfigOptions.Singleton.IsInitialized)
             {
+                string validationMsg = ConfigOptions.Singleton.ValidateDirs();
+                if (!string.IsNullOrEmpty(validationMsg))
+                {
+                    MessageBox.Show(validationMsg, fmOptions.DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 using (fmOptions fmOptions = new fmOptions())
                 {
+
+
                     fmOptions.AllowForceExit = true;
                     fmOptions.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.Abort == fmOptions.ShowDialog(this))
@@ -152,7 +166,7 @@ namespace Aeronet.Chart
             }
             catch
             {
-                MessageBox.Show(fmRegions.DLG_TITLE_ERROR,@"Aeronet Data Initial");
+                MessageBox.Show(this,@"缺少站台配置",fmRegions.DLG_TITLE_ERROR);
             }
             this.cmbRegions.SelectedIndex = 0;
         }
@@ -182,7 +196,7 @@ namespace Aeronet.Chart
                     AeronetConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string[] dataSets = Directory.GetFiles(outputFolder, "*.aeronet", SearchOption.TopDirectoryOnly);
+            string[] dataSets = Directory.GetFiles(outputFolder, "*.cimel", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {
                 MessageBox.Show(this,

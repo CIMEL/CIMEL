@@ -225,5 +225,27 @@ namespace Aeronet.Chart
         {
             this.Enabled = true;
         }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            int curDayIndex = this.tsCmbDay.SelectedIndex;
+            if (curDayIndex == this.tsCmbDay.Items.Count - 1)
+            {
+                // go to next month
+                int curMonthIndex = this.tsCmbMonth.SelectedIndex;
+                if (curMonthIndex == this.tsCmbMonth.Items.Count - 1)
+                {
+                    // go to Jan.
+                    this.tsCmbMonth.SelectedIndex = this.tsCmbMonth.Items.Count > 1 ? 1 : 0;
+                }
+                else
+                    this.tsCmbMonth.SelectedIndex++;
+            }
+            else
+            {
+                // go to next day
+                this.tsCmbDay.SelectedIndex++;
+            }
+        }
     }
 }

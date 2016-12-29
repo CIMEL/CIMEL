@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Aeronet.Core;
-using Aeronet.Dog;
 using Peach.Log;
 namespace Aeronet.Chart
 {
