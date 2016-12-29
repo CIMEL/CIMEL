@@ -82,60 +82,70 @@ namespace Aeronet.Chart
         }
 
         [Category(CATELOG_INPUT),
+        DisplayName(METADATA_NAME),
+        Description(METADATA_DESC),
+        PropertyOrder(0),
+        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        public string METADATA_Dir { get; set; }
+
+        [Category(CATELOG_INPUT),
         DisplayName(DATA_NAME),
         Description(DATA_DESC),
+        PropertyOrder(1),
         Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
         public string DATA_Dir { get; set; }
 
         [Category(CATELOG_INPUT),
         DisplayName(MODIS_BRDF_NAME),
         Description(MODIS_BRDF_DESC),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        PropertyOrder(3),
+        ReadOnly(true)]
         public string MODIS_BRDF_Dir { get; set; }
 
         [Category(CATELOG_INPUT),
         DisplayName(INS_PARA_NAME),
         Description(INS_PARA_DESC),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        PropertyOrder(2),
+        ReadOnly(true)]
         public string INS_PARA_Dir { get; set; }
-
-        [Category(CATELOG_INPUT),
-        DisplayName(METADATA_NAME),
-        Description(METADATA_DESC),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
-        public string METADATA_Dir { get; set; }
 
         [Category(CATELOG_OUTPUT),
         DisplayName(OUTPUT_NAME),
         Description(OUTPUT_DESC),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        PropertyOrder(4),
+        ReadOnly(true)]
         public string OUTPUT_Dir { get; set; }
 
         [Category(CATELOG_OUTPUT),
         DisplayName(CHARTSET_NAME),
         Description(CHARTSET_DESC),
-        Editor(typeof(FolderBrowserEditor), typeof(UITypeEditor))]
+        PropertyOrder(5),
+        ReadOnly(true)]
         public string CHARTSET_Dir { get; set; }
 
         [Category(CATELOG_PROGRAM),
+        PropertyOrder(7),
         DisplayName(@"格式化程序"),
         Description("格式化和过滤ce318数据，为CIMEL反演算法做数据准备"),
         ReadOnly(true)]
         public string PROGRAM_OUTPUTOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
+        PropertyOrder(6),
         DisplayName(@"主生成程序"),
         Description("执行CIMEL反演算法"),
         ReadOnly(true)]
         public string PROGRAM_CREATOR { get; set; }
 
         [Category(CATELOG_PROGRAM),
+        PropertyOrder(8),
         DisplayName(@"画图程序"),
         ReadOnly(true),
         Description("读取CIMEL反演产品数据生成矩阵文件")]
         public string PROGRAM_DRAWER { get; set; }
 
         [Category(CATELOG_PROGRAM),
+        PropertyOrder(9),
         DisplayName(@"图像集程序"),
         ReadOnly(true),
         Description("生成图像集数据")]
@@ -338,15 +348,41 @@ namespace Aeronet.Chart
         public string ValidateDirs()
         {
             StringBuilder valErrors = new StringBuilder();
-            foreach (var folderDesc in ConfigOptions.Singleton.GetFolders())
+            foreach (var folderDesc in Singleton.GetFolders())
             {
+                string name = folderDesc.Name;
                 string dir = folderDesc.Path;
+                // just checks the Data and Meta data folders
                 if (Utility.IsEmpty(dir))
                     valErrors.AppendLine(string.Format(@"抱歉, 请设置[{0}]", folderDesc.Name));
                 else
                 {
                     if (!Utility.IsExist(dir))
-                        valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+                    {
+                        if (name == METADATA_Dir)
+                            valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+                        else
+                        {
+                            if (name == DATA_NAME)
+                            {
+                                bool autoInit = false;
+                                string root = Singleton.METADATA_Dir;
+                                if (!Utility.IsEmpty(root))
+                                {
+                                    string preDefined = Path.Combine(root, "data");
+                                    autoInit =
+                                        string.Compare(preDefined, dir, StringComparison.CurrentCultureIgnoreCase) == 0;
+                                }
+                                if (autoInit)
+                                    Directory.CreateDirectory(dir);
+                                else
+                                    valErrors.AppendLine(string.Format(@"抱歉, 目录不存在, 请重新设置[{0}]", folderDesc.Name));
+                            }
+                            else
+                                // for other folders, initial them if not existing
+                                Directory.CreateDirectory(dir);
+                        }
+                    }
                 }
             }
             return valErrors.ToString();
@@ -354,7 +390,19 @@ namespace Aeronet.Chart
 
         public void Refresh()
         {
-            this.Load(this.OptionsPath);
+            if (File.Exists(this.OptionsPath))
+            {
+                this.Load(this.OptionsPath);
+            }
+            else
+            {
+                this.CHARTSET_Dir = string.Empty;
+                this.INS_PARA_Dir = string.Empty;
+                this.MODIS_BRDF_Dir = string.Empty;
+                this.OUTPUT_Dir = string.Empty;
+                this.METADATA_Dir = string.Empty;
+                this.DATA_Dir = string.Empty;
+            }
         }
     }
 

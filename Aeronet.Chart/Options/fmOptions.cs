@@ -73,6 +73,7 @@ namespace Aeronet.Chart.Options
         {
             // loads the configOption instance to the property grid
             this.propertyGrid1.SelectedObject = ConfigOptions.Singleton;
+            // this.propertyGrid1.PropertySort=PropertySort.CategorizedAlphabetical;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -84,6 +85,31 @@ namespace Aeronet.Chart.Options
         {
             ConfigOptions.Singleton.Refresh();
             this.Init();
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            if (e.ChangedItem.GridItemType != GridItemType.Property) return;
+
+            if (e.ChangedItem.PropertyDescriptor.Name == "METADATA_Dir")
+            {
+                string root = Convert.ToString(e.ChangedItem.Value);
+                if (string.IsNullOrEmpty(root)) return;
+
+                ConfigOptions.Singleton.CHARTSET_Dir = Path.Combine(root, "chartset");
+                ConfigOptions.Singleton.INS_PARA_Dir = Path.Combine(root, "ins_para");
+                ConfigOptions.Singleton.MODIS_BRDF_Dir = Path.Combine(root, "modis_brdf");
+                ConfigOptions.Singleton.OUTPUT_Dir = Path.Combine(root, "output");
+                this.propertyGrid1.Refresh();
+                string data=Path.Combine(root, "data");
+                string question = string.Format("自动设置[{0}]吗？\n\r\n\r设置为: {1}", ConfigOptions.DATA_NAME, data);
+                if (MessageBox.Show(this, question, DLG_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    ConfigOptions.Singleton.DATA_Dir = data;
+                    this.propertyGrid1.Refresh();
+                }
+            }
         }
     }
 }
