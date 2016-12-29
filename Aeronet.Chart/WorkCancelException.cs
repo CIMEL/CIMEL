@@ -20,16 +20,4 @@ namespace Aeronet.Chart
             get { return string.IsNullOrEmpty(this._message) ? "用户取消操作!" : this._message; }
         }
     }
-
-    public class WorkFailedException : Exception
-    {
-        public WorkFailedException(): base()
-        {
-        }
-
-        public WorkFailedException(string message) : base(message)
-        {
-            
-        }
-    }
 }

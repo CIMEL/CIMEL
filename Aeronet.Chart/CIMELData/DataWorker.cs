@@ -223,6 +223,17 @@ namespace Aeronet.Chart.AeronetData
                 }
                 if (!sucess)
                     throw new WorkFailedException();
+
+                // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
+                sucess = RunCleaner(paras, strOutputRoot,outputfile);
+                lock (_stateLocker)
+                {
+                    if (_isStopped)
+                        throw new WorkCancelException();
+                }
+                if (!sucess)
+                    throw new WorkFailedException();
+
                 // Run process of Splitter
                 sucess = RunSplitter(paras,outputfile);
 
@@ -248,9 +259,89 @@ namespace Aeronet.Chart.AeronetData
             }
         }
 
+        // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
+        private bool RunCleaner(WorkParameters paras, string strOutputRoot, string outputfile)
+        {
+            // show command line and args
+            OnInformed(string.Format("{0} = {1}", "CLEANER", "<INTERNAL>"));
+            OnInformed(String.Format("{0} = {1}", "OUTPUTROOT", strOutputRoot));
+            OnInformed(String.Format("{0} = {1}", "OUTPUTFILE", outputfile));
+            // perform outputor process
+            OnInformed("***************************************************************");
+
+            OnInformed("Clean up the output directory");
+            try
+            {
+                if (!File.Exists(outputfile))
+                    throw new ArgumentException(string.Format("The output file doesn't exist <- {0}", outputfile));
+                string archiveFolder = Path.GetFileNameWithoutExtension(outputfile);
+
+                if (!Directory.Exists(strOutputRoot))
+                    throw new ArgumentException(string.Format("The output directory doesn't exist <- {0}",
+                        strOutputRoot));
+
+                archiveFolder = Path.Combine(strOutputRoot, archiveFolder);
+
+                try
+                {
+                    // initial the archive folder
+                    if (!Directory.Exists(archiveFolder))
+                        Directory.CreateDirectory(archiveFolder);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException(string.Format("Cannot initial archive folder <- {0}, {1}",
+                        archiveFolder, ex.Message));
+                }
+
+                Regex regex = new Regex("_\\d{6}_\\d{6}\\.dat$",
+                    RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+                var files = Directory.EnumerateFiles(strOutputRoot, "*.dat", SearchOption.TopDirectoryOnly);
+                Parallel.ForEach(files, f =>
+                {
+                    if (string.Compare(f, outputfile, StringComparison.CurrentCultureIgnoreCase) == 0)
+                        return;
+                    if (regex.IsMatch(f))
+                    {
+                        try
+                        {
+                            string fileName = Path.GetFileName(f);
+                            string destFile = Path.Combine(archiveFolder, fileName);
+                            File.Copy(f, destFile,true);
+                            File.Delete(f);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Default.Error(string.Format("Cannot move to archive folder, {0}", f), ex);
+                        }
+                    }
+                });
+                OnInformed("Done. Archive folder: " + archiveFolder);
+            }
+            catch (ArgumentException ex)
+            {
+                OnInformed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Logger.Default.Error(ex);
+            }
+
+            OnInformed("***************************************************************");
+
+            return true;
+        }
+
         private bool RunSplitter(WorkParameters paras,string outputfile)
         {
             string strRoot = Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, paras.STNS_FN);
+            if (!Directory.Exists(strRoot))
+                throw new ArgumentException(string.Format("The driectory not existing <- {0}", strRoot));
+
+            if (!File.Exists(outputfile))
+                throw new ArgumentException(string.Format("Not found the data file <- {0}", outputfile));
+
             var commandArgs = String.Format("{0} {1}", outputfile, strRoot);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_SPLITTER, commandArgs);
             // show command line and args
@@ -266,9 +357,14 @@ namespace Aeronet.Chart.AeronetData
         {
             string inputbase = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) +
                                Path.DirectorySeparatorChar;
+            if (!Directory.Exists(inputbase))
+                throw new ArgumentException(string.Format("The driectory not existing <- {0}", inputbase));
 
             // get lat and lon of region
             Region region = RegionStore.Singleton.FindRegion(paras.STNS_FN);
+            if(region==null)
+                throw new ArgumentException(string.Format("Not found lat & lon of the STNS <- {0}", paras.STNS_FN));
+
             var commandArgs = string.Format("{0} {1} {2}|{3}", inputbase, outputfile, region.Lat, region.Lon);
             var startInfo = NewStartInfo(ConfigOptions.Singleton.PROGRAM_DRAWER, commandArgs);
             // show command line and args
@@ -288,20 +384,27 @@ namespace Aeronet.Chart.AeronetData
             // move the creator program to the working folder(metadata)
             string metaData = ConfigOptions.Singleton.METADATA_Dir;
             string outputor = ConfigOptions.Singleton.PROGRAM_OUTPUTOR;
+            if (!File.Exists(outputor))
+                throw new ArgumentException(string.Format("Not found the program <- {0}", outputor));
+
             string outputorName = Path.GetFileName(outputor);
             string nOutputor = Path.Combine(metaData, outputorName);
             File.Copy(outputor, nOutputor, true);
+            if (!File.Exists(nOutputor))
+                throw new ArgumentException(string.Format("Cannot initial the program <- {0}", nOutputor));
 
             // initial output path
             string @out = Path.Combine(ConfigOptions.Singleton.OUTPUT_Dir, paras.STNS_FN) + Path.DirectorySeparatorChar;
             if (!Directory.Exists(@out))
                 Directory.CreateDirectory(@out);
+            if (!Directory.Exists(@out))
+                throw new ArgumentException(string.Format("Cannot initial the directory <- {0}", @out));
 
             // initial outputor command arguments
             var commandArgs = paras.STNS_FN;
             var startInfo = NewStartInfo(nOutputor, commandArgs);
             // show command line and args
-            OnInformed(string.Format("{0} = {1}", "OUTPUTOR",ConfigOptions.Singleton.PROGRAM_OUTPUTOR));
+            OnInformed(string.Format("{0} = {1}", "OUTPUTOR", nOutputor));
             OnInformed(string.Format("{0} = {1}", "STNSSTR", paras.STNS_FN));
             // perform outputor process
             var sucess = Run(startInfo);
@@ -314,24 +417,41 @@ namespace Aeronet.Chart.AeronetData
             string ipt = ConfigOptions.Singleton.INS_PARA_Dir;
             if (ipt[ipt.Length - 1] != Path.DirectorySeparatorChar)
                 ipt += Path.DirectorySeparatorChar;
+            if(!Directory.Exists(ipt))
+                throw new ArgumentException(string.Format("The driectory not existing <- {0}",ipt));
 
             string @out = Path.Combine(ConfigOptions.Singleton.METADATA_Dir, "input", paras.STNS_FN) + Path.DirectorySeparatorChar;
             if (!Directory.Exists(@out))
                 Directory.CreateDirectory(@out);
+            if (!Directory.Exists(@out))
+                throw new ArgumentException(string.Format("Cannot initial driectory <- {0}", @out));
 
             string brdf = ConfigOptions.Singleton.MODIS_BRDF_Dir;
             if (brdf[brdf.Length - 1] != Path.DirectorySeparatorChar)
                 brdf += Path.DirectorySeparatorChar;
+            if (!Directory.Exists(brdf))
+                throw new ArgumentException(string.Format("The driectory not existing <- {0}", brdf));
+
             string dat = Path.Combine(ConfigOptions.Singleton.DATA_Dir,paras.STNS_FN);
             if(!Directory.Exists(dat))
                 Directory.CreateDirectory(dat);
+            if (!Directory.Exists(dat))
+                throw new ArgumentException(string.Format("Cannot initial driectory <- {0}", dat));
 
             // move the creator program to the working folder(metadata)
             string metaData = ConfigOptions.Singleton.METADATA_Dir;
+            if (!Directory.Exists(metaData))
+                throw new ArgumentException(string.Format("The driectory not existing <- {0}", metaData));
+
             string creator = ConfigOptions.Singleton.PROGRAM_CREATOR;
+            if (!File.Exists(creator))
+                throw new ArgumentException(string.Format("Not found the program <- {0}", creator));
+
             string creatorName = Path.GetFileName(creator);
             string nCreator = Path.Combine(metaData, creatorName);
             File.Copy(creator, nCreator, true);
+            if (!File.Exists(nCreator))
+                throw new ArgumentException(string.Format("Cannot initial the program <- {0}", creator));
 
             // initial creator command arguments
             string commandArgs = string.Format("{0} {1} {2} {3} {4} {5} {6}", paras.STNS_FN, paras.STNS_ID, paras.FDATA, ipt,
