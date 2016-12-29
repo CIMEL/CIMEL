@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartPanel));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.lblYear = new System.Windows.Forms.ToolStripLabel();
@@ -39,6 +40,7 @@
             this.tsCmbDay = new System.Windows.Forms.ToolStripComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +56,8 @@
             this.tsCmbMonth,
             this.toolStripSeparator2,
             this.toolStripLabel4,
-            this.tsCmbDay});
+            this.tsCmbDay,
+            this.btnNext});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(563, 25);
@@ -125,6 +128,16 @@
             this.tabControl1.Size = new System.Drawing.Size(563, 452);
             this.tabControl1.TabIndex = 1;
             // 
+            // btnNext
+            // 
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNext.Image = ((System.Drawing.Image)(resources.GetObject("btnNext.Image")));
+            this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(23, 22);
+            this.btnNext.Text = "次日";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // ChartPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,5 +166,6 @@
         private System.Windows.Forms.ToolStripComboBox tsCmbDay;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.ToolStripButton btnNext;
     }
 }

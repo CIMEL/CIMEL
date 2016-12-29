@@ -226,6 +226,7 @@
     </Content>
     <Content Include="resource\Cancel-12.png" />
     <Content Include="resource\Checked-12.png" />
+    <Content Include="resource\Fast Forward-24.png" />
     <Content Include="resource\File-24.png" />
     <Content Include="resource\Folder-24.png" />
     <Content Include="resource\Help-12.png" />
