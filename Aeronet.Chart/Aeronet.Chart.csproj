@@ -213,6 +213,10 @@
       <Project>{3b64a613-ac08-477f-87ef-528332578edc}</Project>
       <Name>Aeronet.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Aeronet.Dog\Aeronet.Dog.csproj">
+      <Project>{708564A9-832C-4DAC-97C3-3FDB163C841A}</Project>
+      <Name>Aeronet.Dog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>
       <Name>Peach.Log</Name>
@@ -259,6 +263,10 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)Aeronet.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)Aeronet.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
 $(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
 echo $(ProjectDir)ILMergeX64.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>

@@ -177,6 +177,8 @@ namespace Aeronet.Dog
             "q4R27XOevHuLbalRISFR4SMGf91XPnWKESN8pHPYs4krs5cfvNl04M" +
             "gdCBCPzs1w==";
 
+        private static DogFeature _global = DogFeature.FromFeature(1);
+
         private const string DEFAULT_SCOPE = "<dogscope />";
 
         public static string VendorCode
@@ -197,7 +199,7 @@ namespace Aeronet.Dog
         {
             MethodResult isActived = new MethodResult();
 
-            using (SuperDog.Dog dog=new SuperDog.Dog(DogFeature.Default))
+            using (SuperDog.Dog dog=new SuperDog.Dog(_global))
             {
                 try
                 {

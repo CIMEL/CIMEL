@@ -295,18 +295,6 @@ namespace Aeronet.Chart
         }
 
         /// <summary>
-        /// Refreshes the config options
-        /// </summary>
-        public void Refresh()
-        {
-            // check if existing
-            if (File.Exists(this.OptionsPath))
-            {
-                this.Load(this.OptionsPath);
-            }
-        }
-
-        /// <summary>
         /// Save the options from the user entered
         /// </summary>
         public void Save()
@@ -400,8 +388,12 @@ namespace Aeronet.Chart
             return valErrors.ToString();
         }
 
+        /// <summary>
+        /// Refreshes the config options
+        /// </summary>
         public void Refresh()
         {
+            // check if existing
             if (File.Exists(this.OptionsPath))
             {
                 this.Load(this.OptionsPath);
