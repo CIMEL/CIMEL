@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aeronet.Dog</RootNamespace>
-    <AssemblyName>Aeronet.Dog</AssemblyName>
+    <AssemblyName>CIMEL.Dog</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

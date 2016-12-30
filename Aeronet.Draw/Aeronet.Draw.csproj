@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aeronet.Draw</RootNamespace>
-    <AssemblyName>Aeronet.Draw</AssemblyName>
+    <AssemblyName>CIMEL.Draw</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

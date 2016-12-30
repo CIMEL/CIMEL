@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aeronet.Splitter</RootNamespace>
-    <AssemblyName>Aeronet.Splitter</AssemblyName>
+    <AssemblyName>CIMEL.Splitter</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

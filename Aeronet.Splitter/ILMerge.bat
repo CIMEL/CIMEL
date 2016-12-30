@@ -1,1 +1,1 @@
-%1Ilmerge.exe /log %2Aeronet.Splitter.exe /log %2Aeronet.Core.dll /log %2Newtonsoft.json.dll /t:exe /out:%2Splitter.exe /targetplatform:v4 /internalize /ndebug
+%1Ilmerge.exe /log %2CIMEL.Splitter.exe /log %2CIMEL.Core.dll /log %2Newtonsoft.json.dll /t:exe /out:%2Splitter.exe /targetplatform:v4 /internalize /ndebug
