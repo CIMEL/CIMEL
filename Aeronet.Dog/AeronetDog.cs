@@ -179,9 +179,11 @@ namespace Aeronet.Dog
                 }
             }
 
+#if DEBUG
             // var isActived = new MethodResult();
             if (isActived)
                 LogInfo(string.Format("Is dog active? {0}", isActived));
+#endif
 
             if (!isActived && autoExit)
             {
@@ -230,6 +232,11 @@ namespace Aeronet.Dog
                 return new MethodResult(false, string.Empty);
             }
             */
+        }
+
+        private void LogDebug(string message)
+        {
+            this._logger.Debug(message);
         }
 
         public void LogError(string message)
