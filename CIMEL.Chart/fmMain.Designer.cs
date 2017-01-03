@@ -46,6 +46,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnNextChart = new System.Windows.Forms.Button();
+            this.btnNextChartSet = new System.Windows.Forms.Button();
+            this.btnNextState = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbRegions = new System.Windows.Forms.ComboBox();
@@ -97,7 +101,7 @@
             this.toolToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.toolToolStripMenuItem.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_TOOLS_TEXT;
             // 
-            // CIMELDataToolStripMenuItem
+            // cimelDataToolStripMenuItem
             // 
             this.cimelDataToolStripMenuItem.Name = "cimelDataToolStripMenuItem";
             this.cimelDataToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
@@ -162,7 +166,7 @@
             this.cmbDataSets.Location = new System.Drawing.Point(80, 61);
             this.cmbDataSets.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbDataSets.Name = "cmbDataSets";
-            this.cmbDataSets.Size = new System.Drawing.Size(460, 25);
+            this.cmbDataSets.Size = new System.Drawing.Size(358, 25);
             this.cmbDataSets.TabIndex = 2;
             // 
             // label1
@@ -187,6 +191,10 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnNextChart);
+            this.groupBox1.Controls.Add(this.btnNextChartSet);
+            this.groupBox1.Controls.Add(this.btnNextState);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbRegions);
@@ -204,14 +212,61 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "图像数据集";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(399, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(62, 25);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "刷新(&R)";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btRefresh_Click);
+            // 
+            // btnNextChart
+            // 
+            this.btnNextChart.BackColor = System.Drawing.Color.White;
+            this.btnNextChart.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNextChart.Image = ((System.Drawing.Image)(resources.GetObject("btnNextChart.Image")));
+            this.btnNextChart.Location = new System.Drawing.Point(365, 98);
+            this.btnNextChart.Name = "btnNextChart";
+            this.btnNextChart.Size = new System.Drawing.Size(28, 25);
+            this.btnNextChart.TabIndex = 11;
+            this.btnNextChart.UseVisualStyleBackColor = false;
+            this.btnNextChart.Click += new System.EventHandler(this.btnNextChart_Click);
+            // 
+            // btnNextChartSet
+            // 
+            this.btnNextChartSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNextChartSet.BackColor = System.Drawing.Color.White;
+            this.btnNextChartSet.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNextChartSet.Image = ((System.Drawing.Image)(resources.GetObject("btnNextChartSet.Image")));
+            this.btnNextChartSet.Location = new System.Drawing.Point(444, 61);
+            this.btnNextChartSet.Name = "btnNextChartSet";
+            this.btnNextChartSet.Size = new System.Drawing.Size(28, 25);
+            this.btnNextChartSet.TabIndex = 10;
+            this.btnNextChartSet.UseVisualStyleBackColor = false;
+            this.btnNextChartSet.Click += new System.EventHandler(this.btnNextChartSet_Click);
+            // 
+            // btnNextState
+            // 
+            this.btnNextState.BackColor = System.Drawing.Color.White;
+            this.btnNextState.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNextState.Image = ((System.Drawing.Image)(resources.GetObject("btnNextState.Image")));
+            this.btnNextState.Location = new System.Drawing.Point(365, 23);
+            this.btnNextState.Name = "btnNextState";
+            this.btnNextState.Size = new System.Drawing.Size(28, 25);
+            this.btnNextState.TabIndex = 9;
+            this.btnNextState.UseVisualStyleBackColor = false;
+            this.btnNextState.Click += new System.EventHandler(this.btnNextState_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(546, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(546, 22);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(107, 105);
+            this.pictureBox1.Size = new System.Drawing.Size(107, 101);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
@@ -237,10 +292,10 @@
             // btnScan
             // 
             this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScan.Location = new System.Drawing.Point(453, 18);
+            this.btnScan.Location = new System.Drawing.Point(478, 61);
             this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(87, 30);
+            this.btnScan.Size = new System.Drawing.Size(62, 25);
             this.btnScan.TabIndex = 6;
             this.btnScan.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_SCAN_TEXT;
             this.btnScan.UseVisualStyleBackColor = true;
@@ -283,7 +338,7 @@
             this.MinimumSize = new System.Drawing.Size(702, 732);
             this.Name = "fmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CIMEL光度计数据图像";
+            this.Text = "CIMEL太阳光度计数据处理软件";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -318,6 +373,10 @@
         private System.Windows.Forms.ComboBox cmbRegions;
         private System.Windows.Forms.ToolStripMenuItem regionsToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnNextChart;
+        private System.Windows.Forms.Button btnNextChartSet;
+        private System.Windows.Forms.Button btnNextState;
+        private System.Windows.Forms.Button button1;
     }
 }
 

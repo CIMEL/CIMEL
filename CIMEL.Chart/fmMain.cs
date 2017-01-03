@@ -147,7 +147,14 @@ namespace CIMEL.Chart
                 }
             }
 
+            RefreshRegions();
+
+        }
+
+        private void RefreshRegions()
+        {
             this.cmbRegions.Items.Clear();
+            this.cmbRegions.Refresh();
             this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
             this.cmbRegions.ValueMember = ComboBoxItem.ValueName;
             this.cmbRegions.Items.Insert(0, ComboBoxItem.EmptyItem.ToItem());
@@ -166,9 +173,10 @@ namespace CIMEL.Chart
             }
             catch
             {
-                MessageBox.Show(this,@"缺少站台配置",fmRegions.DLG_TITLE_ERROR);
+                MessageBox.Show(this, @"缺少站台配置", fmRegions.DLG_TITLE_ERROR);
             }
             this.cmbRegions.SelectedIndex = 0;
+            this.cmbRegions.Refresh();
         }
 
         /// <summary>
@@ -291,6 +299,50 @@ namespace CIMEL.Chart
                 fmRegions.StartPosition=FormStartPosition.CenterParent;
                 fmRegions.ShowDialog(this);
             }
+        }
+
+        private void btnNextState_Click(object sender, EventArgs e)
+        {
+            int index = this.cmbRegions.SelectedIndex;
+            if (index == this.cmbRegions.Items.Count - 1)
+            {
+                this.cmbRegions.SelectedIndex = this.cmbRegions.Items.Count > 1 ? 1 : 0;
+            }
+            else
+            {
+                this.cmbRegions.SelectedIndex++;
+            }
+        }
+
+        private void btnNextChartSet_Click(object sender, EventArgs e)
+        {
+            int index = this.cmbDataSets.SelectedIndex;
+            if (index == this.cmbDataSets.Items.Count - 1)
+            {
+                this.cmbDataSets.SelectedIndex = this.cmbDataSets.Items.Count > 1 ? 1 : 0;
+            }
+            else
+            {
+                this.cmbDataSets.SelectedIndex++;
+            }
+        }
+
+        private void btnNextChart_Click(object sender, EventArgs e)
+        {
+            int index = this.cmbCharts.SelectedIndex;
+            if (index == this.cmbCharts.Items.Count - 1)
+            {
+                this.cmbCharts.SelectedIndex = this.cmbCharts.Items.Count > 1 ? 1 : 0;
+            }
+            else
+            {
+                this.cmbCharts.SelectedIndex++;
+            }
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            this.RefreshRegions();
         }
     }
 }

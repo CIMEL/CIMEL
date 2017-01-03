@@ -7,7 +7,7 @@ namespace CIMEL.Chart
 {
     public class CIMELConst
     {
-        public const string GLOBAL_DLG_TITLE = "CIMEL光度计数据图像";
+        public const string GLOBAL_DLG_TITLE = "CIMEL太阳光度计数据处理软件";
     }
 
     public partial class ConfigOptions
