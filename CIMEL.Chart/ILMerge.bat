@@ -1,0 +1,1 @@
+%1Ilmerge.exe /log %2CIMEL.Chart.exe /log %2CIMEL.Core.dll /log %2Peach.Log.dll /log %2CIMEL.Dog.dll /log %2Newtonsoft.json.dll /log %2log4net.dll /log %2dog_net_windows.dll /t:winexe /out:%2CIMEL太阳光度计数据处理软件.exe /targetplatform:v4 /ndebug

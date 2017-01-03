@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peach.Log", "Peach.Log\Peach.Log.csproj", "{F594087C-8118-4931-9AF4-2F1033635417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Chart", "CIMEL.Chart\CIMEL.Chart.csproj", "{0D66F1A8-F4BE-4C21-948B-B738600D636D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Core", "CIMEL.Core\CIMEL.Core.csproj", "{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Dog", "CIMEL.Dog\CIMEL.Dog.csproj", "{4EF6F4FF-385A-4BC9-B0A6-B482BB3B5AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Draw", "CIMEL.Draw\CIMEL.Draw.csproj", "{FAC599EA-D88E-4413-8A14-DF5B8689DC87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Splitter", "CIMEL.Splitter\CIMEL.Splitter.csproj", "{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F594087C-8118-4931-9AF4-2F1033635417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F594087C-8118-4931-9AF4-2F1033635417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F594087C-8118-4931-9AF4-2F1033635417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F594087C-8118-4931-9AF4-2F1033635417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D66F1A8-F4BE-4C21-948B-B738600D636D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D66F1A8-F4BE-4C21-948B-B738600D636D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D66F1A8-F4BE-4C21-948B-B738600D636D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D66F1A8-F4BE-4C21-948B-B738600D636D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EF6F4FF-385A-4BC9-B0A6-B482BB3B5AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EF6F4FF-385A-4BC9-B0A6-B482BB3B5AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EF6F4FF-385A-4BC9-B0A6-B482BB3B5AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EF6F4FF-385A-4BC9-B0A6-B482BB3B5AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC599EA-D88E-4413-8A14-DF5B8689DC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC599EA-D88E-4413-8A14-DF5B8689DC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC599EA-D88E-4413-8A14-DF5B8689DC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC599EA-D88E-4413-8A14-DF5B8689DC87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
