@@ -158,6 +158,8 @@ namespace CIMEL.Dog
         /// <returns></returns>
         public MethodResult IsAlive(bool autoExit=false,IWin32Window owner=null)
         {
+            return new MethodResult();
+
             MethodResult isActived = new MethodResult();
 
             using (SuperDog.Dog dog=new SuperDog.Dog(_global))
