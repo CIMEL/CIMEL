@@ -1,1 +1,1 @@
-%1Ilmerge.exe /log %2CIMEL.Draw.exe /log %2CIMEL.Core.dll /log %2AeronetDrawNative.dll /log %2MWArray.dll /log %2Newtonsoft.json.dll /t:exe /out:%2Draw.exe /targetplatform:v4 /internalize /ndebug
+%1Ilmerge.exe /log %2CIMEL.Draw.exe /log %2CIMEL.Core.dll /log %2CIMELDrawNative.dll /log %2MWArray.dll /log %2Newtonsoft.json.dll /t:exe /out:%2Draw.exe /targetplatform:v4 /internalize /ndebug

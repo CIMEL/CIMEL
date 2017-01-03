@@ -58,6 +58,7 @@
     <None Include="chartmappings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ILMerge.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

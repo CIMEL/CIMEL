@@ -56,6 +56,9 @@
       <Name>CIMEL.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ILMerge.bat" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)Matlablib\MWArray.dll" "$(TargetDir)"
