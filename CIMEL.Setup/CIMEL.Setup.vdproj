@@ -150,11 +150,11 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\CIMEL.SetupX86.msi"
+        "OutputFilename" = "8:Release\\CIMEL太阳光度计数据处理软件.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:3"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -162,11 +162,19 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -600,7 +608,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CIMEL太阳光度计数据处理软件"
         "ProductCode" = "8:{591BC7E7-0AA9-4EC3-A101-B7395F3DAC8F}"
-        "PackageCode" = "8:{0A7EC863-BB98-4A8A-9E72-2BD6BFD81A14}"
+        "PackageCode" = "8:{FF87CE14-5D1B-4854-8D44-D3DC5E101249}"
         "UpgradeCode" = "8:{F206186F-FEF0-4705-A196-4693E99DBB72}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
