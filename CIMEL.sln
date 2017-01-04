@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Draw", "CIMEL.Draw\CI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Splitter", "CIMEL.Splitter\CIMEL.Splitter.csproj", "{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CIMEL.Setup", "CIMEL.Setup\CIMEL.Setup.vdproj", "{472B235D-D3E0-4B66-A146-917EB65EE692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8869D5F-D4E0-48F7-87EE-AB8C05B02121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472B235D-D3E0-4B66-A146-917EB65EE692}.Debug|Any CPU.ActiveCfg = Debug
+		{472B235D-D3E0-4B66-A146-917EB65EE692}.Debug|Any CPU.Build.0 = Debug
+		{472B235D-D3E0-4B66-A146-917EB65EE692}.Release|Any CPU.ActiveCfg = Release
+		{472B235D-D3E0-4B66-A146-917EB65EE692}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
