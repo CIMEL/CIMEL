@@ -15,6 +15,18 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_012E21D822F94B349805AB8E6890E5B1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1C504CA6802A4EEEBBC17F9862C86AE6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_22A21A7C464B4BC5B7F1B31DA12FE1C2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -51,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_55C91119040E4CB1A289AB2815C5003F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -75,6 +93,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BA688A5B899F44D7BD4306CB412EF197"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,13 +106,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
+        "OwnerKey" = "8:_2EACB24DAF984A72BB32F4FD3299DAC5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2EACB24DAF984A72BB32F4FD3299DAC5"
+        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -181,6 +205,46 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_012E21D822F94B349805AB8E6890E5B1"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows.dll"
+            "TargetName" = "8:api_dsp_windows.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C504CA6802A4EEEBBC17F9862C86AE6"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows_x64.dll"
+            "TargetName" = "8:api_dsp_windows_x64.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22A21A7C464B4BC5B7F1B31DA12FE1C2"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\LICENSE"
@@ -323,6 +387,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_55C91119040E4CB1A289AB2815C5003F"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_3150644.dll"
+            "TargetName" = "8:dog_windows_3150644.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
             {
             "AssemblyRegister" = "3:1"
@@ -400,6 +484,26 @@
             "TargetName" = "8:regions.json"
             "Tag" = "8:"
             "Folder" = "8:_84452AB2818F4B14A5DBA795A949C2D7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA688A5B899F44D7BD4306CB412EF197"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_x64_3150644.dll"
+            "TargetName" = "8:dog_windows_x64_3150644.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
