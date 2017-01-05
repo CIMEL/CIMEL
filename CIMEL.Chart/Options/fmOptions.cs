@@ -47,8 +47,7 @@ namespace CIMEL.Chart.Options
                 }
                 else
                 {
-                    MessageBox.Show(this, @"开始操作前请先完成参数配置",
-                        DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.ShowAlert(@"开始操作前请先完成参数配置",DLG_TITLE_ERROR);
                     e.Cancel = true;
                 }
             }
@@ -70,12 +69,12 @@ namespace CIMEL.Chart.Options
             string validationMsg = ConfigOptions.Singleton.ValidateDirs();
             if (!string.IsNullOrEmpty(validationMsg))
             {
-                MessageBox.Show(validationMsg, DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ShowAlert(validationMsg, DLG_TITLE_ERROR);
                 return;
             }
 
             ConfigOptions.Singleton.Save();
-            MessageBox.Show(@"保存成功!",DLG_TITLE);
+            this.ShowInfo(@"保存成功!",DLG_TITLE);
             this.DialogResult = DialogResult.OK;
         }
 

@@ -26,12 +26,23 @@ namespace CIMEL.Chart
 
         public static void ShowDogAlert(IWin32Window owner, string message)
         {
-            MessageBox.Show(owner, message, @"安全锁",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            ShowAlertDlg(owner, message, @"安全锁");
         }
 
-        public static void ShowDogAlert(string message)
+        public static void ShowAlertDlg(IWin32Window owner, string message, string title)
         {
-            MessageBox.Show(message, @"安全锁", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (owner == null)
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show(owner, message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        public static void ShowInfoDlg(IWin32Window owner, string message, string title)
+        {
+            if (owner == null)
+                MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(owner, message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void ExitApp()
@@ -73,6 +84,19 @@ namespace CIMEL.Chart
                 MessageBox.Show(ex.Message);
             }
             */
+        }
+    }
+
+    public static class FormExt
+    {
+        public static void ShowAlert(this IWin32Window owner, string message, string title)
+        {
+            Utility.ShowAlertDlg(owner,message,title);
+        }
+
+        public static void ShowInfo(this IWin32Window owner, string message, string title)
+        {
+            Utility.ShowInfoDlg(owner, message, title);
         }
     }
 }

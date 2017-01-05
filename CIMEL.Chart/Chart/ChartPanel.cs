@@ -133,7 +133,7 @@ namespace CIMEL.Chart
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message, @"图像加载错误", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.ShowAlert(ex.Message, @"图像加载错误");
 
                 // disable all of funtions
                 this.Enabled = false;

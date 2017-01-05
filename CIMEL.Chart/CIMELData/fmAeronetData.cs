@@ -60,8 +60,7 @@ namespace CIMEL.Chart
                 string validationMsg = ConfigOptions.Singleton.ValidateDirs();
                 if (!string.IsNullOrEmpty(validationMsg))
                 {
-                    MessageBox.Show(validationMsg, fmOptions.DLG_TITLE_ERROR, MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    this.ShowAlert(validationMsg, fmOptions.DLG_TITLE_ERROR);
                 }
 
                 this.btAction.Enabled = false;
@@ -164,8 +163,7 @@ namespace CIMEL.Chart
             var selectedFolder = this.GetSelectedFolder();
             if (selectedFolder == null)
             {
-                MessageBox.Show(@"对不起，请选择目录", Settings.Default.FM_CIMEL_DATA_TEXT, MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                this.ShowAlert(@"对不起，请选择目录", Settings.Default.FM_CIMEL_DATA_TEXT);
                 return;
             }
 

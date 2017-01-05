@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Peach.Log;
 
 namespace CIMEL.Chart.Options
@@ -23,12 +24,22 @@ namespace CIMEL.Chart.Options
 
         protected RegionStore()
         {
-            string dataPath = OptionsPath;
+            try
+            {
+                string dataPath = OptionsPath;
 
-            string content = File.ReadAllText(dataPath, EncodingCode);
-            var j = new JsonTextReader(new StringReader(content));
-            var serializer = new JsonSerializer();
-            _regions = serializer.Deserialize<Regions>(j);
+                string content = File.ReadAllText(dataPath, EncodingCode);
+                var j = new JsonTextReader(new StringReader(content));
+                var serializer = new JsonSerializer();
+                _regions = serializer.Deserialize<Regions>(j);
+            }
+            catch (Exception ex)
+            {
+                _regions = new Regions();
+                Logger.Default.Error("Failed to load states from regions.json", ex);
+                Form fmMain = Application.OpenForms.Cast<Form>().FirstOrDefault();
+                Utility.ShowAlertDlg(fmMain,@"缺少站台配置", fmRegions.DLG_TITLE_ERROR);
+            }
         }
 
         public static RegionStore Singleton { get { return _default; } }
@@ -94,5 +105,10 @@ namespace CIMEL.Chart.Options
     {
         [DataMember(Name = "regions")]
         public List<Region> RegionList { get; set; }
+
+        public Regions()
+        {
+            RegionList=new List<Region>();
+        }
     }
 }

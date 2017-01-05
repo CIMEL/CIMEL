@@ -131,13 +131,11 @@ namespace CIMEL.Chart
                 string validationMsg = ConfigOptions.Singleton.ValidateDirs();
                 if (!string.IsNullOrEmpty(validationMsg))
                 {
-                    MessageBox.Show(validationMsg, fmOptions.DLG_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.ShowAlert(validationMsg, fmOptions.DLG_TITLE_ERROR);
                 }
 
                 using (fmOptions fmOptions = new fmOptions())
                 {
-
-
                     fmOptions.AllowForceExit = true;
                     fmOptions.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.Abort == fmOptions.ShowDialog(this))
@@ -171,9 +169,9 @@ namespace CIMEL.Chart
                         });
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show(this, @"缺少站台配置", fmRegions.DLG_TITLE_ERROR);
+                this.ShowAlert(ex.Message, fmRegions.DLG_TITLE_ERROR);
             }
             this.cmbRegions.SelectedIndex = 0;
             this.cmbRegions.Refresh();
@@ -199,17 +197,16 @@ namespace CIMEL.Chart
             string outputFolder = Path.Combine(ConfigOptions.Singleton.CHARTSET_Dir, region);
             if (!Directory.Exists(outputFolder))
             {
-                MessageBox.Show(this,
-                    @"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
-                    CIMELConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.ShowInfo(@"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
+                    CIMELConst.GLOBAL_DLG_TITLE);
+                
                 return;
             }
             string[] dataSets = Directory.GetFiles(outputFolder, "*.cimel", SearchOption.TopDirectoryOnly);
             if (dataSets.Length == 0)
             {
-                MessageBox.Show(this,
-                    @"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
-                    CIMELConst.GLOBAL_DLG_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.ShowInfo(@"没有找到已生成的图像数据集，请先进入[工具]->[数据处理...]处理CIMEL光度计数据",
+                    CIMELConst.GLOBAL_DLG_TITLE);
                 return;
             }
             foreach (string dataSet in dataSets)
