@@ -245,7 +245,7 @@
             this.btnNextChartSet.Size = new System.Drawing.Size(28, 25);
             this.btnNextChartSet.TabIndex = 10;
             this.btnNextChartSet.UseVisualStyleBackColor = false;
-            this.btnNextChartSet.Click += new System.EventHandler(this.btnNextChartSet_Click);
+            this.btnNextChartSet.Click += new System.EventHandler(this.btnNextDataSet_Click);
             // 
             // btnNextState
             // 
@@ -257,7 +257,7 @@
             this.btnNextState.Size = new System.Drawing.Size(28, 25);
             this.btnNextState.TabIndex = 9;
             this.btnNextState.UseVisualStyleBackColor = false;
-            this.btnNextState.Click += new System.EventHandler(this.btnNextState_Click);
+            this.btnNextState.Click += new System.EventHandler(this.btnNextRegion_Click);
             // 
             // pictureBox1
             // 
