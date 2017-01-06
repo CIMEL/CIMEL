@@ -270,10 +270,10 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)CIMEL.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\AeronetSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
+XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
 $(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
 echo $(ProjectDir)ILMergeX64.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
