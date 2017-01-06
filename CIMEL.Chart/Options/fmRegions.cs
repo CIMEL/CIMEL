@@ -13,7 +13,7 @@ namespace CIMEL.Chart.Options
 {
     public partial class fmRegions : Form
     {
-        private IDictionary<string, Region> _regions;
+        private IDictionary<string, Region> _regions=new Dictionary<string, Region>();
         // the currently selected region
         private string _currentSelected=string.Empty;
         // if true, it is editing a new region instance
@@ -41,9 +41,15 @@ namespace CIMEL.Chart.Options
 
         private void LoadRegions()
         {
-
-            // initial regions
-            this._regions = RegionStore.Singleton.GetRegions().ToDictionary(r => r.Name, r => r);
+            try
+            {
+                // initial regions
+                this._regions = RegionStore.Singleton.GetRegions().ToDictionary(r => r.Name, r => r);
+            }
+            catch (Exception ex)
+            {
+                this.ShowAlert(ex.Message, DLG_TITLE_ERROR);
+            }
 
             // initial list view
             listView1.Items.Clear();
@@ -106,18 +112,15 @@ namespace CIMEL.Chart.Options
             string error;
             if (!ValidateRegion(editRegion, out error))
             {
-                MessageBox.Show(error, DLG_TITLE_ERROR, MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                this.ShowAlert(error, DLG_TITLE_ERROR);
                 return false;
             }
 
             if (_isNew)
             {
-
                 if (this._regions.ContainsKey(editRegion.Name))
                 {
-                    MessageBox.Show(string.Format("{0}已经存在不能重复添加", editRegion.Name), DLG_TITLE_ERROR, MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    this.ShowAlert(string.Format("{0}已经存在不能重复添加", editRegion.Name), DLG_TITLE_ERROR);
                     return false;
                 }
                 else
@@ -138,15 +141,13 @@ namespace CIMEL.Chart.Options
         {
             if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show(@"请选择要删除的站台", DLG_TITLE_ERROR, MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                this.ShowAlert(@"请选择要删除的站台", DLG_TITLE_ERROR);
                 return false;
             }
 
             if (!this._regions.ContainsKey(name))
             {
-                MessageBox.Show(@"数据异常，请重新刷新站台数据", DLG_TITLE_ERROR, MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                this.ShowAlert(@"数据异常，请重新刷新站台数据", DLG_TITLE_ERROR);
                 return false;
             }
 
@@ -214,8 +215,7 @@ namespace CIMEL.Chart.Options
             if (saved)
             {
                 this.LoadRegions();
-                MessageBox.Show(@"保存成功！", DLG_TITLE, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                this.ShowInfo(@"保存成功！", DLG_TITLE);
             }
         }
 
@@ -233,8 +233,7 @@ namespace CIMEL.Chart.Options
 
                 this.LoadRegions();
 
-                MessageBox.Show(@"删除成功！", DLG_TITLE, MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                this.ShowInfo(@"删除成功！", DLG_TITLE);
             }
         }
     }

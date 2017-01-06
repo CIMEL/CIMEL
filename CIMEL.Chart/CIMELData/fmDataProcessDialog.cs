@@ -71,7 +71,7 @@ namespace CIMEL.Chart.CIMELData
                     }
 
                     e.Cancel = true;
-                    MessageBox.Show(@"数据处理中请不要关闭窗口", @"数据处理");
+                    this.ShowAlert(@"数据处理中请不要关闭窗口", @"数据处理");
                 }
                 else
                 {
@@ -90,7 +90,6 @@ namespace CIMEL.Chart.CIMELData
             this._fmTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             // initial regions combo box
-
             this.cmbRegions.Items.Clear();
             this.cmbRegions.DisplayMember = ComboBoxItem.DisplayName;
             this.cmbRegions.ValueMember = ComboBoxItem.ValueName;
@@ -323,7 +322,7 @@ namespace CIMEL.Chart.CIMELData
                 {
                     // remove the [ABORTED] mark
                     msg = msg.Replace(LOG_H_ABORTED, string.Empty);
-                    Utility.ShowDogAlert(msg);
+                    Utility.ShowDogAlert(this, msg);
                     Utility.ExitApp();
                 }
 
@@ -467,7 +466,7 @@ namespace CIMEL.Chart.CIMELData
                         //double confirms
                         string question =
                             "准备好了吗?\r\n[Yes]: 马上开始\r\n[No]: 检查参数";
-                        if (DialogResult.No == MessageBox.Show(question,
+                        if (DialogResult.No == MessageBox.Show(this, question,
                             @"参数校验", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
                             MessageBoxDefaultButton.Button1))
                         {
@@ -477,12 +476,9 @@ namespace CIMEL.Chart.CIMELData
                     }
                     else
                     {
-                        MessageBox.Show(@"抱歉，参数配置仍有错误",
-                            @"参数校验", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        {
-                            this.btnAction.Enabled = true;
-                            return;
-                        }
+                        this.ShowAlert(@"抱歉，参数配置仍有错误",@"参数校验");
+                        this.btnAction.Enabled = true;
+                        return;
                     }
 
                     // initial worker
