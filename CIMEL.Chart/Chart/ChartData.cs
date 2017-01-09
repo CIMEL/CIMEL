@@ -93,9 +93,42 @@ namespace CIMEL.Chart
                 // move aod550 to behind extt440
                 string y;
                 if (i == 0 && data.Length>7)
-                    y = data[i + 7].Trim();
+                    y = data[i + 6 + 1].Trim();
                 else if (i == 1 && data.Length>6)
-                    y = data[i + 5].Trim();
+                    y = data[i + 6 - 1].Trim();
+                else
+                    y = data[i + 6].Trim();
+
+                var point = new ChartPoint(axisXs[i], y);
+                this.Points[i] = point;
+            }
+        }
+    }
+
+    public class AAODChartLine : ChartLine
+    {
+        public AAODChartLine(string lineData, List<double> axisXs) : base(lineData, axisXs)
+        {
+        }
+
+        protected override void Init(string lineData, List<double> axisXs)
+        {
+            string[] data = lineData.Split(new[] {','}, StringSplitOptions.None);
+            // the first 3 fields are year, month and day
+            // then the following 3 fields are hour, minute and second
+            this.TimePoint = string.Format("{0}:{1}:{2}", data[3].Trim(), data[4].Trim(), data[5].Trim());
+            // then the following fields are the values of Axis Y
+            int length = data.Length - 6;
+            this.Points = new ChartPoint[length];
+            for (int i = 0; i < this.Points.Length; i++)
+            {
+                // the fields in the header are the Axis X
+                // move aaod550 to behind aaod440
+                string y;
+                if (i == 1)
+                    y = data[data.Length - 1].Trim();
+                else if (i > 1)
+                    y = data[i + 6 - 1].Trim();
                 else
                     y = data[i + 6].Trim();
 
@@ -122,7 +155,10 @@ namespace CIMEL.Chart
         {
             switch (_chart)
             {
-                case "EXT-T": return new EXTTChartLine(lineData,axisXs);
+                case "EXT-T":
+                    return new EXTTChartLine(lineData, axisXs);
+                case "AAOD":
+                    return new AAODChartLine(lineData, axisXs);
                 default: return new ChartLine(lineData,axisXs);
             }
         }
