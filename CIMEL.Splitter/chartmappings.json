@@ -138,8 +138,8 @@
         {
             "name": "AAOD",
             "description": "AAOD",
-            "fields": "aaod440,aaod670,aaod870,aaod1020",
-            "axisXs": "440,670,870,1020",
+            "fields": "aaod440,aaod675,aaod870,aaod1020",
+            "axisXs": "440,675,870,1020",
             "notes": "吸收性光学厚度",
             "notesY": "Absorption AOD",
             "notesX": "Wavelength (μm)",
