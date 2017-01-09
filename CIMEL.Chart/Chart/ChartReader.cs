@@ -14,10 +14,13 @@ namespace CIMEL.Chart
     {
         private string _dataFile;
 
+        private string _dataName;
+
         public ChartReader(string dataFolder,string dataName, int year, int month, int day)
         {
             // initial data file full name
             string fileName = string.Format("{0}.{1}.{2}.{3}.data",dataName,year,month,day);
+            _dataName = dataName;
             this._dataFile = Path.Combine(dataFolder, fileName);
         }
 
@@ -40,7 +43,7 @@ namespace CIMEL.Chart
                         {
                             // initial line data
                             string lineData = sr.ReadLine();
-                            var chartLine = new ChartLine(lineData, axisXs);
+                            var chartLine = ChartLineFactory.GetFactory(this._dataName).Create(lineData, axisXs);
                             chartlines.Add(chartLine);
                         }
                         result= chartlines.ToArray();
