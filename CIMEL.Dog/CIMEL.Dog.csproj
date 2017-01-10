@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="dog_net_windows">
-      <HintPath>..\..\AeronetSuperDog\Licensing\DotNet\dog_net_windows.dll</HintPath>
+      <HintPath>..\..\CIMELSuperDog\Licensing\DotNet\dog_net_windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

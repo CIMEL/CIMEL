@@ -9,14 +9,19 @@ namespace CIMEL.Chart.CIMELData
     {
         public EventMessage() { }
 
-        public EventMessage(string message, bool external)
+        public EventMessage(string message, bool external,bool showDlg=false)
         {
             this.IsExternal = external;
             this.Message = message;
+            this.ShowDlg = showDlg;
         }
 
         public bool IsExternal { get; set; }
         public string Message { get; set; }
+        /// <summary>
+        /// if true should display the message on the alert dialog
+        /// </summary>
+        public bool ShowDlg { get; set; }
     }
 
 

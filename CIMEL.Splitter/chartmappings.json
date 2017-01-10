@@ -2,6 +2,7 @@
     Name:        chartmappings.json
     Description: the field mappings between the raw data and chart
     Created:     Baker Wang @ 11/27/2016
+    version:     1.1.0.17010
     --------------------------------------------------------------
     Definitions:
     [name]:
@@ -138,8 +139,8 @@
         {
             "name": "AAOD",
             "description": "AAOD",
-            "fields": "aaod440,aaod670,aaod870,aaod1020",
-            "axisXs": "440,670,870,1020",
+            "fields": "aaod440,aaod550,aaod675,aaod870,aaod1020",
+            "axisXs": "440,550,675,870,1020",
             "notes": "吸收性光学厚度",
             "notesY": "Absorption AOD",
             "notesX": "Wavelength (μm)",

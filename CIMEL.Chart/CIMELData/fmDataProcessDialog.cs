@@ -15,7 +15,9 @@ using CIMEL.Chart.Options;
 using CIMEL.Chart.Properties;
 using CIMEL.Dog;
 using CIMEL.Chart.Properties;
+using CIMEL.Core;
 using CIMEL.Dog;
+using Newtonsoft.Json.Linq;
 
 namespace CIMEL.Chart.CIMELData
 {
@@ -285,9 +287,16 @@ namespace CIMEL.Chart.CIMELData
         {
             Task.Factory.StartNew(() =>
             {
-                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT),  message.Message, LOG_H_ERROR);
-                this.LogMessage(msg);
+                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_ERROR);
                 Logger.Default.Error(msg);
+
+                if (!message.ShowDlg)
+                    // display alert to the log list box
+                    this.LogMessage(msg);
+                else
+                    // display alert within dialog
+                    this.ShowAlert(message.Message, Settings.Default.FM_CIMEL_DATA_TEXT);
+
             }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
 
         }

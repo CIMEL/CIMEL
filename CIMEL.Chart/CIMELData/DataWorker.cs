@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using CIMEL.Core;
 using CIMEL.Dog;
 using ThreadState = System.Threading.ThreadState;
 
@@ -46,10 +47,10 @@ namespace CIMEL.Chart.CIMELData
             if (handler != null) handler(this, new EventMessage(message, external));
         }
 
-        protected virtual void OnFailed(string message, bool external = true)
+        protected virtual void OnFailed(string message, bool external = true,bool showDlg=false)
         {
             var handler = Failed;
-            if (handler != null) handler(this, new EventMessage(message, external));
+            if (handler != null) handler(this, new EventMessage(message, external,showDlg));
         }
 
         protected virtual void OnStarted(EventMessage message)
@@ -122,6 +123,59 @@ namespace CIMEL.Chart.CIMELData
             }
 
             return success;
+        }
+
+        private bool RunDrawer(ProcessStartInfo startInfo)
+        {
+            bool success = true;
+            // initial creator process
+            using (Process process = new Process() {StartInfo = startInfo})
+            {
+                process.OutputDataReceived += (s, e) => { this.OnInformed(e.Data, false); };
+
+                OnInformed("***************************************************************");
+                // Run creator
+                process.Start();
+
+                lock (_processlocker)
+                {
+                    _currentProcess = process.ProcessName;
+                }
+
+                // process.BeginErrorReadLine();
+                // read output
+                process.BeginOutputReadLine();
+
+                // waiting until exit
+                process.WaitForExit();
+
+                // read error
+                var error = process.StandardError.ReadToEnd();
+                success = string.IsNullOrEmpty(error);
+                if (!success)
+                {
+                    Logger.Default.Error(error);
+
+                    error = InterceptError(error);
+
+                    this.OnFailed(error, false,true);
+                }
+
+                OnInformed("***************************************************************");
+            }
+
+            return success;
+        }
+
+        private string InterceptError(string message)
+        {
+            // intercept the errors from matlab program
+            string pattern = "index\\sout\\sof\\sbounds";
+            Regex regex = new Regex(pattern,RegexOptions.Compiled|RegexOptions.IgnoreCase|RegexOptions.Multiline);
+            if (regex.IsMatch(message))
+                return "由于测量条件不佳，无法为您计算出有效结果。请耐心等待无云天气并检查仪器工作状态是否正常";
+            else
+                return "数据处理失败，请检查仪器工作状态和原始数据是否正确";
         }
 
         public void Exit(bool success)
@@ -415,7 +469,7 @@ namespace CIMEL.Chart.CIMELData
             OnInformed(String.Format("{0} = {1}", "LAT", region.Lat));
             OnInformed(String.Format("{0} = {1}", "LON", region.Lon));
             // perform outputor process
-            var sucess = Run(startInfo);
+            var sucess = RunDrawer(startInfo);
             return sucess;
         }
 
