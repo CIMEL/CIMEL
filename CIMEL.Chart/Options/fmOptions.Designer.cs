@@ -98,6 +98,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fmOptions";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = global::CIMEL.Chart.Properties.Settings.Default.FM_OPTION_CONFIG_TEXT;
             this.ResumeLayout(false);
 
