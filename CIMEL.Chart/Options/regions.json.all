@@ -60,6 +60,11 @@
             "name": "Shijiazh",
             "lat": 38.067,
             "lon": 114.35
+        },
+        {
+            "name": "Xiamen",
+            "lat": 24.62,
+            "lon": 118.05
         }
     ]
 }
