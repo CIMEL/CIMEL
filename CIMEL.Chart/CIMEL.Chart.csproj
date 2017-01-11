@@ -278,18 +278,18 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)CIMEL.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)CIMELData"
+
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)CIMELData"
+
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
-XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\api_dsp_windows.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\api_dsp_windows_x64.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\dog_windows_3150644.dll" "$(TargetDir)"
-XCOPY /Y "$(SolutionDir)..\CIMELSuperDog\Licensing\DotNet\dog_windows_x64_3150644.dll" "$(TargetDir)"
-$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
-echo $(ProjectDir)ILMergeX64.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
+
+$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)CIMELData\Draw.exe" del "$(TargetDir)CIMELData\Draw.exe"
+
 if exist "$(TargetDir)CIMELData\Splitter.exe" del "$(TargetDir)CIMELData\Splitter.exe"
+
 if exist "$(TargetDir)CIMELData\chartmappings.json" del "$(TargetDir)CIMELData\chartmappings.json"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
