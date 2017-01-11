@@ -233,16 +233,34 @@ namespace CIMEL.Chart
             caDefault.AxisY.IntervalAutoMode=IntervalAutoMode.VariableCount;
             double avgDiff = (last - first)/chartLines.Length;
             double max, min;
-            // check if min is down below Zero
-            if (first - avgDiff <= 0)
+            if (avgDiff <= 0f)
             {
-                max = last + first;
-                min = 0f;
+                // all values are the same
+                if (first <= 0)
+                {
+                    // all are 0
+                    min = 0f;
+                    max = 1f;
+                }
+                else
+                {
+                    min = 0f;
+                    max = last + first;
+                }
             }
             else
             {
-                max = last + avgDiff;
-                min = first - avgDiff;
+                // check if min is down below Zero
+                if (first - avgDiff <= 0)
+                {
+                    max = last + first;
+                    min = 0f;
+                }
+                else
+                {
+                    max = last + avgDiff;
+                    min = first - avgDiff;
+                }
             }
 
             caDefault.AxisY.Minimum = Math.Round(min, 3, MidpointRounding.ToEven);
