@@ -283,14 +283,7 @@ XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetD
 
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
 
-$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
-if $(ConfigurationName) == "Release" (
- if exist "$(SolutionDir)..\CIMELPackage" (
-  XCOPY /Y "$(TargetDir)CIMELData" "$(SolutionDir)..\CIMELPackage"
-  XCOPY /Y "$(TargetDir)Options" "$(SolutionDir)..\CIMELPackage"
-  XCOPY /Y "$(TargetDir)CIMEL太阳光度计数据处理软件.exe" "$(SolutionDir)..\CIMELPackage"
- )
-)</PostBuildEvent>
+$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)CIMELData\Draw.exe" del "$(TargetDir)CIMELData\Draw.exe"
