@@ -283,11 +283,20 @@ XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetD
 
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
 
-$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
+$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
+if $(ConfigurationName) == "Release" (
+ if exist "$(SolutionDir)..\CIMELPackage" (
+  XCOPY /Y "$(TargetDir)CIMELData" "$(SolutionDir)..\CIMELPackage"
+  XCOPY /Y "$(TargetDir)Options" "$(SolutionDir)..\CIMELPackage"
+  XCOPY /Y "$(TargetDir)CIMEL太阳光度计数据处理软件.exe" "$(SolutionDir)..\CIMELPackage"
+ )
+)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)CIMELData\Draw.exe" del "$(TargetDir)CIMELData\Draw.exe"
+
 if exist "$(TargetDir)CIMELData\Splitter.exe" del "$(TargetDir)CIMELData\Splitter.exe"
+
 if exist "$(TargetDir)CIMELData\chartmappings.json" del "$(TargetDir)CIMELData\chartmappings.json"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
