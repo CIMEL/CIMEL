@@ -2,7 +2,7 @@
     Name:        chartmappings.json
     Description: the field mappings between the raw data and chart
     Created:     Baker Wang @ 11/27/2016
-    version:     1.1.0.17010
+    version:     1.1.0.17012
     --------------------------------------------------------------
     Definitions:
     [name]:
@@ -57,7 +57,7 @@
             "fields": "ssat440,ssat670,ssat870,ssat1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Total)",
             "index": 1
         },
@@ -67,7 +67,7 @@
             "fields": "ssaf440,ssaf670,ssaf870,ssaf1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Fine)",
             "index": 1
         },
@@ -77,7 +77,7 @@
             "fields": "ssac440,ssac670,ssac870,ssac1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Coarse)",
             "index": 1
         },
@@ -86,7 +86,7 @@
             "description": "Refractive Index (Real)",
             "fields": "real440,real670,real870,real1020",
             "axisXs": "440,670,870,1020",
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Refractive Index (Real)",
             "index": 2
         },
@@ -95,7 +95,7 @@
             "description": "Refractive Index (Imaginary)",
             "fields": "imag440,imag670,imag870,imag1020",
             "axisXs": "440,670,870,1020",
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Refractive Index (Imaginary)",
             "index": 3
         },
@@ -112,7 +112,7 @@
             "fields": "extt440,aod550,extt670,extt870,extt1020",
             "axisXs": "440,550,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Total)",
             "index": 4
         },
@@ -122,7 +122,7 @@
             "fields": "extf440,extf670,extf870,extf1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Fine)",
             "index": 4
         },
@@ -132,7 +132,7 @@
             "fields": "extc440,extc670,extc870,extc1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Coarse)",
             "index": 4
         },
@@ -143,7 +143,7 @@
             "axisXs": "440,550,675,870,1020",
             "notes": "吸收性光学厚度",
             "notesY": "Absorption AOD",
-            "notesX": "Wavelength (μm)",
+            "notesX": "Wavelength (nm)",
             "index": 5
         },
         {
