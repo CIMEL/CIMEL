@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmOptions));
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -95,7 +94,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.propertyGrid1);
             this.Font = global::CIMEL.Chart.Properties.Settings.Default.DEFAULT_FONT;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "fmOptions";
             this.ShowInTaskbar = false;
