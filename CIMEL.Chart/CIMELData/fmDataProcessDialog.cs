@@ -57,32 +57,7 @@ namespace CIMEL.Chart.CIMELData
             this.Closing+=fmDataProcessDialog_Closing;
         }
 
-        private void fmDataProcessDialog_Closing(object sender, CancelEventArgs e)
-        {
-            lock (_workLocker)
-            {
-                if (this._isWorking)
-                {
-                    // checks if the super dog is still working
-                    var isActived = CIMELDog.Default.IsAlive();
-                    if(!isActived)
-                    {
-                        Utility.ShowDogAlert(this,isActived.Message);
-                        this._dataWork.Stop();
-                        Utility.ExitApp();
-                    }
-
-                    e.Cancel = true;
-                    this.ShowAlert(@"数据处理中请不要关闭窗口", @"数据处理");
-                }
-                else
-                {
-                    // checks if the super dog is still working
-                    CIMELDog.Default.IsAlive(true);
-                }
-            }
-        }
-
+        #region Initial
         private void fmDataProcessDialog_Load(object sender, EventArgs e)
         {
             // checks if the super dog is still working
@@ -262,104 +237,104 @@ namespace CIMEL.Chart.CIMELData
             return path;
         }
 
-        /// <summary>
-        /// Adds the Info to the list box of logs
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void LogInfo(object sender, EventMessage message)
+        private void SetToGood(Label control)
         {
-            Task.Factory.StartNew(() =>
-            {
-                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_INFO);
-                this.LogMessage(msg);
-                Logger.Default.Info(msg);
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
-
+            control.ImageIndex = IMG_GOOD;// 1: good
+            this.toolTip1.SetToolTip(control, string.Empty);
         }
 
-        /// <summary>
-        /// Adds the error to the list box of logs
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void LogError(object sender, EventMessage message)
+        private void SetToError(Label control, string error)
         {
-            Task.Factory.StartNew(() =>
-            {
-                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_ERROR);
-                Logger.Default.Error(msg);
-
-                if (!message.ShowDlg)
-                    // display alert to the log list box
-                    this.LogMessage(msg);
-                else
-                    // display alert within dialog
-                    this.ShowAlert(message.Message, Settings.Default.FM_CIMEL_DATA_TEXT);
-
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
-
+            control.ImageIndex = IMG_ERROR;// 2: error
+            this.toolTip1.SetToolTip(control, error);
         }
 
-        /// <summary>
-        /// Apply complete state to the UI controls when the worker completes the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerCompleted(object sender, EventMessage message)
+        private void SetToQuestion(Label control)
         {
-            Task.Factory.StartNew(() =>
-            {
-                this.btnClose.Enabled = true;
-                lock (_workLocker)
-                {
-                    this._isWorking = false;
-                }
-                this.btnAction.Text = Settings.Default.BTN_START_TEXT;
-                // checks if it's Dog exception
-                string msg = message.Message;
-                bool isDogException = msg.StartsWith(LOG_H_DOG);
-                // if true, remove the [DOG] mark
-                if (isDogException)
-                    msg = msg.Replace(LOG_H_DOG, string.Empty);
-
-                msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), msg);
-                this.LogMessage(msg);
-                Logger.Default.Info(msg);
-
-                if (isDogException)
-                {
-                    // remove the [ABORTED] mark
-                    msg = msg.Replace(LOG_H_ABORTED, string.Empty);
-                    Utility.ShowDogAlert(this, msg);
-                    Utility.ExitApp();
-                }
-
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+            control.ImageIndex = IMG_QUESTION; // 0: question
+            this.toolTip1.SetToolTip(control, string.Empty);
         }
 
-        /// <summary>
-        /// Apply start state to the UI controls when the worker starts the job
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void WorkerStarted(object sender, EventMessage message)
+        private void SetToDefault()
         {
-            Task.Factory.StartNew(() =>
-            {
-                lock (_workLocker)
-                {
-                    this._isWorking = true;
-                }
-                this.btnClose.Enabled = false;
-
-                this.btnAction.Text = Settings.Default.BTN_STOP_TEXT;
-                this.btnAction.Enabled = true;
-                string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
-                this.LogMessage(msg);
-                Logger.Default.Info(msg);
-            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+            //set the marks to question
+            this.SetToQuestion(this.lblVal_FDATA);
+            this.SetToQuestion(this.lblVal_CHARTSET);
+            this.SetToQuestion(this.lblVal_FBRDF);
+            this.SetToQuestion(this.lblVal_FDAT);
+            this.SetToQuestion(this.lblVal_FIPT);
+            this.SetToQuestion(this.lblVal_FOUT);
+            this.SetToQuestion(this.lblVal_METADATA);
+            this.SetToQuestion(this.lblVal_STNS_ID);
+            //set the label of dirs to initializing
+            this.cmbFdatas.Text = Settings.Default.LBL_INITIAL;
+            this.lblCHARTSET.Text = Settings.Default.LBL_INITIAL;
+            this.lblFBRDF.Text = Settings.Default.LBL_INITIAL;
+            this.lblFDAT.Text = Settings.Default.LBL_INITIAL;
+            this.lblFIPT.Text = Settings.Default.LBL_INITIAL;
+            this.lblFOUT.Text = Settings.Default.LBL_INITIAL;
+            this.lblMETADATA.Text = Settings.Default.LBL_INITIAL;
+            this.txtSTNS_ID.Text = Settings.Default.LBL_INITIAL;
         }
+
+        private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // checks if the super dog is still working
+            if (!CIMELDog.Default.IsAlive(true)) return;
+
+            if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
+            {
+                // disable action
+                this.btnAction.Enabled = false;
+                this.SetToQuestion(this.lblVal_STNS_FN);
+                this.SetToDefault();
+            }
+            else
+            {
+                this.SetToGood(this.lblVal_STNS_FN);
+                string region = ((dynamic)cmbRegions.SelectedItem).Value;
+                this.Init(region);
+                this.btnAction.Enabled = AreAllGood();
+            }
+        }
+
+        private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
+        {
+            // checks if the super dog is still working
+            if (!CIMELDog.Default.IsAlive(true)) return;
+
+            if (string.IsNullOrEmpty(txtSTNS_ID.Text))
+                this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
+            else if (txtSTNS_ID.Text == Settings.Default.LBL_INITIAL)
+                this.SetToQuestion(this.lblVal_STNS_ID);
+            else
+                this.SetToGood(this.lblVal_STNS_ID);
+        }
+
+        private void cmbFdatas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cmbFdatas.Text == ComboBoxItem.EmptyItem.Text)
+            {
+                SetToQuestion(lblVal_FDATA);
+                this.InitSTNS_ID(string.Empty);
+            }
+            else if (string.IsNullOrEmpty(this.cmbFdatas.Text))
+            {
+                SetToError(lblVal_FDATA, "- 文件名命名错误");
+                this.InitSTNS_ID(string.Empty);
+            }
+            else
+            {
+                SetToGood(this.lblVal_FDATA);
+                // initial STNS_ID
+                string dataFile = this.cmbFdatas.Text;
+                this.InitSTNS_ID(dataFile);
+            }
+        }
+
+        #endregion
+
+        #region Log
 
         private void lstLogs_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -425,6 +400,45 @@ namespace CIMEL.Chart.CIMELData
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// Adds the Info to the list box of logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void LogInfo(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_INFO);
+                this.LogMessage(msg);
+                Logger.Default.Info(msg);
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+
+        }
+
+        /// <summary>
+        /// Adds the error to the list box of logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void LogError(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                string msg = string.Format("{2}{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message, LOG_H_ERROR);
+                Logger.Default.Error(msg);
+
+                if (!message.ShowDlg)
+                    // display alert to the log list box
+                    this.LogMessage(msg);
+                else
+                    // display alert within dialog
+                    this.ShowAlert(message.Message, Settings.Default.FM_CIMEL_DATA_TEXT);
+
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+
+        }
+
         private void LogMessage(string message)
         {
             string[] strings = message.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -447,7 +461,122 @@ namespace CIMEL.Chart.CIMELData
                 }
             }
         }
+
+        #endregion
+
+        #region Worker
+        /// <summary>
+        /// Apply complete state to the UI controls when the worker completes the job
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void WorkerCompleted(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                this.btnClose.Enabled = true;
+                lock (_workLocker)
+                {
+                    this._isWorking = false;
+                }
+                this.btnAction.Text = Settings.Default.BTN_START_TEXT;
+                // checks if it's Dog exception
+                string msg = message.Message;
+                bool isDogException = msg.StartsWith(LOG_H_DOG);
+                // if true, remove the [DOG] mark
+                if (isDogException)
+                    msg = msg.Replace(LOG_H_DOG, string.Empty);
+
+                msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), msg);
+                this.LogMessage(msg);
+                Logger.Default.Info(msg);
+
+                if (isDogException)
+                {
+                    // remove the [ABORTED] mark
+                    msg = msg.Replace(LOG_H_ABORTED, string.Empty);
+                    Utility.ShowDogAlert(this, msg);
+                    Utility.ExitApp();
+                }
+
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+        }
+
+        /// <summary>
+        /// Apply start state to the UI controls when the worker starts the job
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
+        private void WorkerStarted(object sender, EventMessage message)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                lock (_workLocker)
+                {
+                    this._isWorking = true;
+                }
+                this.btnClose.Enabled = false;
+
+                this.btnAction.Text = Settings.Default.BTN_STOP_TEXT;
+                this.btnAction.Enabled = true;
+                string msg = string.Format("{0} -> {1}", (message.IsExternal ? LOG_EXT : LOG_INT), message.Message);
+                this.LogMessage(msg);
+                Logger.Default.Info(msg);
+            }, CancellationToken.None, TaskCreationOptions.None, this._fmTaskScheduler);
+        }
+
+        #endregion
+
+        #region Close
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            // checks if the super dog is still working
+            if (!CIMELDog.Default.IsAlive(true)) return;
+            
+            this.Close();
+        }
+
+        private void fmDataProcessDialog_Closing(object sender, CancelEventArgs e)
+        {
+            lock (_workLocker)
+            {
+                if (this._isWorking)
+                {
+                    // checks if the super dog is still working
+                    var isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                    {
+                        Utility.ShowDogAlert(this, isActived.Message);
+                        this._dataWork.Stop();
+                        Utility.ExitApp();
+                    }
+
+                    e.Cancel = true;
+                    this.ShowAlert(@"数据处理中请不要关闭窗口", @"数据处理");
+                }
+                else
+                {
+                    // checks if the super dog is still working
+                    CIMELDog.Default.IsAlive(true);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Run
+
         private void btnAction_Click(object sender, EventArgs e)
+        {
+            this.Run(WorkType.Split);
+        }
+
+        private void btnDraw_Click(object sender, EventArgs e)
+        {
+            this.Run(WorkType.DrawOnly | WorkType.SplitOnly);
+        }
+
+        private void Run(WorkType workType=WorkType.Split)
         {
             // prevent action from duplicated click
             this.btnAction.Enabled = false;
@@ -485,7 +614,7 @@ namespace CIMEL.Chart.CIMELData
                     }
                     else
                     {
-                        this.ShowAlert(@"抱歉，参数配置仍有错误",@"参数校验");
+                        this.ShowAlert(@"抱歉，参数配置仍有错误", @"参数校验");
                         this.btnAction.Enabled = true;
                         return;
                     }
@@ -495,56 +624,9 @@ namespace CIMEL.Chart.CIMELData
                     string dataFileName = this.cmbFdatas.Text;
                     string instrumentId = this.txtSTNS_ID.Text;
                     // start the worker
-                    worker.Start(regionName, instrumentId, dataFileName);
+                    worker.Start(regionName, instrumentId, dataFileName, workType);
                 }
             }
-        }
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
-            this.Close();
-        }
-
-        private void SetToGood(Label control)
-        {
-            control.ImageIndex = IMG_GOOD;// 1: good
-            this.toolTip1.SetToolTip(control,string.Empty);
-        }
-
-        private void SetToError(Label control, string error)
-        {
-            control.ImageIndex = IMG_ERROR;// 2: error
-            this.toolTip1.SetToolTip(control, error);
-        }
-
-        private void SetToQuestion(Label control)
-        {
-            control.ImageIndex = IMG_QUESTION; // 0: question
-            this.toolTip1.SetToolTip(control,string.Empty);
-        }
-
-        private void SetToDefault()
-        {
-            //set the marks to question
-            this.SetToQuestion(this.lblVal_FDATA);
-            this.SetToQuestion(this.lblVal_CHARTSET);
-            this.SetToQuestion(this.lblVal_FBRDF);
-            this.SetToQuestion(this.lblVal_FDAT);
-            this.SetToQuestion(this.lblVal_FIPT);
-            this.SetToQuestion(this.lblVal_FOUT);
-            this.SetToQuestion(this.lblVal_METADATA);
-            this.SetToQuestion(this.lblVal_STNS_ID);
-            //set the label of dirs to initializing
-            this.cmbFdatas.Text = Settings.Default.LBL_INITIAL;
-            this.lblCHARTSET.Text = Settings.Default.LBL_INITIAL;
-            this.lblFBRDF.Text = Settings.Default.LBL_INITIAL;
-            this.lblFDAT.Text = Settings.Default.LBL_INITIAL;
-            this.lblFIPT.Text = Settings.Default.LBL_INITIAL;
-            this.lblFOUT.Text = Settings.Default.LBL_INITIAL;
-            this.lblMETADATA.Text = Settings.Default.LBL_INITIAL;
-            this.txtSTNS_ID.Text = Settings.Default.LBL_INITIAL;
         }
 
         private bool AreAllGood()
@@ -560,59 +642,6 @@ namespace CIMEL.Chart.CIMELData
                    && lblVal_METADATA.ImageIndex == IMG_GOOD;
         }
 
-        private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
-            if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
-            {
-                // disable action
-                this.btnAction.Enabled = false;
-                this.SetToQuestion(this.lblVal_STNS_FN);
-                this.SetToDefault();
-            }
-            else
-            {
-                this.SetToGood(this.lblVal_STNS_FN);
-                string region = ((dynamic) cmbRegions.SelectedItem).Value;
-                this.Init(region);
-                this.btnAction.Enabled = AreAllGood();
-            }
-        }
-
-        private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
-        {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
-            if (string.IsNullOrEmpty(txtSTNS_ID.Text))
-                this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
-            else if(txtSTNS_ID.Text == Settings.Default.LBL_INITIAL)
-                this.SetToQuestion(this.lblVal_STNS_ID);
-            else
-                this.SetToGood(this.lblVal_STNS_ID);
-        }
-
-        private void cmbFdatas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cmbFdatas.Text == ComboBoxItem.EmptyItem.Text)
-            {
-                SetToQuestion(lblVal_FDATA);
-                this.InitSTNS_ID(string.Empty);
-            }
-            else if (string.IsNullOrEmpty(this.cmbFdatas.Text))
-            {
-                SetToError(lblVal_FDATA, "- 文件名命名错误");
-                this.InitSTNS_ID(string.Empty);
-            }
-            else
-            {
-                SetToGood(this.lblVal_FDATA);
-                // initial STNS_ID
-                string dataFile = this.cmbFdatas.Text;
-                this.InitSTNS_ID(dataFile);
-            }
-        }
+        #endregion
     }
 }

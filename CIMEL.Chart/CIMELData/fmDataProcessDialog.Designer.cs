@@ -416,6 +416,7 @@
             this.btnDraw.TabIndex = 4;
             this.btnDraw.Text = "反演运算";
             this.btnDraw.UseVisualStyleBackColor = true;
+            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
             // fmDataProcessDialog
             // 

@@ -216,7 +216,7 @@ namespace CIMEL.Chart.CIMELData
             });
         }
 
-        public void Start(string stns_fn, string stns_id, string fdata, WrokType workType = WrokType.Split)
+        public void Start(string stns_fn, string stns_id, string fdata, WorkType workType = WorkType.Split)
         {
             lock (_stateLocker)
             {
@@ -251,7 +251,7 @@ namespace CIMEL.Chart.CIMELData
                 }
 
                 bool sucess = false;
-                if ((paras.WorkType & WrokType.CreateOnly) == WrokType.CreateOnly)
+                if ((paras.WorkType & WorkType.CreateOnly) == WorkType.CreateOnly)
                 {
                     // checks if the super dog is still working
                     isActived = CIMELDog.Default.IsAlive();
@@ -270,7 +270,7 @@ namespace CIMEL.Chart.CIMELData
                         throw new WorkFailedException();
                 }
 
-                if ((paras.WorkType & WrokType.MainOnly) == WrokType.MainOnly)
+                if ((paras.WorkType & WorkType.MainOnly) == WorkType.MainOnly)
                 {
                     // checks if the super dog is still working
                     isActived = CIMELDog.Default.IsAlive();
@@ -299,44 +299,52 @@ namespace CIMEL.Chart.CIMELData
 
                 string outputfile = Path.Combine(strOutputRoot,
                     string.Format("{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
-                // Run process of Drawer
-                sucess = RunDrawer(paras, outputfile);
-                lock (_stateLocker)
-                {
-                    if (_isStopped)
-                        throw new WorkCancelException();
-                }
-                if (!sucess)
-                    throw new WorkFailedException();
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
 
-                // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
-                sucess = RunCleaner(paras, strOutputRoot,outputfile);
-                lock (_stateLocker)
+                if ((paras.WorkType & WorkType.DrawOnly) == WorkType.DrawOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // Run process of Drawer
+                    sucess = RunDrawer(paras, outputfile);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
+
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
+                    sucess = RunCleaner(paras, strOutputRoot, outputfile);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-                // Run process of Splitter
-                sucess = RunSplitter(paras, outputfile);
-
-                lock (_stateLocker)
+                if ((paras.WorkType & WorkType.SplitOnly) == WorkType.SplitOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+                    // Run process of Splitter
+                    sucess = RunSplitter(paras, outputfile);
+
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
                 // checks if the super dog is still working
                 isActived = CIMELDog.Default.IsAlive();
@@ -576,7 +584,7 @@ namespace CIMEL.Chart.CIMELData
 
     public class WorkParameters
     {
-        public WorkParameters(string stnsFn, string stnsId, string fdata,WrokType workType)
+        public WorkParameters(string stnsFn, string stnsId, string fdata,WorkType workType)
         {
             STNS_FN = stnsFn;
             STNS_ID = stnsId;
@@ -587,11 +595,11 @@ namespace CIMEL.Chart.CIMELData
         public string STNS_FN { get; private set; }
         public string STNS_ID { get; private set; }
         public string FDATA { get; private set; }
-        public WrokType WorkType { get; private set; }
+        public WorkType WorkType { get; private set; }
     }
 
     [Flags]
-    public enum WrokType
+    public enum WorkType
     {
         CreateOnly=1,
         MainOnly=2,
