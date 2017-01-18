@@ -18,9 +18,6 @@ namespace CIMEL.Chart
         [STAThread]
         static void Main()
         {
-            Thread threadSplash =new Thread(new ThreadStart(SplashScreen));
-            threadSplash.Start();
-            Thread.Sleep(4000);
             // handle the unHandle the exception
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             /*
@@ -36,7 +33,6 @@ namespace CIMEL.Chart
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            threadSplash.Abort();
             Application.Run(new fmMain());
 
         }
