@@ -216,7 +216,7 @@ namespace CIMEL.Chart.CIMELData
             });
         }
 
-        public void Start(string stns_fn,string stns_id,string fdata)
+        public void Start(string stns_fn, string stns_id, string fdata, WrokType workType = WrokType.Split)
         {
             lock (_stateLocker)
             {
@@ -224,7 +224,7 @@ namespace CIMEL.Chart.CIMELData
             }
             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(this.Work);
             this._threadWorker = new Thread(threadStart);
-            this._threadWorker.Start(new WorkParameters(stns_fn,stns_id,fdata));
+            this._threadWorker.Start(new WorkParameters(stns_fn, stns_id, fdata,workType));
         }
 
         /// <summary>
@@ -250,36 +250,43 @@ namespace CIMEL.Chart.CIMELData
                         throw new WorkCancelException();
                 }
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-
-                // Run process of Creator
-                bool sucess = RunCreator(paras);
-
-                lock (_stateLocker)
+                bool sucess = false;
+                if ((paras.WorkType & WrokType.CreateOnly) == WrokType.CreateOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // Run process of Creator
+                    sucess = RunCreator(paras);
+
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-
-                // Run process of Outputor
-                sucess = RunOutputor(paras);
-                lock (_stateLocker)
+                if ((paras.WorkType & WrokType.MainOnly) == WrokType.MainOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // Run process of Outputor
+                    sucess = RunOutputor(paras);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
                 // checks if the super dog is still working
                 isActived = CIMELDog.Default.IsAlive();
@@ -569,15 +576,30 @@ namespace CIMEL.Chart.CIMELData
 
     public class WorkParameters
     {
-        public WorkParameters(string stnsFn, string stnsId, string fdata)
+        public WorkParameters(string stnsFn, string stnsId, string fdata,WrokType workType)
         {
             STNS_FN = stnsFn;
             STNS_ID = stnsId;
             FDATA = fdata;
+            WorkType = workType;
         }
 
         public string STNS_FN { get; private set; }
         public string STNS_ID { get; private set; }
         public string FDATA { get; private set; }
+        public WrokType WorkType { get; private set; }
+    }
+
+    [Flags]
+    public enum WrokType
+    {
+        CreateOnly=1,
+        MainOnly=2,
+        DrawOnly=4,
+        SplitOnly=8,
+        Create = CreateOnly,
+        Main = CreateOnly|MainOnly,
+        Draw = CreateOnly|MainOnly|DrawOnly,
+        Split = CreateOnly | MainOnly | DrawOnly | SplitOnly
     }
 }

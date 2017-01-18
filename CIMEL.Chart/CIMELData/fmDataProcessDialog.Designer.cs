@@ -63,6 +63,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnDraw = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -407,11 +408,21 @@
             this.toolTip1.ShowAlways = true;
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
+            // btnDraw
+            // 
+            this.btnDraw.Location = new System.Drawing.Point(323, 707);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(75, 30);
+            this.btnDraw.TabIndex = 4;
+            this.btnDraw.Text = "反演运算";
+            this.btnDraw.UseVisualStyleBackColor = true;
+            // 
             // fmDataProcessDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 753);
+            this.Controls.Add(this.btnDraw);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAction);
             this.Controls.Add(this.btnClose);
@@ -464,5 +475,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbFdatas;
         private System.Windows.Forms.TextBox txtSTNS_ID;
+        private System.Windows.Forms.Button btnDraw;
     }
 }
