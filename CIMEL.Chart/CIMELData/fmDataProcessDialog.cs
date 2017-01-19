@@ -285,7 +285,7 @@ namespace CIMEL.Chart.CIMELData
             if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
             {
                 // disable action
-                this.btnAction.Enabled = false;
+                this.InitActionState(false);
                 this.SetToQuestion(this.lblVal_STNS_FN);
                 this.SetToDefault();
             }
@@ -294,8 +294,14 @@ namespace CIMEL.Chart.CIMELData
                 this.SetToGood(this.lblVal_STNS_FN);
                 string region = ((dynamic)cmbRegions.SelectedItem).Value;
                 this.Init(region);
-                this.btnAction.Enabled = AreAllGood();
+                this.InitActionState(AreAllGood());
             }
+        }
+
+        private void InitActionState(bool enable)
+        {
+            this.btnAction.Enabled = enable;
+            this.btnDraw.Enabled = enable;
         }
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
