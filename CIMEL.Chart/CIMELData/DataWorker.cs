@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using CIMEL.Core;
 using CIMEL.Dog;
 using ThreadState = System.Threading.ThreadState;
@@ -216,7 +217,7 @@ namespace CIMEL.Chart.CIMELData
             });
         }
 
-        public void Start(string stns_fn,string stns_id,string fdata)
+        public void Start(string stns_fn, string stns_id, string fdata, WorkType workType = WorkType.Split)
         {
             lock (_stateLocker)
             {
@@ -224,7 +225,7 @@ namespace CIMEL.Chart.CIMELData
             }
             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(this.Work);
             this._threadWorker = new Thread(threadStart);
-            this._threadWorker.Start(new WorkParameters(stns_fn,stns_id,fdata));
+            this._threadWorker.Start(new WorkParameters(stns_fn, stns_id, fdata,workType));
         }
 
         /// <summary>
@@ -250,36 +251,43 @@ namespace CIMEL.Chart.CIMELData
                         throw new WorkCancelException();
                 }
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-
-                // Run process of Creator
-                bool sucess = RunCreator(paras);
-
-                lock (_stateLocker)
+                bool sucess = false;
+                if ((paras.WorkType & WorkType.CreateOnly) == WorkType.CreateOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // Run process of Creator
+                    sucess = RunCreator(paras);
+
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-
-                // Run process of Outputor
-                sucess = RunOutputor(paras);
-                lock (_stateLocker)
+                if ((paras.WorkType & WorkType.MainOnly) == WorkType.MainOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // Run process of Outputor
+                    sucess = RunOutputor(paras);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
                 // checks if the super dog is still working
                 isActived = CIMELDog.Default.IsAlive();
@@ -290,46 +298,60 @@ namespace CIMEL.Chart.CIMELData
                 if (!Directory.Exists(strOutputRoot))
                     Directory.CreateDirectory(strOutputRoot);
 
-                string outputfile = Path.Combine(strOutputRoot,
-                    string.Format("{0}_{1}_{2:yyyyMMdd}.dat", paras.STNS_FN, paras.STNS_ID, DateTime.Now));
-                // Run process of Drawer
-                sucess = RunDrawer(paras, outputfile);
-                lock (_stateLocker)
-                {
-                    if (_isStopped)
-                        throw new WorkCancelException();
-                }
-                if (!sucess)
-                    throw new WorkFailedException();
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
+                string strArchiveName = string.Format("{0}_{1}_{2:yyyyMMdd}",paras.STNS_FN, paras.STNS_ID, DateTime.Now);
+                string strArchiveRoot = Path.Combine(strOutputRoot, strArchiveName);
 
-                // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
-                sucess = RunCleaner(paras, strOutputRoot,outputfile);
-                lock (_stateLocker)
-                {
-                    if (_isStopped)
-                        throw new WorkCancelException();
-                }
-                if (!sucess)
-                    throw new WorkFailedException();
+                string outputfile = Path.Combine(strArchiveRoot,
+                    string.Format("{0}.dat", strArchiveName));
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
-                if (!isActived)
-                    throw new DogException(isActived.Message);
-                // Run process of Splitter
-                sucess = RunSplitter(paras, outputfile);
-
-                lock (_stateLocker)
+                if ((paras.WorkType & WorkType.DrawOnly) == WorkType.DrawOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    if(!Directory.Exists(strArchiveRoot))
+                        Directory.CreateDirectory(strArchiveRoot);
+
+                    // Run process of Drawer
+                    sucess = RunDrawer(paras, outputfile);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
+
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+
+                    // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
+                    sucess = RunCleaner(paras, strOutputRoot, strArchiveRoot);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
+
+                if ((paras.WorkType & WorkType.SplitOnly) == WorkType.SplitOnly)
+                {
+                    // checks if the super dog is still working
+                    isActived = CIMELDog.Default.IsAlive();
+                    if (!isActived)
+                        throw new DogException(isActived.Message);
+                    // Run process of Splitter
+                    sucess = RunSplitter(paras, outputfile);
+
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
+                }
 
                 // checks if the super dog is still working
                 isActived = CIMELDog.Default.IsAlive();
@@ -354,39 +376,56 @@ namespace CIMEL.Chart.CIMELData
             }
         }
 
+        /// <summary>
+        /// Check if there are output from Main.exe
+        /// </summary>
+        /// <param name="strOutputRoot"></param>
+        /// <returns></returns>
+        private bool OutputExists(string strOutputRoot)
+        {
+            int count = 0;
+            Regex regex = new Regex("_\\d{6}_\\d{6}\\.dat$",
+                RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            var files = Directory.EnumerateFiles(strOutputRoot, "*.dat", SearchOption.TopDirectoryOnly);
+            Parallel.ForEach(files, f =>
+            {
+                if (regex.IsMatch(f))
+                {
+                    count++;
+                }
+            });
+
+            return count > 0;
+        }
+
         // clean up output folder, move all day-data file ("_\d{6}_\d{6}\.dat$") to archive and just remains the final year-data file (_\d{8}.dat)
-        private bool RunCleaner(WorkParameters paras, string strOutputRoot, string outputfile)
+        private bool RunCleaner(WorkParameters paras, string strOutputRoot, string strArchiveRoot)
         {
             // show command line and args
             OnInformed(string.Format("{0} = {1}", "CLEANER", "<INTERNAL>"));
             OnInformed(String.Format("{0} = {1}", "OUTPUTROOT", strOutputRoot));
-            OnInformed(String.Format("{0} = {1}", "OUTPUTFILE", outputfile));
+            OnInformed(String.Format("{0} = {1}", "ARCHIVEROOT", strArchiveRoot));
             // perform outputor process
             OnInformed("***************************************************************");
 
             OnInformed("Clean up the output directory");
             try
             {
-                if (!File.Exists(outputfile))
-                    throw new ArgumentException(string.Format("The output file doesn't exist <- {0}", outputfile));
-                string archiveFolder = Path.GetFileNameWithoutExtension(outputfile);
-
                 if (!Directory.Exists(strOutputRoot))
                     throw new ArgumentException(string.Format("The output directory doesn't exist <- {0}",
                         strOutputRoot));
 
-                archiveFolder = Path.Combine(strOutputRoot, archiveFolder);
-
                 try
                 {
                     // initial the archive folder
-                    if (!Directory.Exists(archiveFolder))
-                        Directory.CreateDirectory(archiveFolder);
+                    if (!Directory.Exists(strArchiveRoot))
+                        Directory.CreateDirectory(strArchiveRoot);
                 }
                 catch (Exception ex)
                 {
                     throw new ArgumentException(string.Format("Cannot initial archive folder <- {0}, {1}",
-                        archiveFolder, ex.Message));
+                        strArchiveRoot, ex.Message));
                 }
 
                 Regex regex = new Regex("_\\d{6}_\\d{6}\\.dat$",
@@ -395,14 +434,12 @@ namespace CIMEL.Chart.CIMELData
                 var files = Directory.EnumerateFiles(strOutputRoot, "*.dat", SearchOption.TopDirectoryOnly);
                 Parallel.ForEach(files, f =>
                 {
-                    if (string.Compare(f, outputfile, StringComparison.CurrentCultureIgnoreCase) == 0)
-                        return;
                     if (regex.IsMatch(f))
                     {
                         try
                         {
                             string fileName = Path.GetFileName(f);
-                            string destFile = Path.Combine(archiveFolder, fileName);
+                            string destFile = Path.Combine(strArchiveRoot, fileName);
                             File.Copy(f, destFile,true);
                             File.Delete(f);
                         }
@@ -412,7 +449,7 @@ namespace CIMEL.Chart.CIMELData
                         }
                     }
                 });
-                OnInformed("Done. Archive folder: " + archiveFolder);
+                OnInformed("Done. Archive folder: " + strArchiveRoot);
             }
             catch (ArgumentException ex)
             {
@@ -468,6 +505,14 @@ namespace CIMEL.Chart.CIMELData
             OnInformed(String.Format("{0} = {1}", "OUTPUT", outputfile));
             OnInformed(String.Format("{0} = {1}", "LAT", region.Lat));
             OnInformed(String.Format("{0} = {1}", "LON", region.Lon));
+
+            // checks if there are output from Main.exe
+            if (!OutputExists(inputbase))
+            {
+                this.OnFailed("没有找到反演算法输出文件(.dat), 请执行[开始]重新运算", true, true);
+                throw new WorkFailedException();
+            }
+
             // perform outputor process
             var sucess = RunDrawer(startInfo);
             return sucess;
@@ -569,15 +614,30 @@ namespace CIMEL.Chart.CIMELData
 
     public class WorkParameters
     {
-        public WorkParameters(string stnsFn, string stnsId, string fdata)
+        public WorkParameters(string stnsFn, string stnsId, string fdata,WorkType workType)
         {
             STNS_FN = stnsFn;
             STNS_ID = stnsId;
             FDATA = fdata;
+            WorkType = workType;
         }
 
         public string STNS_FN { get; private set; }
         public string STNS_ID { get; private set; }
         public string FDATA { get; private set; }
+        public WorkType WorkType { get; private set; }
+    }
+
+    [Flags]
+    public enum WorkType
+    {
+        CreateOnly=1,
+        MainOnly=2,
+        DrawOnly=4,
+        SplitOnly=8,
+        Create = CreateOnly,
+        Main = CreateOnly|MainOnly,
+        Draw = CreateOnly|MainOnly|DrawOnly,
+        Split = CreateOnly | MainOnly | DrawOnly | SplitOnly
     }
 }

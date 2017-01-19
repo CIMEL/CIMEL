@@ -142,7 +142,7 @@ namespace CIMEL.Splitter
                 OnInformed("Initial chart set data");
                 // initial CIMEL file attributes
                 string chartSetName = Path.GetFileNameWithoutExtension(datFile);
-                chartSetName = string.Format("{0}_{1:yyyMMddhhmmssfff}", chartSetName, DateTime.Now);
+                chartSetName = string.Format("{0}_{1:yyyyMMddHHmmssfff}", chartSetName, DateTime.Now);
                 string root = args[1];
                 string chartSetPath = Path.Combine(root, chartSetName);
 
