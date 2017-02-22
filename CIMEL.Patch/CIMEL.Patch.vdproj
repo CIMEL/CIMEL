@@ -795,7 +795,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_83714395675840C6AEC621457618750E"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\ParamsData"
+            "DefaultLocation" = "8:C:\\YXHT\\ParamsData"
             "Name" = "8:ParamsData"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
