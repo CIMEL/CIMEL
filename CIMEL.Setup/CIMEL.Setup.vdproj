@@ -15,7 +15,19 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_219F41999FB341B5898F0D70133CD38F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_22A21A7C464B4BC5B7F1B31DA12FE1C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_299343A4D65C4DA7B467DD82F7DBAC63"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -45,7 +57,31 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3C55FF6349F3454289BFBEB59C08DF1E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_44EC8FD56BD84F228BCFC1ECF9D571F2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4E75EF042E5047AF96FC83D448360B86"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_53DC8734543E4A71A917D61577242871"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_58C318FB2417410EAB50F6CF93ABB5E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,7 +93,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_63F5B4F3D44D48AA92C8ED0E57413A77"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_67F7C565206E466A866C71AE83B2AB3C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6853664AF71345F29FF4212A27916E45"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6F3EC550544C4718AAB99AAFD679AC7E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -69,7 +123,97 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_726181BB0C274F4381FB026CD638E574"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_872D4EE2A2E9459F99AAF850EBC76CBE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8AE53C23C87241E395BC1D4EF9AD1592"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8BF20705210147D38A544F6815EFED9F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_92DF4195879A4CE1B3C12066C2DC01C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_98AB77994B944BD49D702EBDA1D37ED9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9947E4E7A4D8474F8FF6D87324E98809"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9C47CEB650E843CB92F01448939ED1B0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B0D8630706634CF2B928AA8B33C70B8F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B32EE163C70E40C5AAEB1A29358E52EE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B6754DEF725F4B119E6490DA716D59D6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B746FB817ECA45829C81126134F51CD7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D4C0344B47A840979A23A88329BC4E96"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E156BAF8D33E413CB39515A8DAC5473C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F71E2CEF14714B07BC67AAB21202DA57"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FAE932E5DE864EE9A01075FC87B3B31D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -126,7 +270,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\CIMEL太阳光度计数据处理软件.msi"
+        "OutputFilename" = "8:Release\\CIMEL_Install.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -181,12 +325,52 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_219F41999FB341B5898F0D70133CD38F"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.12.fix"
+            "TargetName" = "8:Rkernel1_SP.12.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22A21A7C464B4BC5B7F1B31DA12FE1C2"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\LICENSE"
             "TargetName" = "8:LICENSE"
             "Tag" = "8:"
             "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_299343A4D65C4DA7B467DD82F7DBAC63"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.12.fix"
+            "TargetName" = "8:Rkernel1_NS.12.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -245,7 +429,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Draw, Version=1.1.0.17003, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:Draw, Version=1.1.0.17010, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
                     "_2EACB24DAF984A72BB32F4FD3299DAC5"
@@ -292,11 +476,71 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3C55FF6349F3454289BFBEB59C08DF1E"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\sadata.d"
+            "TargetName" = "8:sadata.d"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_44EC8FD56BD84F228BCFC1ECF9D571F2"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.22.fix"
+            "TargetName" = "8:Rkernel1_NS.22.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4E75EF042E5047AF96FC83D448360B86"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\SPECTRECO2"
+            "TargetName" = "8:SPECTRECO2"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_53DC8734543E4A71A917D61577242871"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Splitter, Version=1.1.0.17003, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Splitter, Version=1.1.0.17019, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_53DC8734543E4A71A917D61577242871"
@@ -323,11 +567,31 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58C318FB2417410EAB50F6CF93ABB5E0"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.34.fix"
+            "TargetName" = "8:Rkernel1_NS.34.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CIMEL太阳光度计数据处理软件, Version=1.1.0.17003, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CIMEL太阳光度计数据处理软件, Version=1.1.0.17019, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
@@ -340,6 +604,46 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_63F5B4F3D44D48AA92C8ED0E57413A77"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\name.dat"
+            "TargetName" = "8:name.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_67F7C565206E466A866C71AE83B2AB3C"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\modata.d"
+            "TargetName" = "8:modata.d"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -374,6 +678,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6F3EC550544C4718AAB99AAFD679AC7E"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.11.fix"
+            "TargetName" = "8:Rkernel1_SP.11.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6F55180C2B6A4AF9B739CE8F5C501F6B"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\CIMLE2.ico"
@@ -394,12 +718,312 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_726181BB0C274F4381FB026CD638E574"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\ins_para\\toa.dat"
+            "TargetName" = "8:toa.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_9A50F35EE5B441F9AC8F0BD2AE20DD5C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_872D4EE2A2E9459F99AAF850EBC76CBE"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\grid1.dat"
+            "TargetName" = "8:grid1.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8AE53C23C87241E395BC1D4EF9AD1592"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\Options\\regions.json"
             "TargetName" = "8:regions.json"
             "Tag" = "8:"
             "Folder" = "8:_84452AB2818F4B14A5DBA795A949C2D7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8BF20705210147D38A544F6815EFED9F"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\SPECTREH2O"
+            "TargetName" = "8:SPECTREH2O"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_92DF4195879A4CE1B3C12066C2DC01C2"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.44.fix"
+            "TargetName" = "8:Rkernel1_SP.44.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_98AB77994B944BD49D702EBDA1D37ED9"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\SUN100"
+            "TargetName" = "8:SUN100"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9947E4E7A4D8474F8FF6D87324E98809"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.22.fix"
+            "TargetName" = "8:Rkernel1_SP.22.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C47CEB650E843CB92F01448939ED1B0"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\input.dat"
+            "TargetName" = "8:input.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B0D8630706634CF2B928AA8B33C70B8F"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkext1_NS.fix"
+            "TargetName" = "8:Rkext1_NS.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B32EE163C70E40C5AAEB1A29358E52EE"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.34.fix"
+            "TargetName" = "8:Rkernel1_SP.34.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6754DEF725F4B119E6490DA716D59D6"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.44.fix"
+            "TargetName" = "8:Rkernel1_NS.44.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B746FB817ECA45829C81126134F51CD7"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.33.fix"
+            "TargetName" = "8:Rkernel1_SP.33.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4C0344B47A840979A23A88329BC4E96"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\INPUT_BB"
+            "TargetName" = "8:INPUT_BB"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E156BAF8D33E413CB39515A8DAC5473C"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkext1_SP.fix"
+            "TargetName" = "8:Rkext1_SP.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F71E2CEF14714B07BC67AAB21202DA57"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.11.fix"
+            "TargetName" = "8:Rkernel1_NS.11.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAE932E5DE864EE9A01075FC87B3B31D"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.33.fix"
+            "TargetName" = "8:Rkernel1_NS.33.fix"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -443,7 +1067,7 @@
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_692489A417CE4A469160048D843CB3FF"
                     {
                     "Name" = "8:CIMEL太阳光度计数据处理软件"
-                    "AlwaysCreate" = "11:TRUE"
+                    "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_E413094FF90E4DC984A1E6F12549653E"
@@ -455,7 +1079,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_4C73A686893947219162DB4377FEDA96"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
@@ -487,6 +1111,84 @@
                     }
                 }
             }
+            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_CDB4FE461F164B25A13581EC7178A1EB"
+            {
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\ParamsData"
+            "Name" = "8:ParamsData"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PARAMSDIR"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2CA643B7515748DA8C86FCC6E1A98B4D"
+                    {
+                    "Name" = "8:input"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_644001F0D98A451DBB1A75ADAD98FC91"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3BC480061598440DA63B2F190C79967D"
+                    {
+                    "Name" = "8:modis_brdf"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_58675F4FADAE48E69999C91D6353550B"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_46CB6BE32B0B4E9DB30E44320B89C298"
+                    {
+                    "Name" = "8:output"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_B9FD8AE9460840ECBD92C3E7C0FBD3BE"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6DF57B70D49244469D3D17D3F31AAD2F"
+                    {
+                    "Name" = "8:chartset"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_4AB40D12E4344BFCA607056BCA42A3D0"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_9A50F35EE5B441F9AC8F0BD2AE20DD5C"
+                    {
+                    "Name" = "8:ins_para"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_89FFB9CE5D614864BE51FA36532FF833"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_DDECB4463EA74345BA9EDEA7FB51369C"
+                    {
+                    "Name" = "8:KERNEL_cimel_n22_83"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_9956548827AD4B67806778FE91898DC3"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -503,16 +1205,16 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CIMEL太阳光度计数据处理软件"
-        "ProductCode" = "8:{591BC7E7-0AA9-4EC3-A101-B7395F3DAC8F}"
-        "PackageCode" = "8:{78D4446D-25CA-42FF-A856-18323E306D17}"
-        "UpgradeCode" = "8:{F206186F-FEF0-4705-A196-4693E99DBB72}"
+        "ProductCode" = "8:{20DB53ED-2823-4080-B71D-408426091C51}"
+        "PackageCode" = "8:{3FDA3768-3884-44A3-8544-F19E761E67A5}"
+        "UpgradeCode" = "8:{818D4088-EC07-47FA-B604-8222663577D6}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "RemovePreviousVersions" = "11:FALSE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.0"
-        "Manufacturer" = "8:北京宇星惠通科技有限公司"
+        "ProductVersion" = "8:1.1.1"
+        "Manufacturer" = "8:YXHT"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
         "Title" = "8:CIMEL太阳光度计数据处理软件"
@@ -525,7 +1227,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
