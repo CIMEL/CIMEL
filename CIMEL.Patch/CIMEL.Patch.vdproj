@@ -779,17 +779,6 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_692489A417CE4A469160048D843CB3FF"
-                    {
-                    "Name" = "8:CIMEL太阳光度计数据处理软件"
-                    "AlwaysCreate" = "11:TRUE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_E413094FF90E4DC984A1E6F12549653E"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_4C73A686893947219162DB4377FEDA96"
@@ -1019,34 +1008,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6B7EFCBAA6724F20AA313489C13F6C2B"
-            {
-            "Name" = "8:CIMEL太阳光度计数据处理软件"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:"
-            "Folder" = "8:_692489A417CE4A469160048D843CB3FF"
-            "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D7BFB2C936D2433389124CF3E1980F3D"
-            {
-            "Name" = "8:CIMEL太阳光度计数据处理软件"
-            "Arguments" = "8:"
-            "Description" = "8:CIMEL太阳光度计数据处理软件"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:"
-            "Folder" = "8:_207B74CB314C498AAEAFFD04AA1126BE"
-            "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
-            "Feature" = "8:"
-            }
         }
         "UserInterface"
         {
