@@ -2,6 +2,8 @@
 # ignore the files built by VS
 [Bb]in/
 obj/
+Debug/
+Release/
 *.suo
 *.user
 *.vspscc
