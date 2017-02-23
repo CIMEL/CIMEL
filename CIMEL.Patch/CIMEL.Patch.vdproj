@@ -69,6 +69,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_58E280C48B544E7ABE5C29D38C873DE6"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_688C30DAA62A476E818C1C439821BC83"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -163,6 +169,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_58E280C48B544E7ABE5C29D38C873DE6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -230,6 +242,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_3F85CCFE20524A3AACE2987DE73A0235"
+            {
+            "Name" = "8:Primary output from CIMEL.Installer (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_58E280C48B544E7ABE5C29D38C873DE6"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_E4B9C624_2820_4AD8_9712_98FDD6CDEA59"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8712CC07A1A64316A338F24D80F205AA"
+            {
+            "Name" = "8:Primary output from CIMEL.Installer (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_58E280C48B544E7ABE5C29D38C873DE6"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_6A9CBE04_56B6_427F_B58C_D86996E10E58"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -503,7 +543,7 @@
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -803,39 +843,6 @@
             "Property" = "8:PARAMSDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_573CB7DCB6DD4636B024017B8D3B9751"
-                    {
-                    "Name" = "8:modis_brdf"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_AEA5A4BCC9844A57B8EC95A33A379922"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_7CC942D855C9451B8D10556BA465DEF4"
-                    {
-                    "Name" = "8:input"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_86F94CCA0C434AE0B7F316A40CA81797"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B6159642D7D344E285948EC662A74C72"
-                    {
-                    "Name" = "8:output"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_841E8812EF724153851E2CDA5A12635D"
-                        "Folders"
-                        {
-                        }
-                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_C34ECE6BD7D44F0780D16E4C4C74EC01"
                     {
                     "Name" = "8:KERNEL_cimel_n22_83"
@@ -843,17 +850,6 @@
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_EA9DC7B7E02543A0898574DEA21C01FE"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_EE90C50A2A694967B7284C6FD9FF5C2C"
-                    {
-                    "Name" = "8:chartset"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_F8457102C794495C8E18895EDC54C431"
                         "Folders"
                         {
                         }
@@ -888,22 +884,22 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CIMEL太阳光度计数据处理软件"
         "ProductCode" = "8:{FBA64051-4AA1-4D95-A422-AA464796A7B6}"
-        "PackageCode" = "8:{9015C8D2-E117-4600-A538-71F3CBF0DDDA}"
+        "PackageCode" = "8:{F6BCBAFA-9571-449A-B940-CD294FA2318B}"
         "UpgradeCode" = "8:{433F0A7E-A77E-4C26-AE7B-AC24168B36AA}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
-        "DetectNewerInstalledVersion" = "11:TRUE"
+        "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:北京宇星惠通科技有限公司"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:CIMEL太阳光度计数据处理软件"
-        "Subject" = "8:CIMEL太阳光度计数据处理软件"
+        "Title" = "8:CIMEL太阳光度计数据处理软件 Patch1"
+        "Subject" = "8:CIMEL太阳光度计数据处理软件 Patch1"
         "ARPCONTACT" = "8:北京宇星惠通科技有限公司"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:CIMEL太阳光度计数据处理软件"
+        "ARPCOMMENTS" = "8:Patch1 for 1.1.0.17019"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
         "ARPIconIndex" = "3:0"
@@ -1407,6 +1403,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_58E280C48B544E7ABE5C29D38C873DE6"
+            {
+            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Release\\Installer.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_83714395675840C6AEC621457618750E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
         }
     }
 }
