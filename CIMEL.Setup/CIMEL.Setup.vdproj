@@ -105,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_67F7C565206E466A866C71AE83B2AB3C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -241,6 +247,12 @@
         "OwnerKey" = "8:_2EACB24DAF984A72BB32F4FD3299DAC5"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -308,6 +320,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_19DE8016E2D14BE6A61E1F02AF30E81B"
+            {
+            "Name" = "8:Primary output from CIMEL.Installer (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_5676D39E_83A6_403A_91B0_ED8F2396EE8D"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_EBEFBBB1BFA44F2D961F3AD99D634467"
+            {
+            "Name" = "8:Primary output from CIMEL.Installer (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_8032E910_2C5E_468A_86FD_2BA98A3C602B"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -1222,7 +1262,7 @@
                     {
                     "Name" = "8:modis_brdf"
                     "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
+                    "Condition" = "8:not MODIS_BRDF_EXISTS"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_58675F4FADAE48E69999C91D6353550B"
                         "Folders"
@@ -1273,6 +1313,17 @@
                         {
                         }
                     }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_ED0D69A3F9C242E7962B53081021306C"
+                    {
+                    "Name" = "8:data"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:not DATA_EXISTS"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_63C411E8A3404329BFA549DE6965F746"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -1281,6 +1332,36 @@
         }
         "Locator"
         {
+            "{39E1837C-0DB9-45A2-89C8-438377A77565}:_04F5A3C7434B47C29A134EA7C94E934E"
+            {
+            "Name" = "8:data_EXISTS"
+            "Folder" = "8:[PARAMSDIR]"
+            "Depth" = "2:0"
+            "FileName" = "8:data"
+            "MinVesion" = "8:"
+            "MaxVersion" = "8:"
+            "MinSize" = "8:"
+            "MaxSize" = "8:"
+            "MinDate" = "8:"
+            "MaxDate" = "8:"
+            "Languages" = "8:"
+            "Property" = "8:DATA_EXISTS"
+            }
+            "{39E1837C-0DB9-45A2-89C8-438377A77565}:_13CF59F741DE457E9357CA4CE7C8FF70"
+            {
+            "Name" = "8:modis_brdf_EXISTS"
+            "Folder" = "8:[PARAMSDIR]"
+            "Depth" = "2:0"
+            "FileName" = "8:modis_brdf"
+            "MinVesion" = "8:"
+            "MaxVersion" = "8:"
+            "MinSize" = "8:"
+            "MaxSize" = "8:"
+            "MinDate" = "8:"
+            "MaxDate" = "8:"
+            "Languages" = "8:"
+            "Property" = "8:MODIS_BRDF_EXISTS"
+            }
         }
         "MsiBootstrapper"
         {
@@ -1299,7 +1380,7 @@
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:YXHT"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
@@ -1307,7 +1388,7 @@
         "Subject" = "8:CIMEL太阳光度计数据处理软件"
         "ARPCONTACT" = "8:北京宇星惠通科技有限公司"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:CIMEL太阳光度计数据处理软件"
+        "ARPCOMMENTS" = "8:Version 1.1.0.17019"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
         "ARPIconIndex" = "3:0"
@@ -1839,6 +1920,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_64551EF0876248E1A21E3C0BEB7605A1"
+            {
+            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Release\\Installer.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
         }
     }
 }
