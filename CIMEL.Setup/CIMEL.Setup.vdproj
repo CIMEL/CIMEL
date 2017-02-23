@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1C504CA6802A4EEEBBC17F9862C86AE6"
+        "MsmKey" = "8:_151CDAC8727A4891B2D87DAED63A7EE9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -207,6 +207,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C4E3294EDBF646DCBEB0584BF648F284"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D4C0344B47A840979A23A88329BC4E96"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -214,6 +220,12 @@
         "Entry"
         {
         "MsmKey" = "8:_E156BAF8D33E413CB39515A8DAC5473C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F4C55E97963C403983377B0051FFE660"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -231,6 +243,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FD8965E6E95446C89B820309222E252D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
         "MsmSig" = "8:_UNDEFINED"
@@ -238,7 +256,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
+        "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -250,7 +268,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -371,30 +389,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_012E21D822F94B349805AB8E6890E5B1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_151CDAC8727A4891B2D87DAED63A7EE9"
             {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows.dll"
-            "TargetName" = "8:api_dsp_windows.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C504CA6802A4EEEBBC17F9862C86AE6"
-            {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows_x64.dll"
-            "TargetName" = "8:api_dsp_windows_x64.dll"
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_x64_3150644.dll"
+            "TargetName" = "8:dog_windows_x64_3150644.dll"
             "Tag" = "8:"
             "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
@@ -639,26 +637,6 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_91E2DECDE61740389D4E2079A0E17744"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_55C91119040E4CB1A289AB2815C5003F"
-            {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_3150644.dll"
-            "TargetName" = "8:dog_windows_3150644.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1064,10 +1042,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA688A5B899F44D7BD4306CB412EF197"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C4E3294EDBF646DCBEB0584BF648F284"
             {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_x64_3150644.dll"
-            "TargetName" = "8:dog_windows_x64_3150644.dll"
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows_x64.dll"
+            "TargetName" = "8:api_dsp_windows_x64.dll"
             "Tag" = "8:"
             "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
@@ -1124,6 +1102,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4C55E97963C403983377B0051FFE660"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows.dll"
+            "TargetName" = "8:api_dsp_windows.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F71E2CEF14714B07BC67AAB21202DA57"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.11.fix"
@@ -1150,6 +1148,26 @@
             "TargetName" = "8:Rkernel1_NS.33.fix"
             "Tag" = "8:"
             "Folder" = "8:_DDECB4463EA74345BA9EDEA7FB51369C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FD8965E6E95446C89B820309222E252D"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_3150644.dll"
+            "TargetName" = "8:dog_windows_3150644.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1247,50 +1265,6 @@
             "Property" = "8:PARAMSDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2CA643B7515748DA8C86FCC6E1A98B4D"
-                    {
-                    "Name" = "8:input"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_644001F0D98A451DBB1A75ADAD98FC91"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3BC480061598440DA63B2F190C79967D"
-                    {
-                    "Name" = "8:modis_brdf"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:not MODIS_BRDF_EXISTS"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_58675F4FADAE48E69999C91D6353550B"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_46CB6BE32B0B4E9DB30E44320B89C298"
-                    {
-                    "Name" = "8:output"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_B9FD8AE9460840ECBD92C3E7C0FBD3BE"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_6DF57B70D49244469D3D17D3F31AAD2F"
-                    {
-                    "Name" = "8:chartset"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_4AB40D12E4344BFCA607056BCA42A3D0"
-                        "Folders"
-                        {
-                        }
-                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_9A50F35EE5B441F9AC8F0BD2AE20DD5C"
                     {
                     "Name" = "8:ins_para"
@@ -1309,17 +1283,6 @@
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_9956548827AD4B67806778FE91898DC3"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_ED0D69A3F9C242E7962B53081021306C"
-                    {
-                    "Name" = "8:data"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:not DATA_EXISTS"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_63C411E8A3404329BFA549DE6965F746"
                         "Folders"
                         {
                         }
@@ -1373,7 +1336,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CIMEL太阳光度计数据处理软件"
         "ProductCode" = "8:{AFA697C3-0EF8-4577-A6D0-FA7034D24B4F}"
-        "PackageCode" = "8:{5F406CA6-81FA-4132-8DA2-DBBB4FD4104F}"
+        "PackageCode" = "8:{910CA64A-3EEF-4E8F-8893-D755C7082AE0}"
         "UpgradeCode" = "8:{FA7CFE24-72CD-4C37-AAF1-71C3A256A77E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
