@@ -252,6 +252,29 @@ namespace CIMEL.Chart.CIMELData
                 }
 
                 bool sucess = false;
+
+                // checks if the super dog is still working
+                isActived = CIMELDog.Default.IsAlive();
+                if (!isActived)
+                    throw new DogException(isActived.Message);
+
+                string strInputRoot = Path.Combine(ConfigOptions.Singleton.METADATA_Dir,"input", paras.STNS_FN);
+                if (!Directory.Exists(strInputRoot))
+                    Directory.CreateDirectory(strInputRoot);
+
+                string strArchiveName = string.Format("{0}_{1}_{2:yyyyMMdd}", paras.STNS_FN, paras.STNS_ID, DateTime.Now);
+                string strArchiveRoot = Path.Combine(strInputRoot, strArchiveName);
+
+                // clean up input folder at the begining
+                sucess = RunInputCleaner(paras, strInputRoot, strArchiveRoot);
+                lock (_stateLocker)
+                {
+                    if (_isStopped)
+                        throw new WorkCancelException();
+                }
+                if (!sucess)
+                    throw new WorkFailedException();
+
                 if ((paras.WorkType & WorkType.CreateOnly) == WorkType.CreateOnly)
                 {
                     // checks if the super dog is still working
@@ -298,8 +321,8 @@ namespace CIMEL.Chart.CIMELData
                 if (!Directory.Exists(strOutputRoot))
                     Directory.CreateDirectory(strOutputRoot);
 
-                string strArchiveName = string.Format("{0}_{1}_{2:yyyyMMdd}",paras.STNS_FN, paras.STNS_ID, DateTime.Now);
-                string strArchiveRoot = Path.Combine(strOutputRoot, strArchiveName);
+                // string strArchiveName = string.Format("{0}_{1}_{2:yyyyMMdd}",paras.STNS_FN, paras.STNS_ID, DateTime.Now);
+                strArchiveRoot = Path.Combine(strOutputRoot, strArchiveName);
 
                 string outputfile = Path.Combine(strArchiveRoot,
                     string.Format("{0}.dat", strArchiveName));
@@ -436,17 +459,7 @@ namespace CIMEL.Chart.CIMELData
                 {
                     if (regex.IsMatch(f))
                     {
-                        try
-                        {
-                            string fileName = Path.GetFileName(f);
-                            string destFile = Path.Combine(strArchiveRoot, fileName);
-                            File.Copy(f, destFile,true);
-                            File.Delete(f);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Default.Error(string.Format("Cannot move to archive folder, {0}", f), ex);
-                        }
+                        this.MoveFile(f,strArchiveRoot);
                     }
                 });
                 OnInformed("Done. Archive folder: " + strArchiveRoot);
@@ -463,6 +476,71 @@ namespace CIMEL.Chart.CIMELData
             OnInformed("***************************************************************");
 
             return true;
+        }
+
+        // clean up input folder, move all preparing files to archive folder at the begining
+        private bool RunInputCleaner(WorkParameters paras, string strInputRoot, string strArchiveRoot)
+        {
+            // show command line and args
+            OnInformed(string.Format("{0} = {1}", "CLEANER", "<INTERNAL>"));
+            OnInformed(String.Format("{0} = {1}", "INPUTROOT", strInputRoot));
+            OnInformed(String.Format("{0} = {1}", "ARCHIVEROOT", strArchiveRoot));
+            // perform process
+            OnInformed("***************************************************************");
+
+            OnInformed("Clean up the input directory");
+            try
+            {
+                if (!Directory.Exists(strInputRoot))
+                    throw new ArgumentException(string.Format("The input directory doesn't exist <- {0}",
+                        strInputRoot));
+
+                try
+                {
+                    // initial the archive folder
+                    if (!Directory.Exists(strArchiveRoot))
+                        Directory.CreateDirectory(strArchiveRoot);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException(string.Format("Cannot initial archive folder <- {0}, {1}",
+                        strArchiveRoot, ex.Message));
+                }
+
+                var files = Directory.EnumerateFiles(strInputRoot, "*", SearchOption.TopDirectoryOnly);
+                Parallel.ForEach(files, f =>
+                {
+                    this.MoveFile(f, strArchiveRoot);
+                });
+                OnInformed("Done. Archive folder: " + strArchiveRoot);
+            }
+            catch (ArgumentException ex)
+            {
+                OnInformed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Logger.Default.Error(ex);
+            }
+
+            OnInformed("***************************************************************");
+
+            return true;
+        }
+
+        private void MoveFile(string file, string destDir)
+        {
+            try
+            {
+                string fileName = Path.GetFileName(file);
+                string destFile = Path.Combine(destDir, fileName);
+                File.Copy(file, destFile, true);
+                File.Delete(file);
+            }
+            catch (Exception ex)
+            {
+                Logger.Default.Error(string.Format("Cannot move to archive folder, {0}", file), ex);
+            }
         }
 
         private bool RunSplitter(WorkParameters paras,string outputfile)
