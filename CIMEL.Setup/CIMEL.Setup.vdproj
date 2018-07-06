@@ -93,12 +93,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_63F5B4F3D44D48AA92C8ED0E57413A77"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -213,6 +207,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D4C0344B47A840979A23A88329BC4E96"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -250,13 +250,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -268,7 +262,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53DC8734543E4A71A917D61577242871"
+        "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -671,37 +671,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CIMEL太阳光度计数据处理软件, Version=1.1.0.17019, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
-                    {
-                    "Name" = "8:CIMEL太阳光度计数据处理软件.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\CIMELPackage\\CIMEL太阳光度计数据处理软件.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_63F5B4F3D44D48AA92C8ED0E57413A77"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\name.dat"
@@ -1062,6 +1031,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D06AECA7057A494586AEC9E15AFF8564"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:CIMEL大气气溶胶光学参数处理软件, Version=1.2.0.18187, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D06AECA7057A494586AEC9E15AFF8564"
+                    {
+                    "Name" = "8:CIMEL大气气溶胶光学参数处理软件.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\..\\CIMELPackage\\CIMEL大气气溶胶光学参数处理软件.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4C0344B47A840979A23A88329BC4E96"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\INPUT_BB"
@@ -1210,7 +1210,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_692489A417CE4A469160048D843CB3FF"
                     {
-                    "Name" = "8:CIMEL太阳光度计数据处理软件"
+                    "Name" = "8:大气气溶胶光学参数处理软件"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -1334,24 +1334,24 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:CIMEL太阳光度计数据处理软件"
-        "ProductCode" = "8:{AFA697C3-0EF8-4577-A6D0-FA7034D24B4F}"
-        "PackageCode" = "8:{910CA64A-3EEF-4E8F-8893-D755C7082AE0}"
+        "ProductName" = "8:大气气溶胶光学参数处理软件"
+        "ProductCode" = "8:{601DA2DB-CE13-4448-8B24-FD4E773F54EE}"
+        "PackageCode" = "8:{D619ED6C-7420-44CE-8017-08BD63191679}"
         "UpgradeCode" = "8:{FA7CFE24-72CD-4C37-AAF1-71C3A256A77E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.0"
-        "Manufacturer" = "8:YXHT"
+        "ProductVersion" = "8:1.2.0"
+        "Manufacturer" = "8:AYFY"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:CIMEL太阳光度计数据处理软件"
-        "Subject" = "8:CIMEL太阳光度计数据处理软件"
-        "ARPCONTACT" = "8:北京宇星惠通科技有限公司"
+        "Title" = "8:大气气溶胶光学参数处理软件"
+        "Subject" = "8:大气气溶胶光学参数处理软件"
+        "ARPCONTACT" = "8:天津澳远风云科技有限公司"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Version 1.1.0.17019"
+        "ARPCOMMENTS" = "8:Version 1.2.0.18187"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
         "ARPIconIndex" = "3:0"
@@ -1458,13 +1458,13 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6B7EFCBAA6724F20AA313489C13F6C2B"
             {
-            "Name" = "8:CIMEL太阳光度计数据处理软件"
+            "Name" = "8:大气气溶胶光学参数处理软件"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
+            "Target" = "8:_D06AECA7057A494586AEC9E15AFF8564"
             "Folder" = "8:_692489A417CE4A469160048D843CB3FF"
             "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
@@ -1472,13 +1472,13 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_D7BFB2C936D2433389124CF3E1980F3D"
             {
-            "Name" = "8:CIMEL太阳光度计数据处理软件"
+            "Name" = "8:大气气溶胶光学参数处理软件"
             "Arguments" = "8:"
-            "Description" = "8:CIMEL太阳光度计数据处理软件"
+            "Description" = "8:大气气溶胶光学参数处理软件"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5D0EF9E7DFD44ACDA3F4A376CDB9EAFA"
+            "Target" = "8:_D06AECA7057A494586AEC9E15AFF8564"
             "Folder" = "8:_207B74CB314C498AAEAFFD04AA1126BE"
             "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
