@@ -7,3 +7,4 @@ Release/
 *.suo
 *.user
 *.vspscc
+.vs

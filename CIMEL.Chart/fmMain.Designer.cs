@@ -338,7 +338,7 @@
             this.MinimumSize = new System.Drawing.Size(702, 732);
             this.Name = "fmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CIMEL太阳光度计数据处理软件";
+            this.Text = "大气气溶胶光学参数处理软件";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
