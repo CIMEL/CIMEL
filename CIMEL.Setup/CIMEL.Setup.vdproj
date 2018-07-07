@@ -256,6 +256,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2EACB24DAF984A72BB32F4FD3299DAC5"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -263,12 +269,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_64551EF0876248E1A21E3C0BEB7605A1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1344,14 +1344,14 @@
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.2.0"
-        "Manufacturer" = "8:AYFY"
+        "Manufacturer" = "8:Developed and Designed by AYFY"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:大气气溶胶光学参数处理软件"
-        "Subject" = "8:大气气溶胶光学参数处理软件"
-        "ARPCONTACT" = "8:天津澳远风云科技有限公司"
+        "Title" = "8:大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）"
+        "Subject" = "8:大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）"
+        "ARPCONTACT" = "8:Developed and Designed by AYFY"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Version 1.2.0.18187"
+        "ARPCOMMENTS" = "8:Version 1.2.0.18188"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
         "ARPIconIndex" = "3:0"
@@ -1885,7 +1885,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_64551EF0876248E1A21E3C0BEB7605A1"
             {
-            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Release\\Installer.dll"
+            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Debug\\Installer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"

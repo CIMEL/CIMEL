@@ -6,10 +6,10 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("大气气溶胶光学参数处理软件")]
-[assembly: AssemblyDescription("适用于CIMEL太阳光度计数据处理")]
+[assembly: AssemblyTitle("大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）")]
+[assembly: AssemblyDescription("（适用于CIMEL太阳光度计数据处理）")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("天津澳远风云科技有限公司")]
+[assembly: AssemblyCompany("Developed and Designed by AYFY")]
 [assembly: AssemblyProduct("大气气溶胶光学参数处理软件")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.0.18187")]
-[assembly: AssemblyFileVersion("1.2.0.18187")]
+[assembly: AssemblyVersion("1.2.0.18188")]
+[assembly: AssemblyFileVersion("1.2.0.18188")]
 [assembly: NeutralResourcesLanguageAttribute("zh-CN")]
