@@ -29,12 +29,12 @@ namespace CIMEL.Installer
             base.Commit(savedState);
 
             // initial the required params dirs
-            string[] dirs = new string[] { 
-                "c:\\YXHT\\ParamsData\\data",
-                "c:\\YXHT\\ParamsData\\modis_brdf",
-                "c:\\YXHT\\ParamsData\\input",
-                "c:\\YXHT\\ParamsData\\output",
-                "c:\\YXHT\\ParamsData\\chartset",
+            string[] dirs = new string[] {
+                "c:\\AYFY\\大气气溶胶光学参数处理软件\\ParamsData\\data",
+                "c:\\AYFY\\大气气溶胶光学参数处理软件\\ParamsData\\modis_brdf",
+                "c:\\AYFY\\大气气溶胶光学参数处理软件\\ParamsData\\input",
+                "c:\\AYFY\\大气气溶胶光学参数处理软件\\ParamsData\\output",
+                "c:\\AYFY\\大气气溶胶光学参数处理软件\\ParamsData\\chartset",
             };
             Parallel.ForEach(dirs, d =>
             {

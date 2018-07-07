@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）")]
-[assembly: AssemblyDescription("（适用于CIMEL太阳光度计数据处理）")]
+[assembly: AssemblyDescription("大气气溶胶光学参数处理软件\n适用于CIMEL太阳光度计数据反演软件")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Developed and Designed by AYFY")]
 [assembly: AssemblyProduct("大气气溶胶光学参数处理软件")]

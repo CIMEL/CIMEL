@@ -1,6 +1,6 @@
 @echo off
-d:
-cd D:\Working\Projects\Peach\CIMEL\CIMEL.Installer
-set output=D:\Working\Projects\Peach\CIMEL\CIMEL.Installer\bin\Release\
-set dest=D:\Working\Projects\Peach\CIMEL\..\CIMELPackage\
+set base_dir=C:\Users\baikangwang\Projects\CIMEL
+cd %base_dir%\CIMEL\CIMEL.Installer
+set output=%base_dir%\CIMEL\CIMEL.Installer\bin\Release\
+set dest=%base_dir%\CIMEL\..\CIMELPackage\
 XCOPY /Y "%output%installer.dll" "%dest%"

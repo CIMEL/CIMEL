@@ -135,6 +135,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_783FB679697A4C90A095B153D68D7D04"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_872D4EE2A2E9459F99AAF850EBC76CBE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -207,12 +213,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D4C0344B47A840979A23A88329BC4E96"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -256,7 +256,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D06AECA7057A494586AEC9E15AFF8564"
+        "OwnerKey" = "8:_783FB679697A4C90A095B153D68D7D04"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -791,6 +791,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_783FB679697A4C90A095B153D68D7D04"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:CIMEL大气气溶胶光学参数处理软件, Version=1.2.0.18188, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_783FB679697A4C90A095B153D68D7D04"
+                    {
+                    "Name" = "8:大气气溶胶光学参数处理软件.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\..\\CIMELPackage\\大气气溶胶光学参数处理软件.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_872D4EE2A2E9459F99AAF850EBC76CBE"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\grid1.dat"
@@ -1031,37 +1062,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D06AECA7057A494586AEC9E15AFF8564"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CIMEL大气气溶胶光学参数处理软件, Version=1.2.0.18187, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_D06AECA7057A494586AEC9E15AFF8564"
-                    {
-                    "Name" = "8:CIMEL大气气溶胶光学参数处理软件.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\CIMELPackage\\CIMEL大气气溶胶光学参数处理软件.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4C0344B47A840979A23A88329BC4E96"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\INPUT_BB"
@@ -1208,15 +1208,26 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_692489A417CE4A469160048D843CB3FF"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F671167702FB451290A9451932ED39EF"
                     {
-                    "Name" = "8:大气气溶胶光学参数处理软件"
+                    "Name" = "8:AYFY"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_E413094FF90E4DC984A1E6F12549653E"
+                    "Property" = "8:_7A54F08946AB429BB2E132C6E905AE83"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_B5D4868508184C729F16C2DB3C43C809"
+                            {
+                            "Name" = "8:大气气溶胶光学参数处理软件"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_E413094FF90E4DC984A1E6F12549653E"
+                                "Folders"
+                                {
+                                }
+                            }
                         }
                     }
                 }
@@ -1257,7 +1268,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_CDB4FE461F164B25A13581EC7178A1EB"
             {
-            "DefaultLocation" = "8:C:\\[Manufacturer]\\ParamsData"
+            "DefaultLocation" = "8:C:\\[Manufacturer]\\[ProductName]\\ParamsData"
             "Name" = "8:ParamsData"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -1344,12 +1355,12 @@
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.2.0"
-        "Manufacturer" = "8:Developed and Designed by AYFY"
+        "Manufacturer" = "8:AYFY"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
         "Title" = "8:大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）"
         "Subject" = "8:大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）"
-        "ARPCONTACT" = "8:Developed and Designed by AYFY"
+        "ARPCONTACT" = "8:AYFY"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Version 1.2.0.18188"
         "ARPURLINFOABOUT" = "8:"
@@ -1464,8 +1475,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_D06AECA7057A494586AEC9E15AFF8564"
-            "Folder" = "8:_692489A417CE4A469160048D843CB3FF"
+            "Target" = "8:_783FB679697A4C90A095B153D68D7D04"
+            "Folder" = "8:_B5D4868508184C729F16C2DB3C43C809"
             "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
             "Feature" = "8:"
@@ -1478,7 +1489,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_D06AECA7057A494586AEC9E15AFF8564"
+            "Target" = "8:_783FB679697A4C90A095B153D68D7D04"
             "Folder" = "8:_207B74CB314C498AAEAFFD04AA1126BE"
             "WorkingFolder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Icon" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
@@ -1885,7 +1896,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_64551EF0876248E1A21E3C0BEB7605A1"
             {
-            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Debug\\Installer.dll"
+            "SourcePath" = "8:..\\CIMEL.Installer\\obj\\Release\\Installer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
