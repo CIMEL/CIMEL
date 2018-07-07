@@ -1,6 +1,7 @@
 @echo off
-c:
-cd C:\Users\baikangwang\Projects\CIMEL\CIMEL\CIMEL.Setup
-set output=C:\Users\baikangwang\Projects\CIMEL\CIMEL\CIMEL.Setup\Release\
-set dest=C:\Users\baikangwang\Projects\CIMEL\CIMELPackage\
+set base_dir=C:\Users\baikangwang\Projects\CIMEL
+
+cd %base_dir%\CIMEL\CIMEL.Setup
+set output=%base_dir%\CIMEL\CIMEL.Setup\Release\
+set dest=%base_dir%\CIMELPackage\
 XCOPY /Y "%output%CIMEL_Install.msi" "%dest%"
