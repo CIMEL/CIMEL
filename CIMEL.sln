@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peach.Log", "Peach.Log\Peach.Log.csproj", "{F594087C-8118-4931-9AF4-2F1033635417}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CIMEL.Patch", "CIMEL.Patch\CIMEL.Patch.vdproj", "{964E3339-47A9-4972-9351-88E648476C51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Installer", "CIMEL.Installer\CIMEL.Installer.csproj", "{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.RSA", "CIMEL.RSA\CIMEL.RSA.csproj", "{A3D7C138-E4DF-4B0D-9430-E07D2F0BA334}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.LicenseMgr", "CIMEL.LicenseMgr\CIMEL.LicenseMgr.csproj", "{188DCB35-A598-4733-AF28-9717F2473E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.KeyGen", "CIMEL.KeyGen\CIMEL.KeyGen.csproj", "{35DF367B-7C67-44AF-BDE0-8A62038A5C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,8 +69,23 @@ Global
 		{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2AA608-3E97-45E8-A2E5-349FA8FB0CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3D7C138-E4DF-4B0D-9430-E07D2F0BA334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3D7C138-E4DF-4B0D-9430-E07D2F0BA334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3D7C138-E4DF-4B0D-9430-E07D2F0BA334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3D7C138-E4DF-4B0D-9430-E07D2F0BA334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{188DCB35-A598-4733-AF28-9717F2473E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{188DCB35-A598-4733-AF28-9717F2473E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{188DCB35-A598-4733-AF28-9717F2473E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{188DCB35-A598-4733-AF28-9717F2473E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DF367B-7C67-44AF-BDE0-8A62038A5C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DF367B-7C67-44AF-BDE0-8A62038A5C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DF367B-7C67-44AF-BDE0-8A62038A5C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DF367B-7C67-44AF-BDE0-8A62038A5C89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F6A95BF-AA80-4D83-8377-4F2F0DD8EB1D}
 	EndGlobalSection
 EndGlobal
