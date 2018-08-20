@@ -129,5 +129,11 @@ namespace CIMEL.RSA
                 }
             }
         }
+
+        public string BuildLicense(int expires, string msg)
+        {
+            string id = Guid.NewGuid().ToString();
+            return string.Format("{0}|{1}|{2}", id, msg, expires);
+        }
     }
 }

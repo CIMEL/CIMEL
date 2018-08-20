@@ -56,6 +56,8 @@
             this.btnScan = new System.Windows.Forms.Button();
             this.cmbCharts = new System.Windows.Forms.ComboBox();
             this.chartPanel1 = new CIMEL.Chart.ChartPanel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.registerStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -130,6 +132,8 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registerStripMenuItem,
+            this.toolStripSeparator2,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
@@ -138,7 +142,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_ABOUT_TEXT;
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -322,6 +326,17 @@
             this.chartPanel1.Size = new System.Drawing.Size(658, 481);
             this.chartPanel1.TabIndex = 6;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // registerStripMenuItem
+            // 
+            this.registerStripMenuItem.Name = "registerStripMenuItem";
+            this.registerStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registerStripMenuItem.Text = "注册(&R)...";
+            // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -377,6 +392,8 @@
         private System.Windows.Forms.Button btnNextChartSet;
         private System.Windows.Forms.Button btnNextState;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem registerStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

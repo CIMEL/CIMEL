@@ -64,6 +64,19 @@ namespace CIMEL.Chart
                 }
             }
 
+            LicenseInfo actived = Register.Singleton.CheckLicense();
+            if (!actived.IsValid)
+            {
+                using (fmRegister fmRegister = new fmRegister())
+                {
+                    fmRegister.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.Abort == fmRegister.ShowDialog(this))
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+
             RefreshRegions();
 
         }

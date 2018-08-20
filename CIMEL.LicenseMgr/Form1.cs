@@ -55,7 +55,7 @@ namespace CIMEL.LicenseMgr
             }
 
             int expires = this.GetExpires(strExpires);
-            string plainKey = string.Format("{0}|{1}", key, expires);
+            string plainKey = Encryptor.Singleton.BuildLicense(expires, key);
             string encrypted = Encryptor.Singleton.EncryptText(plainKey, this._publicKey);
             txtLicense.Text = encrypted;
             MessageBox.Show(this, string.Format("生成注册码！有效期为{0}", strExpires), "注册码生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnGen = new System.Windows.Forms.Button();
-            this.txtKey = new System.Windows.Forms.TextBox();
-            this.cmbExpires = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtLicense = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtLicense = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbExpires = new System.Windows.Forms.ComboBox();
+            this.txtKey = new System.Windows.Forms.TextBox();
+            this.btnGen = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,26 +60,56 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // btnGen
+            // btnSave
             // 
-            this.btnGen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGen.Location = new System.Drawing.Point(391, 14);
-            this.btnGen.Name = "btnGen";
-            this.btnGen.Size = new System.Drawing.Size(75, 50);
-            this.btnGen.TabIndex = 0;
-            this.btnGen.Text = "生成";
-            this.btnGen.UseVisualStyleBackColor = true;
-            this.btnGen.Click += new System.EventHandler(this.btnGen_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(391, 282);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "保存(&S)...";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtKey
+            // txtLicense
             // 
-            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKey.Location = new System.Drawing.Point(94, 14);
-            this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(291, 21);
-            this.txtKey.TabIndex = 1;
-            this.txtKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtKey_KeyUp);
+            this.txtLicense.Location = new System.Drawing.Point(94, 75);
+            this.txtLicense.Multiline = true;
+            this.txtLicense.Name = "txtLicense";
+            this.txtLicense.ReadOnly = true;
+            this.txtLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLicense.Size = new System.Drawing.Size(372, 196);
+            this.txtLicense.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(36, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "注册码：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(36, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "有效期：";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "用户名/邮箱：";
             // 
             // cmbExpires
             // 
@@ -95,56 +125,26 @@
             this.cmbExpires.Size = new System.Drawing.Size(121, 20);
             this.cmbExpires.TabIndex = 2;
             // 
-            // label1
+            // txtKey
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "用户名/邮箱：";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "有效期：";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "注册码：";
-            // 
-            // txtLicense
-            // 
-            this.txtLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLicense.Location = new System.Drawing.Point(94, 75);
-            this.txtLicense.Multiline = true;
-            this.txtLicense.Name = "txtLicense";
-            this.txtLicense.ReadOnly = true;
-            this.txtLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLicense.Size = new System.Drawing.Size(372, 196);
-            this.txtLicense.TabIndex = 6;
+            this.txtKey.Location = new System.Drawing.Point(94, 14);
+            this.txtKey.Name = "txtKey";
+            this.txtKey.Size = new System.Drawing.Size(291, 21);
+            this.txtKey.TabIndex = 1;
+            this.txtKey.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtKey_KeyUp);
             // 
-            // btnSave
+            // btnGen
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(391, 282);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "保存...";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnGen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGen.Location = new System.Drawing.Point(391, 14);
+            this.btnGen.Name = "btnGen";
+            this.btnGen.Size = new System.Drawing.Size(75, 50);
+            this.btnGen.TabIndex = 0;
+            this.btnGen.Text = "生成(&G)";
+            this.btnGen.UseVisualStyleBackColor = true;
+            this.btnGen.Click += new System.EventHandler(this.btnGen_Click);
             // 
             // Form1
             // 
