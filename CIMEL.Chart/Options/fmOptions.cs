@@ -35,7 +35,7 @@ namespace CIMEL.Chart.Options
                 if (this.AllowForceExit)
                 {
                     if (DialogResult.No ==
-                        MessageBox.Show(this, "抱歉，参数配置没有完成程序无法启动，确定要退出吗?\r\n[Yes]关闭程序\r\n[No]继续设置参数",
+                        MessageBox.Show(this, "抱歉，参数配置没有完成程序无法启动，确定要退出吗?\r\n[是]关闭程序\r\n[否]继续设置参数",
                             Settings.Default.FM_OPTION_CONFIG_TEXT, MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question))
                         e.Cancel = true;

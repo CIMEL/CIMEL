@@ -57,7 +57,7 @@ namespace CIMEL.Chart
             if (!actived.IsValid)
             {
                 if (DialogResult.No
-                    == MessageBox.Show(this, "使用前请输入注册码，是否要注册", "注册", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                    == MessageBox.Show(this, "使用前请输入注册码，是否要注册？\r\n[是]注册\r\n[否]关闭程序", "注册", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                 {
                     this.DialogResult = DialogResult.Abort;
                     return;
@@ -70,7 +70,7 @@ namespace CIMEL.Chart
                 if (!string.IsNullOrEmpty(txtLicense.Text))
                 {
                     if (DialogResult.No
-                        == MessageBox.Show(this, "所填注册码还未注册，是否要注册", "注册", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                        == MessageBox.Show(this, "所填注册码还未注册，是否要继续注册？\r\n[是]继续注册\r\n[否]取消", "注册", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
                     {
                         this.DialogResult = DialogResult.Cancel;
                         return;

@@ -13,7 +13,7 @@ namespace CIMEL.Chart
         private RSAKeys _RSAKeys;
         protected const string REG_ACTIVE = "ACTIVE";
         protected const string REG_KEYS = "KEYS";
-        protected const string REG = @"SOFTWARE/AYFY";
+        protected const string REG = @"SOFTWARE\AYFY";
 
         private static Register _singleton = new Register();
 
@@ -65,6 +65,8 @@ namespace CIMEL.Chart
                 return new LicenseInfo(false, "注册码无效");
             }
 
+            if (!actived.IsValid) return actived;
+
             List<string> lstKeys = this.GetKeys();
             if (lstKeys.Contains(actived.Id))
                 return new LicenseInfo(false, "已注册，不能重复注册。");
@@ -91,6 +93,11 @@ namespace CIMEL.Chart
             List<string> keys = null;
 
             RegistryKey reg = Registry.LocalMachine.OpenSubKey(REG);
+            if (reg == null)
+            {
+                keys = new List<string>();
+                return keys;
+            }
             string encryptedKeys = Convert.ToString(reg.GetValue(REG_KEYS));
             if (string.IsNullOrEmpty(encryptedKeys))
             {
@@ -156,7 +163,7 @@ namespace CIMEL.Chart
             this.Key = paras[1];
             int intExpires;
             if (!int.TryParse(paras[2], out intExpires)) intExpires = -1;
-            this.Expires = -1;
+            this.Expires = intExpires;
             DateTime dtRegisteredDate;
             if (!DateTime.TryParse(paras[3], out dtRegisteredDate)) dtRegisteredDate = DateTime.MinValue;
             this.RegisteredDate = dtRegisteredDate;

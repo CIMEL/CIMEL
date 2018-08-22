@@ -609,7 +609,7 @@ namespace CIMEL.Chart.CIMELData
                     {
                         //double confirms
                         string question =
-                            "准备好了吗?\r\n[Yes]: 马上开始\r\n[No]: 检查参数";
+                            "准备好了吗?\r\n[是]: 马上开始\r\n[否]: 检查参数";
                         if (DialogResult.No == MessageBox.Show(this, question,
                             @"参数校验", MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
                             MessageBoxDefaultButton.Button1))

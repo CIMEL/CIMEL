@@ -44,6 +44,19 @@ namespace CIMEL.Chart
             // checks if the super dog is still working
             if (!CIMELDog.Default.IsAlive(true)) return;
 
+            LicenseInfo actived = Register.Singleton.CheckLicense();
+            if (!actived.IsValid)
+            {
+                using (fmRegister fmRegister = new fmRegister())
+                {
+                    fmRegister.StartPosition = FormStartPosition.CenterParent;
+                    if (DialogResult.Abort == fmRegister.ShowDialog(this))
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+
             // check if the options has been configurated
             if (!ConfigOptions.Singleton.IsInitialized)
             {
@@ -58,19 +71,6 @@ namespace CIMEL.Chart
                     fmOptions.AllowForceExit = true;
                     fmOptions.StartPosition = FormStartPosition.CenterParent;
                     if (DialogResult.Abort == fmOptions.ShowDialog(this))
-                    {
-                        Application.Exit();
-                    }
-                }
-            }
-
-            LicenseInfo actived = Register.Singleton.CheckLicense();
-            if (!actived.IsValid)
-            {
-                using (fmRegister fmRegister = new fmRegister())
-                {
-                    fmRegister.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.Abort == fmRegister.ShowDialog(this))
                     {
                         Application.Exit();
                     }
