@@ -31,6 +31,8 @@ namespace CIMEL.LicenseMgr
             txtKey.Text = "default@foo.com";
             cmbExpires.SelectedIndex = 3;
             txtLicense.Text = string.Empty;
+            // defualts to 1
+            txtRegions.Text = "1";
         }
 
         private void btnGen_Click(object sender, EventArgs e)
@@ -46,6 +48,17 @@ namespace CIMEL.LicenseMgr
                 MessageBox.Show(this, "请选择有效期", "注册码生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (string.IsNullOrEmpty(txtRegions.Text))
+            {
+                MessageBox.Show(this, "请设置最大站点数", "注册码生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int intRegions;
+            if(!int.TryParse(txtRegions.Text,out intRegions))
+            {
+                MessageBox.Show(this, "最大站点数无效", "注册码生成器", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             string key = txtKey.Text;
             if (key.Contains("|"))
@@ -55,7 +68,7 @@ namespace CIMEL.LicenseMgr
             }
 
             int expires = this.GetExpires(strExpires);
-            string plainKey = Encryptor.Singleton.BuildLicense(expires, key);
+            string plainKey = Encryptor.Singleton.BuildLicense(expires, key, intRegions);
             string encrypted = Encryptor.Singleton.EncryptText(plainKey, this._publicKey);
             txtLicense.Text = encrypted;
             MessageBox.Show(this, string.Format("生成注册码！有效期为{0}", strExpires), "注册码生成器", MessageBoxButtons.OK, MessageBoxIcon.Information);

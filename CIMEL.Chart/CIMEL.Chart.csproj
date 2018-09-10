@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveChecker.cs" />
     <Compile Include="ArgumentException.cs" />
     <Compile Include="CIMELConst.cs" />
     <Compile Include="CIMELData\DataWorker.cs" />

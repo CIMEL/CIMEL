@@ -15,7 +15,7 @@
       <Value Profile="(Default)">参数配置</Value>
     </Setting>
     <Setting Name="FM_REGION_CONFIG_TEXT" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">站台配置</Value>
+      <Value Profile="(Default)">站点配置</Value>
     </Setting>
     <Setting Name="BTN_NEW_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">新建(&amp;N)</Value>
@@ -75,7 +75,7 @@
       <Value Profile="(Default)">数据处理(&amp;Q)...</Value>
     </Setting>
     <Setting Name="BTN_REGIONS_TEXT" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">站台配置(&amp;R)...</Value>
+      <Value Profile="(Default)">站点配置(&amp;R)...</Value>
     </Setting>
     <Setting Name="BTN_HELP_TEXT" Type="System.String" Scope="Application">
       <Value Profile="(Default)">帮助(&amp;H)</Value>

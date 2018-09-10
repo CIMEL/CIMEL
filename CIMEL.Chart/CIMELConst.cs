@@ -34,13 +34,13 @@ namespace CIMEL.Chart.Options
 {
     public partial class fmRegions
     {
-        public const string DLG_TITLE_ERROR = "站台配置错误";
-        public const string DLG_TITLE = "站台配置";
+        public const string DLG_TITLE_ERROR = "站点配置错误";
+        public const string DLG_TITLE = "站点配置";
     }
 
     public partial class Region
     {
-        public const string CATELOG_REGION = @"站台";
+        public const string CATELOG_REGION = @"站点";
     }
 
     public partial class fmOptions

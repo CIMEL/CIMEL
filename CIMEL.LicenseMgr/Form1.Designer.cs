@@ -38,6 +38,8 @@
             this.cmbExpires = new System.Windows.Forms.ComboBox();
             this.txtKey = new System.Windows.Forms.TextBox();
             this.btnGen = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtRegions = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +48,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.txtRegions);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.Controls.Add(this.txtLicense);
             this.groupBox1.Controls.Add(this.label3);
@@ -76,18 +80,18 @@
             this.txtLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLicense.Location = new System.Drawing.Point(94, 75);
+            this.txtLicense.Location = new System.Drawing.Point(94, 109);
             this.txtLicense.Multiline = true;
             this.txtLicense.Name = "txtLicense";
             this.txtLicense.ReadOnly = true;
             this.txtLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLicense.Size = new System.Drawing.Size(372, 196);
+            this.txtLicense.Size = new System.Drawing.Size(372, 162);
             this.txtLicense.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 75);
+            this.label3.Location = new System.Drawing.Point(36, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 5;
@@ -146,6 +150,22 @@
             this.btnGen.UseVisualStyleBackColor = true;
             this.btnGen.Click += new System.EventHandler(this.btnGen_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 79);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 12);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "最大站点数：";
+            // 
+            // txtRegions
+            // 
+            this.txtRegions.Location = new System.Drawing.Point(94, 76);
+            this.txtRegions.Name = "txtRegions";
+            this.txtRegions.Size = new System.Drawing.Size(100, 21);
+            this.txtRegions.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -174,6 +194,8 @@
         private System.Windows.Forms.TextBox txtKey;
         private System.Windows.Forms.Button btnGen;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtRegions;
     }
 }
 

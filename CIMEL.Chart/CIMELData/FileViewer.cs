@@ -86,8 +86,7 @@ namespace CIMEL.Chart.CIMELData
 
         private void lvFiles_DragEnter(object sender, DragEventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // just allow files drag-drop
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
@@ -95,9 +94,8 @@ namespace CIMEL.Chart.CIMELData
 
         private void lvFiles_DragDrop(object sender, DragEventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             // just process files drag-drop
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 

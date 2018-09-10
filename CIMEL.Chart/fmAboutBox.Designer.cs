@@ -36,6 +36,7 @@
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
+            this.lblExpiredDate = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -50,19 +51,22 @@
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 0, 3);
-            this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 0, 4);
-            this.tableLayoutPanel.Controls.Add(this.okButton, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.okButton, 1, 6);
+            this.tableLayoutPanel.Controls.Add(this.lblExpiredDate, 0, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(10, 12);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 6;
+            this.tableLayoutPanel.RowCount = 7;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(487, 346);
@@ -70,12 +74,13 @@
             // 
             // logoPictureBox
             // 
+            this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
-            this.logoPictureBox.Location = new System.Drawing.Point(342, 15);
-            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(50, 15, 3, 4);
+            this.logoPictureBox.Location = new System.Drawing.Point(302, 10);
+            this.logoPictureBox.Margin = new System.Windows.Forms.Padding(10);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 4);
-            this.logoPictureBox.Size = new System.Drawing.Size(96, 101);
+            this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 5);
+            this.logoPictureBox.Size = new System.Drawing.Size(175, 150);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
@@ -132,13 +137,13 @@
             // 
             this.tableLayoutPanel.SetColumnSpan(this.textBoxDescription, 2);
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxDescription.Location = new System.Drawing.Point(7, 140);
+            this.textBoxDescription.Location = new System.Drawing.Point(7, 174);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(7, 4, 3, 4);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDescription.Size = new System.Drawing.Size(477, 165);
+            this.textBoxDescription.Size = new System.Drawing.Size(477, 130);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "Description";
@@ -153,6 +158,16 @@
             this.okButton.Size = new System.Drawing.Size(87, 29);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "确定(&O)";
+            // 
+            // lblExpiredDate
+            // 
+            this.lblExpiredDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblExpiredDate.Location = new System.Drawing.Point(7, 136);
+            this.lblExpiredDate.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
+            this.lblExpiredDate.Name = "lblExpiredDate";
+            this.lblExpiredDate.Size = new System.Drawing.Size(282, 34);
+            this.lblExpiredDate.TabIndex = 25;
+            this.lblExpiredDate.Text = "Expired Date";
             // 
             // fmAboutBox
             // 
@@ -190,5 +205,6 @@
         private System.Windows.Forms.Label labelCompanyName;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Label lblExpiredDate;
     }
 }

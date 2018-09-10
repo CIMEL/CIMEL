@@ -60,8 +60,8 @@ namespace CIMEL.Chart.CIMELData
         #region Initial
         private void fmDataProcessDialog_Load(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // initial current task scheduler
             this._fmTaskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
@@ -279,8 +279,8 @@ namespace CIMEL.Chart.CIMELData
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             if (cmbRegions.Text == ComboBoxItem.EmptyItem.Text)
             {
@@ -306,8 +306,8 @@ namespace CIMEL.Chart.CIMELData
 
         private void txtSTNS_ID_TextChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             if (string.IsNullOrEmpty(txtSTNS_ID.Text))
                 this.SetToError(this.lblVal_STNS_ID, LABEL_EMPTY);
@@ -536,9 +536,9 @@ namespace CIMEL.Chart.CIMELData
         #region Close
         private void btnClose_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             this.Close();
         }
 
@@ -549,7 +549,7 @@ namespace CIMEL.Chart.CIMELData
                 if (this._isWorking)
                 {
                     // checks if the super dog is still working
-                    var isActived = CIMELDog.Default.IsAlive();
+                    var isActived = ActiveChecker.Singleton.IsActive();
                     if (!isActived)
                     {
                         Utility.ShowDogAlert(this, isActived.Message);
@@ -562,8 +562,8 @@ namespace CIMEL.Chart.CIMELData
                 }
                 else
                 {
-                    // checks if the super dog is still working
-                    CIMELDog.Default.IsAlive(true);
+                    // checks if the state is active
+                    ActiveChecker.Singleton.IsActive(true);
                 }
             }
         }
@@ -596,13 +596,13 @@ namespace CIMEL.Chart.CIMELData
                     // stop the worker
                     worker.Stop();
                     this.btnAction.Enabled = true;
-                    // checks if the super dog is still working
-                    CIMELDog.Default.IsAlive(true);
+                    // checks if the state is active
+                    ActiveChecker.Singleton.IsActive(true);
                 }
                 else
                 {
-                    // checks if the super dog is still working
-                    if (!CIMELDog.Default.IsAlive(true)) return;
+                    // checks if the state is active
+                    if (!ActiveChecker.Singleton.IsActive(true)) return;
 
                     // check validation state
                     if (AreAllGood())

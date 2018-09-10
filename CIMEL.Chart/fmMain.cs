@@ -44,8 +44,8 @@ namespace CIMEL.Chart
             // checks if the super dog is still working
             if (!CIMELDog.Default.IsAlive(true)) return;
 
-            LicenseInfo actived = Register.Singleton.CheckLicense();
-            if (!actived.IsValid)
+            // check if register the license
+            if (!Register.Singleton.IsAlive())
             {
                 using (fmRegister fmRegister = new fmRegister())
                 {
@@ -101,8 +101,8 @@ namespace CIMEL.Chart
         #region Menu
         private void cimelDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             using (fmCIMELData fmCIMELData = new fmCIMELData())
             {
@@ -113,8 +113,8 @@ namespace CIMEL.Chart
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             using (fmOptions fmOptions = new fmOptions())
             {
@@ -139,8 +139,8 @@ namespace CIMEL.Chart
 
         private void regionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             using (fmRegions fmRegions = new fmRegions())
             {
@@ -154,8 +154,8 @@ namespace CIMEL.Chart
 
         private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.Reset();
             if (cmbRegions.SelectedText != ComboBoxItem.EmptyItem.Text)
@@ -217,8 +217,8 @@ namespace CIMEL.Chart
 
         private void btnScan_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.Reset();
             this.Scan();
@@ -226,8 +226,8 @@ namespace CIMEL.Chart
 
         private void cmbDataSets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // disable the combo box of charts
             this.EnableCharts(false);
@@ -329,8 +329,8 @@ namespace CIMEL.Chart
 
         private void cmbCharts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // disable the chart panel
             this.chartPanel1.Disable();
@@ -378,6 +378,15 @@ namespace CIMEL.Chart
                 this.cmbCharts.SelectedIndex++;
             }
         }
-        #endregion 
+        #endregion
+
+        private void registerStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (fmRegister fmRegister = new fmRegister())
+            {
+                fmRegister.StartPosition = FormStartPosition.CenterParent;
+                fmRegister.ShowDialog(this);
+            }
+        }
     }
 }

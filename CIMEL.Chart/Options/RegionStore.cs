@@ -38,7 +38,7 @@ namespace CIMEL.Chart.Options
                 _regions = new Regions();
                 Logger.Default.Error("Failed to load states from regions.json", ex);
                 Form fmMain = Application.OpenForms.Cast<Form>().FirstOrDefault();
-                Utility.ShowAlertDlg(fmMain,@"缺少站台配置", fmRegions.DLG_TITLE_ERROR);
+                Utility.ShowAlertDlg(fmMain,@"缺少站点配置", fmRegions.DLG_TITLE_ERROR);
             }
         }
 
@@ -81,22 +81,26 @@ namespace CIMEL.Chart.Options
     }
 
     [DataContract]
+    [DefaultProperty("Name")]
     public partial class Region
     {
         [Category(CATELOG_REGION),
         DisplayName(@"名称"),
-        Description("站台名称")]
-        [DataMember(Name = "name")]
+        Description("站点名称"),
+        DataMember(Name = "name"),
+        PropertyOrder(0)]
         public string Name { get; set; }
         [Category(CATELOG_REGION),
         DisplayName(@"纬度"),
-        Description("站台所在纬度")]
-        [DataMember(Name = "lat")]
+        Description("站点所在纬度"),
+        DataMember(Name = "lat"),
+        PropertyOrder(2)]
         public double Lat { get; set; }
         [Category(CATELOG_REGION),
         DisplayName(@"经度"),
-        Description("站台所在经度")]
-        [DataMember(Name = "lon")]
+        Description("站点所在经度"),
+        DataMember(Name = "lon"),
+        PropertyOrder(1)]
         public double Lon { get; set; }
     }
 

@@ -26,24 +26,19 @@ namespace CIMEL.Chart
                 this.txtKey.Text = actived.Key;
 
             if (actived.IsValid)
-                this.txtExpires.Text = this.GetExpiresLabel(actived.Expires);
+            {
+                this.txtExpires.Text = Register.Singleton.GetExpiresLabel(actived.Expires);
+                this.txtExpiredDate.Text = actived.ExpiredDate.ToString("yyyy年MM月dd日");
+                this.txtMaxRegions.Text = actived.MaxRegions.ToString();
+            }
             else
+            {
                 this.txtExpires.Text = actived.Message;
+                this.txtExpiredDate.Text = "未知";
+                this.txtMaxRegions.Text = "未知";
+            }
 
             txtLicense.Text = string.Empty;
-        }
-
-        private string GetExpiresLabel(int expires)
-        {
-            switch (expires)
-            {
-                case 1: return "一个月";
-                case 3: return "三个月";
-                case 6: return "半年";
-                case 12: return "一年";
-                default:
-                    return string.Format("{0}个月", expires);
-            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -97,7 +92,9 @@ namespace CIMEL.Chart
             {
                 txtLicense.Text = string.Empty;
                 txtKey.Text = info.Key;
-                txtExpires.Text = this.GetExpiresLabel(info.Expires);
+                txtExpires.Text = Register.Singleton.GetExpiresLabel(info.Expires);
+                txtExpiredDate.Text = info.ExpiredDate.ToString("yyyy年MM月dd日");
+                txtMaxRegions.Text = info.MaxRegions.ToString();
                 MessageBox.Show(this, string.Format("注册成功！有效期{0}", txtExpires.Text), "关于", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

@@ -69,6 +69,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ILMerge.bat" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,7 +82,7 @@
     <None Include="Resources\rsa.pub" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <EmbeddedResource Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CIMEL.RSA\CIMEL.RSA.csproj">
@@ -93,4 +94,7 @@
     <Content Include="CIMLE2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

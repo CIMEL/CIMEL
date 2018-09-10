@@ -1,10 +1,13 @@
-﻿using CIMEL.RSA;
+﻿using CIMEL.Core;
+using CIMEL.RSA;
 using Microsoft.Win32;
+using Peach.Log;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CIMEL.Chart
 {
@@ -14,6 +17,7 @@ namespace CIMEL.Chart
         protected const string REG_ACTIVE = "ACTIVE";
         protected const string REG_KEYS = "KEYS";
         protected const string REG = @"SOFTWARE\AYFY";
+        private Logger _logger;
 
         private static Register _singleton = new Register();
 
@@ -21,6 +25,8 @@ namespace CIMEL.Chart
 
         protected Register()
         {
+            this._logger = Logger.CreateNew("register");
+
             this._RSAKeys = new RSAKeys();
             using (MemoryStream ms = new MemoryStream(Properties.Resources.rsa))
             using (StreamReader sr = new StreamReader(ms, Encoding.UTF8))
@@ -32,7 +38,6 @@ namespace CIMEL.Chart
             {
                 this._RSAKeys.PublicKey = sr.ReadToEnd();
             }
-
         }
 
         public LicenseInfo GetActivedLicense()
@@ -130,17 +135,123 @@ namespace CIMEL.Chart
             return licenseKey;
         }
 
+        public string GetExpiresLabel(int expires)
+        {
+            switch (expires)
+            {
+                case 1: return "一个月";
+                case 3: return "三个月";
+                case 6: return "半年";
+                case 12: return "一年";
+                default:
+                    return string.Format("{0}个月", expires);
+            }
+        }
+
+        public MethodResult IsAlive(bool autoExit = false, IWin32Window owner = null)
+        {
+            MethodResult isActived = new MethodResult();
+
+            LicenseInfo actived = this.CheckLicense();
+            try
+            {
+                if (!actived.IsValid)
+                {
+                    isActived = new MethodResult(false, actived.Message);
+                    LogError(string.Format("Is license active? {0}", isActived));
+                }
+            }
+            catch(Exception ex)
+            {
+                LogError(string.Format("Is license active? {0}", ex.Message));
+                isActived = new MethodResult(false, string.Empty);
+            }
+
+#if DEBUG
+            if (isActived)
+                LogInfo(string.Format("Is license active? {0}", isActived));
+#endif
+
+            if (!isActived && autoExit)
+            {
+                string message = string.IsNullOrEmpty(isActived.Message)
+                    ? @"运行禁止!"
+                    : string.Format("运行禁止: {0}", isActived.Message);
+                if (owner != null)
+                    MessageBox.Show(owner, message, @"注册信息", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    MessageBox.Show(message, @"注册信息", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (System.Windows.Forms.Application.MessageLoop)
+                {
+                    // Use this since we are a WinForms app
+                    System.Windows.Forms.Application.Exit();
+                }
+                else
+                {
+                    // Use this since we are a console app
+                    System.Environment.Exit(1);
+                }
+            }
+
+            return isActived;
+        }
+
+        private void LogDebug(string message)
+        {
+            this._logger.Debug(message);
+        }
+
+        public void LogError(string message)
+        {
+            this._logger.Error(message);
+            // todo: show dog's session info
+        }
+
+        public void LogError(Exception ex)
+        {
+            this._logger.Error(ex);
+            // todo: show dog's session info
+        }
+
+        public void LogInfo(string message)
+        {
+            this._logger.Info(message);
+        }
     }
 
     public class LicenseInfo
     {
         public bool IsValid { get; private set; }
+        /// <summary>
+        /// the id of the license
+        /// </summary>
         public string Id { get; private set; }
+        /// <summary>
+        /// The registred date
+        /// </summary>
         public DateTime RegisteredDate { get; private set; }
+        /// <summary>
+        /// The expired date
+        /// </summary>
+        public DateTime ExpiredDate { get; private set; }
+        /// <summary>
+        /// The user name or email
+        /// </summary>
         public string Key { get; private set; }
+        /// <summary>
+        /// The expired period
+        /// </summary>
         public int Expires { get; private set; }
-
+        /// <summary>
+        /// The error message, if IsValid = true then empty
+        /// </summary>
         public string Message { get; private set; }
+
+        /// <summary>
+        /// The max number of the region entries being allowed to add
+        /// </summary>
+        public int MaxRegions { get; private set; }
 
         public LicenseInfo(string plainLicenseInfo)
         {
@@ -152,7 +263,7 @@ namespace CIMEL.Chart
             }
 
             string[] paras = plainLicenseInfo.Split(new char[] { '|' });
-            if (paras.Length < 4)
+            if (paras.Length < 6)
             {
                 this.IsValid = false;
                 this.Message = "注册信息无效";
@@ -161,12 +272,22 @@ namespace CIMEL.Chart
 
             this.Id = paras[0];
             this.Key = paras[1];
+
             int intExpires;
             if (!int.TryParse(paras[2], out intExpires)) intExpires = -1;
             this.Expires = intExpires;
+
             DateTime dtRegisteredDate;
             if (!DateTime.TryParse(paras[3], out dtRegisteredDate)) dtRegisteredDate = DateTime.MinValue;
             this.RegisteredDate = dtRegisteredDate;
+
+            int intRegions;
+            if (!int.TryParse(paras[4], out intRegions)) intRegions = -1;
+            this.MaxRegions = intRegions;
+
+            DateTime dtExpiredDate;
+            if (!DateTime.TryParse(paras[5], out dtExpiredDate)) dtExpiredDate = DateTime.MinValue;
+            this.ExpiredDate = dtExpiredDate;
 
             Guid guid;
             if(string.IsNullOrEmpty(this.Id)||!Guid.TryParse(this.Id,out guid))
@@ -178,21 +299,35 @@ namespace CIMEL.Chart
             if (string.IsNullOrEmpty(this.Key))
             {
                 this.IsValid = false;
-                this.Message = "注册信息无效";
+                this.Message = "注册信息无效：无用户名或邮箱";
                 return;
             }
 
             if (this.Expires<0)
             {
                 this.IsValid = false;
-                this.Message = "注册信息无效";
+                this.Message = "注册信息无效：有效期无效";
                 return;
             }
 
             if (this.RegisteredDate == DateTime.MinValue)
             {
                 this.IsValid = false;
-                this.Message = "注册信息无效";
+                this.Message = "注册信息无效：注册日期无效";
+                return;
+            }
+
+            if (this.MaxRegions < 0)
+            {
+                this.IsValid = false;
+                this.Message = "注册信息无效：最大站点数无效";
+                return;
+            }
+
+            if (this.ExpiredDate == DateTime.MinValue)
+            {
+                this.IsValid = false;
+                this.Message = "注册信息无效：过期日期无效";
                 return;
             }
 
@@ -210,7 +345,7 @@ namespace CIMEL.Chart
             }
 
             string[] arryLicenseInfo = plainLicense.Split(new char[] { '|' });
-            if (arryLicenseInfo.Length < 3)
+            if (arryLicenseInfo.Length < 4)
             {
                 this.IsValid = false;
                 this.Message = "注册码无效";
@@ -224,6 +359,10 @@ namespace CIMEL.Chart
                 expires = -1;
             this.Expires = expires;
             this.RegisteredDate = registered;
+            int intRegions;
+            if (!int.TryParse(arryLicenseInfo[3], out intRegions))
+                expires = -1;
+            this.MaxRegions = intRegions;
 
             Guid guid;
             if (string.IsNullOrEmpty(this.Id) || !Guid.TryParse(this.Id, out guid))
@@ -253,6 +392,14 @@ namespace CIMEL.Chart
                 return;
             }
 
+            if (this.MaxRegions < 0)
+            {
+                this.IsValid = false;
+                this.Message = "最大站点数无效";
+                return;
+            }
+
+            this.ExpiredDate = this.RegisteredDate.AddMonths(this.Expires);
 
             this.IsValid = true;
             this.Message = string.Empty;
@@ -266,7 +413,7 @@ namespace CIMEL.Chart
 
         public override string ToString()
         {
-            return string.Format("{0}|{1}|{2}|{3:yyyy-MM-dd HH:mm:ss.fff}", Id, Key, Expires, RegisteredDate);
+            return string.Format("{0}|{1}|{2}|{3:yyyy-MM-dd HH:mm:ss.fff}|{4}|{5:yyyy-MM-dd HH:mm:ss.fff}", Id, Key, Expires, RegisteredDate,MaxRegions,ExpiredDate);
         }
 
         public void SetStatus(bool isValid, string message)

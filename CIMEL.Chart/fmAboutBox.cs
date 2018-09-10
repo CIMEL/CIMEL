@@ -20,6 +20,12 @@ namespace CIMEL.Chart
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
+
+            LicenseInfo actived = Register.Singleton.CheckLicense();
+            string expires = Register.Singleton.GetExpiresLabel(actived.Expires);
+            this.lblExpiredDate.Text = actived.IsValid
+                ? string.Format("有效期: {0} 过期日期: {1:yyyy年MM月dd日}",expires, actived.ExpiredDate)
+                : actived.Message;
         }
 
         #region Assembly Attribute Accessors
