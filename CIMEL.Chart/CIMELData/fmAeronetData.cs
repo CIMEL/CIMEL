@@ -138,9 +138,7 @@ namespace CIMEL.Chart
         /// <param name="e"></param>
         private void btAction_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is working
-            if (!CIMELDog.Default.IsAlive(true))
-                return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // launch process dialog
             using (fmDataProcessDialog fmDataProcessDlg = new fmDataProcessDialog())
@@ -157,9 +155,8 @@ namespace CIMEL.Chart
         /// <param name="e"></param>
         private void btnImport_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             var selectedFolder = this.GetSelectedFolder();
             if (selectedFolder == null)
             {
@@ -194,9 +191,8 @@ namespace CIMEL.Chart
         /// <param name="e"></param>
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             var selectedFolder = this.GetSelectedFolder();
             if (selectedFolder == null)
             {
@@ -212,9 +208,9 @@ namespace CIMEL.Chart
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             this.DialogResult = DialogResult.Cancel;
         }
 
@@ -233,9 +229,9 @@ namespace CIMEL.Chart
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             using (var fmOptions=new fmOptions())
             {
                 fmOptions.StartPosition = FormStartPosition.CenterParent;

@@ -26,8 +26,7 @@ namespace CIMEL.Chart.Options
 
         private void fmOptions_Closing(object sender, CancelEventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // prevent it from closing if the options are not initialized
             if (!ConfigOptions.Singleton.IsInitialized)
@@ -35,7 +34,7 @@ namespace CIMEL.Chart.Options
                 if (this.AllowForceExit)
                 {
                     if (DialogResult.No ==
-                        MessageBox.Show(this, "抱歉，参数配置没有完成程序无法启动，确定要退出吗?\r\n[Yes]关闭程序\r\n[No]继续设置参数",
+                        MessageBox.Show(this, "抱歉，参数配置没有完成程序无法启动，确定要退出吗?\r\n[是]关闭程序\r\n[否]继续设置参数",
                             Settings.Default.FM_OPTION_CONFIG_TEXT, MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question))
                         e.Cancel = true;
@@ -55,16 +54,14 @@ namespace CIMEL.Chart.Options
 
         private void fmOptions_Load(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.Init();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             string validationMsg = ConfigOptions.Singleton.ValidateDirs();
             if (!string.IsNullOrEmpty(validationMsg))
@@ -87,16 +84,15 @@ namespace CIMEL.Chart.Options
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.DialogResult = DialogResult.Cancel;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             ConfigOptions.Singleton.Refresh();
             this.Init();
@@ -104,8 +100,8 @@ namespace CIMEL.Chart.Options
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             if (e.ChangedItem.GridItemType != GridItemType.Property) return;
 

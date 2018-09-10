@@ -39,6 +39,8 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -130,15 +132,29 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registerStripMenuItem,
+            this.toolStripSeparator2,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.helpToolStripMenuItem.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_HELP_TEXT;
             // 
+            // registerStripMenuItem
+            // 
+            this.registerStripMenuItem.Name = "registerStripMenuItem";
+            this.registerStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registerStripMenuItem.Text = "注册(&R)...";
+            this.registerStripMenuItem.Click += new System.EventHandler(this.registerStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_ABOUT_TEXT;
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -278,7 +294,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 8;
-            this.label3.Text = "站台:";
+            this.label3.Text = "站点:";
             // 
             // cmbRegions
             // 
@@ -377,6 +393,8 @@
         private System.Windows.Forms.Button btnNextChartSet;
         private System.Windows.Forms.Button btnNextState;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem registerStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

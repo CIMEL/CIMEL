@@ -12,7 +12,7 @@ namespace CIMEL.Chart.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -61,7 +61,7 @@ namespace CIMEL.Chart.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("站台配置")]
+        [global::System.Configuration.DefaultSettingValueAttribute("站点配置")]
         public string FM_REGION_CONFIG_TEXT {
             get {
                 return ((string)(this["FM_REGION_CONFIG_TEXT"]));
@@ -241,7 +241,7 @@ namespace CIMEL.Chart.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("站台配置(&R)...")]
+        [global::System.Configuration.DefaultSettingValueAttribute("站点配置(&R)...")]
         public string BTN_REGIONS_TEXT {
             get {
                 return ((string)(this["BTN_REGIONS_TEXT"]));

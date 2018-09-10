@@ -235,8 +235,8 @@ namespace CIMEL.Chart.CIMELData
         {
             try
             {
-                // checks if the super dog is still working
-                var isActived = CIMELDog.Default.IsAlive();
+                // checks if the state is active
+                var isActived = ActiveChecker.Singleton.IsActive(true);
                 if(!isActived)
                     throw new DogException(isActived.Message);
 
@@ -253,8 +253,8 @@ namespace CIMEL.Chart.CIMELData
 
                 bool sucess = false;
 
-                // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
+                // checks if the state is active
+                isActived = ActiveChecker.Singleton.IsActive(true);
                 if (!isActived)
                     throw new DogException(isActived.Message);
 
@@ -278,7 +278,7 @@ namespace CIMEL.Chart.CIMELData
                 if ((paras.WorkType & WorkType.CreateOnly) == WorkType.CreateOnly)
                 {
                     // checks if the super dog is still working
-                    isActived = CIMELDog.Default.IsAlive();
+                    isActived = ActiveChecker.Singleton.IsActive(true);
                     if (!isActived)
                         throw new DogException(isActived.Message);
 
@@ -297,7 +297,7 @@ namespace CIMEL.Chart.CIMELData
                 if ((paras.WorkType & WorkType.MainOnly) == WorkType.MainOnly)
                 {
                     // checks if the super dog is still working
-                    isActived = CIMELDog.Default.IsAlive();
+                    isActived = ActiveChecker.Singleton.IsActive(true);
                     if (!isActived)
                         throw new DogException(isActived.Message);
 
@@ -313,7 +313,7 @@ namespace CIMEL.Chart.CIMELData
                 }
 
                 // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
+                isActived = ActiveChecker.Singleton.IsActive(true);
                 if (!isActived)
                     throw new DogException(isActived.Message);
 
@@ -343,7 +343,7 @@ namespace CIMEL.Chart.CIMELData
                         throw new WorkFailedException();
 
                     // checks if the super dog is still working
-                    isActived = CIMELDog.Default.IsAlive();
+                    isActived = ActiveChecker.Singleton.IsActive(true);
                     if (!isActived)
                         throw new DogException(isActived.Message);
 
@@ -361,7 +361,7 @@ namespace CIMEL.Chart.CIMELData
                 if ((paras.WorkType & WorkType.SplitOnly) == WorkType.SplitOnly)
                 {
                     // checks if the super dog is still working
-                    isActived = CIMELDog.Default.IsAlive();
+                    isActived = ActiveChecker.Singleton.IsActive(true);
                     if (!isActived)
                         throw new DogException(isActived.Message);
                     // Run process of Splitter
@@ -377,7 +377,7 @@ namespace CIMEL.Chart.CIMELData
                 }
 
                 // checks if the super dog is still working
-                isActived = CIMELDog.Default.IsAlive();
+                isActived = ActiveChecker.Singleton.IsActive(true);
                 if (!isActived)
                     throw new DogException(isActived.Message);
 

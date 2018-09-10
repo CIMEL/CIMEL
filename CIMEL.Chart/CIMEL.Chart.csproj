@@ -31,7 +31,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -51,11 +51,12 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup />
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationIcon>CIMLE2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -78,10 +79,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveChecker.cs" />
     <Compile Include="ArgumentException.cs" />
-    <Compile Include="CIMELConst.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="CIMELConst.cs" />
     <Compile Include="CIMELData\DataWorker.cs" />
     <Compile Include="CIMELData\FileViewer.cs">
       <SubType>UserControl</SubType>
@@ -132,6 +132,12 @@
     <Compile Include="fmMain.Designer.cs">
       <DependentUpon>fmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="fmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmRegister.Designer.cs">
+      <DependentUpon>fmRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="Options\ConfigOptions.cs" />
     <Compile Include="Options\fmOptions.cs">
       <SubType>Form</SubType>
@@ -150,6 +156,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySorter.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +187,9 @@
     <EmbeddedResource Include="fmMain.resx">
       <DependentUpon>fmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fmRegister.resx">
+      <DependentUpon>fmRegister.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Options\fmOptions.resx">
       <DependentUpon>fmOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -203,6 +213,9 @@
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ILMerge.bat" />
     <None Include="Options\options.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -222,6 +235,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Options\regions.json.all" />
+    <None Include="Resources\rsa" />
+    <None Include="Resources\rsa.pub" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CIMEL.Core\CIMEL.Core.csproj">
@@ -231,6 +246,10 @@
     <ProjectReference Include="..\CIMEL.Dog\CIMEL.Dog.csproj">
       <Project>{4ef6f4ff-385a-4bc9-b0a6-b482bb3b5aa7}</Project>
       <Name>CIMEL.Dog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CIMEL.RSA\CIMEL.RSA.csproj">
+      <Project>{a3d7c138-e4df-4b0d-9430-e07d2f0ba334}</Project>
+      <Name>CIMEL.RSA</Name>
     </ProjectReference>
     <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
       <Project>{f594087c-8118-4931-9af4-2f1033635417}</Project>

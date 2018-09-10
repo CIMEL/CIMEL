@@ -42,8 +42,7 @@ namespace CIMEL.Chart
 
         private void tsCmbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // disable the combo box of day
             this.tsCmbDay.Enabled = false;
@@ -142,8 +141,7 @@ namespace CIMEL.Chart
 
         private void tsCmbDay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             // disable the chart panel
             this.DisableChart();

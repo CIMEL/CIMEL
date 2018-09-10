@@ -18,6 +18,8 @@ namespace CIMEL.Chart.Options
         private string _currentSelected=string.Empty;
         // if true, it is editing a new region instance
         private bool _isNew=false;
+
+        private LicenseInfo _activeLicense;
         public fmRegions()
         {
             InitializeComponent();
@@ -25,16 +27,15 @@ namespace CIMEL.Chart.Options
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             this.DialogResult=DialogResult.Cancel;
         }
 
         private void fmRegions_Load(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.LoadRegions();
         }
@@ -79,12 +80,18 @@ namespace CIMEL.Chart.Options
 
             }
 
+            // display the max number of regions
+            this._activeLicense = Register.Singleton.CheckLicense();
+            if (this._activeLicense.IsValid)
+                lblMaxRegions.Text = string.Format("最大站点数：{0}", this._activeLicense.MaxRegions);
+            else
+                lblMaxRegions.Text = "最大站点数：未知";
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             var items = this.listView1.SelectedItems;
             if(items.Count==0) return;
@@ -141,13 +148,13 @@ namespace CIMEL.Chart.Options
         {
             if (string.IsNullOrEmpty(name))
             {
-                this.ShowAlert(@"请选择要删除的站台", DLG_TITLE_ERROR);
+                this.ShowAlert(@"请选择要删除的站点", DLG_TITLE_ERROR);
                 return false;
             }
 
             if (!this._regions.ContainsKey(name))
             {
-                this.ShowAlert(@"数据异常，请重新刷新站台数据", DLG_TITLE_ERROR);
+                this.ShowAlert(@"数据异常，请重新刷新站点数据", DLG_TITLE_ERROR);
                 return false;
             }
 
@@ -160,16 +167,22 @@ namespace CIMEL.Chart.Options
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
             this.LoadRegions();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
+            if (this._regions.Count >= this._activeLicense.MaxRegions)
+            {
+                this.ShowAlert(@"无法新建站点，已达最大站点数！", DLG_TITLE);
+                return;
+            }
 
             // reset selected item
             this._currentSelected = string.Empty;
@@ -207,10 +220,10 @@ namespace CIMEL.Chart.Options
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
 
-            bool saved=this.SaveRegions();
+            bool saved = this.SaveRegions();
 
             if (saved)
             {
@@ -221,9 +234,9 @@ namespace CIMEL.Chart.Options
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            // checks if the super dog is still working
-            if (!CIMELDog.Default.IsAlive(true)) return;
-            
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
             bool deleted = this.DeleteRegion(this._currentSelected);
 
             if (deleted)

@@ -31,14 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmRegions));
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.lblMaxRegions = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listView1
@@ -48,8 +49,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader2});
             this.listView1.Location = new System.Drawing.Point(14, 16);
             this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listView1.MultiSelect = false;
@@ -65,15 +66,15 @@
             this.columnHeader1.Text = "名称";
             this.columnHeader1.Width = 100;
             // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "纬度 (Lat)";
-            this.columnHeader2.Width = 80;
-            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "经度 (Lon)";
             this.columnHeader3.Width = 80;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "纬度 (Lat)";
+            this.columnHeader2.Width = 80;
             // 
             // propertyGrid1
             // 
@@ -82,6 +83,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(362, 16);
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.NoSort;
             this.propertyGrid1.Size = new System.Drawing.Size(244, 430);
             this.propertyGrid1.TabIndex = 1;
             this.propertyGrid1.ToolbarVisible = false;
@@ -145,11 +147,21 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // lblMaxRegions
+            // 
+            this.lblMaxRegions.AutoSize = true;
+            this.lblMaxRegions.Location = new System.Drawing.Point(11, 461);
+            this.lblMaxRegions.Name = "lblMaxRegions";
+            this.lblMaxRegions.Size = new System.Drawing.Size(68, 17);
+            this.lblMaxRegions.TabIndex = 7;
+            this.lblMaxRegions.Text = "最大站点数";
+            // 
             // fmRegions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(619, 497);
+            this.Controls.Add(this.lblMaxRegions);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnNew);
@@ -166,6 +178,7 @@
             this.Text = global::CIMEL.Chart.Properties.Settings.Default.FM_REGION_CONFIG_TEXT;
             this.Load += new System.EventHandler(this.fmRegions_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -181,5 +194,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Label lblMaxRegions;
     }
 }
