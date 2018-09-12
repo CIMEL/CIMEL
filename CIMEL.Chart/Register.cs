@@ -127,9 +127,10 @@ namespace CIMEL.Chart
             DateTime dtRegistered = licenseKey.RegisteredDate;
             DateTime current = DateTime.Now;
             if (current < dtRegistered) return new LicenseInfo(false, "无效注册信息");
-            int expires = licenseKey.Expires;
-            int used= Math.Abs((current.Month - dtRegistered.Month) + 12 * (current.Year - dtRegistered.Year));
-            if (used > expires)
+            // int expires = licenseKey.Expires;
+            // int used= Math.Abs((current.Month - dtRegistered.Month) + 12 * (current.Year - dtRegistered.Year));
+            // if (used >= expires)
+            if (current >= licenseKey.ExpiredDate)
                 licenseKey.SetStatus(false, "已过期");
 
             return licenseKey;
@@ -418,7 +419,7 @@ namespace CIMEL.Chart
 
         public void SetStatus(bool isValid, string message)
         {
-            this.IsValid = IsValid;
+            this.IsValid = isValid;
             this.Message = message;
         }
     }
