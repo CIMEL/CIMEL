@@ -86,7 +86,6 @@ namespace CIMEL.Chart
                 MessageBox.Show(this, "请输入注册码", "注册", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             LicenseInfo info = Register.Singleton.DoRegister(encryptedLicese);
             if (info.IsValid)
             {
@@ -95,11 +94,11 @@ namespace CIMEL.Chart
                 txtExpires.Text = Register.Singleton.GetExpiresLabel(info.Expires);
                 txtExpiredDate.Text = info.ExpiredDate.ToString("yyyy年MM月dd日");
                 txtMaxRegions.Text = info.MaxRegions.ToString();
-                MessageBox.Show(this, string.Format("注册成功！有效期{0}", txtExpires.Text), "关于", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, string.Format("注册成功！有效期{0}", txtExpires.Text), "注册", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(this, info.Message, "关于", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, info.Message, "注册", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -130,6 +129,12 @@ namespace CIMEL.Chart
                     }
                 }
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            linkLabel1.LinkVisited = true;
+            System.Diagnostics.Process.Start(string.Format("mailto://{0}",linkLabel1.Text));
         }
     }
 }
