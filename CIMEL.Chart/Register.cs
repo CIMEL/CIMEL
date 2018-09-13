@@ -40,7 +40,7 @@ namespace CIMEL.Chart
             }
         }
 
-        public LicenseInfo GetActivedLicense()
+        private LicenseInfo GetActivedLicense()
         {
             LicenseInfo actived = null;
 
@@ -71,29 +71,39 @@ namespace CIMEL.Chart
             }
 
             if (!actived.IsValid) return actived;
+            List<string> lstKeys;
+            try
+            {
+                lstKeys = this.GetKeys();
+                if (lstKeys.Contains(actived.Id))
+                    return new LicenseInfo(false, "已注册，不能重复注册。");
 
-            List<string> lstKeys = this.GetKeys();
-            if (lstKeys.Contains(actived.Id))
-                return new LicenseInfo(false, "已注册，不能重复注册。");
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                return new LicenseInfo(false, "分析注册码失败");
+            }
 
-            RegistryKey reg = Registry.LocalMachine.CreateSubKey(REG);
-            // update active license
-            string plainLiceseInfo = actived.ToString();
-            string encryptedLicenseInfo = Encryptor.Singleton.EncryptText(plainLiceseInfo, this._RSAKeys.PublicKey);
-            reg.SetValue(REG_ACTIVE, encryptedLicenseInfo, RegistryValueKind.String);
+            try
+            {
+                // update active license
+                this.SaveLicense(actived);
 
-            //update keys
-            lstKeys.Add(actived.Id);
-            string keys = string.Join(",", lstKeys);
-            string encryptedKeys= Encryptor.Singleton.EncryptText(keys, this._RSAKeys.PublicKey);
-            reg.SetValue(REG_KEYS, encryptedKeys, RegistryValueKind.String);
-            reg.Close();
+                //update keys
+                this.SaveKeys(lstKeys, actived.Id);
+            }
+            catch(Exception ex)
+            {
+                LogError(ex);
+                return new LicenseInfo(false, "注册失败");
+            }
 
             return actived;
 
         }
 
-        public List<string> GetKeys()
+        private List<string> GetKeys()
         {
             List<string> keys = null;
 
@@ -109,12 +119,36 @@ namespace CIMEL.Chart
                 keys = new List<string>();
                 return keys;
             }
-
-            string strKeys = Encryptor.Singleton.DecryptText(encryptedKeys, this._RSAKeys.PrivateKey);
-            string[] arryKeys = strKeys.Split(new char[] { ',' });
+            // don't need to decrypt the list of Id as they are stored in plain
+            // string strKeys = Encryptor.Singleton.DecryptText(encryptedKeys, this._RSAKeys.PrivateKey);
+            string[] arryKeys = encryptedKeys.Split(new char[] { ',' });
             keys = new List<string>(arryKeys);
 
             return keys;
+        }
+
+        private void SaveLicense(LicenseInfo licenseInfo)
+        {
+            RegistryKey reg = Registry.LocalMachine.CreateSubKey(REG);
+            string plainLiceseInfo = licenseInfo.ToString();
+            string encryptedLicenseInfo = Encryptor.Singleton.EncryptText(plainLiceseInfo, this._RSAKeys.PublicKey);
+            reg.SetValue(REG_ACTIVE, encryptedLicenseInfo, RegistryValueKind.String);
+            reg.Close();
+        }
+
+        private void SaveKeys(List<string> lstKeys,string newKey)
+        {
+            // remember the latest 10 keys, the new key will append the list of keys and the oldest key will be pop up out
+            int maxKeys = 10;
+            if (lstKeys.Count >= maxKeys)
+                lstKeys.RemoveAt(0);
+            lstKeys.Add(newKey);
+            string keys = string.Join(",", lstKeys);
+            // don't encrypted the keys any more as the maximum data length limitation
+            // string encryptedKeys= Encryptor.Singleton.EncryptText(keys, this._RSAKeys.PublicKey);
+            RegistryKey reg = Registry.LocalMachine.CreateSubKey(REG);
+            reg.SetValue(REG_KEYS, keys, RegistryValueKind.String);
+            reg.Close();
         }
 
         public LicenseInfo CheckLicense(LicenseInfo licenseKey=null)
@@ -203,19 +237,19 @@ namespace CIMEL.Chart
             this._logger.Debug(message);
         }
 
-        public void LogError(string message)
+        private void LogError(string message)
         {
             this._logger.Error(message);
             // todo: show dog's session info
         }
 
-        public void LogError(Exception ex)
+        private void LogError(Exception ex)
         {
             this._logger.Error(ex);
             // todo: show dog's session info
         }
 
-        public void LogInfo(string message)
+        private void LogInfo(string message)
         {
             this._logger.Info(message);
         }
