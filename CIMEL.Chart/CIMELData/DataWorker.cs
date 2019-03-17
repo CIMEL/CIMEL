@@ -265,15 +265,18 @@ namespace CIMEL.Chart.CIMELData
                 string strArchiveName = string.Format("{0}_{1}_{2:yyyyMMdd}", paras.STNS_FN, paras.STNS_ID, DateTime.Now);
                 string strArchiveRoot = Path.Combine(strInputRoot, strArchiveName);
 
-                // clean up input folder at the begining
-                sucess = RunInputCleaner(paras, strInputRoot, strArchiveRoot);
-                lock (_stateLocker)
+                if ((paras.WorkType & WorkType.CleanOnly) == WorkType.CleanOnly)
                 {
-                    if (_isStopped)
-                        throw new WorkCancelException();
+                    // clean up input folder at the begining
+                    sucess = RunInputCleaner(paras, strInputRoot, strArchiveRoot);
+                    lock (_stateLocker)
+                    {
+                        if (_isStopped)
+                            throw new WorkCancelException();
+                    }
+                    if (!sucess)
+                        throw new WorkFailedException();
                 }
-                if (!sucess)
-                    throw new WorkFailedException();
 
                 if ((paras.WorkType & WorkType.CreateOnly) == WorkType.CreateOnly)
                 {
@@ -709,13 +712,14 @@ namespace CIMEL.Chart.CIMELData
     [Flags]
     public enum WorkType
     {
-        CreateOnly=1,
-        MainOnly=2,
-        DrawOnly=4,
-        SplitOnly=8,
-        Create = CreateOnly,
-        Main = CreateOnly|MainOnly,
-        Draw = CreateOnly|MainOnly|DrawOnly,
-        Split = CreateOnly | MainOnly | DrawOnly | SplitOnly
+        CleanOnly = 1,
+        CreateOnly = 2,
+        MainOnly = 4,
+        DrawOnly = 8,
+        SplitOnly = 16,
+        Create = CleanOnly | CreateOnly,
+        Main = CleanOnly | CreateOnly | MainOnly,
+        Draw = CleanOnly | CreateOnly | MainOnly | DrawOnly,
+        Split = CleanOnly | CreateOnly | MainOnly | DrawOnly | SplitOnly
     }
 }
