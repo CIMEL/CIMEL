@@ -39,7 +39,7 @@
             "fields": "0.050,0.066,0.086,0.113,0.148,0.194,0.255,0.335,0.439,0.576,0.756,0.992,1.302,1.708,2.241,2.940,3.857,5.051,6.641,8.713,11.43,15.00",
             "axisXLabels": "0.050,0.086,0.148,0.255,0.439,0.756,1.302,2.241,3.857,6.641,11.43",
             "axisXs": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
-            "notes": "体积谱分布",
+            "notes": "体积谱粒子谱分布",
             "notesX": "Radius (μm)",
             "notesY": "Volume Size Distribution (μm^3/μm^2)",
             "index": 0
@@ -48,6 +48,7 @@
             "name": "SSA",
             "description": "Single Scattering Albedo",
             "type": 1,
+            "notes": "单次散射反照率（T总体，F细粒子，C粗粒子，T是F和C的乘以百分比加和）",
             "subcharts": "SSA-T|SSA-F|SSA-C",
             "index": 1
         },
@@ -57,6 +58,7 @@
             "fields": "ssat440,ssat670,ssat870,ssat1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
+            "notes": "单次散射反照率（T总体，F细粒子，C粗粒子，T是F和C的乘以百分比加和）",
             "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Total)",
             "index": 1
@@ -67,6 +69,7 @@
             "fields": "ssaf440,ssaf670,ssaf870,ssaf1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
+            "notes": "单次散射反照率（T总体，F细粒子，C粗粒子，T是F和C的乘以百分比加和）",
             "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Fine)",
             "index": 1
@@ -77,6 +80,7 @@
             "fields": "ssac440,ssac670,ssac870,ssac1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
+            "notes": "单次散射反照率（T总体，F细粒子，C粗粒子，T是F和C的乘以百分比加和）",
             "notesX": "Wavelength (nm)",
             "notesY": "Single Scattering Albedo (Coarse)",
             "index": 1
@@ -86,6 +90,7 @@
             "description": "Refractive Index (Real)",
             "fields": "real440,real670,real870,real1020",
             "axisXs": "440,670,870,1020",
+            "notes": "复折射指数实部",
             "notesX": "Wavelength (nm)",
             "notesY": "Refractive Index (Real)",
             "index": 2
@@ -95,6 +100,7 @@
             "description": "Refractive Index (Imaginary)",
             "fields": "imag440,imag670,imag870,imag1020",
             "axisXs": "440,670,870,1020",
+            "notes": "复折射指数虚部",
             "notesX": "Wavelength (nm)",
             "notesY": "Refractive Index (Imaginary)",
             "index": 3
@@ -102,6 +108,7 @@
         {
             "name": "EXT",
             "description": "Extinction Optical Depth",
+            "notes": "利用天空光反演的AOD",
             "type": 1,
             "subcharts": "EXT-T|EXT-F|EXT-C",
             "index": 4
@@ -112,6 +119,7 @@
             "fields": "extt440,aod550,extt670,extt870,extt1020",
             "axisXs": "440,550,670,870,1020",
             "type": 2,
+            "notes": "利用天空光反演的AOD",
             "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Total)",
             "index": 4
@@ -122,6 +130,7 @@
             "fields": "extf440,extf670,extf870,extf1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
+            "notes": "利用天空光反演的AOD",
             "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Fine)",
             "index": 4
@@ -132,6 +141,7 @@
             "fields": "extc440,extc670,extc870,extc1020",
             "axisXs": "440,670,870,1020",
             "type": 2,
+            "notes": "利用天空光反演的AOD",
             "notesX": "Wavelength (nm)",
             "notesY": "Extinction Optical Depth (Coarse)",
             "index": 4
@@ -141,7 +151,7 @@
             "description": "AAOD",
             "fields": "aaod440,aaod550,aaod675,aaod870,aaod1020",
             "axisXs": "440,550,675,870,1020",
-            "notes": "吸收性光学厚度",
+            "notes": "吸收光学厚度",
             "notesY": "Absorption AOD",
             "notesX": "Wavelength (nm)",
             "index": 5
@@ -152,7 +162,7 @@
             "fields": "ae440/870,aae440/870",
             "axisXLabels": "AE,AAE",
             "axisXs": "500,1000",
-            "notes": "",
+            "notes": "波长指数/吸收波长指数",
             "notesY": "",
             "notesX": "",
             "index": 6
@@ -163,7 +173,7 @@
             "fields": "volt,volf,Volc",
             "axisXLabels": "Total,Fine,Coarse",
             "axisXs": "400,800,1200",
-            "notes": "粒子体积",
+            "notes": "粒子体积（T总体，F细粒子，C粗粒子）",
             "notesY": "Volume (μm^3)",
             "index": 7
         },
@@ -173,7 +183,7 @@
             "fields": "refft,refff,reffc",
             "axisXLabels": "Total,Fine,Coarse",
             "axisXs": "400,800,1200",
-            "notes": "有效半径",
+            "notes": "粒子有效半径（光学中起的作用）",
             "notesY": "Effective Radius (μm)",
             "index": 8
         },
@@ -183,7 +193,7 @@
             "fields": "rmeat,rmeaf,rmeac",
             "axisXLabels": "Total,Fine,Coarse",
             "axisXs": "400,800,1200",
-            "notes": "中值半径",
+            "notes": "粒子中值半径（中间的值）",
             "notesY": "Median Radius (μm)",
             "index": 9
         }
