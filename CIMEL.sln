@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.KeyGen", "CIMEL.KeyGe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Test", "CIMEL.Test\CIMEL.Test.csproj", "{AE55AFC4-3B14-4ABC-BCA0-F36F3CC330D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMEL.Figure", "CIMEL.Figure\CIMEL.Figure.csproj", "{D3659FF3-9D2E-49E9-B795-FA1501436150}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{AE55AFC4-3B14-4ABC-BCA0-F36F3CC330D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE55AFC4-3B14-4ABC-BCA0-F36F3CC330D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE55AFC4-3B14-4ABC-BCA0-F36F3CC330D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3659FF3-9D2E-49E9-B795-FA1501436150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3659FF3-9D2E-49E9-B795-FA1501436150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3659FF3-9D2E-49E9-B795-FA1501436150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3659FF3-9D2E-49E9-B795-FA1501436150}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
