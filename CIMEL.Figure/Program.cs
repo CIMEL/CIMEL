@@ -34,8 +34,20 @@ namespace CIMEL.Figure
                 //                                      object[] results = 
                 //                                    
                 string[] strOptions = new string[] { "440", "550", "675", "870", "1020" };
-                MWCellArray options = new MWCellArray(new MWCharArray(strOptions));
-                MWArray result= drawing.DrawMultiplelines(options,new MWLogicalArray(true));
+                MWCellArray dataOptions = new MWCellArray(new MWCharArray(strOptions));
+
+                MWCharArray strTitle = new MWCharArray("AAOD");
+
+                string[] strDates = new string[] { "2016-12-1", "2016-12-2" };
+                MWCellArray arrDates = new MWCellArray(new MWCharArray(strDates));
+                //{{'1:2:44';'1:18:35';'5:19:29'};{'1:4:1';'1:19:25';'3:19:37';'5:20:41';'6:19:5';'7:18:56';'7:39:18'}};
+                string[] strTimes=new string[]{"1:2:44","1:18:35", "5:19:29"};
+
+                MWCellArray arrTimes = new MWCellArray(2);
+                arrTimes[1] = new MWCellArray( new MWCharArray(new string[] { "1:2:44", "1:18:35", "5:19:29" }));
+                arrTimes[2]= new MWCellArray(new MWCharArray(new string[] { "1:4:1", "1:19:25" ,"3:19:37", "5:20:41","6:19:5", "7:18:56", "7:39:18" }));
+
+                MWArray result = drawing.DrawMultiplelines(strTitle, dataOptions, arrDates, arrTimes, new MWLogicalArray(true));
                 string file = result.ToString();
             }
             catch (Exception ex)
