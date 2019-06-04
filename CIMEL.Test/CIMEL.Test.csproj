@@ -54,10 +54,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CIMEL.Chart\CIMEL.Chart.csproj">
-      <Project>{0d66f1a8-f4be-4c21-948b-b738600d636d}</Project>
-      <Name>CIMEL.Chart</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CIMEL.Core\CIMEL.Core.csproj">
       <Project>{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}</Project>
       <Name>CIMEL.Core</Name>

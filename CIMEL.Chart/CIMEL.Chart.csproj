@@ -99,14 +99,12 @@
     <Compile Include="Chart\AeroChartPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Chart\ChartData.cs" />
     <Compile Include="Chart\ChartPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Chart\ChartPanel.Designer.cs">
       <DependentUpon>ChartPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Chart\ChartReader.cs" />
     <Compile Include="Chart\AeroChart.cs">
       <SubType>UserControl</SubType>
     </Compile>

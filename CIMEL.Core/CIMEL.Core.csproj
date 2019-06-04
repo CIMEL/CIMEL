@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartData.cs" />
+    <Compile Include="ChartReader.cs" />
     <Compile Include="CIMELFile.cs" />
     <Compile Include="DataConfigFile.cs" />
     <Compile Include="DataFile.cs" />

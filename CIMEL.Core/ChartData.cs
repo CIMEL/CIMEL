@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
-namespace CIMEL.Chart
+namespace CIMEL.Core
 {
     /// <summary>
     /// A line-data of a time point 
