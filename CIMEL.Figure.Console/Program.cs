@@ -8,7 +8,7 @@ using CIMEL.Core;
 using CIMELDraw;
 using MathWorks.MATLAB.NET.Arrays;
 
-namespace CIMEL.Figure
+namespace CIMEL.Figure.Console
 {
     class Program
     {
@@ -114,7 +114,7 @@ namespace CIMEL.Figure
         /// <param name="error"></param>
         private static void OnFailed(string error)
         {
-            Console.Error.WriteLine(error);
+            System.Console.Error.WriteLine(error);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace CIMEL.Figure
         /// <param name="info"></param>
         private static void OnInformed(string info)
         {
-            Console.Out.WriteLine(info);
+            System.Console.Out.WriteLine(info);
         }
 
         private static double ToDouble(string value)

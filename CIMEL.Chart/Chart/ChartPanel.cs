@@ -23,6 +23,8 @@ namespace CIMEL.Chart
         // the selected the chartdata
         private DataConfigFile _dataConfigFile;
 
+        private FigureType _figureType;
+
         public ChartPanel()
         {
             this.DataConfigFiles=new List<string>();
@@ -53,22 +55,35 @@ namespace CIMEL.Chart
             if (string.IsNullOrEmpty(this.tsCmbMonth.Text) || this.tsCmbMonth.Text == ComboBoxItem.EmptyItem.Text)
                 return; // do nothing
 
-            foreach (int day in this._dataConfigFile.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
+            // the combox of days just works for 2d
+            if (this._figureType == FigureType.TwoD)
             {
-                this.tsCmbDay.Items.Add(day);
+                foreach (int day in this._dataConfigFile.MonthAndDays[(int)this.tsCmbMonth.SelectedItem])
+                {
+                    this.tsCmbDay.Items.Add(day);
+                }
+                // insert empty item
+                this.tsCmbDay.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
+                // enable the combo box of day
+                this.tsCmbDay.Enabled = true;
+                // initial to select the empty item, defaults to select the first day having data
+                this.tsCmbDay.SelectedIndex = this.tsCmbDay.Items.Count > 1 ? 1 : 0;
             }
-            // insert empty item
-            this.tsCmbDay.Items.Insert(0, ComboBoxItem.EmptyItem.Text);
-            // enable the combo box of day
-            this.tsCmbDay.Enabled = true;
-            // initial to select the empty item, defaults to select the first day having data
-            this.tsCmbDay.SelectedIndex = this.tsCmbDay.Items.Count > 1 ? 1 : 0;
+            else {
+                // draw 3d
+                this.DrawChart();
+
+                this.EnableChart();
+            }
+
         }
 
-        public void Init()
+        public void Init(FigureType figureType)
         {
             try
             {
+                this._figureType = figureType;
+
                 //disiable the comboxes of month and day
                 this.tsCmbMonth.Enabled = false;
                 this.tsCmbDay.Enabled = false;
@@ -102,7 +117,7 @@ namespace CIMEL.Chart
                     // initial font
                     //var oFont = this.Font;
                     //chartPage.Font = new Font(oFont.FontFamily, 12);
-                    chartPage.Init();
+                    chartPage.Init(figureType);
 
                     this.tabControl1.TabPages.Add(chartPage);
                 }
@@ -114,7 +129,6 @@ namespace CIMEL.Chart
                     throw new NotImplementedException("初始化图像集文件失败");
                 // the label of year
                 this.lblYear.Text = this._dataConfigFile.Year.ToString();
-
 
                 // initial the combox of month
                 this.tsCmbMonth.Items.Clear();
@@ -162,7 +176,6 @@ namespace CIMEL.Chart
             
             int year = this._dataConfigFile.Year;
             int month = (int)this.tsCmbMonth.SelectedItem;
-            int day = (int)this.tsCmbDay.SelectedItem;
 
             foreach (var tabPage in this.tabControl1.TabPages)
             {
@@ -170,7 +183,15 @@ namespace CIMEL.Chart
                 if(aeroChartPage==null) continue;
                 try
                 {
-                    aeroChartPage.Draw(year, month, day);
+                    if (this._figureType == FigureType.TwoD)
+                    {
+                        int day = (int)this.tsCmbDay.SelectedItem;
+                        aeroChartPage.Draw(year, month, day);
+                    }
+                    else {
+                        int[] days = this._dataConfigFile.MonthAndDays[(int)this.tsCmbMonth.SelectedItem].ToArray();
+                        aeroChartPage.Draw(year, month, days);
+                    }
                     aeroChartPage.Refresh();
                 }
                 catch (Exception ex)

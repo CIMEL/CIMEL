@@ -37,6 +37,7 @@ namespace CIMEL.Chart
             this.cmbDataSets.SelectedIndexChanged += cmbDataSets_SelectedIndexChanged;
             this.cmbCharts.SelectedIndexChanged += cmbCharts_SelectedIndexChanged;
             this.cmbRegions.SelectedIndexChanged += cmbRegions_SelectedIndexChanged;
+            this.cmbModes.SelectedIndexChanged += CmbModes_SelectedIndexChanged;
         }
 
         private void fmMain_Load(object sender, EventArgs e)
@@ -64,15 +65,14 @@ namespace CIMEL.Chart
                 if (!string.IsNullOrEmpty(validationMsg))
                 {
                     this.ShowAlert(validationMsg, fmOptions.DLG_TITLE_ERROR);
-                }
-
-                using (fmOptions fmOptions = new fmOptions())
-                {
-                    fmOptions.AllowForceExit = true;
-                    fmOptions.StartPosition = FormStartPosition.CenterParent;
-                    if (DialogResult.Abort == fmOptions.ShowDialog(this))
+                    using (fmOptions fmOptions = new fmOptions())
                     {
-                        Application.Exit();
+                        fmOptions.AllowForceExit = true;
+                        fmOptions.StartPosition = FormStartPosition.CenterParent;
+                        if (DialogResult.Abort == fmOptions.ShowDialog(this))
+                        {
+                            Application.Exit();
+                        }
                     }
                 }
             }
@@ -321,6 +321,7 @@ namespace CIMEL.Chart
         {
             this.cmbDataSets.Enabled = enable;
             this.btnNextChartSet.Enabled = enable;
+            this.btnScan.Enabled = enable;
         }
 
         #endregion
@@ -354,8 +355,28 @@ namespace CIMEL.Chart
                         return Path.Combine(strRoot, this._currentFile.Path, string.Format("{0}.{1}", cn, "dataconfig"));
                     })
                 .ToList());
+
+            FigureType figureType = (FigureType)cmbModes.SelectedIndex;
+
             // !!! don't forget to initial the chart panel
-            this.chartPanel1.Init();
+            this.chartPanel1.Init(figureType);
+            // enable the panel
+            this.chartPanel1.Enable();
+        }
+
+        private void CmbModes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // checks if the state is active
+            if (!ActiveChecker.Singleton.IsActive(true)) return;
+
+            if (!cmbModes.Enabled) return;
+            // disable the chart panel
+            this.chartPanel1.Disable();
+
+            FigureType figureType = (FigureType)cmbModes.SelectedIndex;
+
+            // !!! don't forget to initial the chart panel
+            this.chartPanel1.Init(figureType);
             // enable the panel
             this.chartPanel1.Enable();
         }
@@ -364,6 +385,9 @@ namespace CIMEL.Chart
         {
             this.cmbCharts.Enabled = enable;
             this.btnNextChart.Enabled = enable;
+            this.cmbModes.Enabled = enable;
+            if (!enable)
+                this.cmbModes.SelectedIndex = 0;
         }
 
         private void btnNextChart_Click(object sender, EventArgs e)

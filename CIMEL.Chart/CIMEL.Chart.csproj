@@ -81,6 +81,13 @@
   <ItemGroup>
     <Compile Include="ActiveChecker.cs" />
     <Compile Include="ArgumentException.cs" />
+    <Compile Include="Chart\FigureType.cs" />
+    <Compile Include="Chart\ThreeDChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Chart\ThreeDChart.Designer.cs">
+      <DependentUpon>ThreeDChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="CIMELConst.cs" />
     <Compile Include="CIMELData\DataWorker.cs" />
     <Compile Include="CIMELData\FileViewer.cs">
@@ -164,6 +171,9 @@
     <Compile Include="Utility.cs" />
     <Compile Include="WorkCancelException.cs" />
     <Compile Include="WorkFailedException.cs" />
+    <EmbeddedResource Include="Chart\ThreeDChart.resx">
+      <DependentUpon>ThreeDChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CIMELData\FileViewer.resx">
       <DependentUpon>FileViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -245,6 +255,10 @@
       <Project>{4ef6f4ff-385a-4bc9-b0a6-b482bb3b5aa7}</Project>
       <Name>CIMEL.Dog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CIMEL.Figure\CIMEL.Figure.csproj">
+      <Project>{23a3d26f-7a82-4bfd-b82c-c8ae44f1cf38}</Project>
+      <Name>CIMEL.Figure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CIMEL.RSA\CIMEL.RSA.csproj">
       <Project>{a3d7c138-e4df-4b0d-9430-e07d2f0ba334}</Project>
       <Name>CIMEL.RSA</Name>
@@ -298,14 +312,13 @@
     <PostBuildEvent>XCOPY /Y "$(SolutionDir)CIMEL.Draw\$(OutDir)Draw$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)Splitter$(TargetExt)" "$(TargetDir)CIMELData"
 XCOPY /Y "$(SolutionDir)CIMEL.Splitter\$(OutDir)chartmappings.json" "$(TargetDir)CIMELData"
+XCOPY /Y "$(SolutionDir)Matlablib\MWArray.dll" "$(TargetDir)"
 $(ProjectDir)ILMerge.bat $(SolutionDir) $(TargetDir)
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetDir)CIMELData\Draw.exe" del "$(TargetDir)CIMELData\Draw.exe"
-
 if exist "$(TargetDir)CIMELData\Splitter.exe" del "$(TargetDir)CIMELData\Splitter.exe"
-
 if exist "$(TargetDir)CIMELData\chartmappings.json" del "$(TargetDir)CIMELData\chartmappings.json"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
