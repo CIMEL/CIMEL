@@ -25,6 +25,7 @@ namespace CIMEL.Chart.Chart
         private string _dataFolder;
         private DataConfigFile _objDataConfigFile;
         private MultipleLinePlot _3dLines;
+        private Surface _3dsurface;
         private FigureType _figureType;
         private Label _lblmessage;
 
@@ -41,6 +42,8 @@ namespace CIMEL.Chart.Chart
             // this._figureType = figureType;
             this._3dLines = new MultipleLinePlot();
             this._3dLines.Info += OnInfo;
+            this._3dsurface = new Surface();
+            this._3dsurface.Info += OnInfo;
             this.Init(true);
         }
 
@@ -77,61 +80,118 @@ namespace CIMEL.Chart.Chart
             string figureFile = string.Empty;
             string cachePath = this.GetCachePath();
 
-            if (this._figureType == FigureType.ThreeDLines) {
-                // load from cache
-                string figureName = MultipleLinePlot.FigureName(this.DataConfigFile.Name, year, month, days);
-                string cacheFile = Path.Combine(cachePath, figureName);
-                if (File.Exists(cacheFile))
-                {
-                    figureFile = cacheFile;
-                    showImage(figureFile);
-                }
-                else
-                {
-                    this._lblmessage.Visible = true;
-                    Task draw = Task.Factory.StartNew<string>(() =>
-                    {
-                        string result = this._3dLines.Draw(year, month, days, this.DataConfigFile, this.DataFolder);
-                        // move to cache
-                        File.Move(result, cacheFile);
-                        // make sure it's moved
-                        if (File.Exists(cacheFile))
-                            result = cacheFile;
-                        else
-                        {
-                            // as the moving action is failed, do nothing
-                        }
-                        return result;
-                    })
-                    .ContinueWith(t =>
-                    {
-                        string file = string.Empty;
-                        if (t.Exception != null) {
-                            string error = t.Exception.InnerException != null ? t.Exception.InnerException.Message :
-                            t.Exception.Message;
-                            this.ShowAlert(error, @"3D图错误");
-                        }
-                        else
-                            file = t.Result;
+            if (this._figureType == FigureType.ThreeDLines)
+            {
+                this.DrawMultipleLines(year, month,days,figureFile,cachePath);
+            } else if (this._figureType == FigureType.ThreeDSurface) {
 
-                        this._lblmessage.Visible = false;
-                        showImage(file);
-                    }, CancellationToken.None,
-                    TaskContinuationOptions.None,
-                    this._uiTaskScheduler);
-                }
+                this.DrawSurface(year, month, days, figureFile, cachePath);
             }
+        }
 
-            void showImage(string image) {
-                if (!string.IsNullOrEmpty(image))
-                {
-                    Image pic = Bitmap.FromFile(image);
-                    this.pictureBox1.Image = pic;
-                }
-                this.pictureBox1.Visible = true;
-                this.UseWaitCursor = false;
+        private void ShowImage(string image)
+        {
+            if (!string.IsNullOrEmpty(image))
+            {
+                Image pic = Bitmap.FromFile(image);
+                this.pictureBox1.Image = pic;
             }
+            this.pictureBox1.Visible = true;
+            this.UseWaitCursor = false;
+        }
 
+        private void DrawMultipleLines(int year,int month,int[] days,string figureFile,string cachePath)
+        {
+            // load from cache
+            string figureName = MultipleLinePlot.FigureName(this.DataConfigFile.Name, year, month, days);
+            string cacheFile = Path.Combine(cachePath, figureName);
+            if (File.Exists(cacheFile))
+            {
+                figureFile = cacheFile;
+                this.ShowImage(figureFile);
+            }
+            else
+            {
+                this._lblmessage.Visible = true;
+                Task draw = Task.Factory.StartNew<string>(() =>
+                {
+                    string result = this._3dLines.Draw(year, month, days, this.DataConfigFile, this.DataFolder);
+                    // move to cache
+                    File.Move(result, cacheFile);
+                    // make sure it's moved
+                    if (File.Exists(cacheFile))
+                        result = cacheFile;
+                    else
+                    {
+                        // as the moving action is failed, do nothing
+                    }
+                    return result;
+                })
+                .ContinueWith(t =>
+                {
+                    string file = string.Empty;
+                    if (t.Exception != null)
+                    {
+                        string error = t.Exception.InnerException != null ? t.Exception.InnerException.Message :
+                        t.Exception.Message;
+                        this.ShowAlert(error, @"3D图错误");
+                    }
+                    else
+                        file = t.Result;
+
+                    this._lblmessage.Visible = false;
+                    this.ShowImage(file);
+                }, CancellationToken.None,
+                TaskContinuationOptions.None,
+                this._uiTaskScheduler);
+            }
+        }
+
+        private void DrawSurface(int year, int month, int[] days, string figureFile, string cachePath)
+        {
+            // load from cache
+            string figureName = Surface.FigureName(this.DataConfigFile.Name, year, month, days);
+            string cacheFile = Path.Combine(cachePath, figureName);
+            if (File.Exists(cacheFile))
+            {
+                figureFile = cacheFile;
+                this.ShowImage(figureFile);
+            }
+            else
+            {
+                this._lblmessage.Visible = true;
+                Task draw = Task.Factory.StartNew<string>(() =>
+                {
+                    string result = this._3dsurface.Draw(year, month, days, this.DataConfigFile, this.DataFolder);
+                    // move to cache
+                    File.Move(result, cacheFile);
+                    // make sure it's moved
+                    if (File.Exists(cacheFile))
+                        result = cacheFile;
+                    else
+                    {
+                        // as the moving action is failed, do nothing
+                    }
+                    return result;
+                })
+                .ContinueWith(t =>
+                {
+                    string file = string.Empty;
+                    if (t.Exception != null)
+                    {
+                        string error = t.Exception.InnerException != null ? t.Exception.InnerException.Message :
+                        t.Exception.Message;
+                        this.ShowAlert(error, @"3D图错误");
+                    }
+                    else
+                        file = t.Result;
+
+                    this._lblmessage.Visible = false;
+                    this.ShowImage(file);
+                }, CancellationToken.None,
+                TaskContinuationOptions.None,
+                this._uiTaskScheduler);
+            }
         }
 
         public void Init(FigureType figureType)
@@ -161,6 +221,13 @@ namespace CIMEL.Chart.Chart
             if (this._figureType == FigureType.ThreeDLines)
             {
                 string cachePath = Path.Combine(this.DataFolder, "3dml");
+                if (!Directory.Exists(cachePath))
+                    Directory.CreateDirectory(cachePath);
+
+                return cachePath;
+            }
+            else if (this._figureType == FigureType.ThreeDSurface) {
+                string cachePath = Path.Combine(this.DataFolder, "3dsf");
                 if (!Directory.Exists(cachePath))
                     Directory.CreateDirectory(cachePath);
 

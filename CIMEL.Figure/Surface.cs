@@ -12,12 +12,12 @@ using System.Text;
 
 namespace CIMEL.Figure
 {
-    public class MultipleLinePlot
+    public class Surface
     {
         public event EventHandler<MessageArgs> Info;
 
         public static string FigureName(string dataName, int year, int month, int[] days) {
-            string figureName = string.Format("{3}_{0}{1}{2}_ml.png", year, month, string.Join(string.Empty, days.Select(d => d.ToString())),dataName);
+            string figureName = string.Format("{3}_{0}{1}{2}_sf.png", year, month, string.Join(string.Empty, days.Select(d => d.ToString())),dataName);
             return figureName;
         }
 
@@ -34,6 +34,8 @@ namespace CIMEL.Figure
 
             string dataName = configFile.Name;
             Dictionary<int, List<ChartLine>> all = new Dictionary<int, List<ChartLine>>();
+            List<string> allTimepoints = new List<string>();
+
             this.OnInfo("{0}: {1}/{2} ({3})", dataName, month, year, String.Join(",", days));
             OnInfo("读取数据中...");
             string figureName = FigureName(dataName, year, month, days);
@@ -42,12 +44,6 @@ namespace CIMEL.Figure
                 Directory.CreateDirectory(path);
             string file = Path.Combine(path, figureName);
 
-            for (int i = 0; i < days.Length; i++)
-            {
-                ChartReader reader = new ChartReader(dataFolder, dataName, year, month, days[i]);
-                ChartLine[] lines = reader.Read(configFile.AxisXs);
-                all.Add(days[i], new List<ChartLine>(lines));
-            }
             // draw aeronent inversion
             using (Drawing drawing = new Drawing())
             {
@@ -56,20 +52,32 @@ namespace CIMEL.Figure
                     OnInfo("读取观测日期数据...");
                     // 初始化天的数组（X轴）
                     string[] strDates = days.Select(d => { return string.Format("{0}-{1}-{2}", year, month, d); }).ToArray();
-                    MWCellArray arrDates = new MWCellArray(new MWCharArray(strDates));
+                    MWCharArray arrDates = new MWCharArray(strDates);
                     OnInfo("读取观测日期数据完毕");
 
                     OnInfo("读取观测时间数据...");
                     // 初始化时序数组（Y轴）
-                    MWCellArray arrTimes = new MWCellArray(days.Length);
                     for (int i = 0; i < days.Length; i++)
                     {
-                        int day = days[i];
-                        var lines = all[day];
-                        var arrTimepoints = lines.Select(l => l.TimePoint).ToList();
-                        // based one
-                        arrTimes[i + 1] = new MWCellArray(new MWCharArray(arrTimepoints.ToArray()));
+                        ChartReader reader = new ChartReader(dataFolder, dataName, year, month, days[i]);
+                        ChartLine[] lines = reader.Read(configFile.AxisXs);
+                        all.Add(days[i], new List<ChartLine>(lines));
+                        foreach (ChartLine line in lines)
+                        {
+                            if (!allTimepoints.Contains(line.TimePoint))
+                                allTimepoints.Add(line.TimePoint);
+                        }
                     }
+                    allTimepoints.Sort((left, right) => {
+                        TimeSpan tl = TimeSpan.Parse(left);
+                        TimeSpan tr = TimeSpan.Parse(right);
+
+                        if (tl > tr) return 1;
+                        else if (tl < tr) return -1;
+                        else return 0;
+                    });
+
+                    MWCharArray arrTimes = new MWCharArray(allTimepoints.ToArray());
                     OnInfo("读取观测时间数据完毕");
 
                     OnInfo("读取观测项数据...");
@@ -105,37 +113,89 @@ namespace CIMEL.Figure
                     string[] strOptions = arrStrFiltered.ToArray();
                     double[] dOptions = arrFiltered.ToArray();
                     // 初始化图例数组
-                    MWCellArray dataOptions = new MWCellArray(new MWCharArray(strOptions));
+                    MWCharArray dataOptions = new MWCharArray(strOptions);
                     OnInfo("读取观测项数据完毕");
 
                     OnInfo("读取数据...");
+                    OnInfo("计算趋势数据...");
+                    foreach (int day in all.Keys)
+                    {
+                        var lines = all[day];
+                        foreach (string timepoint in allTimepoints)
+                        {
+                            if (lines.All(l => l.TimePoint != timepoint))
+                                lines.Add(new ChartLine(timepoint, arrOptions, true));
+                        }
+                        all[day].Sort(new ChartLineCompare());
+                    }
+                    foreach (int d in all.Keys)
+                    {
+                        List<ChartLine> allLines = all[d];
+                        for (int i = 0; i < strOptions.Length; i++)
+                        {
+                            for (int t = 0; t < allLines.Count; t++)
+                            {
+                                if (allLines[t].IsFake && allLines[t].Points[i].Y == 0f)
+                                {
+                                    double left = -1f, right = -1f;
+
+                                    // right
+                                    if (t == allLines.Count - 1) right = -1f;
+                                    else
+                                    {
+                                        if (allLines.Count == 1) right = -1f;
+                                        else
+                                        {
+                                            var firstR = allLines.Skip<ChartLine>(t + 1).FirstOrDefault(l => l.Points[i].Y > 0f);
+                                            right = firstR == null ? -1f : firstR.Points[i].Y;
+                                        }
+                                    }
+                                    //left
+                                    if (t == 0) left = -1f;
+                                    else left = allLines[t - 1].Points[i].Y;
+
+                                    if (left < 0f && right < 0f) { left = 0f; right = 0f; }
+                                    else if (left < 0f && right >= 0f) left = right;
+                                    else if (right < 0f && left > 0f) right = left;
+
+                                    allLines[t].Points[i].Y = (left + right) / 2f;
+                                }
+                            }
+                        }
+                    }
+                    OnInfo("计算趋势数据完成");
                     // 初始化观测数据矩阵（Z轴），先按观测项分组，每组又按天分组，每天的数据组包含观测时序的数据
                     MWCellArray arrDatas = new MWCellArray(strOptions.Length);
                     for (int o = 0; o < strOptions.Length; o++)
                     {
                         double x = dOptions[o];
-                        MWCellArray optionData = new MWCellArray(days.Length);
+                        MWNumericArray optionData = new MWNumericArray(new int[] { days.Length, allTimepoints.Count });
 
                         for (int i = 0; i < days.Length; i++)
                         {
                             var lines = all[days[i]];
                             var oneDayData = lines.SelectMany(l => l.Points.Where(p => p.X == x).Select(p => p.Y)).ToArray();
-                            optionData[i + 1] = new MWNumericArray(oneDayData);
+                            for (int j = 0; j < oneDayData.Length; j++)
+                            {
+                                optionData[i + 1, j + 1] = oneDayData[j];
+                            }
                         }
 
                         arrDatas[o + 1] = optionData;
                     }
+
                     OnInfo("读取数据完毕");
 
                     OnInfo("读取标题...");
                     // 初始化线图的标题
                     if (dataName == @"AE_AAE")
                         dataName = @"AE/AAE";
+
                     MWCharArray strTitle = new MWCharArray(dataName);
                     OnInfo("读取标题完毕");
 
                     OnInfo("绘制中...");
-                    MWArray result = drawing.DrawMultiplelines(strTitle, arrDatas, dataOptions, arrDates, arrTimes, file, new MWLogicalArray(false));
+                    MWArray result = drawing.DrawSurface(strTitle, arrDatas, dataOptions, arrDates, arrTimes, file, new MWLogicalArray(false));
                     OnInfo("绘制完毕");
 
                     string output = result.ToString();
@@ -143,13 +203,13 @@ namespace CIMEL.Figure
                     if (File.Exists(output))
                         return output;
                     else
-                        throw new DrawException("3D线图绘制失败");
+                        throw new DrawException("3D面图绘制失败");
 
                 }
                 catch (Exception ex) when (!(ex is DrawException))
                 {
                     Logger.Default.Error(ex.Message, ex);
-                    throw new DrawException("3D线图绘制失败: " + ex.Message);
+                    throw new DrawException("3D面图绘制失败: " + ex.Message);
                 }
             }
         }
