@@ -47,13 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="multiplelines.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="surface.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CIMEL.Core\CIMEL.Core.csproj">
       <Project>{74DEE55E-CFDB-4008-ABFE-5CE4E25CA324}</Project>
       <Name>CIMEL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Peach.Log\Peach.Log.csproj">
+      <Project>{F594087C-8118-4931-9AF4-2F1033635417}</Project>
+      <Name>Peach.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
