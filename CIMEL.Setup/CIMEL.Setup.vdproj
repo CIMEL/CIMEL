@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_151CDAC8727A4891B2D87DAED63A7EE9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_219F41999FB341B5898F0D70133CD38F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,6 +22,12 @@
         "Entry"
         {
         "MsmKey" = "8:_22A21A7C464B4BC5B7F1B31DA12FE1C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_280D88A52BDF4A50B6A574E413227C5A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,6 +57,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_316A49DB9D6A4F0F99912A1C929D8582"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3524D7EA905D4BBCA2FED7571C3F98A9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -76,6 +82,12 @@
         "Entry"
         {
         "MsmKey" = "8:_4E75EF042E5047AF96FC83D448360B86"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_524A057B016B444892719A42D49297E8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -207,12 +219,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C4E3294EDBF646DCBEB0584BF648F284"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_D4C0344B47A840979A23A88329BC4E96"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -225,25 +231,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F4C55E97963C403983377B0051FFE660"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F71E2CEF14714B07BC67AAB21202DA57"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FAE932E5DE864EE9A01075FC87B3B31D"
+        "MsmKey" = "8:_FA8C76D6884E46A2A8062B78961D98E8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FD8965E6E95446C89B820309222E252D"
+        "MsmKey" = "8:_FAE932E5DE864EE9A01075FC87B3B31D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -389,26 +389,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_151CDAC8727A4891B2D87DAED63A7EE9"
-            {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_x64_3150644.dll"
-            "TargetName" = "8:dog_windows_x64_3150644.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_219F41999FB341B5898F0D70133CD38F"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_SP.12.fix"
@@ -433,6 +413,26 @@
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\LICENSE"
             "TargetName" = "8:LICENSE"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_280D88A52BDF4A50B6A574E413227C5A"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows_x64.dll"
+            "TargetName" = "8:api_dsp_windows_x64.dll"
             "Tag" = "8:"
             "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
@@ -513,7 +513,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Draw, Version=1.1.0.17010, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:Draw, Version=1.1.0.17010, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_2EACB24DAF984A72BB32F4FD3299DAC5"
@@ -526,6 +526,26 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_91E2DECDE61740389D4E2079A0E17744"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_316A49DB9D6A4F0F99912A1C929D8582"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_x64_3150644.dll"
+            "TargetName" = "8:dog_windows_x64_3150644.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -606,6 +626,26 @@
             "TargetName" = "8:SPECTRECO2"
             "Tag" = "8:"
             "Folder" = "8:_CDB4FE461F164B25A13581EC7178A1EB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_524A057B016B444892719A42D49297E8"
+            {
+            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_3150644.dll"
+            "TargetName" = "8:dog_windows_3150644.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -795,7 +835,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CIMEL大气气溶胶光学参数处理软件, Version=1.2.0.18188, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:大气气溶胶光学参数处理软件, Version=1.3.0.19180, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_783FB679697A4C90A095B153D68D7D04"
@@ -1042,26 +1082,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C4E3294EDBF646DCBEB0584BF648F284"
-            {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows_x64.dll"
-            "TargetName" = "8:api_dsp_windows_x64.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4C0344B47A840979A23A88329BC4E96"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\INPUT_BB"
@@ -1102,26 +1122,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4C55E97963C403983377B0051FFE660"
-            {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows.dll"
-            "TargetName" = "8:api_dsp_windows.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F71E2CEF14714B07BC67AAB21202DA57"
             {
             "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.11.fix"
@@ -1142,12 +1142,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAE932E5DE864EE9A01075FC87B3B31D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA8C76D6884E46A2A8062B78961D98E8"
             {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.33.fix"
-            "TargetName" = "8:Rkernel1_NS.33.fix"
+            "SourcePath" = "8:..\\..\\CIMELPackage\\api_dsp_windows.dll"
+            "TargetName" = "8:api_dsp_windows.dll"
             "Tag" = "8:"
-            "Folder" = "8:_DDECB4463EA74345BA9EDEA7FB51369C"
+            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1162,12 +1162,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FD8965E6E95446C89B820309222E252D"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FAE932E5DE864EE9A01075FC87B3B31D"
             {
-            "SourcePath" = "8:..\\..\\CIMELPackage\\dog_windows_3150644.dll"
-            "TargetName" = "8:dog_windows_3150644.dll"
+            "SourcePath" = "8:..\\..\\CIMELPackage\\ParamsData\\KERNEL_cimel_n22_83\\Rkernel1_NS.33.fix"
+            "TargetName" = "8:Rkernel1_NS.33.fix"
             "Tag" = "8:"
-            "Folder" = "8:_4C73A686893947219162DB4377FEDA96"
+            "Folder" = "8:_DDECB4463EA74345BA9EDEA7FB51369C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1346,15 +1346,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:大气气溶胶光学参数处理软件"
-        "ProductCode" = "8:{601DA2DB-CE13-4448-8B24-FD4E773F54EE}"
-        "PackageCode" = "8:{D619ED6C-7420-44CE-8017-08BD63191679}"
+        "ProductCode" = "8:{A25B87D7-E5AE-44E8-95A1-B349DE9FD6AF}"
+        "PackageCode" = "8:{A490CDCE-EC49-4D71-ACD9-3B5D25C3EC2C}"
         "UpgradeCode" = "8:{FA7CFE24-72CD-4C37-AAF1-71C3A256A77E}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.0"
+        "ProductVersion" = "8:1.3.0"
         "Manufacturer" = "8:AYFY"
         "ARPHELPTELEPHONE" = "8:010-82463068 17600109935"
         "ARPHELPLINK" = "8:"
@@ -1362,7 +1362,7 @@
         "Subject" = "8:大气气溶胶光学参数处理软件（适用于CIMEL太阳光度计数据处理）"
         "ARPCONTACT" = "8:AYFY"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Version 1.2.0.18188"
+        "ARPCOMMENTS" = "8:Version 1.3.0.19180"
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:_6F55180C2B6A4AF9B739CE8F5C501F6B"
         "ARPIconIndex" = "3:0"
