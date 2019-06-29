@@ -48,6 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbModes = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNextChart = new System.Windows.Forms.Button();
             this.btnNextChartSet = new System.Windows.Forms.Button();
@@ -142,19 +143,19 @@
             // registerStripMenuItem
             // 
             this.registerStripMenuItem.Name = "registerStripMenuItem";
-            this.registerStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registerStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.registerStripMenuItem.Text = "注册(&R)...";
             this.registerStripMenuItem.Click += new System.EventHandler(this.registerStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(122, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.aboutToolStripMenuItem.Text = global::CIMEL.Chart.Properties.Settings.Default.BTN_ABOUT_TEXT;
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -207,6 +208,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cmbModes);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btnNextChart);
             this.groupBox1.Controls.Add(this.btnNextChartSet);
@@ -227,6 +229,19 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "图像数据集";
+            // 
+            // cmbModes
+            // 
+            this.cmbModes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbModes.FormattingEnabled = true;
+            this.cmbModes.Items.AddRange(new object[] {
+            "2D - 线图",
+            "3D - 线图",
+            "3D - 面图"});
+            this.cmbModes.Location = new System.Drawing.Point(399, 99);
+            this.cmbModes.Name = "cmbModes";
+            this.cmbModes.Size = new System.Drawing.Size(81, 25);
+            this.cmbModes.TabIndex = 13;
             // 
             // button1
             // 
@@ -395,6 +410,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem registerStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ComboBox cmbModes;
     }
 }
 

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CIMEL.Chart
+namespace CIMEL.Core
 {
     /// <summary>
     /// Reads the chart data from the one-day data file
