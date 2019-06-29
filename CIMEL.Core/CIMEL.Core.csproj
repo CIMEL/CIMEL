@@ -44,10 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChartData.cs" />
+    <Compile Include="ChartReader.cs" />
     <Compile Include="CIMELFile.cs" />
     <Compile Include="DataConfigFile.cs" />
     <Compile Include="DataFile.cs" />
     <Compile Include="DataFiles.cs" />
+    <Compile Include="Event\MessageArgs.cs" />
+    <Compile Include="Exception\DrawException.cs" />
     <Compile Include="MethodResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
