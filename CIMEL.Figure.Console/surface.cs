@@ -1,17 +1,17 @@
 ﻿using CIMEL.Core;
+using MathWorks.MATLAB.NET.Arrays;
 using Peach.Log;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CIMELDraw;
 
-namespace CIMEL.Test
+namespace CIMEL.Figure
 {
-    public class Agv2
+    public class surface
     {
-        public void Run()
+        public void Draw()
         {
             int year = 2016;
             int month = 12;
@@ -22,8 +22,16 @@ namespace CIMEL.Test
             Dictionary<int, List<ChartLine>> all = new Dictionary<int, List<ChartLine>>();
             List<string> allTimepoints = new List<string>();
             List<double> avgs = new List<double>();
+
+            string figureName = string.Format("{0}{1}{2}_sf.png", year, month, string.Join(string.Empty, days.Select(d => d.ToString())));
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            string file = Path.Combine(path, figureName);
+
             Info("{0}: {1}/{2} ({3})", "AAOD", month, year, String.Join(",", days));
             Info("Reading data...");
+
             for (int i = 0; i < days.Length; i++)
             {
                 ChartReader reader = new ChartReader(dataFolder, dataName, 2016, 12, days[i]);
@@ -35,6 +43,15 @@ namespace CIMEL.Test
                         allTimepoints.Add(line.TimePoint);
                 }
             }
+            allTimepoints.Sort((left, right) => {
+                TimeSpan tl = TimeSpan.Parse(left);
+                TimeSpan tr = TimeSpan.Parse(right);
+
+                if (tl > tr) return 1;
+                else if (tl < tr) return -1;
+                else return 0;
+            });
+
             Info("Read data. OK");
             Show(days, month, year, all);
             Info("");
@@ -62,7 +79,8 @@ namespace CIMEL.Test
 
             Info("");
             Info("Inserting average values...");
-            foreach (int d in all.Keys) {
+            foreach (int d in all.Keys)
+            {
                 List<ChartLine> allLines = all[d];
                 for (int i = 0; i < configFile.AxisXs.Count; i++)
                 {
@@ -102,43 +120,52 @@ namespace CIMEL.Test
             Info("Insert average values. OK");
 
             Info("Outputting...");
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0} = [{1}]", "legends", String.Join(",", configFile.AxisXs));
-            sb.AppendLine();
-            for (int i = 0; i < configFile.AxisXs.Count; i++)
+
+            string[] strOptions = configFile.AxisXLabels.ToArray();
+            MWCharArray dataOptions = new MWCharArray(strOptions);
+
+            MWCharArray strTitle = new MWCharArray(dataName);
+
+            string[] strDates = days.Select(d => { return string.Format("{0}-{1}-{2}", year, month, d); }).ToArray();
+            MWCharArray arrDates = new MWCharArray(strDates);
+
+            // initial time matrix
+            MWCharArray arrTimes = new MWCharArray(allTimepoints.ToArray());
+
+            // initial data matrix
+            MWCellArray arrDatas = new MWCellArray(strOptions.Length);
+            for (int o = 0; o < strOptions.Length; o++)
             {
-                sb.AppendLine("legend = " + configFile.AxisXs[i]);
-                sb.AppendLine(String.Format("x = [{0}]", String.Join(",", days)));
-                bool showY = false;
-                foreach (int day in days)
+                double x = configFile.AxisXs[o];
+                MWNumericArray optionData = new MWNumericArray(new int[] { days.Length, allTimepoints.Count });
+
+                for (int i = 0; i < days.Length; i++)
                 {
-                    if (!showY)
+                    var lines = all[days[i]];
+                    var oneDayData = lines.SelectMany(l => l.Points.Where(p => p.X == x).Select(p => p.Y)).ToArray();
+                    for (int j = 0; j < oneDayData.Length; j++)
                     {
-                        //sb.AppendFormat("{0}-{1}-{2}", year, month, day);
-                        //sb.AppendLine();
-                        sb.AppendFormat("times = [{0}]", String.Join(",", all[day].Select(l => "'" + l.TimePoint + "'")));
-                        sb.AppendLine();
-                        sb.AppendFormat("y = [{0}]", String.Join(",", all[day].Select((l, index) => index + 1)));
-                        sb.AppendLine();
-                        showY = true;
+                        optionData[i + 1, j + 1] = oneDayData[j];
                     }
-                    sb.AppendLine(string.Format("z = [{0}]", String.Join(",", all[day].Select(l => l.Points[i].Y))));
+//                    optionData[i + 1] = oneDayData;
                 }
-                sb.AppendLine();
+
+                arrDatas[o + 1] = optionData;
             }
-            string file = Path.Combine(@"C:\Users\baikangwang\Projects\CIMEL\CIMELParas\chartset\Shijiazh\", dataName + "_" +
-                "agv2.matlab");
-            File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
-            Info("Output. OK");
-            Info("file = {0}", file);
-            Console.Read();
+
+            Drawing drawing = new Drawing();
+
+            MWArray result = drawing.DrawSurface(strTitle, arrDatas, dataOptions, arrDates, arrTimes, file, new MWLogicalArray(true));
+            string output = result.ToString();
+
+            System.Console.Read();
         }
 
         private void Info(string msg, params object[] args)
         {
             string message = string.Format(msg, args);
             Logger.Default.Info(message);
-            Console.WriteLine(message);
+            System.Console.WriteLine(message);
         }
 
         private void Show(int[] days, int month, int year, Dictionary<int, List<ChartLine>> all)

@@ -319,7 +319,7 @@ namespace CIMEL.Chart
                 output = new
                 {
                     output = this.OUTPUT_Dir,
-                    chartset=this.CHARTSET_Dir
+                    chartset = this.CHARTSET_Dir
                 }
             };
 
